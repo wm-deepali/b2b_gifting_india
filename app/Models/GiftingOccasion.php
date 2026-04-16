@@ -8,6 +8,7 @@ class GiftingOccasion extends Model
 {
     protected $fillable = [
         'title',
+        'old_id',
         'sub_title',
         'short_description',
         'slug',

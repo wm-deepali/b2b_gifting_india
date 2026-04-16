@@ -82,7 +82,7 @@
 @section('content')
 
 
-  <!-- Fixed Hero Section – Clean, no broken images, buttons single line, less spacing -->
+  <!-- Start Hero Section -->
   <section class="relative bg-gradient-to-br from-[#f9f7f3] via-[#f8f6f2] to-[#f0ede5] overflow-hidden">
     <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-16 md:py-20 lg:py-24">
       <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -159,9 +159,10 @@
       </div>
     </div>
   </section>
+  <!-- End Hero Section -->
 
 
-  <!-- POPULAR CATEGORIES -->
+  <!-- Start POPULAR CATEGORIES Section -->
   <section class="bg-white py-20">
     <div class="max-w-7xl mx-auto px-6">
       <div class="flex justify-between items-end mb-10">
@@ -206,8 +207,10 @@
       </div>
     </div>
   </section>
+  <!-- End POPULAR CATEGORIES Section -->
 
-  <!-- COMPANY INTRODUCTION -->
+
+  <!-- Start COMPANY INTRODUCTION Section -->
   <section class="max-w-7xl mx-auto px-6 py-24">
     <div class="grid md:grid-cols-2 gap-16 items-center">
       <div>
@@ -231,68 +234,111 @@
         Corporate Team" class="rounded-2xl shadow-2xl">
     </div>
   </section>
+  <!-- End COMPANY INTRODUCTION Section -->
 
-  <!-- FEATURED PRODUCTS -->
+  <!-- Start FEATURED PRODUCTS Section -->
   <section id="shop-section" class="max-w-7xl mx-auto px-6 py-24">
     <div class="flex justify-between items-center mb-12">
-      <h2 class="text-4xl font-bold tracking-tighter">Featured Products</h2>
-      <a href="{{ route('products') }}" class="text-[#2ec4b6] flex items-center gap-2 text-lg font-medium">
+      <h2 class="text-4xl font-bold tracking-tighter">Featured Corporate Gifts</h2>
+      <a href="#" class="text-[#2ec4b6] flex items-center gap-2 text-lg font-medium">
         Shop entire collection
         <span class="text-2xl">→</span>
       </a>
     </div>
 
     <div class="grid grid-cols-4 gap-8">
-
-      @foreach($featuredProducts as $product)
-
-        <!-- Product Card -->
-        <div class="product-card bg-white rounded-3xl overflow-hidden shadow-xl">
-          <div class="relative">
-
-            <img src="{{ asset('storage/' . $product->image) }}" class="w-full h-72 object-cover">
-
-            @if($product->featured)
-              <div class="absolute top-4 right-4 bg-white px-4 py-1 rounded-3xl text-xs font-medium shadow">
-                BESTSELLER
-              </div>
-            @endif
-
-            @if($product->new_arrival)
-              <div class="absolute top-4 left-4 bg-[#2ec4b6] text-white text-xs px-3 py-1 rounded-full">
-                NEW
-              </div>
-            @endif
-
-          </div>
-
-          <div class="p-6">
-            <div class="flex justify-between">
-              <div>
-                <h4 class="font-semibold text-lg">{{ $product->name }}</h4>
-                <p class="text-[#6b635a] text-sm">
-                  {{ $product->sub_title ?? 'Premium corporate gift' }}
-                </p>
-              </div>
-              <div class="text-right">
-                <div class="text-[#e07a5f] font-bold">
-                  ₹{{ number_format($product->price) }}
-                </div>
-              </div>
-            </div>
-
-            <button data-id="{{ $product->id }}"
-              class="mt-6 w-full bg-[#2ec4b6] text-white py-4 rounded-2xl font-semibold hover:bg-[#26a395] add-to-cart">
-              Add to Cart
-            </button>
-          </div>
+      <!-- Product Card 1 -->
+      <div class="product-card bg-white rounded-3xl overflow-hidden shadow-xl">
+        <div class="relative">
+          <img src="https://picsum.photos/id/160/600/420" class="w-full h-72 object-cover">
+          <div class="absolute top-4 right-4 bg-white px-4 py-1 rounded-3xl text-xs font-medium shadow">BESTSELLER</div>
         </div>
+        <div class="p-6">
+          <div class="flex justify-between">
+            <div>
+              <h4 class="font-semibold text-lg">Premium Leather Journal Set</h4>
+              <p class="text-[#6b635a] text-sm">With pen &amp; gift box</p>
+            </div>
+            <div class="text-right">
+              <div class="text-[#e07a5f] font-bold">₹1,299</div>
+            </div>
+          </div>
+          <button onclick="addToCart(this)"
+            class="mt-6 w-full bg-[#2ec4b6] text-white py-4 rounded-2xl font-semibold hover:bg-[#26a395]">
+            Add to Cart
+          </button>
+        </div>
+      </div>
 
-      @endforeach
+      <!-- Product Card 2 -->
+      <div class="product-card bg-white rounded-3xl overflow-hidden shadow-xl">
+        <div class="relative">
+          <img src="https://picsum.photos/id/201/600/420" class="w-full h-72 object-cover">
+        </div>
+        <div class="p-6">
+          <div class="flex justify-between">
+            <div>
+              <h4 class="font-semibold text-lg">Wireless Charging Desk Set</h4>
+              <p class="text-[#6b635a] text-sm">3-in-1 with logo printing</p>
+            </div>
+            <div class="text-right">
+              <div class="text-[#e07a5f] font-bold">₹2,499</div>
+            </div>
+          </div>
+          <button onclick="addToCart(this)"
+            class="mt-6 w-full bg-[#2ec4b6] text-white py-4 rounded-2xl font-semibold hover:bg-[#26a395]">
+            Add to Cart
+          </button>
+        </div>
+      </div>
 
+      <!-- Product Card 3 -->
+      <div class="product-card bg-white rounded-3xl overflow-hidden shadow-xl">
+        <div class="relative">
+          <img src="https://picsum.photos/id/29/600/420" class="w-full h-72 object-cover">
+          <div class="absolute top-4 left-4 bg-[#e07a5f] text-white text-xs px-3 py-1 rounded-full">PERSONALIZED</div>
+        </div>
+        <div class="p-6">
+          <div class="flex justify-between">
+            <div>
+              <h4 class="font-semibold text-lg">Engraved Bamboo Tumbler</h4>
+              <p class="text-[#6b635a] text-sm">500ml with sleeve</p>
+            </div>
+            <div class="text-right">
+              <div class="text-[#e07a5f] font-bold">₹799</div>
+            </div>
+          </div>
+          <button onclick="addToCart(this)"
+            class="mt-6 w-full bg-[#2ec4b6] text-white py-4 rounded-2xl font-semibold hover:bg-[#26a395]">
+            Add to Cart
+          </button>
+        </div>
+      </div>
+
+      <!-- Product Card 4 -->
+      <div class="product-card bg-white rounded-3xl overflow-hidden shadow-xl">
+        <div class="relative">
+          <img src="https://picsum.photos/id/318/600/420" class="w-full h-72 object-cover">
+        </div>
+        <div class="p-6">
+          <div class="flex justify-between">
+            <div>
+              <h4 class="font-semibold text-lg">Corporate Tote Bag Set</h4>
+              <p class="text-[#6b635a] text-sm">With notebook &amp; pen</p>
+            </div>
+            <div class="text-right">
+              <div class="text-[#e07a5f] font-bold">₹1,899</div>
+            </div>
+          </div>
+          <button onclick="addToCart(this)"
+            class="mt-6 w-full bg-[#2ec4b6] text-white py-4 rounded-2xl font-semibold hover:bg-[#26a395]">
+            Add to Cart
+          </button>
+        </div>
+      </div>
     </div>
   </section>
-
+  <!-- End FEATURED PRODUCTS Section -->
 
   <!-- Daily Deals Banner Section - Exact match to your reference screenshot style & proportions -->
   <section class="max-w-7xl mx-auto px-6 py-8 bg-white overflow-hidden">
@@ -368,25 +414,79 @@
   <!-- Most Popular Section - Compact & Styled like your reference screenshot -->
   <section class="max-w-7xl mx-auto px-6 py-12 bg-white">
     <div class="flex flex-col md:flex-row justify-between items-baseline mb-8">
-      <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Most Popular Products</h2>
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Featured Products</h2>
 
       <div class="flex gap-8 md:gap-12 mt-4 md:mt-0 text-base font-medium text-gray-600">
-        <button data-type="popular" class="tab-btn pb-1 border-b-2 border-[#f4a261] text-[#f4a261] font-semibold">
-          Most Popular
-        </button>
-
-        <button data-type="sale" class="tab-btn pb-1 hover:text-[#f4a261] transition-colors">
-          On Sale
-        </button>
-
-        <button data-type="top" class="tab-btn pb-1 hover:text-[#f4a261] transition-colors">
-          Top Rated
-        </button>
+        <button class="pb-1 border-b-2 border-[#f4a261] text-[#f4a261] font-semibold">Featured</button>
+        <button class="pb-1 hover:text-[#f4a261] transition-colors">On Sale</button>
+        <button class="pb-1 hover:text-[#f4a261] transition-colors">Top Rated</button>
       </div>
     </div>
 
-    <div id="productContainer" class="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
+      <!-- Product Card 1 -->
+      <div class="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
+        <div class="relative h-64 overflow-hidden">
+          <img src="https://picsum.photos/id/160/600/420" alt="GoPro Action Camera"
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="p-5 text-center">
+          <p class="text-sm text-gray-500 mb-1">Cameras & Camcorders</p>
+          <h4 class="font-semibold text-base leading-tight mb-3">
+            GoPro - HERO7 Black HD Waterproof Action
+          </h4>
+          <p class="text-[#e07a5f] font-bold text-xl">₹499.99</p>
+        </div>
+      </div>
 
+      <!-- Product Card 2 -->
+      <div class="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
+        <div class="relative h-64 overflow-hidden">
+          <img src="https://picsum.photos/id/201/600/420" alt="Apple Watch"
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <div class="absolute top-3 right-3 bg-white/90 px-3 py-1 rounded-full text-xs font-medium shadow">
+            New
+          </div>
+        </div>
+        <div class="p-5 text-center">
+          <p class="text-sm text-gray-500 mb-1">Smartwatches</p>
+          <h4 class="font-semibold text-base leading-tight mb-3">
+            Apple - Apple Watch Series 3 with White Sport Band
+          </h4>
+          <p class="text-[#e07a5f] font-bold text-xl">₹999.99</p>
+        </div>
+      </div>
+
+      <!-- Product Card 3 -->
+      <div class="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
+        <div class="relative h-64 overflow-hidden">
+          <img src="8.jpg" alt="Lenovo Laptop"
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="p-5 text-center">
+          <p class="text-sm text-gray-500 mb-1">Laptops</p>
+          <h4 class="font-semibold text-base leading-tight mb-3">
+            Lenovo - 330-15IKBR 15.6" ₹499.99-15IKBR 15.6"
+          </h4>
+          <p class="text-[#e07a5f] font-bold text-xl">₹499.99</p>
+          <p class="text-xs text-red-500 mt-1 font-medium">Out of Stock</p>
+        </div>
+      </div>
+
+      <!-- Product Card 4 -->
+      <div class="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
+        <div class="relative h-64 overflow-hidden">
+          <img src="12.jpg" alt="Sony Camera"
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="p-5 text-center">
+          <p class="text-sm text-gray-500 mb-1">Digital Cameras</p>
+          <h4 class="font-semibold text-base leading-tight mb-3">
+            Sony - Alpha a5100 Mirrorless Camera
+          </h4>
+          <p class="text-[#e07a5f] font-bold text-xl">₹499.99</p>
+        </div>
+      </div>
     </div>
 
     <!-- Optional: Dots / Pagination like in screenshot -->
@@ -412,43 +512,125 @@
     <div class="overflow-x-auto pb-6 scrollbar-hide snap-x snap-mandatory">
       <div class="flex gap-5 sm:gap-6 lg:gap-8 min-w-max px-1">
 
-        @foreach($occasions as $occ)
-
-          <div
-            class="min-w-[280px] sm:min-w-[300px] lg:min-w-[320px] snap-start group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100">
-
-            <div class="relative h-44 sm:h-48 overflow-hidden">
-
-              <img src="{{ asset('storage/' . $occ->image) }}" alt="{{ $occ->title }}"
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
-
-              <div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/30 to-transparent"></div>
-
-              <div class="absolute bottom-4 left-5 right-5 text-white">
-                <span class="inline-block bg-amber-600 text-xs font-bold px-3 py-1 rounded-full mb-2">
-                  Occasion
-                </span>
-
-                <h3 class="text-lg sm:text-xl font-bold leading-tight">
-                  {{ $occ->title }}
-                </h3>
-              </div>
+        <!-- Diwali -->
+        <div
+          class="min-w-[280px] sm:min-w-[300px] lg:min-w-[320px] snap-start group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100">
+          <div class="relative h-44 sm:h-48 overflow-hidden">
+            <img
+              src="https://images.pexels.com/photos/6908040/pexels-photo-6908040.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+              alt="Diwali Corporate Gifts"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/30 to-transparent"></div>
+            <div class="absolute bottom-4 left-5 right-5 text-white">
+              <span class="inline-block bg-amber-600 text-xs font-bold px-3 py-1 rounded-full mb-2">Festive</span>
+              <h3 class="text-lg sm:text-xl font-bold leading-tight">Diwali & Festive Gifts</h3>
             </div>
-
-            <div class="p-5 sm:p-6">
-              <p class="text-sm text-gray-600 mb-4 line-clamp-2">
-                {{ $occ->short_description }}
-              </p>
-
-              <a href="{{ url('products?occasion[]=' . $occ->slug) }}"
-                class="text-[#e07a5f] font-medium text-sm flex items-center gap-2 hover:gap-3 transition-all">
-                View Collection →
-              </a>
-            </div>
-
           </div>
+          <div class="p-5 sm:p-6">
+            <p class="text-sm text-gray-600 mb-4 line-clamp-2">
+              Luxury hampers, branded sweets, diya sets, dry fruits & festive packaging
+            </p>
+            <a href="#" class="text-[#e07a5f] font-medium text-sm flex items-center gap-2 hover:gap-3 transition-all">
+              View Collection →
+            </a>
+          </div>
+        </div>
 
-        @endforeach
+        <!-- New Year / Christmas -->
+        <div
+          class="min-w-[280px] sm:min-w-[300px] lg:min-w-[320px] snap-start group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100">
+          <div class="relative h-44 sm:h-48 overflow-hidden">
+            <img
+              src="https://images.pexels.com/photos/3184295/pexels-photo-3184295.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+              alt="New Year Corporate Gifts"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/30 to-transparent"></div>
+            <div class="absolute bottom-4 left-5 right-5 text-white">
+              <span class="inline-block bg-blue-700 text-xs font-bold px-3 py-1 rounded-full mb-2">Year-End</span>
+              <h3 class="text-lg sm:text-xl font-bold leading-tight">New Year & Christmas</h3>
+            </div>
+          </div>
+          <div class="p-5 sm:p-6">
+            <p class="text-sm text-gray-600 mb-4 line-clamp-2">
+              Desk calendars, branded mugs, wireless chargers, wellness kits & planners
+            </p>
+            <a href="#" class="text-[#2ec4b6] font-medium text-sm flex items-center gap-2 hover:gap-3 transition-all">
+              View Collection →
+            </a>
+          </div>
+        </div>
+
+        <!-- Employee Onboarding -->
+        <div
+          class="min-w-[280px] sm:min-w-[300px] lg:min-w-[320px] snap-start group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100">
+          <div class="relative h-44 sm:h-48 overflow-hidden">
+            <img
+              src="https://images.pexels.com/photos/3184296/pexels-photo-3184296.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+              alt="Welcome Kit Corporate"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/30 to-transparent"></div>
+            <div class="absolute bottom-4 left-5 right-5 text-white">
+              <span class="inline-block bg-emerald-700 text-xs font-bold px-3 py-1 rounded-full mb-2">Onboarding</span>
+              <h3 class="text-lg sm:text-xl font-bold leading-tight">Welcome & Joining Kits</h3>
+            </div>
+          </div>
+          <div class="p-5 sm:p-6">
+            <p class="text-sm text-gray-600 mb-4 line-clamp-2">
+              Branded notebooks, bottles, power banks, lanyards & premium welcome boxes
+            </p>
+            <a href="#" class="text-[#f4a261] font-medium text-sm flex items-center gap-2 hover:gap-3 transition-all">
+              View Collection →
+            </a>
+          </div>
+        </div>
+
+        <!-- Rewards & Recognition -->
+        <div
+          class="min-w-[280px] sm:min-w-[300px] lg:min-w-[320px] snap-start group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100">
+          <div class="relative h-44 sm:h-48 overflow-hidden">
+            <img
+              src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+              alt="Recognition Awards"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/30 to-transparent"></div>
+            <div class="absolute bottom-4 left-5 right-5 text-white">
+              <span class="inline-block bg-violet-700 text-xs font-bold px-3 py-1 rounded-full mb-2">Recognition</span>
+              <h3 class="text-lg sm:text-xl font-bold leading-tight">Rewards & Recognition</h3>
+            </div>
+          </div>
+          <div class="p-5 sm:p-6">
+            <p class="text-sm text-gray-600 mb-4 line-clamp-2">
+              Trophies, plaques, engraved watches, premium leather & experience vouchers
+            </p>
+            <a href="#" class="text-[#e07a5f] font-medium text-sm flex items-center gap-2 hover:gap-3 transition-all">
+              View Collection →
+            </a>
+          </div>
+        </div>
+
+        <!-- Company Milestone -->
+        <div
+          class="min-w-[280px] sm:min-w-[300px] lg:min-w-[320px] snap-start group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100">
+          <div class="relative h-44 sm:h-48 overflow-hidden">
+            <img
+              src="https://images.pexels.com/photos/3184295/pexels-photo-3184295.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+              alt="Milestone Corporate Gifts"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/30 to-transparent"></div>
+            <div class="absolute bottom-4 left-5 right-5 text-white">
+              <span class="inline-block bg-rose-700 text-xs font-bold px-3 py-1 rounded-full mb-2">Milestone</span>
+              <h3 class="text-lg sm:text-xl font-bold leading-tight">Company Anniversary</h3>
+            </div>
+          </div>
+          <div class="p-5 sm:p-6">
+            <p class="text-sm text-gray-600 mb-4 line-clamp-2">
+              Crystal awards, engraved items, team hampers & luxury milestone sets
+            </p>
+            <a href="#" class="text-[#2ec4b6] font-medium text-sm flex items-center gap-2 hover:gap-3 transition-all">
+              View Collection →
+            </a>
+          </div>
+        </div>
 
       </div>
     </div>
@@ -460,7 +642,7 @@
 
     <!-- Final CTA -->
     <div class="text-center mt-10">
-      <a href="{{ route('products') }}"
+      <a href="#"
         class="inline-flex items-center bg-gray-900 hover:bg-gray-800 text-white font-semibold px-8 py-4 rounded-full shadow-md transition-all duration-300">
         View All Occasion Collections
         <svg class="ml-3 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -832,129 +1014,69 @@
           <!-- Logo Group 1 -->
           <div class="flex items-center gap-12 md:gap-16 lg:gap-20 px-4 shrink-0">
 
-            @foreach($clients as $client)
-              <div class="client-logo">
-                <img src="{{ asset('storage/' . $client->logo) }}" alt="{{ $client->name }}" class="h-10 md:h-12">
-              </div>
-            @endforeach
+            <div class="client-logo">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/IBM_logo.svg/2560px-IBM_logo.svg.png"
+                alt="IBM" class="h-10 md:h-12">
+            </div>
+
+            <div class="client-logo">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/2560px-Google_2015_logo.svg.png"
+                alt="Google" class="h-9 md:h-11">
+            </div>
+
+            <div class="client-logo">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Amazon_logo.svg/2560px-Amazon_logo.svg.png"
+                alt="Amazon" class="h-8 md:h-10">
+            </div>
+
+            <div class="client-logo">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Microsoft_logo_(2022).svg/2560px-Microsoft_logo_(2022).svg.png"
+                alt="Microsoft" class="h-8 md:h-10">
+            </div>
+
+            <div class="client-logo">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Tata_Consultancy_Services_Logo.svg/2560px-Tata_Consultancy_Services_Logo.svg.png"
+                alt="TCS" class="h-10 md:h-12">
+            </div>
+
+            <div class="client-logo">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Accenture.svg/2560px-Accenture.svg.png"
+                alt="Accenture" class="h-9 md:h-11">
+            </div>
 
           </div>
 
+          <!-- Duplicate -->
+          <div class="flex items-center gap-12 md:gap-16 lg:gap-20 px-4 shrink-0">
+
+            <div class="client-logo"><img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/IBM_logo.svg/2560px-IBM_logo.svg.png"
+                class="h-10 md:h-12"></div>
+            <div class="client-logo"><img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/2560px-Google_2015_logo.svg.png"
+                class="h-9 md:h-11"></div>
+            <div class="client-logo"><img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Amazon_logo.svg/2560px-Amazon_logo.svg.png"
+                class="h-8 md:h-10"></div>
+            <div class="client-logo"><img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Microsoft_logo_(2022).svg/2560px-Microsoft_logo_(2022).svg.png"
+                class="h-8 md:h-10"></div>
+            <div class="client-logo"><img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Tata_Consultancy_Services_Logo.svg/2560px-Tata_Consultancy_Services_Logo.svg.png"
+                class="h-10 md:h-12"></div>
+            <div class="client-logo"><img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Accenture.svg/2560px-Accenture.svg.png"
+                class="h-9 md:h-11"></div>
+
+          </div>
 
         </div>
       </div>
-
     </div>
   </section>
-
-  <script>
-
-    document.addEventListener("DOMContentLoaded", function () {
-
-      // Trigger default tab (Most Popular)
-      const defaultTab = document.querySelector('.tab-btn[data-type="popular"]');
-
-      if (defaultTab) {
-        defaultTab.click(); // 🔥 auto load
-      }
-
-    });
-
-    document.querySelectorAll('.add-to-cart').forEach(btn => {
-      btn.addEventListener('click', function () {
-
-        let productId = this.getAttribute('data-id');
-
-        fetch("{{ route('cart.add') }}", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "X-CSRF-TOKEN": "{{ csrf_token() }}"
-          },
-          body: JSON.stringify({
-            product_id: productId
-          })
-        })
-          .then(res => res.json())
-          .then(data => {
-
-            // ✅ Update Cart Count
-            document.getElementById('cart-count').innerText = data.cart_count;
-
-            // ✅ Swal
-            Swal.fire({
-              icon: 'success',
-              title: 'Added!',
-              text: data.message,
-              showCancelButton: true,
-              confirmButtonText: 'Go to Cart',
-              cancelButtonText: 'Continue Shopping'
-            }).then((result) => {
-              if (result.isConfirmed) {
-                window.location.href = "{{ route('shopping-cart') }}";
-              }
-            });
-
-          });
-
-      });
-    });
-
-
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', function () {
-
-        // UI active state (no design change)
-        document.querySelectorAll('.tab-btn').forEach(b => {
-          b.classList.remove('border-[#f4a261]', 'text-[#f4a261]', 'font-semibold');
-        });
-
-        this.classList.add('border-[#f4a261]', 'text-[#f4a261]', 'font-semibold');
-
-        let type = this.getAttribute('data-type');
-
-        fetch(`/products/filter?type=${type}`)
-          .then(res => res.json())
-          .then(data => {
-
-            let html = '';
-
-            data.forEach(product => {
-
-              let category = product.categories?.[0]?.name ?? 'Corporate Gifts';
-
-              html += `
-                <div class="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
-
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="/storage/${product.image}" 
-                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-
-                        ${product.new_arrival ? `
-                        <div class="absolute top-3 right-3 bg-white/90 px-3 py-1 rounded-full text-xs font-medium shadow">
-                            New
-                        </div>` : ''}
-                    </div>
-
-                    <div class="p-5 text-center">
-                        <p class="text-sm text-gray-500 mb-1">${category}</p>
-
-                        <h4 class="font-semibold text-base leading-tight mb-3">
-                            ${product.name}
-                        </h4>
-
-                        <p class="text-[#e07a5f] font-bold text-xl">
-                            ₹${parseInt(product.price).toLocaleString()}
-                        </p>
-                    </div>
-                </div>
-                `;
-            });
-
-            document.getElementById('productContainer').innerHTML = html;
-          });
-      });
-    });
-  </script>
 
 @endsection

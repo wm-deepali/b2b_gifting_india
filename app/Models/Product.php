@@ -10,37 +10,64 @@ class Product extends Model
     use SoftDeletes;
 
     protected $fillable = [
+
+        // 🔥 IMPORTANT (old system mapping)
+        'old_id',
+
+        // BASIC
         'name',
         'slug',
         'image',
         'sub_title',
         'summary',
+
+        // OLD DB FIELDS
+        'product_code',
+        'brand_id',
+        'added_by',
+        'sort_order',
+
+        // PRICING
+        'mrp',
+        'price',
+        'discount',
+        'discount_type',
+
+        // FLAGS
+        'featured',        // from is_special
+        'new_arrival',     // from is_newlaunch
+        'sale',
+        'best_seller',
+
+        'is_premium',
+        'is_engraving',
+
+        'show_on_website',
+
+        // OTHER
         'sku',
         'min_qty',
         'delivery_time',
         'quality',
         'pan_india',
-        'mrp',
-        'discount',
-        'discount_type',
-        'price',
-        'featured',
-        'new_arrival',
-        'sale',
+
         'details',
         'delivery_returns',
+
         'meta_title',
         'meta_description',
+
         'cart',
         'whatsapp',
         'call',
+
         'status'
     ];
 
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
-    |--------------------------------------------------------------------------
+    |-------------------------------------------------------------------------- 
     */
 
     // CATEGORY
@@ -65,6 +92,7 @@ class Product extends Model
             'occasion_id'
         );
     }
+
     // CUSTOMIZATION
     public function customizations()
     {

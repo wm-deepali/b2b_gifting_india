@@ -67,14 +67,15 @@
 
             @php
                 $categories = \App\Models\Category::withCount('children')
+                    ->where('name', '!=', '')
                     ->whereNull('parent_id')
                     ->where('status', 1)
                     ->orderByDesc('is_popular')
                     ->orderBy('name')
                     ->get();
 
-                $mainCategories = $categories->take(5);
-                $moreCategories = $categories->slice(5);
+                $mainCategories = $categories->take(4);
+                $moreCategories = $categories->slice(4);
             @endphp
 
             <!-- Main visible categories – starts from left -->
@@ -214,21 +215,21 @@
 </nav>
 
 <script>
-function toggleMobileMenu() {
-    const menu = document.getElementById('mobileMenu');
-    const arrow = document.getElementById('mobileArrow');
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobileMenu');
+        const arrow = document.getElementById('mobileArrow');
 
-    menu.classList.toggle('hidden');
-    arrow.classList.toggle('rotate-180');
-}
+        menu.classList.toggle('hidden');
+        arrow.classList.toggle('rotate-180');
+    }
 
-function toggleSubmenu(id) {
-    const submenu = document.getElementById('submenu-' + id);
-    const icon = document.getElementById('icon-' + id);
+    function toggleSubmenu(id) {
+        const submenu = document.getElementById('submenu-' + id);
+        const icon = document.getElementById('icon-' + id);
 
-    submenu.classList.toggle('hidden');
-    icon.classList.toggle('rotate-180');
-}
+        submenu.classList.toggle('hidden');
+        icon.classList.toggle('rotate-180');
+    }
 </script>
 
 <style>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\Brand;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Category;
@@ -46,12 +47,15 @@ class FrontController extends Controller
 
         $clients = Client::where('status', 1)->get();
 
+        $brands = Brand::where('status', 1)->get();
+
         return view('front-pages.home', compact(
             'popularCategories',
             'featuredProducts',
             'occasions',
             'faqs',
-            'clients'
+            'clients',
+            'brands'
         ));
     }
 
@@ -102,7 +106,7 @@ class FrontController extends Controller
     public function category(Request $request)
     {
         $categories = Category::whereNull('parent_id') // main categories only
-            ->where('status', 1)
+            // ->where('status', 1)
             ->withCount('products') // count products
             ->get();
 
@@ -118,7 +122,7 @@ class FrontController extends Controller
 
         // Subcategories with product count
         $subcategories = Category::where('parent_id', $category->id)
-            ->where('status', 1)
+            // ->where('status', 1)
             ->withCount(['products', 'subcategoryProducts'])
             ->get();
 
@@ -155,14 +159,14 @@ class FrontController extends Controller
         $categories = Category::whereNull('parent_id')
             ->with([
                 'children' => function ($q) {
-                    $q->where('status', 1);
+                    $q->whereIN('status', [0, 1]);
                 }
             ])
-            ->where('status', 1)
+            ->whereIN('status', [0, 1])
             ->get();
 
         // Products
-        $products = Product::where('status', 1);
+        $products = Product::whereIN('status', [0, 1]);
 
         // ✅ CATEGORY + SUBCATEGORY FIX
         if ($category) {

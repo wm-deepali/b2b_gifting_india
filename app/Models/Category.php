@@ -3,10 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
+        'old_id',
         'name',
         'slug',
         'parent_id',
@@ -14,8 +18,16 @@ class Category extends Model
         'meta_title',
         'meta_description',
         'image',
+
+        // ✅ existing
         'is_popular',
-        'status'
+        'status',
+
+        // ✅ ADDED (missing fields)
+        'added_by',
+        'is_featured',
+        'show_on_website',
+        'is_sub_category',
     ];
 
     // Parent
@@ -30,7 +42,6 @@ class Category extends Model
         return $this->hasMany(Category::class, 'parent_id');
     }
 
-    // Products (main)
     // PRODUCTS (CATEGORY)
     public function products()
     {

@@ -5,9 +5,11 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\ContactBranchController;
+use App\Http\Controllers\Admin\ContactEnquiryController;
 use App\Http\Controllers\Admin\CustomizationController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DynamicPageController;
+use App\Http\Controllers\Admin\EnquiryController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\GiftingOccasionController;
 use App\Http\Controllers\Admin\LogoutController;
@@ -24,25 +26,35 @@ use App\Http\Controllers\FrontController;
 Route::controller(FrontController::class)->group(function () {
 
     Route::get('/', 'home')->name('home');
+    Route::get('/search-suggestions', 'searchSuggestions')->name('search.suggestions');
+    Route::get('/products/filter', 'getProductsByType');
+    Route::get('/categories', 'category')->name('category');
+    Route::get('/category/{slug}', 'subcategory');
+    Route::get('/products', 'products')->name('products');
+    Route::get('/product/{slug}', 'productDetail')->name('product.detail');
+    Route::post('/cart/add', 'addToCart')->name('cart.add');
+    Route::get('/shopping-cart', 'shoppingCart')->name('shopping-cart');
+    Route::post('/cart/remove', 'removeFromCart')->name('cart.remove');
+    Route::post('/enquiry/store', 'storeEnquiry')->name('enquiry.store');
+    Route::get('/thank-you', 'thankYou')->name('thank-you');
+    Route::get('/faqs', 'faqs')->name('faqs');
+    Route::get('/blogs', 'blogs')->name('blogs');
+    Route::get('/blog/{slug}', 'blogDetails')->name('blog.detail');
+    Route::get('/contact-us', 'contactUs')->name('contact-us');
+    Route::post('/contact-submit', 'submitContact')->name('contact.submit');
     Route::get('/why-us', 'whyUs')->name('why-us');
     Route::get('/vendors', 'vendors')->name('vendors');
-    Route::get('/contact-us', 'contactUs')->name('contact-us');
-    Route::get('/products', 'products')->name('products');
-    Route::get('/products/{id}', 'productDetails')->name('product.details');
-    Route::get('/shopping-cart', 'shoppingCart')->name('shopping-cart');
-    Route::get('/categories', 'category')->name('category');
-    Route::get('/subcategories', 'subcategory')->name('subcategory');
     Route::get('/membership', 'membership')->name('membership');
     Route::get('/job-openings', 'jobOpenings')->name('job-openings');
     Route::get('/gallery', 'gallery')->name('gallery');
-    Route::get('/faqs', 'faqs')->name('faqs');
     Route::get('/careers', 'careers')->name('careers');
     Route::get('/bulk-order', 'bulkOrder')->name('bulk-order');
-    Route::get('/blogs', 'blogs')->name('blogs');
-    Route::get('/blog/{id}', 'blogDetails')->name('blog.details');
     Route::get('/about-us', 'aboutUs')->name('about-us');
     Route::get('/awards', 'awards')->name('awards');
 
+});
+Route::get('/get-cities/{state}', function ($id) {
+    return \App\Models\City::where('state_id', $id)->orderBy('name')->get();
 });
 
 // Admin Routes list
@@ -77,6 +89,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('testimonials', TestimonialController::class)->names('testimonials');
 
         Route::resource('contact-branches', ContactBranchController::class);
+
+        Route::resource('enquiries', EnquiryController::class)->names('enquiries');
+
+        Route::resource('contact-enquiries', ContactEnquiryController::class);
 
         Route::get('/logout', [LogoutController::class, 'logout']);
 

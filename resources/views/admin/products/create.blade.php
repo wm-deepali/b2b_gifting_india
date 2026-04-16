@@ -1,6 +1,3 @@
-@extends('layouts.app')
-@section('title', 'Add Product')
-
 @include('admin.top-header')
 
 <div class="main-section">

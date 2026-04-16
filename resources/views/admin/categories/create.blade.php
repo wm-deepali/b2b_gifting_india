@@ -54,6 +54,11 @@
                             <input type="text" name="slug" id="slug" class="form-control">
                         </div>
 
+                        <div class="form-group">
+                            <label>Sub Title</label>
+                            <input type="text" name="sub_title" class="form-control">
+                        </div>
+
                         <!-- Parent/Sub -->
                         <div class="form-group mt-3">
                             <label>Category Type</label>
@@ -131,14 +136,14 @@
 @include('admin.footer')
 
 <script>
-document.getElementById('name').addEventListener('keyup', function () {
+    document.getElementById('name').addEventListener('keyup', function () {
 
-    let slug = this.value
-        .toLowerCase()
-        .replace(/ /g, '-')
-        .replace(/[^\w-]+/g, '');
+        let slug = this.value
+            .toLowerCase()
+            .replace(/ /g, '-')
+            .replace(/[^\w-]+/g, '');
 
-    document.getElementById('slug').value = slug;
+        document.getElementById('slug').value = slug;
 
-});
+    });
 </script>

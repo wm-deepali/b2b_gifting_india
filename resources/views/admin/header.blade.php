@@ -137,5 +137,25 @@
             </ul>
         </li>
 
+        <li class="{{ request()->routeIs('admin.enquiries.*', 'admin.contact-enquiries.*') ? 'active' : '' }}">
+            <a href="#">
+                <i class="fa-solid fa-envelope"></i> Enquiries
+            </a>
+
+            <ul>
+                <li class="{{ request()->routeIs('admin.enquiries.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.enquiries.index') }}">
+                        Cart / Quote Enquiries
+                    </a>
+                </li>
+
+                <li class="{{ request()->routeIs('admin.contact-enquiries.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.contact-enquiries.index') }}">
+                        Contact Enquiries
+                    </a>
+                </li>
+            </ul>
+        </li>
+
     </ul>
 </div>

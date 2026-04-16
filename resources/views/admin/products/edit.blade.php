@@ -1,6 +1,3 @@
-@extends('layouts.app')
-@section('title', 'Edit Product')
-
 @include('admin.top-header')
 
 <div class="main-section">
@@ -75,7 +72,7 @@
                                 <input type="file" name="image" class="form-control">
                                 @if($product->image)
                                     <div class="mt-2">
-                                        <img src="{{ asset('uploads/products/' . $product->image) }}" width="80"
+                                        <img src="{{ asset('storage/' . $product->image) }}" width="80"
                                             style="border-radius:6px;">
                                     </div>
                                 @endif

@@ -54,7 +54,7 @@
 
                         <div class="form-group mt-3">
                             <label>Slug</label>
-                            <input type="text" name="slug"
+                            <input type="text" name="slug" id="slug"
                                    value="{{ $occasion->slug }}"
                                    class="form-control">
                         </div>
@@ -130,3 +130,18 @@
 </div>
 
 @include('admin.footer')
+
+<script>
+// slug auto
+document.getElementById('title').addEventListener('keyup', function () {
+
+    let slug = this.value
+        .toLowerCase()
+        .replace(/ /g, '-')
+        .replace(/[^\w-]+/g, '');
+
+    document.getElementById('slug').value = slug;
+
+});
+
+</script>

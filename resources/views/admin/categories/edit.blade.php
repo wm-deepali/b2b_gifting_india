@@ -38,9 +38,8 @@
 
                 <div class="card-body">
 
-                    <form method="POST"
-                          action="{{ route('admin.categories.update', $category->id) }}"
-                          enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('admin.categories.update', $category->id) }}"
+                        enctype="multipart/form-data">
 
                         @csrf
                         @method('PUT')
@@ -48,17 +47,19 @@
                         <!-- Name -->
                         <div class="form-group">
                             <label>Name *</label>
-                            <input type="text" name="name" id="name"
-                                   value="{{ $category->name }}"
-                                   class="form-control" required>
+                            <input type="text" name="name" id="name" value="{{ $category->name }}" class="form-control"
+                                required>
                         </div>
 
                         <!-- Slug -->
                         <div class="form-group mt-3">
                             <label>Slug</label>
-                            <input type="text" name="slug" id="slug"
-                                   value="{{ $category->slug }}"
-                                   class="form-control">
+                            <input type="text" name="slug" id="slug" value="{{ $category->slug }}" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Sub Title</label>
+                            <input type="text" name="sub_title" value="{{ $category->sub_title }}" class="form-control">
                         </div>
 
                         <!-- Parent/Sub -->
@@ -68,14 +69,12 @@
                             <select name="parent_id" class="form-control">
 
                                 <!-- Parent option -->
-                                <option value="parent"
-                                    {{ is_null($category->parent_id) ? 'selected' : '' }}>
+                                <option value="parent" {{ is_null($category->parent_id) ? 'selected' : '' }}>
                                     Parent Category
                                 </option>
 
                                 @foreach($parents as $parent)
-                                    <option value="{{ $parent->id }}"
-                                        {{ $category->parent_id == $parent->id ? 'selected' : '' }}>
+                                    <option value="{{ $parent->id }}" {{ $category->parent_id == $parent->id ? 'selected' : '' }}>
                                         {{ $parent->name }}
                                     </option>
                                 @endforeach
@@ -91,8 +90,7 @@
 
                             @if($category->image)
                                 <div class="mt-2">
-                                    <img src="{{ asset('storage/' . $category->image) }}"
-                                         width="80">
+                                    <img src="{{ asset('storage/' . $category->image) }}" width="80">
                                 </div>
                             @endif
                         </div>
@@ -100,15 +98,14 @@
                         <!-- Meta -->
                         <div class="form-group mt-3">
                             <label>Meta Title</label>
-                            <input type="text" name="meta_title"
-                                   value="{{ $category->meta_title }}"
-                                   class="form-control">
+                            <input type="text" name="meta_title" value="{{ $category->meta_title }}"
+                                class="form-control">
                         </div>
 
                         <div class="form-group mt-3">
                             <label>Meta Description</label>
                             <textarea name="meta_description"
-                                      class="form-control">{{ $category->meta_description }}</textarea>
+                                class="form-control">{{ $category->meta_description }}</textarea>
                         </div>
 
                         <!-- Popular -->
@@ -157,25 +154,25 @@
 @include('admin.footer')
 
 <script>
-// 🔥 Auto slug
-document.getElementById('name').addEventListener('keyup', function () {
+    // 🔥 Auto slug
+    document.getElementById('name').addEventListener('keyup', function () {
 
-    let slug = this.value
-        .toLowerCase()
-        .replace(/ /g, '-')
-        .replace(/[^\w-]+/g, '');
+        let slug = this.value
+            .toLowerCase()
+            .replace(/ /g, '-')
+            .replace(/[^\w-]+/g, '');
 
-    document.getElementById('slug').value = slug;
+        document.getElementById('slug').value = slug;
 
-});
+    });
 
-// 🔥 Disable button on submit
-document.querySelector('form').addEventListener('submit', function () {
+    // 🔥 Disable button on submit
+    document.querySelector('form').addEventListener('submit', function () {
 
-    let btn = document.getElementById('updateBtn');
+        let btn = document.getElementById('updateBtn');
 
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Updating...';
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Updating...';
 
-});
+    });
 </script>

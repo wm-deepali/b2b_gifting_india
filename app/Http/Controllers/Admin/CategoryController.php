@@ -41,12 +41,12 @@ class CategoryController extends Controller
 
         Category::create([
             'name' => $request->name,
+            'sub_title' => $request->sub_title, // ✅ ADD THIS
             'slug' => Str::slug($request->name),
             'meta_title' => $request->meta_title,
             'meta_description' => $request->meta_description,
             'image' => $imageName,
 
-            // 🔥 main logic
             'parent_id' => $request->parent_id == 'parent' ? null : $request->parent_id,
 
             'is_popular' => $request->is_popular ?? 0,
@@ -79,21 +79,20 @@ class CategoryController extends Controller
 
         if ($request->hasFile('image')) {
 
-            // delete old image
             if ($category->image && Storage::disk('public')->exists($category->image)) {
                 Storage::disk('public')->delete($category->image);
             }
 
-            // store new
             $image = $request->file('image')->store('categories', 'public');
         }
 
         $category->update([
             'name' => $request->name,
+            'sub_title' => $request->sub_title, // ✅ ADD THIS
             'slug' => Str::slug($request->name),
             'meta_title' => $request->meta_title,
-            'image' => $image,
             'meta_description' => $request->meta_description,
+            'image' => $image,
 
             'parent_id' => $request->parent_id == 'parent' ? null : $request->parent_id,
 
@@ -101,10 +100,10 @@ class CategoryController extends Controller
             'status' => $request->status ?? 1,
         ]);
 
+
         return redirect()->route('admin.categories.index')
             ->with('success', 'Category Updated Successfully');
     }
-
     // ✅ Delete
     public function destroy($id)
     {

@@ -60,96 +60,123 @@
                 <div class="bg-white rounded-3xl shadow-sm p-10">
                     <h2 class="text-3xl font-semibold mb-8">Send us a Message</h2>
 
-                    <form>
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <input type="text" placeholder="Your Name" class="form-input">
-                            <input type="email" placeholder="Email Address" class="form-input">
-                        </div>
-                        <input type="tel" placeholder="Mobile Number" class="form-input mt-6">
-                        <input type="text" placeholder="Company Name" class="form-input mt-6">
+                    <form method="POST" action="{{ route('contact.submit') }}">
+                        @csrf
 
-                        <select class="form-input mt-6">
-                            <option>Select Inquiry Type</option>
-                            <option>Bulk Corporate Order</option>
-                            <option>Customization Inquiry</option>
-                            <option>Sample Request</option>
-                            <option>Partnership Opportunity</option>
-                            <option>General Inquiry</option>
+                        {{-- SUCCESS MESSAGE --}}
+                        @if(session('success'))
+                            <div class="mb-4 text-green-600 font-medium">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
+                        {{-- ERROR MESSAGE --}}
+                        @if ($errors->any())
+                            <div class="mb-4 text-red-500">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>• {{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        <!-- NAME + EMAIL -->
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <input type="text" name="name" value="{{ old('name') }}" placeholder="Your Name"
+                                class="form-input" required>
+
+                            <input type="email" name="email" value="{{ old('email') }}" placeholder="Email Address"
+                                class="form-input" required>
+                        </div>
+
+                        <!-- MOBILE -->
+                        <input type="tel" name="mobile" value="{{ old('mobile') }}" placeholder="Mobile Number"
+                            class="form-input mt-6" required>
+
+                        <!-- COMPANY -->
+                        <input type="text" name="company" value="{{ old('company') }}" placeholder="Company Name"
+                            class="form-input mt-6">
+
+                        <!-- INQUIRY TYPE (DYNAMIC) -->
+                        <select name="inquiry_type" class="form-input mt-6">
+                            <option value="">Select Inquiry Type</option>
+                            @foreach($inquiryTypes as $type)
+                                <option value="{{ $type }}" {{ old('inquiry_type') == $type ? 'selected' : '' }}>
+                                    {{ $type }}
+                                </option>
+                            @endforeach
                         </select>
 
-                        <textarea rows="5" placeholder="Your Message..." class="form-input mt-6"></textarea>
+                        <!-- MESSAGE -->
+                        <textarea name="message" rows="5" placeholder="Your Message..." class="form-input mt-6"
+                            required>{{ old('message') }}</textarea>
 
+                        <div>
+                            <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
+                        </div>
+
+                        <!-- SUBMIT BUTTON -->
                         <button type="submit"
                             class="contact-btn w-full mt-8 text-white py-5 rounded-2xl font-semibold text-lg">
                             Send Message
                         </button>
+
                     </form>
+
                 </div>
             </div>
 
             <!-- Offices -->
             <div class="lg:col-span-2 space-y-8">
 
-                <!-- Head Office -->
-                <div class="office-card bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div
-                            class="w-12 h-12 bg-[#f4a261] text-white rounded-2xl flex items-center justify-center text-2xl">
-                            🏢</div>
-                        <div>
-                            <h3 class="font-semibold text-xl">Head Office - Delhi</h3>
-                            <p class="text-[#f4a261] font-medium">Corporate Headquarters</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 mb-4">
-                        B-45, Sector 63, Noida, Uttar Pradesh 201301
-                    </p>
-                    <div class="space-y-3 text-sm">
-                        <p><strong>Phone:</strong> +91 98765 43210</p>
-                        <p><strong>Email:</strong> info@b2bgiftsindia.com</p>
-                        <p><strong>Working Hours:</strong> Mon - Sat, 9:00 AM - 6:00 PM</p>
-                    </div>
-                </div>
+                @foreach($branches as $branch)
+                    <div class="office-card bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
 
-                <!-- Branch 1 -->
-                <div class="office-card bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div
-                            class="w-12 h-12 bg-[#2ec4b6] text-white rounded-2xl flex items-center justify-center text-2xl">
-                            📍</div>
-                        <div>
-                            <h3 class="font-semibold text-xl">Mumbai Branch</h3>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 mb-4">
-                        Unit 12, Andheri East, Mumbai, Maharashtra 400069
-                    </p>
-                    <div class="space-y-3 text-sm">
-                        <p><strong>Phone:</strong> +91 98765 43211</p>
-                        <p><strong>Email:</strong> mumbai@b2bgiftsindia.com</p>
-                    </div>
-                </div>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div
+                                class="w-12 h-12 {{ $branch->icon ?? 'bg-[#f4a261]' }} text-white rounded-2xl flex items-center justify-center text-2xl">
+                                {!! $branch->icon ?? '📍' !!}
+                            </div>
 
-                <!-- Branch 2 -->
-                <div class="office-card bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div
-                            class="w-12 h-12 bg-[#e07a5f] text-white rounded-2xl flex items-center justify-center text-2xl">
-                            📍</div>
-                        <div>
-                            <h3 class="font-semibold text-xl">Bangalore Branch</h3>
+                            <div>
+                                <h3 class="font-semibold text-xl">
+                                    {{ $branch->title }}
+                                </h3>
+
+                                @if($branch->subtitle)
+                                    <p class="text-[#f4a261] font-medium">
+                                        {{ $branch->subtitle }}
+                                    </p>
+                                @endif
+                            </div>
                         </div>
+
+                        <p class="text-gray-600 mb-4">
+                            {{ $branch->address }}
+                        </p>
+
+                        <div class="space-y-3 text-sm">
+
+                            @if($branch->phone)
+                                <p><strong>Phone:</strong> {{ $branch->phone }}</p>
+                            @endif
+
+                            @if($branch->email)
+                                <p><strong>Email:</strong> {{ $branch->email }}</p>
+                            @endif
+
+                            @if($branch->working_hours)
+                                <p><strong>Working Hours:</strong> {{ $branch->working_hours }}</p>
+                            @endif
+
+                        </div>
+
                     </div>
-                    <p class="text-gray-600 mb-4">
-                        No. 78, Koramangala, Bangalore, Karnataka 560034
-                    </p>
-                    <div class="space-y-3 text-sm">
-                        <p><strong>Phone:</strong> +91 98765 43212</p>
-                        <p><strong>Email:</strong> bangalore@b2bgiftsindia.com</p>
-                    </div>
-                </div>
+                @endforeach
 
             </div>
+
         </div>
     </div>
 
@@ -159,5 +186,5 @@
             <p class="text-gray-500">We serve clients across 18+ cities in India</p>
         </div>
     </section>
-
+   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 @endsection

@@ -10,6 +10,7 @@ class Category extends Model
         'name',
         'slug',
         'parent_id',
+        'sub_title',
         'meta_title',
         'meta_description',
         'image',

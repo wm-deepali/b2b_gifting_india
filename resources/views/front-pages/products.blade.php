@@ -78,11 +78,19 @@
                         <h2 class="hidden lg:block font-bold text-2xl mb-6 text-gray-800">Categories</h2>
 
                         @foreach($categories as $cat)
-                            <button onclick="toggleSub(this)" 
-                                class="category-btn flex justify-between items-center w-full mt-6 py-3 px-4 rounded-xl hover:bg-gray-50 transition-colors {{ $parentCategory && $parentCategory->id == $cat->id ? 'active' : '' }}">
-                                {{ $cat->name }}
-                                <span class="text-xl transition-transform">›</span>
-                            </button>
+                            <button 
+   onclick="{{ $cat->children->count() ? 'toggleSub(this)' : "window.location='".route('products', ['subcategory' => $cat->slug])."'" }}"
+    data-has-child="{{ $cat->children->count() }}"
+    data-url="{{ route('products', ['subcategory' => $cat->slug]) }}"
+    class="category-btn flex justify-between items-center w-full mt-6 py-3 px-4 rounded-xl hover:bg-gray-50 transition-colors {{ $parentCategory && $parentCategory->id == $cat->id ? 'active' : '' }}">
+
+    {{ $cat->name }}
+
+    @if($cat->children->count())
+        <span class="text-xl transition-transform">›</span>
+    @endif
+
+</button>
                             
                             <div class="sub-category pl-6 space-y-2 mt-1 {{ $parentCategory && $parentCategory->id == $cat->id ? '' : 'hidden' }}">
                                 @foreach($cat->children as $sub)
@@ -92,7 +100,7 @@
                                     </a>
                                 @endforeach
                             </div>
-                        @endforeach>
+                        @endforeach
 
                         <!-- Filters -->
                         <form method="GET" class="mt-12">
@@ -217,13 +225,18 @@
                     <h2 class="font-bold text-2xl mb-6 text-gray-800">Categories</h2>
 
                     @foreach($categories as $cat)
-                        <button onclick="window.location='{{ route('products', ['subcategory' => $cat->slug]) }}'"
-                            class="category-btn flex justify-between items-center mt-6 
-                                                                        {{ $parentCategory && $parentCategory->id == $cat->id ? 'active' : '' }}">
+                       <button 
+    onclick="{{ $cat->children->count() ? 'toggleSub(this)' : "window.location='".route('products', ['subcategory' => $cat->slug])."'" }}"
+    class="category-btn flex justify-between items-center mt-6 
+    {{ $parentCategory && $parentCategory->id == $cat->id ? 'active' : '' }}">
 
-                            {{ $cat->name }}
-                            <span class="text-xl transition-transform">›</span>
-                        </button>
+    {{ $cat->name }}
+
+    @if($cat->children->count())
+        <span class="text-xl transition-transform">›</span>
+    @endif
+
+</button>
 
                         <div
                             class="sub-category pl-4 space-y-2 mt-2 

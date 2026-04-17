@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Award;
 use App\Models\Blog;
 use App\Models\Brand;
 use App\Models\Cart;
@@ -24,6 +25,8 @@ use App\Models\State;
 use App\Models\DynamicPage;
 use App\Models\Testimonial;
 use Illuminate\Support\Str;
+use App\Models\Team;
+use App\Models\PackageEnquiry;
 
 class FrontController extends Controller
 {
@@ -686,7 +689,8 @@ class FrontController extends Controller
 
     public function whyUs(Request $request)
     {
-        return view('front-pages.why-us');
+        $brands = Brand::where('status', 1)->get();
+        return view('front-pages.why-us', compact('brands'));
     }
 
     public function vendors(Request $request)
@@ -723,12 +727,20 @@ class FrontController extends Controller
 
     public function aboutUs(Request $request)
     {
-        return view('front-pages.about-us');
+        $teams = Team::where('status', 1)
+            ->latest()
+            ->get();
+
+        return view('front-pages.about-us', compact('teams'));
     }
 
     public function awards(Request $request)
     {
-        return view('front-pages.awards');
+        $awards = Award::where('status', 1)
+            ->latest()
+            ->get();
+
+        return view('front-pages.awards', compact('awards'));
     }
 
     public function personalisedEngraving(Request $request)
@@ -783,6 +795,38 @@ class FrontController extends Controller
         ]);
 
         return back()->with('success', 'Thanks! We will contact you soon.');
+    }
+
+
+    public function submitPackageEnquiry(Request $request)
+    {
+        $request->validate([
+            'package_id' => 'required|exists:packages,id',
+            'name' => 'required',
+            'company' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'g-recaptcha-response' => 'required',
+        ]);
+
+
+        // 🔥 CAPTCHA VERIFY
+        $response = Http::asForm()->post(
+            'https://www.google.com/recaptcha/api/siteverify',
+            [
+                'secret' => env('RECAPTCHA_SECRET_KEY'),
+                'response' => $request->input('g-recaptcha-response'),
+                'remoteip' => $request->ip()
+            ]
+        );
+
+        if (!($response->json()['success'] ?? false)) {
+            return back()->withErrors(['captcha' => 'Captcha verification failed'])->withInput();
+        }
+
+        PackageEnquiry::create($request->all());
+
+        return back()->with('success', 'Enquiry submitted successfully');
     }
 
 }

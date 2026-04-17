@@ -88,8 +88,9 @@
     'admin.brands.*',
     'admin.clients.*',
     'admin.testimonials.*',
-    'admin.contact-branches.*'
-
+    'admin.contact-branches.*',
+    'admin.awards.*',
+    'admin.teams.*'
 ) ? 'active' : '' }}">
             <a href="#">
                 <i class="fa-solid fa-file-lines"></i> Content Management
@@ -136,6 +137,18 @@
                 <li class="{{ request()->routeIs('admin.contact-branches.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.contact-branches.index') }}">
                         Manage Contact Branches
+                    </a>
+                </li>
+
+                <li class="{{ request()->routeIs('admin.awards.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.awards.index') }}">
+                        Manage Awards
+                    </a>
+                </li>
+
+                <li class="{{ request()->routeIs('admin.teams.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.teams.index') }}">
+                        Manage Team
                     </a>
                 </li>
 

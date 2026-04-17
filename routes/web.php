@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AwardController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\Admin\LogoutController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProfileSettingController;
+use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Models\GiftingOccasion;
 use Illuminate\Support\Facades\Route;
@@ -45,7 +47,7 @@ Route::controller(FrontController::class)->group(function () {
     Route::get('/blog/{slug}', 'blogDetails')->name('blog.detail');
     Route::get('/contact-us', 'contactUs')->name('contact-us');
     Route::post('/contact-submit', 'submitContact')->name('contact.submit');
-    Route::get('/page/{slug}',  'dynamicPage')->name('dynamic.page');
+    Route::get('/page/{slug}', 'dynamicPage')->name('dynamic.page');
     Route::get('/why-us', 'whyUs')->name('why-us');
     Route::get('/vendors', 'vendors')->name('vendors');
     Route::get('/membership', 'membership')->name('membership');
@@ -58,6 +60,7 @@ Route::controller(FrontController::class)->group(function () {
     Route::get('/personalised-engraving', 'personalisedEngraving')->name('personalised-engraving');
     Route::get('/recycling-pledge', 'recyclingPledge')->name('recycling-pledge');
     Route::get('/engraving-gallery', 'engravingGallery')->name('engraving-gallery');
+    Route::post('/package-enquiry', 'submitPackageEnquiry')->name('package.enquiry');
 
 });
 Route::get('/get-cities/{state}', function ($id) {
@@ -104,6 +107,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('home-enquiries', HomeEnquiryController::class);
 
         Route::resource('packages', PackageController::class);
+
+        Route::resource('awards', AwardController::class);
+
+        Route::resource('teams', TeamController::class);
 
         Route::get('/logout', [LogoutController::class, 'logout']);
 

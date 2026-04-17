@@ -3,7 +3,7 @@
 
 @section('content')
 
-<section class="py-20 md:py-28 bg-gradient-to-br from-[#f8f4f0] to-white">
+<section class="py-8 md:py-28 bg-gradient-to-br from-[#f8f4f0] to-white">
     <div class="max-w-6xl mx-auto px-6 text-center">
         <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
             Why Choose <span class="text-[#f4a261]">B2B</span><span class="text-[#2ec4b6]"> Gifts</span><span class="text-[#e07a5f]"> India</span>
@@ -15,12 +15,12 @@
 </section>
 
 <!-- Key Benefits Grid -->
-<section class="py-20 bg-white">
+<section class="py-8 md:py-20 bg-white">
     <div class="max-w-6xl mx-auto px-6">
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
             <!-- Benefit 1 -->
-            <div class="why-card bg-white border border-gray-100 rounded-3xl p-10">
+            <div class="why-card bg-white border border-gray-100 rounded-3xl p-4 md:p-10">
                 <div class="benefit-icon mb-6 text-4xl">🎨</div>
                 <h3 class="text-2xl font-semibold mb-4">Premium Quality & Customization</h3>
                 <p class="text-gray-600 leading-relaxed">
@@ -29,7 +29,7 @@
             </div>
 
             <!-- Benefit 2 -->
-            <div class="why-card bg-white border border-gray-100 rounded-3xl p-10">
+            <div class="why-card bg-white border border-gray-100 rounded-3xl p-4 md:p-10">
                 <div class="benefit-icon mb-6 text-4xl">🚚</div>
                 <h3 class="text-2xl font-semibold mb-4">Fast & Reliable Delivery</h3>
                 <p class="text-gray-600 leading-relaxed">
@@ -38,7 +38,7 @@
             </div>
 
             <!-- Benefit 3 -->
-            <div class="why-card bg-white border border-gray-100 rounded-3xl p-10">
+            <div class="why-card bg-white border border-gray-100 rounded-3xl p-4 md:p-10">
                 <div class="benefit-icon mb-6 text-4xl">🌱</div>
                 <h3 class="text-2xl font-semibold mb-4">Eco-Friendly Options</h3>
                 <p class="text-gray-600 leading-relaxed">
@@ -47,7 +47,7 @@
             </div>
 
             <!-- Benefit 4 -->
-            <div class="why-card bg-white border border-gray-100 rounded-3xl p-10">
+            <div class="why-card bg-white border border-gray-100 rounded-3xl p-4 md:p-10">
                 <div class="benefit-icon mb-6 text-4xl">💰</div>
                 <h3 class="text-2xl font-semibold mb-4">Best Value for Money</h3>
                 <p class="text-gray-600 leading-relaxed">
@@ -56,7 +56,7 @@
             </div>
 
             <!-- Benefit 5 -->
-            <div class="why-card bg-white border border-gray-100 rounded-3xl p-10">
+            <div class="why-card bg-white border border-gray-100 rounded-3xl p-4 md:p-10">
                 <div class="benefit-icon mb-6 text-4xl">🛡️</div>
                 <h3 class="text-2xl font-semibold mb-4">100% Satisfaction Guarantee</h3>
                 <p class="text-gray-600 leading-relaxed">
@@ -65,7 +65,7 @@
             </div>
 
             <!-- Benefit 6 -->
-            <div class="why-card bg-white border border-gray-100 rounded-3xl p-10">
+            <div class="why-card bg-white border border-gray-100 rounded-3xl p-4 md:p-10">
                 <div class="benefit-icon mb-6 text-4xl">🤝</div>
                 <h3 class="text-2xl font-semibold mb-4">Dedicated Corporate Support</h3>
                 <p class="text-gray-600 leading-relaxed">
@@ -77,25 +77,42 @@
     </div>
 </section>
 
-<!-- Trust Signals -->
-<section class="py-16 bg-gray-50">
-    <div class="max-w-6xl mx-auto px-6">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-semibold text-gray-800">Trusted by Leading Indian Companies</h2>
+  @if (count($brands) > 0)
+
+    <!-- Our Partners / Trusted Brands Section -->
+    <section class="bg-white py-8 md:py-24 border-t border-gray-100">
+      <div class="max-w-7xl mx-auto px-6 text-center">
+        <!-- Heading & Description -->
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+          Our Trusted Brand Partners
+        </h2>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto mb-12">
+          We proudly collaborate with leading premium brands to bring you the highest quality corporate gifts, customized
+          with your logo and delivered across India.
+        </p>
+
+        <!-- Logo Trail -->
+        <div class="overflow-x-auto scrollbar-hide">
+          <div class="flex items-center justify-center gap-12 md:gap-16 lg:gap-20 min-w-max py-6 px-4">
+
+            @foreach($brands as $brand)
+              <div class="flex flex-col items-center min-w-[100px]">
+                <img src="{{ asset('storage/' . $brand->logo) }}" alt="{{ $brand->name }}"
+                  class="h-10 md:h-12 grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+              </div>
+            @endforeach
+
+          </div>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 opacity-75">
-            <div class="text-center font-medium text-gray-500">Tata Group</div>
-            <div class="text-center font-medium text-gray-500">Reliance</div>
-            <div class="text-center font-medium text-gray-500">HDFC Bank</div>
-            <div class="text-center font-medium text-gray-500">Infosys</div>
-            <div class="text-center font-medium text-gray-500">Aditya Birla</div>
-            <div class="text-center font-medium text-gray-500">Mahindra</div>
-            <div class="text-center font-medium text-gray-500">ICICI Bank</div>
-            <div class="text-center font-medium text-gray-500">Wipro</div>
+        <!-- Optional subtle scroll hint for mobile -->
+        <div class="text-center text-sm text-gray-400 mt-4 md:hidden">
+          ← Scroll to see more partners →
         </div>
-    </div>
-</section>
+      </div>
+    </section>
+
+  @endif
 
 <!-- Final CTA -->
 <section class="py-20 bg-gradient-to-r from-[#f4a261] to-[#e07a5f] text-white">

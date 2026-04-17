@@ -160,7 +160,7 @@
 
 <!-- Sticky WhatsApp Button -->
 <a href="https://wa.me/917607770184" target="_blank"
-  class="fixed bottom-5 right-5 z-50 hover:scale-110 transition-all duration-300">
+  class="fixed bottom-[68px] right-5 md:bottom-5 z-50 hover:scale-110 transition-all duration-300">
 
   <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"
     class="w-20 h-20 drop-shadow-lg">

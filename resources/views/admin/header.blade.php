@@ -71,6 +71,11 @@
                         Manage Products
                     </a>
                 </li>
+                <li class="{{ request()->is('admin/packages*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.packages.index') }}">
+                        Manage Packages
+                    </a>
+                </li>
 
             </ul>
         </li>

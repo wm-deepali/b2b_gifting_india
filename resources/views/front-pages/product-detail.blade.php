@@ -29,11 +29,15 @@
                             }
                         @endphp
 
-                        @foreach($images as $key => $img)
-                            <img src="{{ asset('storage/' . $img) }}"
-                                class="slide {{ $key == 0 ? 'active' : '' }} w-full h-full object-cover"
-                                alt="{{ $product->name }}">
-                        @endforeach
+                        @if(count($images))
+                            @foreach($images as $key => $img)
+                                <img src="{{ asset('storage/' . $img) }}"
+                                    class="slide {{ $key == 0 ? 'active' : '' }} w-full h-full object-cover"
+                                    alt="{{ $product->name }}">
+                            @endforeach
+                        @else
+                            <img src="/default-product.png" class="w-full h-full object-cover">
+                        @endif
 
                     </div>
 
@@ -55,47 +59,101 @@
                 <h1 class="text-4xl font-bold leading-tight text-gray-900 mb-2">
                     {{ $product->name }}
                 </h1>
+                <div class="flex gap-2 flex-wrap mt-2">
+
+                    @if($product->best_seller)
+                        <span class="bg-yellow-100 text-yellow-700 text-xs px-2 py-1 rounded">Best Seller</span>
+                    @endif
+
+                    @if($product->sale)
+                        <span class="bg-red-100 text-red-700 text-xs px-2 py-1 rounded">Sale</span>
+                    @endif
+
+                    @if($product->is_premium)
+                        <span class="bg-purple-100 text-purple-700 text-xs px-2 py-1 rounded">Premium</span>
+                    @endif
+
+                    @if($product->gift_hamper)
+                        <span class="bg-pink-100 text-pink-700 text-xs px-2 py-1 rounded">Gift Hamper</span>
+                    @endif
+
+                    @if($product->ready_to_ship)
+                        <span class="bg-green-100 text-green-700 text-xs px-2 py-1 rounded">Ready to Ship</span>
+                    @endif
+
+                </div>
                 <p class="text-gray-500 text-lg">{{ $product->sub_title }}</p>
+                <div class="text-sm text-gray-500 mt-2 space-y-1">
 
-                <div class="flex items-center gap-4 mt-6">
-                    <span class="text-4xl font-bold text-gray-800">₹{{ $product->price }}</span>
-                    @if($product->mrp)
-                        <span class="text-gray-400 line-through text-xl">₹{{ $product->mrp }}</span>
+                    @if(isset($product->brand) && $product->brand)
+                        <p>Brand: <span class="font-medium">{{ $product->brand->name }}</span></p>
                     @endif
-                    @if($product->mrp && $product->price)
-                        <span
-                            class="bg-green-100 text-green-700 text-sm font-medium px-4 py-1 rounded-full">{{ round((($product->mrp - $product->price) / $product->mrp) * 100) }}%
-                            OFF</span>
+
+                    @if($product->sku)
+                        <p>SKU: {{ $product->sku }}</p>
                     @endif
+
+                    @if($product->categories && $product->categories->count())
+                        <p>Category: {{ $product->categories->pluck('name')->join(', ') }}</p>
+                    @endif
+
                 </div>
 
-                <div class="mt-8">
-                    <h3 class="font-semibold mb-3">Customization Options</h3>
-                    <div class="flex gap-3">
-                        @foreach($product->customizations as $custom)
-                            <button class="px-6 py-3 border-2 border-[#f4a261] text-[#f4a261] rounded-2xl font-medium">
-                                {{ $custom->name }}
-                            </button>
-                        @endforeach
+                @php
+                    $price = (float) $product->price;
+                    $mrp = (float) $product->mrp;
+                @endphp
+
+                @if($price > 0)
+                    <div class="flex items-center gap-4 mt-6">
+                        <span class="text-4xl font-bold text-gray-800">₹{{ $price }}</span>
+
+                        @if($mrp > 0)
+                            <span class="text-gray-400 line-through text-xl">₹{{ $mrp }}</span>
+                        @endif
+
+                        @if($mrp > 0 && $price > 0 && $mrp > $price)
+                            <span class="bg-green-100 text-green-700 text-sm font-medium px-4 py-1 rounded-full">
+                                {{ round((($mrp - $price) / $mrp) * 100) }}% OFF
+                            </span>
+                        @endif
                     </div>
-                </div>
+                @endif
+                @if($product->customizations && $product->customizations->count())
+                    <div class="mt-8">
+                        <h3 class="font-semibold mb-3">Customization Options</h3>
+                        <div class="flex gap-3">
+                            @foreach($product->customizations as $custom)
+                                <button class="px-6 py-3 border-2 border-[#f4a261] text-[#f4a261] rounded-2xl font-medium">
+                                    {{ $custom->name }}
+                                </button>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
 
-                <div class="mt-10">
-                    <h3 class="font-semibold mb-4">Product Summary</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        {{ $product->summary }}
-                    </p>
-                </div>
+                @if($product->summary)
+                    <div class="mt-10">
+                        <h3 class="font-semibold mb-4">Product Summary</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            {{ $product->summary }}
+                        </p>
+                    </div>
+                @endif
 
                 <div class="mt-10 grid grid-cols-2 gap-4">
-                    <div>
-                        <p class="text-sm text-gray-500">Minimum Order Quantity</p>
-                        <p class="font-semibold text-xl">{{ $product->min_qty }} Pieces</p>
-                    </div>
-                    <div>
-                        <p class="text-sm text-gray-500">Delivery Time</p>
-                        <p class="font-semibold text-xl">{{ $product->delivery_time }}</p>
-                    </div>
+                    @if($product->min_qty)
+                        <div>
+                            <p class="text-sm text-gray-500">Minimum Order Quantity</p>
+                            <p class="font-semibold text-xl">{{ $product->min_qty }} Pieces</p>
+                        </div>
+                    @endif
+                    @if($product->delivery_time)
+                        <div>
+                            <p class="text-sm text-gray-500">Delivery Time</p>
+                            <p class="font-semibold text-xl">{{ $product->delivery_time }}</p>
+                        </div>
+                    @endif
                 </div>
 
                 <!-- Action Buttons -->
@@ -218,46 +276,63 @@
 
     </div>
 
-    <section class="py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center mb-10">New Arrivals</h2>
+    @if($newArrivals->count())
+        <section class="py-16 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center mb-10">New Arrivals</h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                @foreach($newArrivals as $item)
-                    <div class="product-card bg-white rounded-3xl overflow-hidden">
-                        <img src="{{ asset('storage/' . $item->image) }}" class="w-full h-56 object-cover">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    @foreach($newArrivals as $item)
+                        @php $price = (float) $item->price; @endphp
 
-                        <div class="p-5">
-                            <h3 class="font-semibold">{{ $item->name }}</h3>
-                            <p class="text-gray-500 text-sm">{{ $item->sub_title }}</p>
-                            <p class="font-bold mt-2">₹{{ $item->price }}</p>
-                        </div>
-                    </div>
-                @endforeach
+                        <a href="{{ route('product.detail', $item->slug) }}" class="block">
+
+                            <div class="product-card bg-white rounded-3xl overflow-hidden">
+                                <img src="{{ asset('storage/' . $item->image) }}" class="w-full h-56 object-cover">
+
+                                <div class="p-5">
+                                    <h3 class="font-semibold">{{ $item->name }}</h3>
+                                    <p class="text-gray-500 text-sm">{{ $item->sub_title }}</p>
+
+                                    @if($price > 0)
+                                        <p class="font-bold mt-2">₹{{ $price }}</p>
+                                    @endif
+                                </div>
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
 
     <!-- ==================== RELATED PRODUCTS SECTION ==================== -->
-    <section class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center mb-10">Related Products</h2>
+    @if($relatedProducts->count())
+        <section class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center mb-10">Related Products</h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                @foreach($relatedProducts as $item)
-                    <div class="product-card bg-white rounded-3xl overflow-hidden">
-                        <img src="{{ asset('storage/' . $item->image) }}" class="w-full h-56 object-cover">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    @foreach($relatedProducts as $item)
+                        @php $price = (float) $item->price; @endphp
+                        <a href="{{ route('product.detail', $item->slug) }}" class="block">
+                            <div class="product-card bg-white rounded-3xl overflow-hidden">
+                                <img src="{{ asset('storage/' . $item->image) }}" class="w-full h-56 object-cover">
 
-                        <div class="p-5">
-                            <h3 class="font-semibold">{{ $item->name }}</h3>
-                            <p class="text-gray-500 text-sm">{{ $item->sub_title }}</p>
-                            <p class="font-bold mt-2">₹{{ $item->price }}</p>
-                        </div>
-                    </div>
-                @endforeach
+                                <div class="p-5">
+                                    <h3 class="font-semibold">{{ $item->name }}</h3>
+                                    <p class="text-gray-500 text-sm">{{ $item->sub_title }}</p>
+                                    @if($price > 0)
+                                        <p class="font-bold mt-2">₹{{ $price }}</p>
+                                    @endif
+                                </div>
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
 
     <script>
         let currentSlide = 0;

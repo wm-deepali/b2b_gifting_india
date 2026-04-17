@@ -30,7 +30,7 @@
                                 <!-- Product Count -->
                                 <div
                                     class="absolute top-5 right-5 bg-white text-[#f4a261] text-xs font-bold px-4 py-2 rounded-2xl shadow">
-                                    {{ $category->products_count }} Products
+                                    {{ $category->unique_products_count }} Products
                                 </div>
 
                                 <div class="absolute bottom-6 left-6 text-white">
@@ -43,6 +43,10 @@
                         </a>
                 @endforeach
 
+
+            </div>
+            <div class="mt-10 flex justify-center">
+                {{ $categories->links() }}
             </div>
 
         </div>

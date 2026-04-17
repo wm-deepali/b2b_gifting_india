@@ -1,306 +1,248 @@
 @include('admin.top-header')
 
 <div class="main-section">
-    @include('admin.header')
+@include('admin.header')
 
-    <div class="app-content content container-fluid">
+<div class="app-content content container-fluid">
 
-        <div class="card">
-            <div class="card-header"><b>Edit Product</b></div>
+<div class="card shadow-sm">
+<div class="card-header"><b>Edit Product</b></div>
 
-            <div class="card-body">
+<div class="card-body">
+<form method="POST" action="{{ route('admin.products.update', $product->id) }}" enctype="multipart/form-data">
+@csrf
+@method('PUT')
 
-                <form method="POST" action="{{ route('admin.products.update', $product->id) }}"
-                    enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT')
+<div class="row">
 
-                    <div class="row">
+<!-- LEFT -->
+<div class="col-md-8">
 
-                        <!-- LEFT -->
-                        <div class="col-md-8">
+<div class="card p-3 mb-3">
+                                <h5><b>Category</b></h5>
 
-                            {{-- CATEGORY + SUBCATEGORY --}}
-                            <div class="form-group">
-                                <label>Select Category & Sub Categories *</label>
-
-                                <div class="border p-3" style="max-height:300px;overflow:auto;">
-
+                                <div style="max-height:300px;overflow:auto;">
                                     @foreach($categories as $cat)
                                         <div class="mb-2">
 
-                                            <label class="d-flex align-items-center">
-                                                <input type="checkbox" class="mr-2 category-checkbox"
-                                                    data-id="{{ $cat->id }}" name="categories[]" value="{{ $cat->id }}" {{ in_array($cat->id, $product->categories->pluck('id')->toArray()) ? 'checked' : '' }}>
+                                            <label>
+                                                <input type="checkbox" class="category-checkbox" data-id="{{ $cat->id }}"
+                                                    name="categories[]" value="{{ $cat->id }}" {{ in_array($cat->id, $product->categories->pluck('id')->toArray()) ? 'checked' : '' }}>
                                                 <strong>{{ $cat->name }}</strong>
                                             </label>
 
-                                            <div class="ml-4 mt-2 subcategory-box" id="subcat_{{ $cat->id }}"
-                                                style="{{ collect($product->subcategories)->pluck('parent_id')->contains($cat->id) ? '' : 'display:none;' }}">
+                                            @php
+    $selectedSubIds = $product->subcategories->pluck('id')->toArray();
+    $hasSelectedChild = collect($cat->children)->pluck('id')->intersect($selectedSubIds)->isNotEmpty();
+@endphp
 
+<div class="ml-4 subcategory-box" id="subcat_{{ $cat->id }}"
+    style="{{ $hasSelectedChild ? '' : 'display:none;' }}">
                                                 @foreach($cat->children as $sub)
-                                                    <label class="d-flex align-items-center">
-                                                        <input type="checkbox" class="mr-2" name="sub_categories[]"
-                                                            value="{{ $sub->id }}" {{ in_array($sub->id, $product->subcategories->pluck('id')->toArray()) ? 'checked' : '' }}>{{ $sub->name }}
+                                                    <label>
+                                                        <input type="checkbox" name="sub_categories[]" value="{{ $sub->id }}" {{ in_array($sub->id, $product->subcategories->pluck('id')->toArray()) ? 'checked' : '' }}>
+                                                        {{ $sub->name }}
                                                     </label>
                                                 @endforeach
-
                                             </div>
 
                                         </div>
                                     @endforeach
-
                                 </div>
                             </div>
 
+{{-- BASIC --}}
+<div class="card p-3 mb-3">
+<h5><b>Basic Info</b></h5>
 
-                            {{-- PRODUCT --}}
-                            <div class="form-group mt-3">
-                                <label>Product Name *</label>
-                                <input type="text" name="name" value="{{ $product->name }}" class="form-control">
-                            </div>
+<label>Name</label>
+<input type="text" name="name" value="{{ $product->name }}" class="form-control">
 
-                            <div class="form-group mt-3">
-                                <label>Slug</label>
-                                <input type="text" name="slug" value="{{ $product->slug }}" class="form-control">
-                            </div>
+<label class="mt-2">Slug</label>
+<input type="text" name="slug" value="{{ $product->slug }}" class="form-control">
 
-                            {{-- PRODUCT IMAGE --}}
-                            <div class="form-group mt-3">
-                                <label>Product Image</label>
+<label class="mt-2">Brand</label>
+<select name="brand_id" class="form-control">
+<option value="">Select Brand</option>
+@foreach($brands as $brand)
+<option value="{{ $brand->id }}" {{ $product->brand_id == $brand->id ? 'selected' : '' }}>
+{{ $brand->name }}
+</option>
+@endforeach
+</select>
 
-                                <input type="file" name="image" class="form-control">
-                                @if($product->image)
-                                    <div class="mt-2">
-                                        <img src="{{ asset('storage/' . $product->image) }}" width="80"
-                                            style="border-radius:6px;">
-                                    </div>
-                                @endif
-                            </div>
+<label class="mt-2">Image</label>
+<input type="file" name="image" class="form-control">
+@if($product->image)
+<img src="{{ asset('storage/'.$product->image) }}" width="80" class="mt-2 rounded">
+@endif
 
-                            {{-- SUB TITLE --}}
-                            <div class="form-group mt-3">
-                                <label>Sub Title</label>
-                                <input type="text" name="sub_title" value="{{ $product->sub_title }}"
-                                    class="form-control">
-                            </div>
+<label class="mt-2">Sub Title</label>
+<input type="text" name="sub_title" value="{{ $product->sub_title }}" class="form-control">
 
-                            {{-- SUMMARY --}}
-                            <div class="form-group mt-3">
-                                <label>Product Summary</label>
-                                <textarea name="summary" class="form-control">{{ $product->summary }}</textarea>
-                            </div>
+<label class="mt-2">Summary</label>
+<textarea name="summary" class="form-control">{{ $product->summary }}</textarea>
 
-                            {{-- SKU + MIN QTY --}}
-                            <div class="row mt-3">
-                                <div class="col-md-6">
-                                    <label>SKU ID</label>
-                                    <input type="text" name="sku" value="{{ $product->sku }}" class="form-control">
-                                </div>
+</div>
 
-                                <div class="col-md-6">
-                                    <label>Minimum Order Qty</label>
-                                    <input type="number" name="min_qty" value="{{ $product->min_qty }}"
-                                        class="form-control">
-                                </div>
-                            </div>
+{{-- INVENTORY --}}
+<div class="card p-3 mb-3">
+<h5><b>Inventory</b></h5>
 
+<input type="text" name="sku" value="{{ $product->sku }}" class="form-control mb-2" placeholder="SKU">
 
-                            {{-- DELIVERY --}}
-                            <div class="form-group mt-3">
-                                <label>Delivery Timeline</label>
-                                <input type="text" name="delivery_time" value="{{ $product->delivery_time }}"
-                                    class="form-control">
-                            </div>
+<input type="number" name="min_qty" value="{{ $product->min_qty }}" class="form-control mb-2" placeholder="Min Qty">
 
-                            <div class="mt-3">
-                                <label class="d-flex align-items-center"><input type="checkbox" name="quality"
-                                        class="mr-2" {{ $product->quality ? 'checked' : '' }}> Quality Assurance</label>
-                                <label class="d-flex align-items-center"><input type="checkbox" name="pan_india"
-                                        class="mr-2" {{ $product->pan_india ? 'checked' : '' }}> PAN India
-                                    Delivery</label>
-                            </div>
+<input type="text" name="delivery_time" value="{{ $product->delivery_time }}" class="form-control" placeholder="Delivery Time">
 
-                            {{-- PRICE --}}
-                            <div class="row mt-3">
-                                <div class="col-md-4">
-                                    <label>MRP</label>
-                                    <input type="number" id="mrp" name="mrp" value="{{ $product->mrp }}"
-                                        class="form-control ">
-                                </div>
+<div class="mt-2">
+<label><input type="checkbox" name="quality" {{ $product->quality ? 'checked' : '' }}> Quality</label>
+<label><input type="checkbox" name="pan_india" {{ $product->pan_india ? 'checked' : '' }}> PAN India</label>
+</div>
 
-                                <div class="col-md-4">
-                                    <label>Discount Type</label>
-                                    <select id="discount_type" class="form-control">
-                                        <option value="amount" {{ $product->discount_type == 'amount' ? 'selected' : '' }}>Amount</option>
-                                        <option value="percentage" {{ $product->discount_type == 'percentage' ? 'selected' : '' }}>%</option>
-                                    </select>
-                                </div>
+</div>
 
-                                <div class="col-md-4">
-                                    <label>Discount</label>
-                                    <input type="number" id="discount" name="discount" value="{{ $product->discount }}"
-                                        class="form-control">
-                                </div>
-                            </div>
+{{-- PRICING --}}
+<div class="card p-3 mb-3">
+<h5><b>Pricing</b></h5>
 
-                            <div class="form-group mt-3">
-                                <label>Offered Price</label>
-                                <input type="text" id="price" name="price" value="{{ $product->price }}"
-                                    class="form-control">
-                            </div>
+<div class="row">
+<div class="col-md-4">
+<input type="number" name="mrp" id="mrp" value="{{ $product->mrp }}" class="form-control" placeholder="MRP">
+</div>
 
-                            {{-- CUSTOMIZATION --}}
-                            <div class="form-group mt-3">
-                                <label>Customization</label>
+<div class="col-md-4">
+<select name="discount_type" id="discount_type" class="form-control">
+<option value="amount" {{ $product->discount_type == 'amount' ? 'selected' : '' }}>Amount</option>
+<option value="percentage" {{ $product->discount_type == 'percentage' ? 'selected' : '' }}>%</option>
+</select>
+</div>
 
-                                <select name="customizations[]" multiple class="form-control">
-                                    @foreach($customizations as $c)
-                                        <option value="{{ $c->id }}" {{ in_array($c->id, $product->customizations->pluck('id')->toArray()) ? 'selected' : '' }}>
-                                            {{ $c->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
+<div class="col-md-4">
+<input type="number" name="discount" id="discount" value="{{ $product->discount }}" class="form-control" placeholder="Discount">
+</div>
+</div>
 
-                            {{-- FLAGS --}}
-                            <div class="mt-3">
-                                <label class="d-flex align-items-center"><input type="checkbox" name="featured"
-                                        class="mr-2" {{ $product->featured ? 'checked' : '' }}>
-                                    Featured</label>
-                                <label class="d-flex align-items-center" class="d-flex align-items-center"><input
-                                        type="checkbox" name="new_arrival" class="mr-2" {{ $product->new_arrival ? 'checked' : '' }}> New Arrival</label>
-                                <label class="d-flex align-items-center"><input type="checkbox" name="sale" class="mr-2"
-                                        {{ $product->sale ? 'checked' : '' }}> For Sale</label>
-                            </div>
+<input type="text" name="price" id="price" value="{{ $product->price }}" class="form-control mt-2" readonly>
 
-                            {{-- INCLUSIONS --}}
-                            <div class="form-group mt-3">
-                                <label>Inclusions</label>
-                                <div id="incWrap">
-                                    @foreach($product->inclusions as $inc)
-                                        <input type="text" name="inclusions[]" value="{{ $inc->title }}"
-                                            class="form-control mb-2">
-                                    @endforeach
-                                </div>
-                                <button type="button" onclick="addInc()" class="btn btn-sm btn-primary">Add
-                                    More</button>
-                            </div>
+</div>
 
-                            <div class="form-group mt-3">
-                                <label>Details</label>
-                                <textarea name="details" id="details"
-                                    class="form-control">{{ $product->details }}</textarea>
-                            </div>
+{{-- FLAGS --}}
+<div class="card p-3 mb-3">
+<h5><b>Flags</b></h5>
 
-                            {{-- DELIVERY & RETURNS --}}
-                            <div class="form-group mt-3">
-                                <label>Delivery & Returns</label>
-                                <textarea name="delivery_returns" id="delivery_returns"
-                                    class="form-control">{{ $product->delivery_returns }}</textarea>
-                            </div>
+<label><input type="checkbox" name="featured" {{ $product->featured ? 'checked' : '' }}> Featured</label>
+<label><input type="checkbox" name="new_arrival" {{ $product->new_arrival ? 'checked' : '' }}> New</label>
+<label><input type="checkbox" name="sale" {{ $product->sale ? 'checked' : '' }}> Sale</label>
+<label><input type="checkbox" name="best_seller" {{ $product->best_seller ? 'checked' : '' }}> Best Seller</label>
 
-                        </div>
+<label><input type="checkbox" name="ready_to_ship" {{ $product->ready_to_ship ? 'checked' : '' }}> Ready to Ship</label>
+<label><input type="checkbox" name="bulk_available" {{ $product->bulk_available ? 'checked' : '' }}> Bulk</label>
+<label><input type="checkbox" name="gift_hamper" {{ $product->gift_hamper ? 'checked' : '' }}> Gift Hamper</label>
 
-                        <!-- RIGHT -->
-                        <div class="col-md-4">
+</div>
 
-                            {{-- OCCASIONS --}}
-                            <div class="form-group mt-3">
-                                <label>Occasions</label>
-                                <div class="border p-3" style="max-height:200px;overflow:auto;">
-                                    @foreach($occasions as $o)
-                                        <label class="d-flex align-items-center">
-                                            <input type="checkbox" class="mr-2" name="occasions[]" value="{{ $o->id }}" {{ in_array($o->id, $product->occasions->pluck('id')->toArray()) ? 'checked' : '' }}>
-                                            {{ $o->title }}
-                                        </label>
-                                    @endforeach
-                                </div>
-                            </div>
+{{-- CUSTOMIZATION --}}
+<div class="card p-3 mb-3">
+<h5><b>Customization</b></h5>
 
-                            {{-- META --}}
-                            <div class="form-group mt-3">
-                                <label>Meta Title</label>
-                                <input type="text" name="meta_title" value="{{ $product->meta_title }}"
-                                    class="form-control mt-3">
-                            </div>
+<div class="row">
+@foreach($customizations as $c)
+<div class="col-md-6">
+<label>
+<input type="checkbox" name="customizations[]" value="{{ $c->id }}"
+{{ in_array($c->id, $product->customizations->pluck('id')->toArray()) ? 'checked' : '' }}>
+{{ $c->name }}
+</label>
+</div>
+@endforeach
+</div>
 
-                            <div class="form-group mt-3">
-                                <label>Meta Description</label>
-                                <textarea name="meta_description"
-                                    class="form-control mt-3">{{ $product->meta_description }}</textarea>
-                            </div>
+</div>
 
-                            {{-- BUTTONS --}}
-                            <div class="mt-3">
-                                <label class="d-flex align-items-center">
-                                    <input type="checkbox" name="cart" class="mr-2" {{ $product->cart ? 'checked' : '' }}>
-                                    Add to Cart
-                                </label>
-                                <label class="d-flex align-items-center">
-                                    <input type="checkbox" name="whatsapp" class="mr-2" {{ $product->whatsapp ? 'checked' : '' }}>
-                                    WhatsApp
-                                </label>
-                                <label class="d-flex align-items-center">
-                                    <input type="checkbox" name="call" class="mr-2" {{ $product->call ? 'checked' : '' }}>
-                                    Call Now
-                                </label>
-                            </div>
+{{-- INCLUSIONS --}}
+<div class="card p-3 mb-3">
+<h5><b>Inclusions</b></h5>
 
-                            <div class="form-group mt-3">
-                                <label>Status</label>
-                                <select name="status" class="form-control">
-                                    <option value="1" {{ $product->status ? 'selected' : '' }}>Active</option>
-                                    <option value="0" {{ !$product->status ? 'selected' : '' }}>Inactive</option>
-                                </select>
-                            </div>
+<div id="incWrap">
+@foreach($product->inclusions as $inc)
+<input type="text" name="inclusions[]" value="{{ $inc->title }}" class="form-control mb-2">
+@endforeach
+</div>
 
-                        </div>
+<button type="button" onclick="addInc()" class="btn btn-sm btn-primary">Add More</button>
+</div>
 
-                    </div>
+{{-- DETAILS --}}
+<div class="card p-3 mb-3">
+<textarea name="details" id="details" class="form-control">{{ $product->details }}</textarea>
+<textarea name="delivery_returns" id="delivery_returns" class="form-control mt-2">{{ $product->delivery_returns }}</textarea>
+</div>
 
-                    <button class="btn btn-success mt-3">Update Product</button>
+</div>
 
-                </form>
+<!-- RIGHT -->
+<div class="col-md-4">
 
-            </div>
-        </div>
+<div class="card p-3 mb-3">
+<h5>Occasions</h5>
+@foreach($occasions as $o)
+<label>
+<input type="checkbox" name="occasions[]" value="{{ $o->id }}"
+{{ in_array($o->id, $product->occasions->pluck('id')->toArray()) ? 'checked' : '' }}>
+{{ $o->title }}
+</label><br>
+@endforeach
+</div>
 
-    </div>
+<div class="card p-3 mb-3">
+<input type="text" name="meta_title" value="{{ $product->meta_title }}" class="form-control mb-2" placeholder="Meta Title">
+<textarea name="meta_description" class="form-control">{{ $product->meta_description }}</textarea>
+</div>
+
+<div class="card p-3 mb-3">
+<label><input type="checkbox" name="cart" {{ $product->cart ? 'checked' : '' }}> Cart</label>
+<label><input type="checkbox" name="whatsapp" {{ $product->whatsapp ? 'checked' : '' }}> WhatsApp</label>
+<label><input type="checkbox" name="call" {{ $product->call ? 'checked' : '' }}> Call</label>
+</div>
+
+<select name="status" class="form-control">
+<option value="1" {{ $product->status ? 'selected' : '' }}>Active</option>
+<option value="0" {{ !$product->status ? 'selected' : '' }}>Inactive</option>
+</select>
+
+</div>
+
+</div>
+
+<button class="btn btn-success mt-3">Update Product</button>
+
+</form>
+</div>
+</div>
+
+</div>
 </div>
 
 @include('admin.footer')
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+
 <script>
+CKEDITOR.replace('details');
+CKEDITOR.replace('delivery_returns');
 
-    CKEDITOR.config.versionCheck = false;
-    CKEDITOR.replace('details');
-    CKEDITOR.replace('delivery_returns');
+$('#mrp,#discount,#discount_type').on('keyup change', function () {
+let m = +$('#mrp').val() || 0;
+let d = +$('#discount').val() || 0;
+let t = $('#discount_type').val();
+let p = t == 'percentage' ? m - (m * d / 100) : m - d;
+if(p < 0) p = 0;
+$('#price').val(p.toFixed(2));
+});
 
-    $('#name').keyup(function () {
-        $('#slug').val($(this).val().toLowerCase().replace(/ /g, '-'));
-    });
-
-    $('#mrp,#discount,#discount_type').on('keyup change', function () {
-        let m = +$('#mrp').val() || 0;
-        let d = +$('#discount').val() || 0;
-        let t = $('#discount_type').val();
-        let p = t == 'percentage' ? m - (m * d / 100) : m - d;
-        $('#price').val(p);
-    });
-
-    function addInc() {
-        $('#incWrap').append('<input type="text" name="inclusions[]" class="form-control mb-2">');
-    }
-
-    $('.category-checkbox').on('change', function () {
-        let id = $(this).data('id');
-        if ($(this).is(':checked')) {
-            $('#subcat_' + id).slideDown();
-        } else {
-            $('#subcat_' + id).slideUp();
-            $('#subcat_' + id).find('input').prop('checked', false);
-        }
-    });
+function addInc(){
+$('#incWrap').append('<input type="text" name="inclusions[]" class="form-control mb-2">');
+}
 </script>

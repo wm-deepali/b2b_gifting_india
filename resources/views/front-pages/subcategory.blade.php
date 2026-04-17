@@ -40,7 +40,7 @@
 
                             <div
                                 class="absolute top-4 right-4 bg-white text-[#f4a261] text-xs font-bold px-4 py-1.5 rounded-2xl shadow">
-                                {{ $sub->products_count + $sub->subcategory_products_count }} Products
+                                {{ $sub->subcategory_products_count }} Products
                             </div>
                         </div>
 
@@ -59,6 +59,9 @@
 
             </div>
 
+            <div class="mt-10 flex justify-center">
+                {{ $subcategories->links() }}
+            </div>
         </div>
     </section>
 

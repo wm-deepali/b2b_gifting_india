@@ -19,16 +19,20 @@ class Category extends Model
         'meta_description',
         'image',
 
-        // ✅ existing
         'is_popular',
         'status',
 
-        // ✅ ADDED (missing fields)
         'added_by',
         'is_featured',
         'show_on_website',
         'is_sub_category',
     ];
+
+    /*
+    |--------------------------------------------------------------------------
+    | RELATIONS
+    |--------------------------------------------------------------------------
+    */
 
     // Parent
     public function parent()
@@ -39,7 +43,8 @@ class Category extends Model
     // Children
     public function children()
     {
-        return $this->hasMany(Category::class, 'parent_id');
+        return $this->hasMany(Category::class, 'parent_id')
+            ->whereNull('deleted_at'); // ✅ ignore soft deleted
     }
 
     // PRODUCTS (CATEGORY)
@@ -52,5 +57,71 @@ class Category extends Model
     public function subcategoryProducts()
     {
         return $this->belongsToMany(Product::class, 'product_subcategories', 'subcategory_id', 'product_id');
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | SCOPES (🔥 VERY USEFUL)
+    |--------------------------------------------------------------------------
+    */
+
+    // Only active
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
+
+    // Only parent categories
+    public function scopeParents($query)
+    {
+        return $query->whereNull('parent_id');
+    }
+
+    // Only subcategories
+    public function scopeSubCategories($query)
+    {
+        return $query->whereNotNull('parent_id');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | ACCESSORS (CLEAN UI)
+    |--------------------------------------------------------------------------
+    */
+
+    public function getIsParentAttribute()
+    {
+        return is_null($this->parent_id);
+    }
+
+    public function getIsChildAttribute()
+    {
+        return !is_null($this->parent_id);
+    }
+
+    public function getUniqueProductsCountAttribute()
+    {
+        // Only include active children
+        $subcategoryIds = $this->children()
+            ->where('status', 1)
+            ->pluck('id')
+            ->toArray();
+
+        return \App\Models\Product::where(function ($q) use ($subcategoryIds) {
+
+            // ✅ Products linked to ACTIVE category
+            $q->whereHas('categories', function ($q2) {
+                $q2->where('categories.id', $this->id)
+                    ->where('categories.status', 1);
+            })
+
+                // ✅ Products linked to ACTIVE subcategories
+                ->orWhereHas('subcategories', function ($q3) use ($subcategoryIds) {
+                    $q3->whereIn('categories.id', $subcategoryIds)
+                        ->where('categories.status', 1);
+                });
+
+        })->distinct()->count();
     }
 }

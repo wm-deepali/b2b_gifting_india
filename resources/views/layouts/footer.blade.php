@@ -1,3 +1,44 @@
+<!-- ðŸ“± Mobile Bottom Menu -->
+<div class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 shadow-md md:hidden z-[999]">
+
+
+  <div class="grid grid-cols-5 text-center text-xs">
+
+    <!-- Home -->
+    <a href="{{ route('home') }}" class="flex flex-col items-center justify-center py-2 text-gray-600 hover:text-[#f4a261]">
+      <i class="fa-solid fa-house text-lg mb-1"></i>
+      <span>Home</span>
+    </a>
+
+    <!-- New Arrivals -->
+    <a href="{{ route('products', ['new_arrival' => 1]) }}" class="flex flex-col items-center justify-center py-2 text-gray-600 hover:text-[#f4a261]">
+      <i class="fa-solid fa-bolt text-lg mb-1"></i>
+      <span>New</span>
+    </a>
+
+    <!-- Categories -->
+    <a href="{{ route('category') }}" class="flex flex-col items-center justify-center py-2 text-gray-600 hover:text-[#f4a261]">
+      <!--<i class="fa-solid fa-grid text-lg mb-1"></i>-->
+      <i class="fa-solid fa-table-cells-large text-lg mb-1"></i>
+      <span>Categories</span>
+    </a>
+
+    <!-- Bulk Enquiry -->
+    <a href="{{ route('vendors') }}" class="flex flex-col items-center justify-center py-2 text-gray-600 hover:text-[#f4a261]">
+      <i class="fa-solid fa-box text-lg mb-1"></i>
+      <span>Enquiry</span>
+    </a>
+
+    <!-- Contact -->
+    <a href="{{ route('contact-us') }}" class="flex flex-col items-center justify-center py-2 text-gray-600 hover:text-[#f4a261]">
+      <i class="fa-solid fa-phone text-lg mb-1"></i>
+      <span>Contact</span>
+    </a>
+
+  </div>
+</div>
+
+
 <!-- FOOTER - E-commerce style for Corporate Gifting Website -->
 <footer class="bg-[#1a1a1a] text-gray-300">
   <!-- Main Footer Content -->
@@ -32,6 +73,7 @@
           @php
             $categories = \App\Models\Category::orderBy('name')
               ->whereNull('parent_id')
+              ->where('show_on_website',1)
               ->where('status', 1)
               ->get();
           @endphp
@@ -50,10 +92,10 @@
       <div>
         <h4 class="text-white font-semibold text-lg mb-5">Company</h4>
         <ul class="space-y-3 text-sm">
-          <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Why Choose Us</a></li>
+          <li><a href="{{ route('about-us') }}" class="hover:text-white transition-colors">About Us</a></li>
+          <li><a href="{{ route('why-us') }}" class="hover:text-white transition-colors">Why Choose Us</a></li>
           <li><a href="{{ route('contact-us') }}" class="hover:text-white transition-colors">Contact Us</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Awards & Recognition</a></li>
+          <li><a href="{{ route('awards') }}" class="hover:text-white transition-colors">Awards & Recognition</a></li>
           <li><a href="{{ route('blogs') }}" class="hover:text-white transition-colors">Blogs</a></li>
           <li><a href="#" class="hover:text-white transition-colors">Recycling Pledge</a></li>
           <li><a href="#" class="hover:text-white transition-colors">Engraving Gallery</a></li>
@@ -67,11 +109,14 @@
       <div>
         <h4 class="text-white font-semibold text-lg mb-5">Legal & Policies</h4>
         <ul class="space-y-3 text-sm">
-          <li><a href="#" class="hover:text-white transition-colors">Terms & Conditions</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Refunds & Cancellations</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Shipping & Delivery</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Cookies Policy</a></li>
+        @foreach($footerPages as $page)
+            <li>
+              <a href="{{ route('dynamic.page', \Illuminate\Support\Str::slug($page->page_name)) }}"
+                class="hover:text-white transition-colors">
+                {{ $page->page_name }}
+              </a>
+            </li>
+          @endforeach
         </ul>
       </div>
 
@@ -81,10 +126,10 @@
         <ul class="space-y-3 text-sm">
           <li><a href="{{ route('category') }}" class="hover:text-white transition-colors">Browse All Categories</a>
           </li>
-          <li><a href="#" class="hover:text-white transition-colors">New Arrivals</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">B2B Club Membership</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Partner / Vendor Inquiry</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Bulk Order Inquiry</a></li>
+          <li><a href="{{ route('products', ['new_arrival' => 1]) }}" class="hover:text-white transition-colors">New Arrivals</a></li>
+          <li><a href="{{ route('membership') }}" class="hover:text-white transition-colors">B2B Club Membership</a></li>
+          <li><a href="{{ route('vendors') }}" class="hover:text-white transition-colors">Partner / Vendor Inquiry</a></li>
+          <li><a href="{{ route('bulk-order') }}" class="hover:text-white transition-colors">Bulk Order Inquiry</a></li>
           <li><a href="{{ route('faqs') }}" class="hover:text-white transition-colors">FAQ</a></li>
         </ul>
       </div>
@@ -110,7 +155,7 @@
 
   <!-- Copyright -->
   <div class="bg-[#111] py-6 text-center text-sm text-gray-500">
-    <p>© 2026 B2B Gifts India. All Rights Reserved.</p>
+    <p>Â© 2026 B2B Gifts India. All Rights Reserved.</p>
   </div>
 </footer>
 
@@ -123,38 +168,3 @@
 </a>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-  /* Disable Right Click */
-  document.addEventListener('contextmenu', function (e) {
-    e.preventDefault();
-  });
-
-  /* Disable Inspect Shortcuts */
-  document.addEventListener('keydown', function (e) {
-
-    // F12
-    if (e.key === 'F12') {
-      e.preventDefault();
-    }
-
-    // Ctrl+Shift+I
-    if (e.ctrlKey && e.shiftKey && e.key === 'I') {
-      e.preventDefault();
-    }
-
-    // Ctrl+Shift+J
-    if (e.ctrlKey && e.shiftKey && e.key === 'J') {
-      e.preventDefault();
-    }
-
-    // Ctrl+U
-    if (e.ctrlKey && e.key === 'u') {
-      e.preventDefault();
-    }
-
-    // Ctrl+Shift+C
-    if (e.ctrlKey && e.shiftKey && e.key === 'C') {
-      e.preventDefault();
-    }
-  });
-</script>

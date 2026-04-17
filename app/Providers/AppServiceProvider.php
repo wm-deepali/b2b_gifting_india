@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Cart;
 use Illuminate\Support\Facades\View;
+use App\Models\DynamicPage;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,5 +35,14 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with('globalCartCount', $count);
         });
+
+
+        View::composer('*', function ($view) {
+
+            $pages = DynamicPage::where('status', 1)->get();
+
+            $view->with('footerPages', $pages);
+        });
+
     }
 }

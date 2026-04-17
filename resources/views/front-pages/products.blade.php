@@ -97,6 +97,18 @@
     </div>
 </div>
 
+<div class="mb-8">
+    <h4 class="font-medium mb-3">Brand</h4>
+
+    @foreach($brands as $brand)
+        <label class="flex items-center gap-2 mb-2">
+            <input type="checkbox" name="brand[]" value="{{ $brand->id }}"
+                {{ in_array($brand->id, request('brand', [])) ? 'checked' : '' }}>
+            {{ $brand->name }}
+        </label>
+    @endforeach
+</div>
+
                         <!-- Delivery -->
                         <div class="mb-8">
                             <h4 class="font-medium mb-3">Delivery</h4>
@@ -105,7 +117,8 @@
                                 Pan India Delivery
                             </label>
                             <label class="flex items-center gap-2">
-                                <input type="checkbox" class="accent-[#f4a261]"> Ready to Ship
+                                <input type="checkbox" name="ready_to_ship" value="1"
+    {{ request('ready_to_ship') ? 'checked' : '' }}>Ready to Ship
                             </label>
                         </div>
 
@@ -120,6 +133,25 @@
                                 <input type="checkbox" class="accent-[#f4a261]" name="featured" value="1" {{ request('featured') ? 'checked' : '' }}>
                                 Featured Products
                             </label>
+                            <label class="flex items-center gap-2 mb-2">
+    <input type="checkbox" name="best_seller" value="1" {{ request('best_seller') ? 'checked' : '' }}>
+    Best Seller
+</label>
+
+<label class="flex items-center gap-2 mb-2">
+    <input type="checkbox" name="sale" value="1" {{ request('sale') ? 'checked' : '' }}>
+    On Sale
+</label>
+
+<label class="flex items-center gap-2 mb-2">
+    <input type="checkbox" name="is_premium" value="1" {{ request('is_premium') ? 'checked' : '' }}>
+    Premium
+</label>
+
+<label class="flex items-center gap-2">
+    <input type="checkbox" name="gift_hamper" value="1" {{ request('gift_hamper') ? 'checked' : '' }}>
+    Gift Hampers
+</label>
                         </div>
 
                         <button type="submit"
@@ -187,19 +219,21 @@
                                     {{ $product->sub_title }}
                                 </p>
 
-                                <div class="mt-4 flex items-baseline justify-between">
-                                    <div>
-                                        <span class="text-3xl font-bold text-gray-800">
-                                            ₹{{ $product->price }}
-                                        </span>
+                              @if((float)$product->price > 0)
+    <div class="mt-4 flex items-baseline justify-between">
+        <div>
+            <span class="text-3xl font-bold text-gray-800">
+                ₹{{ $product->price }}
+            </span>
 
-                                        @if($product->mrp && $product->mrp > $product->price)
-                                            <span class="text-sm text-gray-400 line-through ml-2">
-                                                ₹{{ $product->mrp }}
-                                            </span>
-                                        @endif
-                                    </div>
-                                </div>
+            @if($product->mrp && $product->mrp > $product->price)
+                <span class="text-sm text-gray-400 line-through ml-2">
+                    ₹{{ $product->mrp }}
+                </span>
+            @endif
+        </div>
+    </div>
+@endif
 
                                 <div class="mt-6 flex gap-3">
                                     <a href="{{ route('product.detail', $product->slug) }}"

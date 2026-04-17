@@ -5,7 +5,7 @@
 
     <div class="app-content content container-fluid">
 
-        <div class="card">
+        <div class="card shadow-sm">
             <div class="card-header"><b>Add Product</b></div>
 
             <div class="card-body">
@@ -14,222 +14,239 @@
 
                     <div class="row">
 
-                        <!-- LEFT SIDE -->
+                        <!-- LEFT -->
                         <div class="col-md-8">
 
-                            {{-- CATEGORY + SUBCATEGORY COMBINED --}}
-                            <div class="form-group">
-                                <label>Select Category & Sub Categories *</label>
+                            {{-- CATEGORY --}}
+                            <div class="card p-3 mb-3">
+                                <h5><b>Category</b></h5>
 
-                                <div class="border p-3" style="max-height:300px;overflow:auto;">
-
+                                <div style="max-height:300px;overflow:auto;">
                                     @foreach($categories as $cat)
                                         <div class="mb-2">
 
-                                            {{-- CATEGORY --}}
-                                            <label class="d-flex align-items-center">
-                                                <input type="checkbox" class="mr-2 category-checkbox"
-                                                    data-id="{{ $cat->id }}" name="categories[]" value="{{ $cat->id }}">
-                                                <span><strong>{{ $cat->name }}</strong></span>
+                                            <label>
+                                                <input type="checkbox" class="category-checkbox" data-id="{{ $cat->id }}"
+                                                    name="categories[]" value="{{ $cat->id }}">
+                                                <strong>{{ $cat->name }}</strong>
                                             </label>
-                                            {{-- SUBCATEGORY (HIDDEN INITIALLY) --}}
-                                            <div class="ml-4 mt-2 subcategory-box" id="subcat_{{ $cat->id }}"
-                                                style="display:none;">
 
+                                            <div class="ml-4 subcategory-box" id="subcat_{{ $cat->id }}"
+                                                style="display:none;">
                                                 @foreach($cat->children as $sub)
-                                                    <label class="d-flex align-items-center">
-                                                        <input type="checkbox" class="mr-2" name="sub_categories[]"
-                                                            value="{{ $sub->id }}">
+                                                    <label>
+                                                        <input type="checkbox" name="sub_categories[]" value="{{ $sub->id }}">
                                                         {{ $sub->name }}
                                                     </label>
                                                 @endforeach
-
                                             </div>
 
                                         </div>
                                     @endforeach
-
                                 </div>
                             </div>
 
-                            {{-- PRODUCT --}}
-                            <div class="form-group mt-3">
-                                <label>Product Name *</label>
+                            {{-- BASIC --}}
+                            <div class="card p-3 mb-3">
+                                <h5><b>Basic Info</b></h5>
+
+                                <label>Name *</label>
                                 <input type="text" name="name" id="name" class="form-control">
-                            </div>
 
-                            <div class="form-group mt-3">
-                                <label>Slug</label>
+                                <label class="mt-2">Slug</label>
                                 <input type="text" name="slug" id="slug" class="form-control">
-                            </div>
 
-                            {{-- PRODUCT IMAGE --}}
-                            <div class="form-group mt-3">
-                                <label>Product Image</label>
-
-                                <input type="file" name="image" class="form-control">
-                            </div>
-
-                            <div class="form-group mt-3">
-                                <label>Sub Title</label>
-                                <input type="text" name="sub_title" class="form-control">
-                            </div>
-
-                            <div class="form-group mt-3">
-                                <label>Product Summary</label>
-                                <textarea name="summary" class="form-control"></textarea>
-                            </div>
-
-                            {{-- SKU + MIN QTY --}}
-                            <div class="row mt-3">
-                                <div class="col-md-6">
-                                    <label>SKU ID</label>
-                                    <input type="text" name="sku" class="form-control">
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label>Minimum Order Qty</label>
-                                    <input type="number" name="min_qty" class="form-control">
-                                </div>
-                            </div>
-
-                            {{-- DELIVERY --}}
-                            <div class="form-group mt-3">
-                                <label>Delivery Timeline</label>
-                                <input type="text" name="delivery_time" class="form-control">
-                            </div>
-
-                            {{-- CHECKBOXES --}}
-                            <div class="mt-3">
-                                <label class="d-flex align-items-center"><input type="checkbox" name="quality"
-                                        class="mr-2"> Quality Assurance</label>
-                                <label class="d-flex align-items-center"><input type="checkbox" name="pan_india"
-                                        class="mr-2"> PAN India Delivery</label>
-                            </div>
-
-                            {{-- PRICE --}}
-                            <div class="row mt-3">
-                                <div class="col-md-4">
-                                    <label>MRP</label>
-                                    <input type="number" id="mrp" class="form-control">
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label>Discount Type</label>
-                                    <select id="discount_type" class="form-control">
-                                        <option value="amount">Amount</option>
-                                        <option value="percentage">%</option>
-                                    </select>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label>Discount</label>
-                                    <input type="number" id="discount" class="form-control">
-                                </div>
-                            </div>
-
-                            <div class="form-group mt-3">
-                                <label>Offered Price</label>
-                                <input type="text" id="price" name="price" readonly class="form-control">
-                            </div>
-
-                            {{-- CUSTOMIZATION --}}
-                            <div class="form-group mt-3">
-                                <label>Customization</label>
-
-                                <select name="customizations[]" class="form-control" multiple>
-                                    @foreach($customizations as $c)
-                                        <option value="{{ $c->id }}">
-                                            {{ $c->name }}
-                                        </option>
+                                <label class="mt-2">Brand</label>
+                                <select name="brand_id" class="form-control">
+                                    <option value="">Select Brand</option>
+                                    @foreach($brands as $brand)
+                                        @if($brand->status)
+                                            <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
 
-                                <small class="text-muted">You can select multiple customization options</small>
+                                <label class="mt-2">Image</label>
+                                <input type="file" name="image" class="form-control">
+
+                                <label class="mt-2">Sub Title</label>
+                                <input type="text" name="sub_title" class="form-control">
+
+                                <label class="mt-2">Summary</label>
+                                <textarea name="summary" class="form-control"></textarea>
+                            </div>
+
+                            {{-- SKU --}}
+                            <div class="card p-3 mb-3">
+                                <h5><b>Inventory</b></h5>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>SKU</label>
+                                        <input type="text" name="sku" class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label>Min Qty</label>
+                                        <input type="number" name="min_qty" class="form-control">
+                                    </div>
+                                </div>
+
+                                <label class="mt-2">Delivery Time</label>
+                                <input type="text" name="delivery_time" class="form-control">
+
+                                <div class="mt-2">
+                                    <label><input type="checkbox" name="quality"> Quality Assurance</label><br>
+                                    <label><input type="checkbox" name="pan_india"> PAN India Delivery</label>
+                                </div>
+                            </div>
+
+                            {{-- PRICING --}}
+                            <div class="card p-3 mb-3">
+                                <h5><b>Pricing</b></h5>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>MRP</label>
+                                        <input type="number" name="mrp" id="mrp" class="form-control">
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label>Discount Type</label>
+                                        <select name="discount_type" id="discount_type" class="form-control">
+                                            <option value="amount">Amount</option>
+                                            <option value="percentage">%</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label>Discount</label>
+                                        <input type="number" name="discount" id="discount" class="form-control">
+                                    </div>
+                                </div>
+
+                                <label class="mt-2">Final Price</label>
+                                <input type="text" name="price" id="price" readonly class="form-control">
                             </div>
 
                             {{-- FLAGS --}}
-                            <div class="mt-3">
-                                <label class="d-flex align-items-center"><input type="checkbox" name="featured"
-                                        class="mr-2">
-                                    Featured</label>
-                                <label class="d-flex align-items-center" class="d-flex align-items-center"><input
-                                        type="checkbox" name="new_arrival" class="mr-2"> New Arrival</label>
-                                <label class="d-flex align-items-center"><input type="checkbox" name="sale"
-                                        class="mr-2"> For Sale</label>
+                            <div class="card p-3 mb-3">
+                                <h5><b>Product Flags</b></h5>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label><input type="checkbox" name="featured"> Featured</label><br>
+                                        <label><input type="checkbox" name="new_arrival"> New Arrival</label><br>
+                                        <label><input type="checkbox" name="sale"> Sale</label><br>
+                                        <label><input type="checkbox" name="best_seller"> Best Seller</label>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label><input type="checkbox" name="ready_to_ship"> Ready to Ship</label><br>
+                                        <label><input type="checkbox" name="bulk_available"> Bulk Orders</label><br>
+                                        <label><input type="checkbox" name="gift_hamper"> Gift Hamper</label>
+                                    </div>
+                                </div>
+
+                                <div class="mt-2">
+                                    <label><input type="checkbox" name="is_premium"> Premium</label><br>
+                                    <label><input type="checkbox" name="is_engraving"> Engraving</label><br>
+                                    <label><input type="checkbox" name="show_on_website" checked> Show on
+                                        Website</label>
+                                </div>
+                            </div>
+
+                            {{-- CUSTOMIZATION --}}
+                            <div class="card p-3 mb-3">
+                                <h5><b>Customization</b></h5>
+
+                                <div class="row">
+                                    @foreach($customizations as $c)
+                                        <div class="col-md-6 mb-2">
+                                            <label class="border p-2 rounded w-100">
+                                                <input type="checkbox" name="customizations[]" value="{{ $c->id }}">
+                                                {{ $c->name }}
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
 
                             {{-- INCLUSIONS --}}
-                            <div class="form-group mt-3">
-                                <label>Inclusions</label>
+                            <div class="card p-3 mb-3">
+                                <h5><b>Inclusions</b></h5>
+
                                 <div id="incWrap">
                                     <input type="text" name="inclusions[]" class="form-control mb-2">
                                 </div>
+
                                 <button type="button" onclick="addInc()" class="btn btn-sm btn-primary">Add
                                     More</button>
                             </div>
 
                             {{-- DETAILS --}}
-                            <div class="form-group mt-3">
+                            <div class="card p-3 mb-3">
+                                <h5><b>Content</b></h5>
+
                                 <label>Details</label>
                                 <textarea name="details" id="details" class="form-control"></textarea>
-                            </div>
 
-                            {{-- DELIVERY & RETURNS --}}
-                            <div class="form-group mt-3">
-                                <label>Delivery & Returns</label>
+                                <label class="mt-2">Delivery & Returns</label>
                                 <textarea name="delivery_returns" id="delivery_returns" class="form-control"></textarea>
                             </div>
 
                         </div>
 
-                        <!-- RIGHT SIDE -->
+                        <!-- RIGHT -->
                         <div class="col-md-4">
 
-                            {{-- OCCASIONS (CHECKBOX STYLE) --}}
-                            <div class="form-group mt-3">
-                                <label>Occasions</label>
+                            {{-- OCCASIONS --}}
+                            <div class="card p-3 mb-3">
+                                <h5><b>Occasions</b></h5>
 
-                                <div class="border p-3" style="max-height:200px;overflow:auto;">
-
-                                    @foreach($occasions as $o)
-                                        <label class="d-flex align-items-center">
-                                            <input type="checkbox" class="mr-2" name="occasions[]" value="{{ $o->id }}">
-                                            {{ $o->title }}
-                                        </label>
-                                    @endforeach
-
-                                </div>
+                                @foreach($occasions as $o)
+                                    <label>
+                                        <input type="checkbox" name="occasions[]" value="{{ $o->id }}">
+                                        {{ $o->title }}
+                                    </label><br>
+                                @endforeach
                             </div>
 
-                            {{-- META --}}
-                            <div class="form-group mt-3">
+                            {{-- ADVANCED --}}
+                            <div class="card p-3 mb-3">
+                                <h5><b>Advanced</b></h5>
+
+                                <label>Product Code</label>
+                                <input type="text" name="product_code" class="form-control">
+
+                                <label class="mt-2">Sort Order</label>
+                                <input type="number" name="sort_order" class="form-control">
+
+                                <label class="mt-2">Added By</label>
+                                <input type="text" name="added_by" class="form-control">
+                            </div>
+
+                            {{-- SEO --}}
+                            <div class="card p-3 mb-3">
+                                <h5><b>SEO</b></h5>
+
                                 <label>Meta Title</label>
                                 <input type="text" name="meta_title" class="form-control">
-                            </div>
 
-                            <div class="form-group mt-3">
-                                <label>Meta Description</label>
+                                <label class="mt-2">Meta Description</label>
                                 <textarea name="meta_description" class="form-control"></textarea>
                             </div>
 
-                            {{-- BUTTON OPTIONS --}}
-                            <div class="mt-3">
-                                <label class="d-flex align-items-center">
-                                    <input type="checkbox" name="cart" class="mr-2" checked>
-                                    Add to Cart
-                                </label>
-                                <label class="d-flex align-items-center">
-                                    <input type="checkbox" name="whatsapp" class="mr-2">
-                                    WhatsApp
-                                </label>
-                                <label class="d-flex align-items-center">
-                                    <input type="checkbox" name="call" class="mr-2">
-                                    Call Now
-                                </label>
+                            {{-- BUTTONS --}}
+                            <div class="card p-3 mb-3">
+                                <h5><b>Actions</b></h5>
+
+                                <label><input type="checkbox" name="cart" checked> Add to Cart</label><br>
+                                <label><input type="checkbox" name="whatsapp"> WhatsApp</label><br>
+                                <label><input type="checkbox" name="call"> Call</label>
                             </div>
 
-                            <div class="form-group mt-3">
+                            <div class="card p-3">
                                 <label>Status</label>
                                 <select name="status" class="form-control">
                                     <option value="1">Active</option>
@@ -251,35 +268,33 @@
 </div>
 
 @include('admin.footer')
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
-<script>
 
-    CKEDITOR.config.versionCheck = false;
+<script>
     CKEDITOR.replace('details');
     CKEDITOR.replace('delivery_returns');
 
-    // slug
     $('#name').keyup(function () {
         $('#slug').val($(this).val().toLowerCase().replace(/ /g, '-'));
     });
 
-    // price calc
     $('#mrp,#discount,#discount_type').on('keyup change', function () {
         let m = +$('#mrp').val() || 0;
         let d = +$('#discount').val() || 0;
         let t = $('#discount_type').val();
 
         let p = t == 'percentage' ? m - (m * d / 100) : m - d;
-        $('#price').val(p);
+        if (p < 0) p = 0;
+
+        $('#price').val(p.toFixed(2));
     });
 
-    // inclusion add
     function addInc() {
         $('#incWrap').append('<input type="text" name="inclusions[]" class="form-control mb-2">');
     }
 
-    // show/hide subcategories
     $('.category-checkbox').on('change', function () {
         let id = $(this).data('id');
 
@@ -287,9 +302,7 @@
             $('#subcat_' + id).slideDown();
         } else {
             $('#subcat_' + id).slideUp();
-
-            // uncheck child checkboxes
-            $('#subcat_' + id).find('input[type=checkbox]').prop('checked', false);
+            $('#subcat_' + id).find('input').prop('checked', false);
         }
     });
 </script>

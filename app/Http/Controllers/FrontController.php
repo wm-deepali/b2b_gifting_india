@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Http;
 use App\Models\Enquiry;
 use App\Models\EnquiryItem;
 use App\Models\State;
+use App\Models\DynamicPage;
+use Illuminate\Support\Str;
 
 class FrontController extends Controller
 {
@@ -105,10 +107,11 @@ class FrontController extends Controller
 
     public function category(Request $request)
     {
-        $categories = Category::whereNull('parent_id') // main categories only
-            // ->where('status', 1)
-            ->withCount('products') // count products
-            ->get();
+        $categories = Category::whereNull('parent_id')
+            ->where('status', 1)
+            ->where('show_on_website', 1)
+            ->with('children') // 🔥 important
+            ->paginate(12);
 
         return view('front-pages.category', compact('categories'));
     }
@@ -122,9 +125,10 @@ class FrontController extends Controller
 
         // Subcategories with product count
         $subcategories = Category::where('parent_id', $category->id)
-            // ->where('status', 1)
+            ->where('show_on_website', 1)
+            ->where('status', 1)
             ->withCount(['products', 'subcategoryProducts'])
-            ->get();
+            ->paginate(12);
 
         // Total products count (optional)
         $totalProducts = $subcategories->sum(function ($sub) {
@@ -146,7 +150,9 @@ class FrontController extends Controller
         $parentCategory = null;
 
         if ($slug) {
-            $category = Category::where('slug', $slug)->first();
+            $category = Category::where('slug', $slug)
+                ->where('status', 1)
+                ->first();
 
             if ($category && $category->parent_id) {
                 $parentCategory = Category::find($category->parent_id);
@@ -159,14 +165,14 @@ class FrontController extends Controller
         $categories = Category::whereNull('parent_id')
             ->with([
                 'children' => function ($q) {
-                    $q->whereIN('status', [0, 1]);
+                    $q->where('status', 1);
                 }
             ])
-            ->whereIN('status', [0, 1])
+            ->where('status', 1)
             ->get();
 
         // Products
-        $products = Product::whereIN('status', [0, 1]);
+        $products = Product::where('status', 1)->where('show_on_website', 1);
 
         // ✅ CATEGORY + SUBCATEGORY FIX
         if ($category) {
@@ -204,6 +210,30 @@ class FrontController extends Controller
             $products->where('pan_india', 1);
         }
 
+        if ($request->ready_to_ship) {
+            $products->where('ready_to_ship', 1);
+        }
+
+        if ($request->best_seller) {
+            $products->where('best_seller', 1);
+        }
+
+        if ($request->sale) {
+            $products->where('sale', 1);
+        }
+
+        if ($request->is_premium) {
+            $products->where('is_premium', 1);
+        }
+
+        if ($request->gift_hamper) {
+            $products->where('gift_hamper', 1);
+        }
+
+        if ($request->brand) {
+            $products->whereIn('brand_id', $request->brand);
+        }
+
         // ✅ CUSTOMIZATION
         if ($request->customization) {
             $products->whereHas('customizations', function ($q) use ($request) {
@@ -221,6 +251,13 @@ class FrontController extends Controller
                 break;
             case 'new':
                 $products->latest();
+                break;
+            case 'popular':
+                $products->orderBy('best_seller', 'desc');
+                break;
+            case 'best':
+                $products->orderBy('sort_order', 'asc')
+                    ->orderBy('created_at', 'desc');
                 break;
             default:
                 $products->latest();
@@ -242,6 +279,7 @@ class FrontController extends Controller
         $customizations = Customization::where('status', 1)->get();
 
         $occasions = GiftingOccasion::where('status', 1)->get();
+        $brands = Brand::where('status', 1)->get();
 
         return view('front-pages.products', compact(
             'products',
@@ -249,42 +287,71 @@ class FrontController extends Controller
             'category',
             'parentCategory',
             'customizations',
-            'occasions'
+            'occasions',
+            'brands'
         ));
     }
 
     public function productDetail($slug)
     {
+        // ✅ MAIN PRODUCT (safe)
         $product = Product::with([
             'customizations',
             'categories',
-            'subcategories'
-        ])->where('slug', $slug)->firstOrFail();
+            'subcategories',
+            'inclusions',
+            'occasions'
+        ])
+            ->where('slug', $slug)
+            ->where('status', 1)
+            ->where('show_on_website', 1)
+            ->firstOrFail();
 
-        // Related products (same category or subcategory)
+
+        // ✅ CATEGORY IDS
+        $categoryIds = $product->categories->pluck('id')->toArray();
+        $subCategoryIds = $product->subcategories->pluck('id')->toArray();
+
+
+        // ✅ RELATED PRODUCTS
         $relatedProducts = Product::where('status', 1)
+            ->where('show_on_website', 1)
             ->where('id', '!=', $product->id)
-            ->where(function ($q) use ($product) {
-
-                $categoryIds = $product->categories->pluck('id')->toArray();
-                $subCategoryIds = $product->subcategories->pluck('id')->toArray();
+            ->where(function ($q) use ($categoryIds, $subCategoryIds) {
 
                 $q->whereHas('categories', function ($q2) use ($categoryIds) {
-                    $q2->whereIn('category_id', $categoryIds);
+                    $q2->whereIn('categories.id', $categoryIds);
                 })
+
                     ->orWhereHas('subcategories', function ($q3) use ($subCategoryIds) {
-                        $q3->whereIn('subcategory_id', $subCategoryIds);
+                        $q3->whereIn('categories.id', $subCategoryIds);
                     });
             })
+            ->latest()
             ->take(8)
             ->get();
 
+
+        // ✅ FALLBACK (if no related found)
+        if ($relatedProducts->isEmpty()) {
+            $relatedProducts = Product::where('status', 1)
+                ->where('show_on_website', 1)
+                ->where('id', '!=', $product->id)
+                ->latest()
+                ->take(8)
+                ->get();
+        }
+
+
+        // ✅ NEW ARRIVALS
         $newArrivals = Product::where('status', 1)
+            ->where('show_on_website', 1)
             ->where('id', '!=', $product->id)
             ->where('new_arrival', 1)
             ->latest()
             ->take(4)
             ->get();
+
 
         return view('front-pages.product-detail', compact(
             'product',
@@ -568,6 +635,22 @@ class FrontController extends Controller
         ]);
 
         return back()->with('success', 'Enquiry sent successfully!');
+    }
+
+     public function dynamicPage($slug)
+    {
+        // match slug with page_name
+        $page = DynamicPage::where('status', 1)
+            ->get()
+            ->first(function ($p) use ($slug) {
+                return Str::slug($p->page_name) === $slug;
+            });
+
+        if (!$page) {
+            abort(404);
+        }
+
+        return view('front-pages.dynamic-page', compact('page'));
     }
 
     public function whyUs(Request $request)

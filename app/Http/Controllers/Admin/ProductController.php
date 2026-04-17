@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\GiftingOccasion;
 use Illuminate\Http\Request;
 use App\Models\Product;
@@ -13,11 +14,6 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | INDEX
-    |--------------------------------------------------------------------------
-    */
     public function index(Request $request)
     {
         $query = Product::with('categories');
@@ -31,46 +27,36 @@ class ProductController extends Controller
         return view('admin.products.index', compact('products'));
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | CREATE
-    |--------------------------------------------------------------------------
-    */
     public function create()
     {
-        $categories = Category::whereNull('parent_id')->with('children')->get();
-        $occasions = GiftingOccasion::where('status', 1)->get();
-        $customizations = Customization::where('status', 1)->get();
+        return view('admin.products.create', [
+            'categories' => Category::whereNull('parent_id')
+                ->where('status', 1)
+                ->get(),
 
-        return view('admin.products.create', compact(
-            'categories',
-            'occasions',
-            'customizations'
-        ));
+            'occasions' => GiftingOccasion::where('status', 1)->get(),
+
+            'customizations' => Customization::where('status', 1)->get(),
+
+            'brands' => Brand::where('status', 1)->get(),
+        ]);
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | STORE
-    |--------------------------------------------------------------------------
-    */
     public function store(Request $request)
     {
-        // VALIDATION (basic)
         $request->validate([
             'name' => 'required|string|max:255',
         ]);
 
-        $image = null;
+        $image = $request->hasFile('image')
+            ? $request->file('image')->store('products', 'public')
+            : null;
 
-        if ($request->hasFile('image')) {
-            $image = $request->file('image')->store('products', 'public');
-        }
-
-        // CREATE PRODUCT
         $product = Product::create([
             'name' => $request->name,
             'slug' => $request->slug,
+            'brand_id' => $request->brand_id,
+
             'sub_title' => $request->sub_title,
             'summary' => $request->summary,
 
@@ -81,14 +67,24 @@ class ProductController extends Controller
             'quality' => $request->quality ? 1 : 0,
             'pan_india' => $request->pan_india ? 1 : 0,
 
-            'mrp' => $request->mrp,
-            'discount' => $request->discount,
+            'mrp' => $request->mrp ?? 0,
+            'discount' => $request->discount ?? 0,
             'discount_type' => $request->discount_type,
-            'price' => $request->price,
+            'price' => $request->price ?? 0,
 
+            // FLAGS
             'featured' => $request->featured ? 1 : 0,
             'new_arrival' => $request->new_arrival ? 1 : 0,
             'sale' => $request->sale ? 1 : 0,
+            'best_seller' => $request->best_seller ? 1 : 0,
+
+            'ready_to_ship' => $request->ready_to_ship ? 1 : 0,
+            'bulk_available' => $request->bulk_available ? 1 : 0,
+            'gift_hamper' => $request->gift_hamper ? 1 : 0,
+
+            'is_premium' => $request->is_premium ? 1 : 0,
+            'is_engraving' => $request->is_engraving ? 1 : 0,
+            'show_on_website' => $request->show_on_website ? 1 : 0,
 
             'details' => $request->details,
             'delivery_returns' => $request->delivery_returns,
@@ -104,29 +100,13 @@ class ProductController extends Controller
             'image' => $image,
         ]);
 
-        /*
-        |--------------------------------------------------------------------------
-        | RELATIONS
-        |--------------------------------------------------------------------------
-        */
-
-        // CATEGORY
+        // RELATIONS
         $product->categories()->sync($request->categories ?? []);
-
-        // SUBCATEGORY
         $product->subcategories()->sync($request->sub_categories ?? []);
-
-        // OCCASIONS
         $product->occasions()->sync($request->occasions ?? []);
-
-        // CUSTOMIZATIONS
         $product->customizations()->sync($request->customizations ?? []);
 
-        /*
-        |--------------------------------------------------------------------------
-        | INCLUSIONS (MULTIPLE)
-        |--------------------------------------------------------------------------
-        */
+        // INCLUSIONS
         if ($request->inclusions) {
             foreach ($request->inclusions as $inc) {
                 if (!empty($inc)) {
@@ -142,38 +122,27 @@ class ProductController extends Controller
             ->with('success', 'Product Created Successfully');
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | EDIT
-    |--------------------------------------------------------------------------
-    */
     public function edit($id)
     {
-        $product = Product::with([
-            'categories',
-            'subcategories',
-            'occasions',
-            'customizations',
-            'inclusions'
-        ])->findOrFail($id);
+        return view('admin.products.edit', [
+            'product' => Product::with([
+                'categories',
+                'subcategories',
+                'occasions',
+                'customizations',
+                'inclusions'
+            ])->findOrFail($id),
+            
+            'categories' => Category::whereNull('parent_id')
+                ->where('status', 1)
+                ->get(),
 
-        $categories = Category::with('children')->get();
-        $occasions = GiftingOccasion::all();
-        $customizations = Customization::where('status', 1)->get();
-
-        return view('admin.products.edit', compact(
-            'product',
-            'categories',
-            'occasions',
-            'customizations'
-        ));
+            'occasions' => GiftingOccasion::where('status', 1)->get(),
+            'customizations' => Customization::where('status', 1)->get(),
+            'brands' => Brand::where('status', 1)->get(),
+        ]);
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | UPDATE
-    |--------------------------------------------------------------------------
-    */
     public function update(Request $request, $id)
     {
         $product = Product::findOrFail($id);
@@ -181,20 +150,17 @@ class ProductController extends Controller
         $image = $product->image;
 
         if ($request->hasFile('image')) {
-
-            // delete old image
-            if ($product->image && Storage::disk('public')->exists($product->image)) {
-                Storage::disk('public')->delete($product->image);
+            if ($image && Storage::disk('public')->exists($image)) {
+                Storage::disk('public')->delete($image);
             }
-
-            // store new
             $image = $request->file('image')->store('products', 'public');
         }
 
-        // UPDATE PRODUCT
         $product->update([
             'name' => $request->name,
             'slug' => $request->slug,
+            'brand_id' => $request->brand_id,
+
             'sub_title' => $request->sub_title,
             'summary' => $request->summary,
 
@@ -205,14 +171,24 @@ class ProductController extends Controller
             'quality' => $request->quality ? 1 : 0,
             'pan_india' => $request->pan_india ? 1 : 0,
 
-            'mrp' => $request->mrp,
-            'discount' => $request->discount,
+            'mrp' => $request->mrp ?? 0,
+            'discount' => $request->discount ?? 0,
             'discount_type' => $request->discount_type,
-            'price' => $request->price,
+            'price' => $request->price ?? 0,
 
+            // FLAGS
             'featured' => $request->featured ? 1 : 0,
             'new_arrival' => $request->new_arrival ? 1 : 0,
             'sale' => $request->sale ? 1 : 0,
+            'best_seller' => $request->best_seller ? 1 : 0,
+
+            'ready_to_ship' => $request->ready_to_ship ? 1 : 0,
+            'bulk_available' => $request->bulk_available ? 1 : 0,
+            'gift_hamper' => $request->gift_hamper ? 1 : 0,
+
+            'is_premium' => $request->is_premium ? 1 : 0,
+            'is_engraving' => $request->is_engraving ? 1 : 0,
+            'show_on_website' => $request->show_on_website ? 1 : 0,
 
             'details' => $request->details,
             'delivery_returns' => $request->delivery_returns,
@@ -225,29 +201,18 @@ class ProductController extends Controller
             'call' => $request->call ? 1 : 0,
 
             'status' => $request->status ?? 1,
-            'image' => $image
-
+            'image' => $image,
         ]);
 
-        /*
-        |--------------------------------------------------------------------------
-        | RELATIONS SYNC
-        |--------------------------------------------------------------------------
-        */
+        // RELATIONS
         $product->categories()->sync($request->categories ?? []);
         $product->subcategories()->sync($request->sub_categories ?? []);
         $product->occasions()->sync($request->occasions ?? []);
         $product->customizations()->sync($request->customizations ?? []);
 
-        /*
-        |--------------------------------------------------------------------------
-        | INCLUSIONS UPDATE
-        |--------------------------------------------------------------------------
-        */
-        // delete old
+        // INCLUSIONS
         $product->inclusions()->delete();
 
-        // insert new
         if ($request->inclusions) {
             foreach ($request->inclusions as $inc) {
                 if (!empty($inc)) {
@@ -263,21 +228,14 @@ class ProductController extends Controller
             ->with('success', 'Product Updated Successfully');
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | DELETE
-    |--------------------------------------------------------------------------
-    */
     public function destroy($id)
     {
         $product = Product::findOrFail($id);
 
-        // delete image from storage
         if ($product->image && Storage::disk('public')->exists($product->image)) {
             Storage::disk('public')->delete($product->image);
         }
 
-        // delete product
         $product->delete();
 
         return response()->json([

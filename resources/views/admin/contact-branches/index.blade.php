@@ -117,7 +117,7 @@
 
                         {{-- PAGINATION --}}
                         <div class="mt-3">
-                            {{ $branches->links() }}
+                            {{ $branches->links('pagination::bootstrap-4') }}
                         </div>
 
                     </div>

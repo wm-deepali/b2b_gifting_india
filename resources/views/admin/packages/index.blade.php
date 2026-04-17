@@ -16,16 +16,19 @@
                     </li>
 
                     <li class="breadcrumb-item active">
-                        Gifting Occasions
+                        Manage Packages
                     </li>
 
                 </ol>
             </div>
 
+            {{-- ✅ Hide button if 3 packages exist --}}
             <div class="ml-auto mr-2">
-                <a href="{{ route('admin.gifting-occasions.create') }}" class="btn btn-primary">
-                    <i class="fa fa-plus"></i> Add Occasion
-                </a>
+                @if($packages->count() < 3)
+                    <a href="{{ route('admin.packages.create') }}" class="btn btn-primary">
+                        <i class="fa fa-plus"></i> Add Package
+                    </a>
+                @endif
             </div>
 
         </div>
@@ -40,51 +43,67 @@
                         <table class="table table-striped table-hover">
 
                             <thead class="thead-light">
+
                                 <tr>
                                     <th width="60">ID</th>
-                                    <th width="120">Image</th>
-                                    <th>Title</th>
-                                    <th width="120">Status</th>
+                                    <th>Name</th>
+                                    <th width="120">Cost</th>
+                                    <th width="150">Duration</th>
+                                    <th width="120">Popular</th>
+                                    <th width="150">Features</th>
                                     <th width="120">Action</th>
                                 </tr>
+
                             </thead>
 
                             <tbody>
 
-                                @forelse($occasions as $item)
+                                @forelse($packages as $pkg)
 
-                                    <tr id="row{{ $item->id }}">
+                                    <tr id="row{{ $pkg->id }}">
 
-                                        <td>{{ $item->id }}</td>
+                                        <td>{{ $pkg->id }}</td>
 
                                         <td>
-                                            @if($item->image)
-                                                <img src="{{ asset('storage/'.$item->image) }}" width="70">
-                                            @endif
+                                            <strong>{{ $pkg->name }}</strong>
+                                            <br>
+                                            <small class="text-muted">{{ $pkg->sub_title }}</small>
                                         </td>
 
-                                        <td>
-                                            <strong>{{ $item->title }}</strong>
-                                        </td>
+                                        <td>₹{{ $pkg->cost }}</td>
+
+                                        <td>{{ $pkg->duration }}</td>
 
                                         <td>
-                                            @if($item->status)
-                                                <span class="badge badge-primary">Active</span>
+                                            @if($pkg->is_popular)
+                                                <span class="badge badge-success">Popular</span>
                                             @else
-                                                <span class="badge badge-danger">Inactive</span>
+                                                <span class="badge badge-secondary">No</span>
                                             @endif
                                         </td>
 
                                         <td>
+                                            <ul class="mb-0 pl-3">
+                                                @foreach($pkg->features as $f)
+                                                    <li>{{ $f->feature_name }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </td>
 
-                                            <a href="{{ route('admin.gifting-occasions.edit', $item->id) }}"
-                                               class="btn btn-sm btn-outline-dark">
+                                        <td>
+
+                                            <a href="{{ route('admin.packages.edit', $pkg->id) }}"
+                                                class="btn btn-sm btn-outline-dark">
+
                                                 <i class="fa fa-pencil"></i>
+
                                             </a>
 
                                             <button class="btn btn-sm btn-outline-danger"
-                                                    onclick="deleteItem({{ $item->id }})">
+                                                onclick="deletePackage({{ $pkg->id }})">
+
                                                 <i class="fa fa-trash"></i>
+
                                             </button>
 
                                         </td>
@@ -94,8 +113,8 @@
                                 @empty
 
                                     <tr>
-                                        <td colspan="5" class="text-center text-muted py-4">
-                                            No Data Found
+                                        <td colspan="7" class="text-center text-muted py-4">
+                                            No Packages Found
                                         </td>
                                     </tr>
 
@@ -105,10 +124,6 @@
 
                         </table>
 
-                         <div class="mt-3">
-                            {{ $occasions->links('pagination::bootstrap-4') }}
-                        </div>
-                        
                     </div>
 
                 </div>
@@ -122,25 +137,32 @@
 
 @include('admin.footer')
 
+
 <script>
-function deleteItem(id) {
+
+function deletePackage(id) {
     Swal.fire({
-        title: 'Delete Occasion?',
+        title: 'Delete Package?',
         text: "This action cannot be undone.",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#d33',
         confirmButtonText: 'Yes, Delete'
-    }).then((result) => {
+    })
+    .then((result) => {
 
         if (result.isConfirmed) {
 
             $.ajax({
-                url: "{{ url('admin/gifting-occasions') }}/" + id,
+
+                url: "{{ url('admin/packages') }}/" + id,
+
                 type: "DELETE",
+
                 data: {
                     _token: "{{ csrf_token() }}"
                 },
+
                 success: function (res) {
 
                     Swal.fire('Deleted!', res.message, 'success');
@@ -150,9 +172,12 @@ function deleteItem(id) {
                     });
 
                 }
+
             });
 
         }
+
     });
 }
+
 </script>

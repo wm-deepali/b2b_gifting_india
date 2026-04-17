@@ -1,68 +1,224 @@
+<style>
+    .nav-header-scroll {
+        overflow-x: auto;
+    }
+
+    .popular-tag {
+        position: relative;
+        left: -20px;
+        top: -20px;
+    }
+
+    .nav-header-scroll::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Vertical Separator Styling */
+    .nav-link+.h-6 {
+        background-color: #e5e7eb;
+        margin: 0 8px;
+    }
+
+    /* Optional: Hover pe line ka color change */
+    .group-hover+.h-6 {
+        background-color: #f4a261;
+    }
+
+
+    @media (max-width: 768px) {
+        .mobile-nav-section {
+            display: none;
+        }
+    }
+</style>
 <!-- TOP ANNOUNCEMENT BAR -->
 <div id="announcement"
-    class="bg-[#e07a5f] text-white py-3 text-center text-sm font-medium flex items-center justify-center gap-3 shadow-md">
-    <i class="fa-solid fa-gift text-lg"></i>
-    <span>Corporate Season Special: 20% OFF on bulk orders above ₹25,000 | Code: CORP20</span>
+    class="bg-[#e07a5f] text-white px-2 py-3 text-center text-sm font-medium flex items-center justify-center gap-3 shadow-md">
+
+    <span><i class="fa-solid fa-gift text-lg"></i> Corporate Season Special: 20% OFF on bulk orders above <i
+            class="fa-solid fa-indian-rupee-sign"></i>25,000 | Code: CORP20</span>
     <button onclick="document.getElementById('announcement').style.display='none'"
-        class="ml-4 text-white hover:text-gray-200">✕</button>
+        class="ml-4 text-white hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-white rounded"><i
+            class="fa-solid fa-x"></i></button>
 </div>
 
 <!-- STICKY HEADER (only logo + search + icons) -->
-<header class="sticky-header">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="flex items-center justify-between py-5">
-            <!-- LOGO -->
+<!--<header class="sticky-header">-->
+<!--    <div class="max-w-7xl mx-auto px-6">-->
+<!--        <div class="flex items-center justify-between py-3">-->
+<!-- LOGO -->
+<!--            <div class="flex items-center gap-3">-->
+<!--                <a href="{{'/'}}">-->
+<!--                <img src="{{ asset('images/B2B_logo.png') }}" alt="B2B Gifts India" class="h-20 md:h-20 w-auto object-contain">-->
+<!--                </a>-->
+<!--                <div class="font-bold text-2xl tracking-tight">-->
+<!--<span class="text-[#f4a261]">B2B </span><span class="text-[#2ec4b6]">Gifts </span><span-->
+<!--    class="text-[#e07a5f]">India</span>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!-- SEARCH -->
+<!--            <div class="flex-1 max-w-2xl mx-10">-->
+<!--                <div class="relative">-->
+
+<!-- INPUT -->
+<!--                    <input type="text" id="searchInput"-->
+<!--                        placeholder="Search corporate gifts, executive diaries, branded bottles..."-->
+<!--                        class="w-full bg-gray-50 border border-gray-200 focus:border-[#2ec4b6]  rounded-full py-3.5 px-6 focus:outline-none shadow-sm"-->
+<!--                         autocomplete="off"-->
+<!--                        tabindex="0">-->
+
+<!-- SEARCH ICON -->
+<!--                    <button type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-[#2ec4b6] focus:outline-none">-->
+<!--                        <i class="fa-solid fa-magnifying-glass text-lg"></i>-->
+<!--                    </button>-->
+
+<!-- ðŸ”¥ SUGGESTIONS DROPDOWN -->
+<!--                    <div id="searchSuggestions"-->
+<!--                        class="absolute left-0 w-full bg-white border border-gray-200 rounded-xl mt-2 shadow-lg hidden z-50 max-h-80 overflow-y-auto">-->
+<!--                    </div>-->
+
+<!--                </div>-->
+<!--            </div>-->
+
+<!-- ICONS -->
+<!--            <div class="flex items-center gap-8 text-xl">-->
+<!--                <i class="fa-regular fa-heart hover:text-[#e07a5f] cursor-pointer transition-colors"></i>-->
+<!--                <div class="relative cursor-pointer">-->
+<!--                    <a href="{{ route('shopping-cart') }}" class="relative cursor-pointer">-->
+<!--                        <i class="fa-solid fa-cart-shopping hover:text-[#2ec4b6] transition-colors"></i>-->
+
+<!--                        <span id="cart-count"-->
+<!--                            class="absolute -top-2 -right-2 bg-[#e07a5f] text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">-->
+<!--                            {{ $globalCartCount }}-->
+<!--                        </span>-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</header>-->
+<header class="sticky-header bg-white">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+        <div class="flex items-center justify-between py-3">
+
+            <!-- LEFT: LOGO -->
             <div class="flex items-center gap-3">
-                <img src="{{ asset('images/B2B_logo.png') }}" alt="B2B Gifts India" class="h-20 w-auto">
-                <div class="font-bold text-2xl tracking-tight">
-                    <span class="text-[#f4a261]">B2B </span><span class="text-[#2ec4b6]">Gifts </span><span
-                        class="text-[#e07a5f]">India</span>
-                </div>
+                <a href="/">
+                    <img src="{{ asset('images/B2B_logo.png') }}" class="h-14 md:h-20 w-auto object-contain">
+                </a>
             </div>
 
-            <!-- SEARCH -->
-            <div class="flex-1 max-w-2xl mx-10">
-                <div class="relative">
+            <!-- DESKTOP SEARCH -->
+            <div class="hidden md:flex flex-1 max-w-2xl mx-10 ">
+                <div class="flex-1 max-w-2xl mx-10">
+                    <div class="relative">
 
-                    <!-- INPUT -->
-                    <input type="text" id="searchInput"
-                        placeholder="Search corporate gifts, executive diaries, branded bottles..."
-                        class="w-full bg-gray-50 border border-gray-200 focus:border-[#2ec4b6] rounded-full py-3.5 px-6 focus:outline-none shadow-sm">
+                        <!-- INPUT -->
+                        <input type="text" id="searchInput"
+                            placeholder="Search corporate gifts, executive diaries, branded bottles..."
+                            class="w-full bg-gray-50 border border-gray-200 focus:border-[#2ec4b6]  rounded-full py-3.5 px-6 focus:outline-none shadow-sm"
+                            autocomplete="off" tabindex="0">
 
-                    <!-- SEARCH ICON -->
-                    <button type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-[#2ec4b6]">
-                        <i class="fa-solid fa-magnifying-glass text-lg"></i>
-                    </button>
 
-                    <!-- 🔥 SUGGESTIONS DROPDOWN -->
-                    <div id="searchSuggestions"
-                        class="absolute left-0 w-full bg-white border border-gray-200 rounded-xl mt-2 shadow-lg hidden z-50 max-h-80 overflow-y-auto">
+                        <button type="button"
+                            class="absolute right-4 top-1/2 -translate-y-1/2 text-[#2ec4b6] focus:outline-none">
+                            <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                        </button>
+
+
+                        <div id="searchSuggestions"
+                            class="absolute left-0 w-full bg-white border border-gray-200 rounded-xl mt-2 shadow-lg hidden z-50 max-h-80 overflow-y-auto">
+                        </div>
+
                     </div>
-
                 </div>
+
+
+                <!--<div class="relative">-->
+                <!--<input type="text"-->
+                <!--    placeholder="Search corporate gifts, executive diaries, branded bottles..."-->
+                <!--    class="w-full bg-gray-50 border border-gray-200 focus:border-[#2ec4b6]  rounded-full py-3.5 px-6 focus:outline-none shadow-sm">-->
+
+                <!--    <button type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-[#2ec4b6] focus:outline-none">-->
+                <!--        <i class="fa-solid fa-magnifying-glass text-lg"></i>-->
+                <!--    </button>-->
+
+
+                <!--    <div id="searchSuggestions"-->
+                <!--        class="absolute left-0 w-full bg-white border border-gray-200 rounded-xl mt-2 shadow-lg hidden z-50 max-h-80 overflow-y-auto">-->
+                <!--    </div>-->
+                <!--    </div>-->
             </div>
 
-            <!-- ICONS -->
-            <div class="flex items-center gap-8 text-xl">
-                <i class="fa-regular fa-heart hover:text-[#e07a5f] cursor-pointer transition-colors"></i>
-                <div class="relative cursor-pointer">
-                    <a href="{{ route('shopping-cart') }}" class="relative cursor-pointer">
-                        <i class="fa-solid fa-cart-shopping hover:text-[#2ec4b6] transition-colors"></i>
+            <!-- RIGHT ICONS -->
+            <div class="flex items-center gap-5 text-xl">
 
-                        <span id="cart-count"
-                            class="absolute -top-2 -right-2 bg-[#e07a5f] text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                            {{ $globalCartCount }}
-                        </span>
-                    </a>
+                <!-- MOBILE SEARCH ICON -->
+                <i onclick="toggleSearch()" class="fa-solid fa-magnifying-glass md:hidden cursor-pointer"></i>
+
+                <!-- Wishlist -->
+                <i class="fa-regular fa-heart cursor-pointer"></i>
+
+                <!-- Cart -->
+                <div class="relative">
+                    <i class="fa-solid fa-cart-shopping cursor-pointer"></i>
+                    <span
+                        class="absolute -top-2 -right-2 bg-[#e07a5f] text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                        {{ $globalCartCount }}
+                    </span>
                 </div>
+
+                <!-- MENU ICON (mobile only) -->
+                <i onclick="toggleMenu()" class="fa-solid fa-bars md:hidden cursor-pointer"></i>
+
             </div>
         </div>
     </div>
-</header>
 
-<!-- Professional Corporate Navigation – Single row + "More" dropdown -->
-<nav class="bg-white border-b border-gray-200 shadow-sm">
-    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+    <!-- 🔍 MOBILE SEARCH BAR -->
+    <div id="mobileSearch" class="hidden px-4 pb-3 md:hidden">
+        <input type="text" placeholder="Search products..."
+            class="w-full bg-gray-50 border border-gray-200 rounded-full py-3 px-5">
+    </div>
+
+</header>
+<!-- Overlay -->
+<script>
+    function toggleSearch() {
+        document.getElementById('mobileSearch').classList.toggle('hidden');
+    }
+
+    function toggleMenu() {
+        const drawer = document.getElementById('drawer');
+        const overlay = document.getElementById('overlay');
+
+        drawer.classList.toggle('-translate-x-full');
+        overlay.classList.toggle('hidden');
+    }
+</script>
+
+
+<!-- Drawer -->
+<div id="drawer"
+    class="fixed top-0 left-0 w-72 h-full bg-white shadow-lg transform -translate-x-full transition-transform duration-300 z-50">
+
+    <div class="p-5 font-bold text-lg border-b">
+        Menu
+    </div>
+
+    <ul class="p-5 space-y-4">
+        <li><a href="{{ route('home') }}">Home</a></li>
+        <li><a href="{{ route('category') }}">Categories</a></li>
+        <li><a href="#">Orders</a></li>
+        <li><a href="{{ route('contact-us') }}">Contact</a></li>
+    </ul>
+</div>
+
+
+<!-- Professional Corporate Navigation â€“ Single row + "More" dropdown -->
+<nav class="mobile-nav-section bg-white border-b border-gray-200 shadow-sm ">
+    <div class="max-w-7xl mx-auto nav-header-scroll">
         <div class="flex items-center h-14 md:h-16">
 
             @php
@@ -74,11 +230,11 @@
                     ->orderBy('name')
                     ->get();
 
-                $mainCategories = $categories->take(4);
-                $moreCategories = $categories->slice(4);
+                $mainCategories = $categories->take(20);
+                $moreCategories = $categories->slice(20);
             @endphp
 
-            <!-- Main visible categories – starts from left -->
+            <!-- Main visible categories â€“ starts from left -->
             <div class="hidden md:flex items-center justify-start flex-1 space-x-1 lg:space-x-2 xl:space-x-4">
 
                 {{-- Main Categories --}}
@@ -90,15 +246,20 @@
                     @endphp
 
                     <a href="{{ $url }}"
-                        class="nav-link px-3 lg:px-4 xl:px-5 py-5 text-sm lg:text-base font-medium text-gray-700 hover:text-[#f4a261] whitespace-nowrap">
+                        class="nav-link px-3 lg:px-3 xl:px-3 py-5  text-sm lg:text-base font-medium text-gray-700 hover:text-[#f4a261] whitespace-nowrap">
 
                         {{ strtoupper($cat->name) }}
 
                         {{-- Optional popular badge --}}
-                        @if($cat->is_popular)
-                            <span class="ml-1 text-[10px] bg-orange-100 text-orange-600 px-1 rounded">HOT</span>
+                        {{-- @if($cat->is_popular)
+                        <span class="ml-1 text-[10px] bg-orange-100 text-orange-600 px-1 rounded popular-tag">Popular</span>
                         @endif
+                        --}}
                     </a>
+
+                    @if(!$loop->last)
+                        <div class="h-6 w-[1px] bg-gray-300"></div>
+                    @endif
                 @endforeach
 
 
@@ -130,7 +291,7 @@
                                     {{ $cat->name }}
 
                                     @if($cat->is_popular)
-                                        <span class="ml-2 text-[10px] bg-orange-100 text-orange-600 px-1 rounded">HOT</span>
+                                        <span class="ml-2 text-[10px] bg-orange-100 text-orange-600 px-1 rounded">Popular</span>
                                     @endif
                                 </a>
                             @endforeach
@@ -141,74 +302,7 @@
 
             </div>
 
-            <!-- Mobile -->
-            <div class="md:hidden w-full">
-
-                <!-- Toggle Button -->
-                <button onclick="toggleMobileMenu()"
-                    class="flex items-center justify-between w-full px-4 py-3 text-gray-800 font-semibold border-b">
-                    <span>Browse Categories</span>
-                    <svg class="w-5 h-5 transition-transform" id="mobileArrow" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                </button>
-
-                <!-- Menu -->
-                <div id="mobileMenu" class="hidden bg-gray-50">
-
-                    @foreach($categories as $cat)
-                        @php
-                            $url = $cat->children_count > 0
-                                ? url('category/' . $cat->slug)
-                                : url('products?subcategory=' . $cat->slug);
-                        @endphp
-
-                        <div class="bg-white mb-2 rounded-xl shadow-sm overflow-hidden">
-
-                            <!-- Parent -->
-                            <div class="flex justify-between items-center px-4 py-4">
-
-                                <a href="{{ $url }}" class="text-gray-800 font-medium text-sm">
-                                    {{ $cat->name }}
-
-                                    @if($cat->is_popular)
-                                        <span
-                                            class="ml-2 text-[10px] bg-orange-100 text-orange-600 px-2 py-0.5 rounded-full">HOT</span>
-                                    @endif
-                                </a>
-
-                                @if($cat->children_count > 0)
-                                    <button onclick="toggleSubmenu({{ $cat->id }})" class="p-1 rounded-full hover:bg-gray-100">
-                                        <svg id="icon-{{ $cat->id }}" class="w-4 h-4 transition-transform" fill="none"
-                                            stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </button>
-                                @endif
-
-                            </div>
-
-                            <!-- Subcategories -->
-                            @if($cat->children_count > 0)
-                                <div id="submenu-{{ $cat->id }}" class="hidden border-t bg-gray-50">
-
-                                    @foreach($cat->children as $sub)
-                                        <a href="{{ url('products?subcategory=' . $sub->slug) }}"
-                                            class="block px-6 py-3 text-sm text-gray-600 hover:bg-white hover:text-[#f4a261] transition">
-                                            {{ $sub->name }}
-                                        </a>
-                                    @endforeach
-
-                                </div>
-                            @endif
-
-                        </div>
-                    @endforeach
-
-                </div>
-            </div>
+        
 
         </div>
     </div>

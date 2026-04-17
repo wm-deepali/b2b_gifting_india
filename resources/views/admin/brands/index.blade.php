@@ -108,7 +108,7 @@
 
                         {{-- PAGINATION --}}
                         <div class="mt-3">
-                            {{ $brands->links() }}
+                            {{ $brands->links('pagination::bootstrap-4') }}
                         </div>
 
                     </div>

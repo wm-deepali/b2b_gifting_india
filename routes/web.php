@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\EnquiryController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\GiftingOccasionController;
 use App\Http\Controllers\Admin\LogoutController;
+use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProfileSettingController;
 use App\Http\Controllers\Admin\TestimonialController;
@@ -42,6 +43,7 @@ Route::controller(FrontController::class)->group(function () {
     Route::get('/blog/{slug}', 'blogDetails')->name('blog.detail');
     Route::get('/contact-us', 'contactUs')->name('contact-us');
     Route::post('/contact-submit', 'submitContact')->name('contact.submit');
+    Route::get('/page/{slug}',  'dynamicPage')->name('dynamic.page');
     Route::get('/why-us', 'whyUs')->name('why-us');
     Route::get('/vendors', 'vendors')->name('vendors');
     Route::get('/membership', 'membership')->name('membership');
@@ -93,6 +95,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('enquiries', EnquiryController::class)->names('enquiries');
 
         Route::resource('contact-enquiries', ContactEnquiryController::class);
+
+        Route::resource('packages', PackageController::class);
 
         Route::get('/logout', [LogoutController::class, 'logout']);
 

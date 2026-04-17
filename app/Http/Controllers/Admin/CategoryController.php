@@ -13,12 +13,13 @@ class CategoryController extends Controller
     // ✅ List Page
     public function index()
     {
-        $categories = Category::with('parent')->latest()->get();
-        $parents = Category::whereNull('parent_id')->get();
+        $categories = Category::with('parent', 'children')
+            ->paginate(10);
 
-        return view('admin.categories.index', compact('categories', 'parents'));
+        return view('admin.categories.index', compact('categories'));
     }
 
+    // ✅ Create
     public function create()
     {
         $parents = Category::whereNull('parent_id')->get();
@@ -26,30 +27,44 @@ class CategoryController extends Controller
         return view('admin.categories.create', compact('parents'));
     }
 
-    // ✅ Store Category
+    // ✅ Store
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required'
+            'name' => 'required|string|max:255',
         ]);
 
-        $imageName = null;
+        $image = null;
 
         if ($request->hasFile('image')) {
-            $imageName = $request->file('image')->store('categories', 'public');
+            $image = $request->file('image')->store('categories', 'public');
         }
 
         Category::create([
             'name' => $request->name,
-            'sub_title' => $request->sub_title, // ✅ ADD THIS
-            'slug' => Str::slug($request->name),
+            'sub_title' => $request->sub_title,
+
+            // ✅ slug safe
+            'slug' => $request->slug
+                ? Str::slug($request->slug)
+                : Str::slug($request->name),
+
             'meta_title' => $request->meta_title,
             'meta_description' => $request->meta_description,
-            'image' => $imageName,
+            'image' => $image,
 
-            'parent_id' => $request->parent_id == 'parent' ? null : $request->parent_id,
+            // ✅ FIXED
+            'parent_id' => $request->parent_id ?: null,
 
+            // FLAGS
             'is_popular' => $request->is_popular ?? 0,
+            'is_featured' => $request->is_featured ?? 0,
+            'show_on_website' => $request->show_on_website ?? 1,
+
+            // AUTO
+            'is_sub_category' => $request->parent_id ? 1 : 0,
+            'added_by' => 'admin',
+
             'status' => $request->status ?? 1,
         ]);
 
@@ -61,7 +76,10 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = Category::findOrFail($id);
-        $parents = Category::whereNull('parent_id')->where('id', '!=', $id)->get();
+
+        $parents = Category::whereNull('parent_id')
+            ->where('id', '!=', $id)
+            ->get();
 
         return view('admin.categories.edit', compact('category', 'parents'));
     }
@@ -72,7 +90,7 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
 
         $request->validate([
-            'name' => 'required'
+            'name' => 'required|string|max:255',
         ]);
 
         $image = $category->image;
@@ -88,34 +106,46 @@ class CategoryController extends Controller
 
         $category->update([
             'name' => $request->name,
-            'sub_title' => $request->sub_title, // ✅ ADD THIS
-            'slug' => Str::slug($request->name),
+            'sub_title' => $request->sub_title,
+
+            // ✅ slug safe
+            'slug' => $request->slug
+                ? Str::slug($request->slug)
+                : $category->slug,
+
             'meta_title' => $request->meta_title,
             'meta_description' => $request->meta_description,
             'image' => $image,
 
-            'parent_id' => $request->parent_id == 'parent' ? null : $request->parent_id,
+            // ✅ FIXED
+            'parent_id' => $request->parent_id ?: null,
 
             'is_popular' => $request->is_popular ?? 0,
+            'is_featured' => $request->is_featured ?? 0,
+            'show_on_website' => $request->show_on_website ?? 1,
+
+            'is_sub_category' => $request->parent_id ? 1 : 0,
+
             'status' => $request->status ?? 1,
         ]);
-
 
         return redirect()->route('admin.categories.index')
             ->with('success', 'Category Updated Successfully');
     }
+
     // ✅ Delete
     public function destroy($id)
     {
         $category = Category::findOrFail($id);
 
-        // delete image from storage
         if ($category->image && Storage::disk('public')->exists($category->image)) {
             Storage::disk('public')->delete($category->image);
         }
 
         $category->delete();
 
-        return back()->with('success', 'Category Deleted Successfully');
+        return response()->json([
+            'message' => 'Category Deleted Successfully'
+        ]);
     }
 }

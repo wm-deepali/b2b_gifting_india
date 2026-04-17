@@ -34,8 +34,8 @@ class Product extends Model
         'discount_type',
 
         // FLAGS
-        'featured',        // from is_special
-        'new_arrival',     // from is_newlaunch
+        'featured',
+        'new_arrival',
         'sale',
         'best_seller',
 
@@ -43,6 +43,11 @@ class Product extends Model
         'is_engraving',
 
         'show_on_website',
+
+        // ✅ NEW FLAGS
+        'ready_to_ship',
+        'bulk_available',
+        'gift_hamper',
 
         // OTHER
         'sku',

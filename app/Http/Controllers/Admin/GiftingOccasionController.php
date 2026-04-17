@@ -12,7 +12,7 @@ class GiftingOccasionController extends Controller
 {
     public function index()
     {
-        $occasions = GiftingOccasion::latest()->get();
+        $occasions = GiftingOccasion::latest()->paginate(10);
         return view('admin.gifting_occasions.index', compact('occasions'));
     }
 

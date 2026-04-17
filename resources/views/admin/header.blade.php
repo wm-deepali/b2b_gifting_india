@@ -159,6 +159,13 @@
                         Contact Enquiries
                     </a>
                 </li>
+
+                <li class="{{ request()->routeIs('admin.home-enquiries.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.home-enquiries.index') }}">
+                        Home Enquiries
+                    </a>
+                </li>
+
             </ul>
         </li>
 

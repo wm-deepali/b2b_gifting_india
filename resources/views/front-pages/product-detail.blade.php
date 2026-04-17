@@ -5,6 +5,27 @@
 
     <div class="max-w-7xl mx-auto px-6 py-12">
 
+        <div class="text-sm text-gray-500 mb-6 flex flex-wrap gap-1 items-center">
+
+            <a href="/" class="hover:text-black">Home</a>
+
+            @if($product->categories && $product->categories->count())
+                @php $cat = $product->categories->first(); @endphp
+                <span>/</span>
+                <a href="#" class="hover:text-black">{{ $cat->name }}</a>
+            @endif
+
+            @if($product->subcategories && $product->subcategories->count())
+                @php $sub = $product->subcategories->first(); @endphp
+                <span>/</span>
+                <a href="#" class="hover:text-black">{{ $sub->name }}</a>
+            @endif
+
+            <span>/</span>
+            <span class="text-gray-800 font-medium">{{ $product->name }}</span>
+
+        </div>
+
         <div class="grid lg:grid-cols-2 gap-12">
 
             <!-- ==================== LEFT: IMAGE SLIDER ==================== -->
@@ -61,6 +82,14 @@
                 </h1>
                 <div class="flex gap-2 flex-wrap mt-2">
 
+                    @if($product->featured)
+                        <span class="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded">Featured</span>
+                    @endif
+
+                    @if($product->new_arrival)
+                        <span class="bg-green-100 text-green-700 text-xs px-2 py-1 rounded">New</span>
+                    @endif
+
                     @if($product->best_seller)
                         <span class="bg-yellow-100 text-yellow-700 text-xs px-2 py-1 rounded">Best Seller</span>
                     @endif
@@ -73,52 +102,77 @@
                         <span class="bg-purple-100 text-purple-700 text-xs px-2 py-1 rounded">Premium</span>
                     @endif
 
+                    @if($product->bulk_available)
+                        <span class="bg-gray-200 text-gray-800 text-xs px-2 py-1 rounded">Bulk</span>
+                    @endif
+
                     @if($product->gift_hamper)
-                        <span class="bg-pink-100 text-pink-700 text-xs px-2 py-1 rounded">Gift Hamper</span>
+                        <span class="bg-pink-100 text-pink-700 text-xs px-2 py-1 rounded">Gift</span>
+                    @endif
+
+                    @if($product->is_engraving)
+                        <span class="bg-indigo-100 text-indigo-700 text-xs px-2 py-1 rounded">Engraving</span>
                     @endif
 
                     @if($product->ready_to_ship)
-                        <span class="bg-green-100 text-green-700 text-xs px-2 py-1 rounded">Ready to Ship</span>
+                        <span class="bg-green-200 text-green-800 text-xs px-2 py-1 rounded">Ready</span>
                     @endif
 
                 </div>
                 <p class="text-gray-500 text-lg">{{ $product->sub_title }}</p>
-                <div class="text-sm text-gray-500 mt-2 space-y-1">
+                <div class="text-sm text-gray-600 mt-3 space-y-2">
 
-                    @if(isset($product->brand) && $product->brand)
-                        <p>Brand: <span class="font-medium">{{ $product->brand->name }}</span></p>
+                    @if($product->brand)
+                        <p><span class="font-medium text-gray-800">Brand:</span> {{ $product->brand->name }}</p>
                     @endif
 
                     @if($product->sku)
-                        <p>SKU: {{ $product->sku }}</p>
+                        <p><span class="font-medium text-gray-800">SKU:</span> {{ $product->sku }}</p>
                     @endif
 
-                    @if($product->categories && $product->categories->count())
-                        <p>Category: {{ $product->categories->pluck('name')->join(', ') }}</p>
+                    @if($product->product_code)
+                        <p><span class="font-medium text-gray-800">Product Code:</span> {{ $product->product_code }}</p>
                     @endif
 
                 </div>
 
-                @php
-                    $price = (float) $product->price;
-                    $mrp = (float) $product->mrp;
-                @endphp
+               @php
+    $price = (float) $product->price;
+    $mrp = (float) $product->mrp;
 
-                @if($price > 0)
-                    <div class="flex items-center gap-4 mt-6">
-                        <span class="text-4xl font-bold text-gray-800">₹{{ $price }}</span>
+    $hasDiscount = $mrp > $price && $price > 0;
 
-                        @if($mrp > 0)
-                            <span class="text-gray-400 line-through text-xl">₹{{ $mrp }}</span>
-                        @endif
+    $discountAmount = $mrp - $price;
+    $discountPercent = $mrp > 0 ? round(($discountAmount / $mrp) * 100) : 0;
+@endphp
 
-                        @if($mrp > 0 && $price > 0 && $mrp > $price)
-                            <span class="bg-green-100 text-green-700 text-sm font-medium px-4 py-1 rounded-full">
-                                {{ round((($mrp - $price) / $mrp) * 100) }}% OFF
-                            </span>
-                        @endif
-                    </div>
+@if($price > 0)
+    <div class="mt-6">
+
+        <!-- PRICE ROW -->
+        <div class="flex items-center gap-3">
+            <span class="text-4xl font-bold text-gray-800">₹{{ $price }}</span>
+
+            @if($hasDiscount)
+                <span class="text-gray-400 line-through text-lg">₹{{ $mrp }}</span>
+            @endif
+        </div>
+
+        <!-- SAVE TEXT -->
+        @if($hasDiscount)
+            <div class="mt-2 text-green-600 font-medium text-sm">
+
+                @if($product->discount_type == 'percentage')
+                    You Save {{ $discountPercent }}%
+                @else
+                    You Save ₹{{ $discountAmount }}
                 @endif
+
+            </div>
+        @endif
+
+    </div>
+@endif
                 @if($product->customizations && $product->customizations->count())
                     <div class="mt-8">
                         <h3 class="font-semibold mb-3">Customization Options</h3>

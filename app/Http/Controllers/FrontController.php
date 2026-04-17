@@ -13,6 +13,8 @@ use App\Models\ContactEnquiry;
 use App\Models\Customization;
 use App\Models\Faq;
 use App\Models\GiftingOccasion;
+use App\Models\HomeEnquiry;
+use App\Models\Package;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -20,6 +22,7 @@ use App\Models\Enquiry;
 use App\Models\EnquiryItem;
 use App\Models\State;
 use App\Models\DynamicPage;
+use App\Models\Testimonial;
 use Illuminate\Support\Str;
 
 class FrontController extends Controller
@@ -30,11 +33,14 @@ class FrontController extends Controller
             ->whereNull('parent_id')   // ✅ only parent categories
             ->where('is_popular', 1)   // ✅ only popular
             ->where('status', 1)
+            ->where('show_on_website', 1)
             ->take(5)
+            ->orderBy('sort_order', 'asc')
             ->get();
 
         $featuredProducts = Product::where('featured', 1)
             ->where('status', 1)
+            ->where('show_on_website', 1)
             ->take(4)
             ->get();
 
@@ -51,13 +57,26 @@ class FrontController extends Controller
 
         $brands = Brand::where('status', 1)->get();
 
+        $testimonials = Testimonial::where('status', 1)
+            ->latest()
+            ->take(6) // adjust based on UI
+            ->get();
+
+        $scrollProducts = Product::where('status', 1)
+            ->where('show_on_website', 1)
+            ->latest()
+            ->take(5)
+            ->get();
+
         return view('front-pages.home', compact(
             'popularCategories',
             'featuredProducts',
             'occasions',
             'faqs',
             'clients',
-            'brands'
+            'brands',
+            'testimonials',
+            'scrollProducts'
         ));
     }
 
@@ -67,14 +86,15 @@ class FrontController extends Controller
         $type = $request->type;
 
         $query = Product::with('categories')
+            ->where('show_on_website', 1)
             ->where('status', 1);
 
-        if ($type == 'popular') {
-            $query->orderByDesc('featured');
+        if ($type == 'premium') {
+            $query->where('is_premium', 1);
         } elseif ($type == 'sale') {
             $query->where('sale', 1);
-        } elseif ($type == 'top') {
-            $query->orderByDesc('price'); // replace with rating later
+        } elseif ($type == 'best_seller') {
+            $query->where('best_seller', 1);
         }
 
         $products = $query->take(4)->get();
@@ -91,10 +111,14 @@ class FrontController extends Controller
         }
 
         $products = Product::where('name', 'LIKE', "%$query%")
+            ->where('show_on_website', 1)
+            ->where('status', 1)
             ->take(5)
             ->get(['id', 'name', 'image', 'slug']);
 
         $categories = Category::withCount('children')
+            ->where('show_on_website', 1)
+            ->where('status', 1)
             ->where('name', 'LIKE', "%$query%")
             ->take(5)
             ->get(['id', 'name', 'slug']);
@@ -111,6 +135,7 @@ class FrontController extends Controller
             ->where('status', 1)
             ->where('show_on_website', 1)
             ->with('children') // 🔥 important
+            ->orderBy('sort_order', 'asc')
             ->paginate(12);
 
         return view('front-pages.category', compact('categories'));
@@ -128,6 +153,7 @@ class FrontController extends Controller
             ->where('show_on_website', 1)
             ->where('status', 1)
             ->withCount(['products', 'subcategoryProducts'])
+            ->orderBy('sort_order', 'asc')
             ->paginate(12);
 
         // Total products count (optional)
@@ -169,6 +195,7 @@ class FrontController extends Controller
                 }
             ])
             ->where('status', 1)
+            ->orderBy('sort_order', 'asc')
             ->get();
 
         // Products
@@ -228,6 +255,10 @@ class FrontController extends Controller
 
         if ($request->gift_hamper) {
             $products->where('gift_hamper', 1);
+        }
+
+        if ($request->bulk_available) {
+            $products->where('bulk_available', 1);
         }
 
         if ($request->brand) {
@@ -637,7 +668,7 @@ class FrontController extends Controller
         return back()->with('success', 'Enquiry sent successfully!');
     }
 
-     public function dynamicPage($slug)
+    public function dynamicPage($slug)
     {
         // match slug with page_name
         $page = DynamicPage::where('status', 1)
@@ -665,7 +696,8 @@ class FrontController extends Controller
 
     public function membership(Request $request)
     {
-        return view('front-pages.membership');
+        $packages = Package::with('features')->get();
+        return view('front-pages.membership', compact('packages'));
     }
 
     public function jobOpenings(Request $request)
@@ -698,4 +730,59 @@ class FrontController extends Controller
     {
         return view('front-pages.awards');
     }
+
+    public function personalisedEngraving(Request $request)
+    {
+        return view('front-pages.personalised-engraving');
+    }
+
+    public function recyclingPledge(Request $request)
+    {
+        return view('front-pages.recycling-pledge');
+    }
+
+    public function engravingGallery(Request $request)
+    {
+        return view('front-pages.engraving-gallery');
+    }
+
+
+    public function submitHomeEnquiry(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'message' => 'required',
+            'g-recaptcha-response' => 'required',
+        ]);
+
+        // 🔥 CAPTCHA VERIFY
+        $response = Http::asForm()->post(
+            'https://www.google.com/recaptcha/api/siteverify',
+            [
+                'secret' => env('RECAPTCHA_SECRET_KEY'),
+                'response' => $request->input('g-recaptcha-response'),
+                'remoteip' => $request->ip()
+            ]
+        );
+
+        if (!($response->json()['success'] ?? false)) {
+            return back()->withErrors(['captcha' => 'Captcha verification failed'])->withInput();
+        }
+
+        // ✅ SAVE DATA
+        HomeEnquiry::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'company' => $request->company,
+            'message' => $request->message,
+            'ip' => $request->ip(),
+            'user_agent' => $request->header('User-Agent'),
+        ]);
+
+        return back()->with('success', 'Thanks! We will contact you soon.');
+    }
+
 }

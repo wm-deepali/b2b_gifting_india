@@ -1,14 +1,218 @@
+
 @extends('layouts.app')
 
 @section('content')
 
-    <div class="max-w-7xl mx-auto px-6 py-10">
+<!-- ===================== CATEGORY HERO SECTION ===================== -->
+<section class="relative h-[300px] md:h-[320px] lg:h-[360px] flex items-center bg-gray-900 overflow-hidden">
+    
+    <!-- Background Image -->
+    <div class="absolute inset-0 bg-cover bg-center" 
+         style="background-image: url('https://images.pexels.com/photos/5632402/pexels-photo-5632402.jpeg');">
+    </div>
 
-        <div class="flex flex-col lg:flex-row gap-10">
+    <!-- Dark Overlay -->
+    <div class="absolute inset-0 bg-black/50"></div>
+
+    <!-- Content -->
+    <div class="relative max-w-7xl mx-auto px-6 w-full z-10">
+        <div class="max-w-2xl">
+            
+            <!-- Breadcrumb -->
+            <nav class="flex items-center gap-2 text-sm text-white/80 mb-4">
+                <a href="{{ url('/') }}" class="hover:text-white transition-colors">Home</a>
+                <span class="text-white/50">›</span>
+                <a href="{{ url('categories') }}" class="hover:text-white transition-colors">Categories</a>
+                <span class="text-white/50">›</span>
+                <span class="font-medium text-white">{{ $category->name ?? 'Category' }}</span>
+            </nav>
+
+            <!-- Main Heading -->
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight mb-4">
+                {{ $category->name ?? 'Premium Category' }}
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="text-lg md:text-xl text-white/90 max-w-lg leading-relaxed">
+                {{ $category->sub_title ?? 'Discover our exclusive collection of premium corporate gifts crafted with elegance and precision.' }}
+            </p>
+
+            <!-- Optional CTA -->
+            <div class="mt-8">
+                <a href="#products" 
+                   class="inline-flex items-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-2xl font-semibold hover:bg-amber-50 transition-all">
+                    Explore Collection
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Fade -->
+    <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent"></div>
+</section>
+
+    <div class="max-w-7xl mx-auto px-3 md:px-6 py-10">
+
+        <div class="flex flex-col lg:flex-row gap-2 md:gap-10">
 
             <!-- ==================== LEFT SIDEBAR ==================== -->
             <div class="lg:w-80 flex-shrink-0">
-                <div class="sidebar-card">
+                <div class="lg:hidden mb-3 md:mb-6">
+                    <button onclick="toggleCategoryDrawer()" 
+                            class="w-full flex items-center justify-between bg-white border border-gray-300 px-6 py-4 rounded-2xl shadow-sm font-medium text-gray-800">
+                        <span>Categories & Filters</span>
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                    <div id="categoryDrawer" 
+                     class="lg:static fixed inset-y-0 left-0  w-80 bg-white shadow-2xl lg:shadow-none border-r border-gray-200 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 overflow-y-auto" style="z-index:9999;">
+
+                    <!-- Mobile Drawer Header -->
+                    <div class="lg:hidden flex items-center justify-between p-5 border-b bg-white sticky top-0 z-10">
+                        <h2 class="font-bold text-2xl text-gray-800">Categories</h2>
+                        <button onclick="toggleCategoryDrawer()" class="text-3xl text-gray-500 hover:text-gray-700">✕</button>
+                    </div>
+
+                    <!-- Sidebar Content -->
+                    <div class="sidebar-card p-6 lg:p-0 ">
+                        <h2 class="hidden lg:block font-bold text-2xl mb-6 text-gray-800">Categories</h2>
+
+                        @foreach($categories as $cat)
+                            <button onclick="toggleSub(this)" 
+                                class="category-btn flex justify-between items-center w-full mt-6 py-3 px-4 rounded-xl hover:bg-gray-50 transition-colors {{ $parentCategory && $parentCategory->id == $cat->id ? 'active' : '' }}">
+                                {{ $cat->name }}
+                                <span class="text-xl transition-transform">›</span>
+                            </button>
+                            
+                            <div class="sub-category pl-6 space-y-2 mt-1 {{ $parentCategory && $parentCategory->id == $cat->id ? '' : 'hidden' }}">
+                                @foreach($cat->children as $sub)
+                                    <a href="{{ route('products', ['subcategory' => $sub->slug]) }}"
+                                        class="block py-2 hover:text-[#f4a261] {{ request('subcategory') == $sub->slug ? 'text-[#f4a261] font-semibold' : '' }}">
+                                        {{ $sub->name }}
+                                    </a>
+                                @endforeach
+                            </div>
+                        @endforeach>
+
+                        <!-- Filters -->
+                        <form method="GET" class="mt-12">
+                            <input type="hidden" name="subcategory" value="{{ request('subcategory') }}">
+
+                            <h3 class="font-semibold text-lg mb-5 text-gray-800">Filters</h3>
+
+                            <!-- Price Range -->
+                            <div class="mb-8">
+                                <h4 class="font-medium mb-3">Price Range</h4>
+                                <div class="flex gap-3">
+                                    <input type="number" name="min_price" value="{{ request('min_price') }}" placeholder="Min"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-2xl text-sm">
+                                    <input type="number" name="max_price" value="{{ request('max_price') }}" placeholder="Max"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-2xl text-sm">
+                                </div>
+                            </div>
+
+                            <!-- Customization -->
+                            <div class="mb-8">
+                                <h4 class="font-medium mb-3">Customization</h4>
+                                <div class="flex flex-wrap gap-2">
+                                    @foreach($customizations as $custom)
+                                        <label>
+                                            <input type="checkbox" name="customization[]" value="{{ $custom->id }}" class="hidden"
+                                                {{ in_array($custom->id, request('customization', [])) ? 'checked' : '' }}>
+                                            <span onclick="this.classList.toggle('active')"
+                                                class="filter-chip {{ in_array($custom->id, request('customization', [])) ? 'active' : '' }}">
+                                                {{ $custom->name }}
+                                            </span>
+                                        </label>
+                                    @endforeach
+                                </div>
+                            </div>
+
+                            <!-- Gifting Occasions -->
+                            <div class="mb-8">
+                                <h4 class="font-medium mb-3">Gifting Occasion</h4>
+                                <div class="flex flex-wrap gap-2">
+                                    @foreach($occasions as $occ)
+                                        <label>
+                                            <input type="checkbox" name="occasion[]" value="{{ $occ->slug }}" class="hidden"
+                                                {{ in_array($occ->slug, request('occasion', [])) ? 'checked' : '' }}>
+                                            <span onclick="this.classList.toggle('active')"
+                                                class="filter-chip {{ in_array($occ->slug, request('occasion', [])) ? 'active' : '' }}">
+                                                {{ $occ->title }}
+                                            </span>
+                                        </label>
+                                    @endforeach
+                                </div>
+                            </div>
+
+                            <!-- Brand -->
+                            <div class="mb-8">
+                                <h4 class="font-medium mb-3">Brand</h4>
+                                @foreach($brands as $brand)
+                                    <label class="flex items-center gap-2 mb-2">
+                                        <input type="checkbox" name="brand[]" value="{{ $brand->id }}"
+                                            {{ in_array($brand->id, request('brand', [])) ? 'checked' : '' }}>
+                                        {{ $brand->name }}
+                                    </label>
+                                @endforeach
+                            </div>
+
+                            <!-- Delivery -->
+                            <div class="mb-8">
+                                <h4 class="font-medium mb-3">Delivery</h4>
+                                <label class="flex items-center gap-2 mb-2">
+                                    <input type="checkbox" class="accent-[#f4a261]" name="pan_india" value="1" {{ request('pan_india') ? 'checked' : '' }}>
+                                    Pan India Delivery
+                                </label>
+                                <label class="flex items-center gap-2">
+                                    <input type="checkbox" name="ready_to_ship" value="1" {{ request('ready_to_ship') ? 'checked' : '' }}>
+                                    Ready to Ship
+                                </label>
+                            </div>
+
+                            <!-- Special -->
+                            <div>
+                                <h4 class="font-medium mb-3">Special</h4>
+                                <label class="flex items-center gap-2 mb-2">
+                                    <input type="checkbox" class="accent-[#f4a261]" name="new_arrival" value="1" {{ request('new_arrival') ? 'checked' : '' }}>
+                                    New Arrivals
+                                </label>
+                                <label class="flex items-center gap-2 mb-2">
+                                    <input type="checkbox" class="accent-[#f4a261]" name="featured" value="1" {{ request('featured') ? 'checked' : '' }}>
+                                    Featured Products
+                                </label>
+                                <label class="flex items-center gap-2 mb-2">
+                                    <input type="checkbox" name="best_seller" value="1" {{ request('best_seller') ? 'checked' : '' }}>
+                                    Best Seller
+                                </label>
+                                <label class="flex items-center gap-2 mb-2">
+                                    <input type="checkbox" name="sale" value="1" {{ request('sale') ? 'checked' : '' }}>
+                                    On Sale
+                                </label>
+                                <label class="flex items-center gap-2 mb-2">
+                                    <input type="checkbox" name="is_premium" value="1" {{ request('is_premium') ? 'checked' : '' }}>
+                                    Premium
+                                </label>
+                                <label class="flex items-center gap-2">
+                                    <input type="checkbox" name="gift_hamper" value="1" {{ request('gift_hamper') ? 'checked' : '' }}>
+                                    Gift Hampers
+                                </label>
+                                <label class="flex items-center gap-2">
+    <input type="checkbox" name="bulk_available" value="1" {{ request('bulk_available') ? 'checked' : '' }}>
+    Bulk Available
+</label>
+                            </div>
+
+                            <button type="submit"
+                                class="w-full mt-8 bg-gradient-to-r from-[#f4a261] to-[#e07a5f] text-white py-3.5 rounded-2xl font-medium">
+                                Apply Filters
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                </div>
+                
+                <div class="sidebar-card lg:block hidden">
 
                     <h2 class="font-bold text-2xl mb-6 text-gray-800">Categories</h2>
 
@@ -152,6 +356,10 @@
     <input type="checkbox" name="gift_hamper" value="1" {{ request('gift_hamper') ? 'checked' : '' }}>
     Gift Hampers
 </label>
+    <label class="flex items-center gap-2">
+    <input type="checkbox" name="bulk_available" value="1" {{ request('bulk_available') ? 'checked' : '' }}>
+    Bulk Available
+</label>
                         </div>
 
                         <button type="submit"
@@ -168,7 +376,7 @@
 
                 <!-- Top Bar -->
                 <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-                    <div>
+                    <div class="lg:block hidden">
                         <span class="text-gray-600">Showing</span>
                         <span class="font-semibold text-gray-800">{{ $products->total() }} Products</span>
                     </div>
@@ -192,7 +400,7 @@
                         <div class="product-card bg-white">
                             <div class="relative">
                                 <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
-                                    class="product-img w-full">
+                                    class="product-img w-full object-fill">
 
                                 {{-- Badge Logic --}}
                                 @if($product->new_arrival)
@@ -257,6 +465,8 @@
             </div>
         </div>
     </div>
+    <div id="drawerOverlay" onclick="toggleCategoryDrawer()" 
+         class="lg:hidden fixed inset-0 bg-black/60 z-40 hidden"></div>
 
     <script>
         function toggleSub(btn) {
@@ -333,4 +543,27 @@
     </script>
 
 
+         
+         <script>
+function toggleCategoryDrawer() {
+    const drawer = document.getElementById('categoryDrawer');
+    const overlay = document.getElementById('drawerOverlay');
+    
+    if (drawer.classList.contains('-translate-x-full')) {
+        drawer.classList.remove('-translate-x-full');
+        overlay.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    } else {
+        drawer.classList.add('-translate-x-full');
+        overlay.classList.add('hidden');
+        document.body.style.overflow = 'visible';
+    }
+}
+
+
+
+
+</script>
 @endsection
+
+

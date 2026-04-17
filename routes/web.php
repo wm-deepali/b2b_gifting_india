@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\DynamicPageController;
 use App\Http\Controllers\Admin\EnquiryController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\GiftingOccasionController;
+use App\Http\Controllers\Admin\HomeEnquiryController;
 use App\Http\Controllers\Admin\LogoutController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\ProductController;
@@ -28,6 +29,7 @@ Route::controller(FrontController::class)->group(function () {
 
     Route::get('/', 'home')->name('home');
     Route::get('/search-suggestions', 'searchSuggestions')->name('search.suggestions');
+    Route::post('/home-enquiry', 'submitHomeEnquiry')->name('home.enquiry');
     Route::get('/products/filter', 'getProductsByType');
     Route::get('/categories', 'category')->name('category');
     Route::get('/category/{slug}', 'subcategory');
@@ -53,6 +55,9 @@ Route::controller(FrontController::class)->group(function () {
     Route::get('/bulk-order', 'bulkOrder')->name('bulk-order');
     Route::get('/about-us', 'aboutUs')->name('about-us');
     Route::get('/awards', 'awards')->name('awards');
+    Route::get('/personalised-engraving', 'personalisedEngraving')->name('personalised-engraving');
+    Route::get('/recycling-pledge', 'recyclingPledge')->name('recycling-pledge');
+    Route::get('/engraving-gallery', 'engravingGallery')->name('engraving-gallery');
 
 });
 Route::get('/get-cities/{state}', function ($id) {
@@ -95,6 +100,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('enquiries', EnquiryController::class)->names('enquiries');
 
         Route::resource('contact-enquiries', ContactEnquiryController::class);
+
+        Route::resource('home-enquiries', HomeEnquiryController::class);
 
         Route::resource('packages', PackageController::class);
 

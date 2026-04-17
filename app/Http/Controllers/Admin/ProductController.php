@@ -98,6 +98,9 @@ class ProductController extends Controller
 
             'status' => $request->status ?? 1,
             'image' => $image,
+            'product_code' => $request->product_code,
+            'sort_order' => $request->sort_order ?? 0,
+            'added_by' => $request->added_by,
         ]);
 
         // RELATIONS
@@ -132,7 +135,7 @@ class ProductController extends Controller
                 'customizations',
                 'inclusions'
             ])->findOrFail($id),
-            
+
             'categories' => Category::whereNull('parent_id')
                 ->where('status', 1)
                 ->get(),
@@ -202,6 +205,10 @@ class ProductController extends Controller
 
             'status' => $request->status ?? 1,
             'image' => $image,
+            'product_code' => $request->product_code,
+            'sort_order' => $request->sort_order ?? 0,
+            'added_by' => $request->added_by,
+
         ]);
 
         // RELATIONS

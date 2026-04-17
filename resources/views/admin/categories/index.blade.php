@@ -32,6 +32,19 @@
             <div class="card shadow-sm">
                 <div class="card-body">
 
+                 <form method="GET" class="mb-3">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="text" name="search" value="{{ request('search') }}"
+                                       class="form-control" placeholder="Search Product...">
+                            </div>
+
+                            <div class="col-md-2">
+                                <button class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                    
                     <div class="table-responsive">
 
                         <table class="table table-hover align-middle">
@@ -43,6 +56,7 @@
                                     <th>Name</th>
                                     <th>Parent</th>
                                     <th>Popular</th>
+                                    <th>Sort</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -69,7 +83,7 @@
                                                                     <strong>{{ $cat->name }}</strong><br>
 
                                                                     <small class="text-muted">
-                                                                        Total: {{ $cat->unique_products_count }}
+                                                                        Total Products: {{ $cat->unique_products_count }}
                                                                     </small>
                                                                 </td>
 
@@ -82,6 +96,8 @@
                                     ? '<span class="badge badge-success">Yes</span>'
                                     : '<span class="badge badge-light">No</span>' !!}
                                                                 </td>
+
+                                                                <td>{{ $cat->sort_order }}</td>
 
                                                                 <td>
                                                                     {!! $cat->status

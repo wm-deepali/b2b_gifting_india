@@ -1,5 +1,203 @@
 @include('admin.top-header')
 
+<style>
+/* GLOBAL */
+.card {
+    border-radius: 14px;
+    border: none;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.card h5 {
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #111827;
+}
+
+/* HEADER */
+.card-header {
+    background: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    border-bottom: 1px solid #eee;
+}
+
+/* FORM */
+label {
+    font-weight: 500;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.form-control {
+    border-radius: 10px;
+    padding: 10px 12px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+}
+
+.form-control:focus {
+    background: #fff;
+    border-color: #f97316;
+    box-shadow: none;
+}
+
+/* CHECKBOX */
+input[type="checkbox"] {
+    margin-right: 6px;
+}
+
+/* SECTION SPACING */
+.card.p-3 {
+    padding: 20px !important;
+}
+
+/* CATEGORY SCROLL */
+.category-scroll {
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+/* SUBCATEGORY */
+.subcategory-box {
+    padding-left: 20px;
+    margin-top: 5px;
+}
+
+/* GRID SPACING */
+.row > div {
+    margin-bottom: 12px;
+}
+
+/* RIGHT SIDEBAR */
+.right-sticky {
+    position: sticky;
+    top: 20px;
+}
+
+/* BUTTON */
+.btn-success {
+    background: linear-gradient(90deg, #f97316, #fb923c);
+    border: none;
+    border-radius: 10px;
+    padding: 12px 25px;
+    font-weight: 500;
+}
+
+.btn-success:hover {
+    opacity: 0.9;
+}
+
+/* SMALL BUTTON */
+.btn-sm {
+    border-radius: 8px;
+}
+
+/* CHECKBOX GRID */
+.checkbox-grid label {
+    display: block;
+    margin-bottom: 6px;
+}
+
+/* CUSTOMIZATION BOX */
+.custom-box {
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 10px;
+    transition: 0.2s;
+}
+
+.custom-box:hover {
+    border-color: #f97316;
+    background: #fff7ed;
+}
+
+/* TEXTAREA */
+textarea.form-control {
+    min-height: 90px;
+}
+.flag-group {
+    background: #f9fafb;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 10px 12px; /* reduced from 15px */
+}
+
+.flag-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    margin-bottom: 6px; /* reduced */
+    text-transform: uppercase;
+}
+
+.flag-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 6px; /* reduced */
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 13px;
+    margin-bottom: 2px; /* reduce vertical gap */
+}
+
+.flag-item:hover {
+    background: #fff7ed;
+}
+
+.flag-item input[type="checkbox"] {
+    accent-color: #f97316;
+    transform: scale(1);
+}
+.occasion-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 14px;
+}
+
+.occasion-box:hover {
+    background: #fff7ed;
+    border-color: #f97316;
+}
+
+.occasion-box input[type="checkbox"] {
+    accent-color: #f97316;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+/* Optional: active feel when checked */
+.occasion-box input[type="checkbox"]:checked + span {
+    font-weight: 500;
+    color: #f97316;
+}
+/* tumhara existing CSS */
+
+select.form-control {
+    height: 45px;
+    padding: 10px 12px;
+}
+.flag-item input[type="checkbox"] {
+    accent-color: #f97316;
+    cursor: pointer;
+}
+
+/* TITLE SPACING */
+h5 b {
+    font-weight: 600;
+}
+</style>
+
 <div class="main-section">
     @include('admin.header')
 
@@ -19,9 +217,9 @@
 
                             {{-- CATEGORY --}}
                             <div class="card p-3 mb-3">
-                                <h5><b>Category</b></h5>
+                                <h5><b>Category & Sub Category</b></h5>
 
-                                <div style="max-height:300px;overflow:auto;">
+                                <div class="category-scroll">
                                     @foreach($categories as $cat)
                                         <div class="mb-2">
 
@@ -95,10 +293,25 @@
                                 <label class="mt-2">Delivery Time</label>
                                 <input type="text" name="delivery_time" class="form-control">
 
-                                <div class="mt-2">
-                                    <label><input type="checkbox" name="quality"> Quality Assurance</label><br>
-                                    <label><input type="checkbox" name="pan_india"> PAN India Delivery</label>
-                                </div>
+                                <div class="mt-3">
+    <div class="row">
+        
+        <div class="col-md-6 mb-2">
+            <label class="occasion-box">
+                <input type="checkbox" name="quality">
+                <span>Quality Assurance</span>
+            </label>
+        </div>
+
+        <div class="col-md-6 mb-2">
+            <label class="occasion-box">
+                <input type="checkbox" name="pan_india">
+                <span>PAN India Delivery</span>
+            </label>
+        </div>
+
+    </div>
+</div>
                             </div>
 
                             {{-- PRICING --}}
@@ -131,30 +344,71 @@
 
                             {{-- FLAGS --}}
                             <div class="card p-3 mb-3">
-                                <h5><b>Product Flags</b></h5>
+    <h5 class="mb-3"><b>Product Flags</b></h5>
 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label><input type="checkbox" name="featured"> Featured</label><br>
-                                        <label><input type="checkbox" name="new_arrival"> New Arrival</label><br>
-                                        <label><input type="checkbox" name="sale"> Sale</label><br>
-                                        <label><input type="checkbox" name="best_seller"> Best Seller</label>
-                                    </div>
+    <div class="row">
 
-                                    <div class="col-md-6">
-                                        <label><input type="checkbox" name="ready_to_ship"> Ready to Ship</label><br>
-                                        <label><input type="checkbox" name="bulk_available"> Bulk Orders</label><br>
-                                        <label><input type="checkbox" name="gift_hamper"> Gift Hamper</label>
-                                    </div>
-                                </div>
+        <!-- LEFT GROUP -->
+        <div class="col-md-6">
+            <div class="flag-group">
+                <p class="flag-title">Marketing</p>
 
-                                <div class="mt-2">
-                                    <label><input type="checkbox" name="is_premium"> Premium</label><br>
-                                    <label><input type="checkbox" name="is_engraving"> Engraving</label><br>
-                                    <label><input type="checkbox" name="show_on_website" checked> Show on
-                                        Website</label>
-                                </div>
-                            </div>
+                <label class="flag-item">
+                    <input type="checkbox" name="featured"> Featured Products
+                </label>
+
+                <label class="flag-item">
+                    <input type="checkbox" name="new_arrival"> New Arrivals
+                </label>
+
+                <label class="flag-item">
+                    <input type="checkbox" name="sale"> Sale
+                </label>
+
+                <label class="flag-item">
+                    <input type="checkbox" name="best_seller"> Best Sellers
+                </label>
+            </div>
+        </div>
+
+        <!-- RIGHT GROUP -->
+        <div class="col-md-6">
+            <div class="flag-group">
+                <p class="flag-title">Availability</p>
+
+                <label class="flag-item">
+                    <input type="checkbox" name="ready_to_ship"> Ready to Ship
+                </label>
+
+                <label class="flag-item">
+                    <input type="checkbox" name="bulk_available"> Bulk Orders
+                </label>
+
+                <label class="flag-item">
+                    <input type="checkbox" name="gift_hamper"> Gift Hamper
+                </label>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- EXTRA FLAGS -->
+    <div class="flag-group mt-3">
+        <p class="flag-title">Other Settings</p>
+
+        <label class="flag-item">
+            <input type="checkbox" name="is_premium"> Premium Products
+        </label>
+
+        <label class="flag-item">
+            <input type="checkbox" name="is_engraving"> Engravings
+        </label>
+
+        <label class="flag-item">
+            <input type="checkbox" name="show_on_website" checked> Show on Website
+        </label>
+    </div>
+</div>
 
                             {{-- CUSTOMIZATION --}}
                             <div class="card p-3 mb-3">
@@ -163,7 +417,7 @@
                                 <div class="row">
                                     @foreach($customizations as $c)
                                         <div class="col-md-6 mb-2">
-                                            <label class="border p-2 rounded w-100">
+                                            <label class="custom-box w-100">
                                                 <input type="checkbox" name="customizations[]" value="{{ $c->id }}">
                                                 {{ $c->name }}
                                             </label>
@@ -198,19 +452,23 @@
                         </div>
 
                         <!-- RIGHT -->
-                        <div class="col-md-4">
+                       <div class="col-md-4 right-sticky">
 
                             {{-- OCCASIONS --}}
                             <div class="card p-3 mb-3">
-                                <h5><b>Occasions</b></h5>
+    <h5 class="mb-3"><b>Occasions (Suitable for)</b></h5>
 
-                                @foreach($occasions as $o)
-                                    <label>
-                                        <input type="checkbox" name="occasions[]" value="{{ $o->id }}">
-                                        {{ $o->title }}
-                                    </label><br>
-                                @endforeach
-                            </div>
+    <div class="row">
+        @foreach($occasions as $o)
+            <div class="col-12 mb-2">
+                <label class="occasion-box">
+                    <input type="checkbox" name="occasions[]" value="{{ $o->id }}">
+                    <span>{{ $o->title }}</span>
+                </label>
+            </div>
+        @endforeach
+    </div>
+</div>
 
                             {{-- ADVANCED --}}
                             <div class="card p-3 mb-3">
@@ -273,6 +531,7 @@
 <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
 
 <script>
+    CKEDITOR.config.versionCheck = false;
     CKEDITOR.replace('details');
     CKEDITOR.replace('delivery_returns');
 

@@ -61,6 +61,9 @@
                                 @endforeach
                             </select>
 
+                            <label class="mt-2">Sort Order</label>
+<input type="number" name="sort_order" value="{{ $category->sort_order }}" class="form-control">
+
                         </div>
 
                         {{-- MEDIA --}}

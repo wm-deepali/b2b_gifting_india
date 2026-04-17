@@ -11,10 +11,15 @@ use Illuminate\Support\Str;
 class CategoryController extends Controller
 {
     // ✅ List Page
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::with('parent', 'children')
-            ->paginate(10);
+        $query = Category::with('parent', 'children');
+
+        if ($request->search) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        $categories = $query->latest()->paginate(10);
 
         return view('admin.categories.index', compact('categories'));
     }
@@ -66,6 +71,7 @@ class CategoryController extends Controller
             'added_by' => 'admin',
 
             'status' => $request->status ?? 1,
+            'sort_order' => $request->sort_order ?? 0,
         ]);
 
         return redirect()->route('admin.categories.index')
@@ -127,6 +133,7 @@ class CategoryController extends Controller
             'is_sub_category' => $request->parent_id ? 1 : 0,
 
             'status' => $request->status ?? 1,
+            'sort_order' => $request->sort_order ?? 0,
         ]);
 
         return redirect()->route('admin.categories.index')

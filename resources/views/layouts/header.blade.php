@@ -226,9 +226,9 @@
                     ->where('name', '!=', '')
                     ->whereNull('parent_id')
                     ->where('status', 1)
-                    ->orderByDesc('is_popular')
-                    ->orderBy('name')
+                    ->orderBy('sort_order', 'asc')
                     ->get();
+
 
                 $mainCategories = $categories->take(20);
                 $moreCategories = $categories->slice(20);
@@ -351,7 +351,7 @@
 <script>
     const input = document.getElementById('searchInput');
     const box = document.getElementById('searchSuggestions');
-
+    const BASE_URL = "{{ asset('') }}";
     let timeout = null;
 
     input.addEventListener('keyup', function () {
@@ -392,14 +392,17 @@
                     }
 
                     // Products
-                    if (data.products.length) {
+                   if (data.products.length) {
                         html += `<div class="px-4 py-2 text-xs text-gray-400">Products</div>`;
+
                         data.products.forEach(prod => {
                             html += `
-            <div onclick="window.location.href='/product/${prod.slug}'"
+            <div onclick="window.location.href='${BASE_URL}product/${prod.slug}'"
                 class="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 cursor-pointer">
                 
-                <img src="/storage/${prod.image}" class="w-10 h-10 rounded object-cover">
+                <img src="${BASE_URL}storage/${prod.image}" 
+                     class="w-10 h-10 rounded object-cover">
+
                 <span>${prod.name}</span>
             </div>
         `;

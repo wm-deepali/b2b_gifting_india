@@ -1,151 +1,267 @@
 @extends('layouts.app')
 
+ <style>
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+    }
+
+    .modal-content {
+        background: white;
+        border-radius: 24px;
+        width: 90%;
+        max-width: 480px;
+        max-height: 92vh;
+        overflow-y: auto;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 14px 18px;
+        border: 2px solid #e5e7eb;
+        border-radius: 14px;
+        margin-bottom: 16px;
+        transition: all 0.3s;
+    }
+
+    .form-input:focus {
+        border-color: var(--primary-orange);
+        outline: none;
+        box-shadow: 0 0 0 4px rgba(244, 162, 97, 0.1);
+    }
+  </style>
+  
 @section('content')
 
 
-<section class="hero-bg py-24 md:py-32">
-    <div class="max-w-5xl mx-auto px-6 text-center">
-        <p class="uppercase tracking-widest text-sm font-medium text-gray-500 mb-4">
-            Premium Corporate Solutions
-        </p>
-        <h1 class="text-5xl md:text-6xl font-bold leading-tight text-gray-900 mb-6">
-            Our Membership Plans
-        </h1>
-        <p class="max-w-3xl mx-auto text-xl text-gray-600">
-            Choose the perfect membership that suits your corporate gifting needs. From occasional orders to enterprise-level solutions — we have a plan for every business.
-        </p>
+    <section class="hero-bg py-24 md:py-32">
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <p class="uppercase tracking-widest text-sm font-medium text-gray-500 mb-4">
+                Premium Corporate Solutions
+            </p>
+            <h1 class="text-5xl md:text-6xl font-bold leading-tight text-gray-900 mb-6">
+                Our Membership Plans
+            </h1>
+            <p class="max-w-3xl mx-auto text-xl text-gray-600">
+                Choose the perfect membership that suits your corporate gifting needs. From occasional orders to
+                enterprise-level solutions — we have a plan for every business.
+            </p>
 
-        <div class="mt-12">
-            <a href="#" 
-               class="inline-block bg-gradient-to-r from-[#e07a5f] to-[#f4a261] text-white px-10 py-4 rounded-2xl font-semibold text-lg hover:shadow-xl transition-all">
-                Compare All Plans
-            </a>
-        </div>
-    </div>
-</section>
-
-<!-- How We Create Value -->
-<section class="py-20 bg-white">
-    <div class="max-w-6xl mx-auto px-6">
-        <div class="grid md:grid-cols-12 gap-12 items-center">
-
-            <!-- Left Content -->
-            <div class="md:col-span-5">
-                <div class="bg-gray-900 text-white p-10 rounded-3xl h-full">
-                    <h2 class="text-3xl font-semibold mb-6">Connecting Businesses Through Thoughtful Gifting</h2>
-                    <p class="text-gray-300 leading-relaxed">
-                        We help companies build stronger relationships with employees and clients through premium, customized corporate gifts. 
-                        Our membership plans are designed to make gifting seamless, cost-effective, and impactful.
-                    </p>
-                </div>
+            <div class="mt-12">
+                <a href="#"
+                    class="inline-block bg-gradient-to-r from-[#e07a5f] to-[#f4a261] text-white px-10 py-4 rounded-2xl font-semibold text-lg hover:shadow-xl transition-all">
+                    Compare All Plans
+                </a>
             </div>
+        </div>
+    </section>
 
-            <!-- Right Value Points -->
-            <div class="md:col-span-7 space-y-6">
+    <!-- How We Create Value -->
+    <section class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid md:grid-cols-12 gap-12 items-center">
 
-                <div class="flex gap-6 bg-white p-7 rounded-3xl shadow-sm service-card">
-                    <div class="card-number w-10 h-10 flex-shrink-0 rounded-2xl flex items-center justify-center text-lg">01</div>
-                    <div>
-                        <h3 class="font-semibold text-xl mb-2">Flexible Gifting Solutions</h3>
-                        <p class="text-gray-600">Choose from one-time orders or enjoy priority access with our membership plans.</p>
+                <!-- Left Content -->
+                <div class="md:col-span-5">
+                    <div class="bg-gray-900 text-white p-10 rounded-3xl h-full">
+                        <h2 class="text-3xl font-semibold mb-6">Connecting Businesses Through Thoughtful Gifting</h2>
+                        <p class="text-gray-300 leading-relaxed">
+                            We help companies build stronger relationships with employees and clients through premium,
+                            customized corporate gifts.
+                            Our membership plans are designed to make gifting seamless, cost-effective, and impactful.
+                        </p>
                     </div>
                 </div>
 
-                <div class="flex gap-6 bg-white p-7 rounded-3xl shadow-sm service-card">
-                    <div class="card-number w-10 h-10 flex-shrink-0 rounded-2xl flex items-center justify-center text-lg">02</div>
-                    <div>
-                        <h3 class="font-semibold text-xl mb-2">Exclusive Discounts & Benefits</h3>
-                        <p class="text-gray-600">Members get up to 25% off on bulk orders, free customization, and priority support.</p>
-                    </div>
-                </div>
+                <!-- Right Value Points -->
+                <div class="md:col-span-7 space-y-6">
 
-                <div class="flex gap-6 bg-white p-7 rounded-3xl shadow-sm service-card">
-                    <div class="card-number w-10 h-10 flex-shrink-0 rounded-2xl flex items-center justify-center text-lg">03</div>
-                    <div>
-                        <h3 class="font-semibold text-xl mb-2">Dedicated Account Manager</h3>
-                        <p class="text-gray-600">Get personalized assistance for all your gifting needs throughout the year.</p>
+                    <div class="flex gap-6 bg-white p-7 rounded-3xl shadow-sm service-card">
+                        <div
+                            class="card-number w-10 h-10 flex-shrink-0 rounded-2xl flex items-center justify-center text-lg">
+                            01</div>
+                        <div>
+                            <h3 class="font-semibold text-xl mb-2">Flexible Gifting Solutions</h3>
+                            <p class="text-gray-600">Choose from one-time orders or enjoy priority access with our
+                                membership plans.</p>
+                        </div>
                     </div>
+
+                    <div class="flex gap-6 bg-white p-7 rounded-3xl shadow-sm service-card">
+                        <div
+                            class="card-number w-10 h-10 flex-shrink-0 rounded-2xl flex items-center justify-center text-lg">
+                            02</div>
+                        <div>
+                            <h3 class="font-semibold text-xl mb-2">Exclusive Discounts & Benefits</h3>
+                            <p class="text-gray-600">Members get up to 25% off on bulk orders, free customization, and
+                                priority support.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-6 bg-white p-7 rounded-3xl shadow-sm service-card">
+                        <div
+                            class="card-number w-10 h-10 flex-shrink-0 rounded-2xl flex items-center justify-center text-lg">
+                            03</div>
+                        <div>
+                            <h3 class="font-semibold text-xl mb-2">Dedicated Account Manager</h3>
+                            <p class="text-gray-600">Get personalized assistance for all your gifting needs throughout the
+                                year.</p>
+                        </div>
+                    </div>
+
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Membership Plans Cards -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-900">Choose Your Membership</h2>
+                <p class="text-gray-600 mt-3 text-lg">Three plans designed for different business needs</p>
+            </div>
+
+
+            <div class="grid md:grid-cols-3 gap-8">
+
+                @foreach($packages as $package)
+
+                            <div class="service-card bg-white rounded-3xl p-8 text-center 
+                                        {{ $package->is_popular ? 'ring-2 ring-[#f4a261] relative' : '' }}">
+
+                                {{-- MOST POPULAR --}}
+                                @if($package->is_popular)
+                                    <div
+                                        class="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#f4a261] text-white text-xs font-bold px-6 py-1.5 rounded-full">
+                                        MOST POPULAR
+                                    </div>
+                                @endif
+
+                                {{-- NAME --}}
+                                <h3 class="text-2xl font-semibold mb-2">
+                                    {{ $package->name }}
+                                </h3>
+
+                                {{-- SUB TITLE --}}
+                                <p class="text-[#f4a261] font-medium mb-6">
+                                    {{ $package->sub_title }}
+                                </p>
+
+                                {{-- PRICE --}}
+                                <div class="text-5xl font-bold text-gray-800 mb-1">
+                                    ₹{{ number_format($package->cost) }}
+                                </div>
+
+                                <p class="text-sm text-gray-500 mb-8">
+                                    {{ $package->duration }}
+                                </p>
+
+                                {{-- FEATURES --}}
+                                <ul class="text-left space-y-4 mb-10 text-gray-600">
+                                    @foreach($package->features as $feature)
+                                        <li>✓ {{ $feature->feature_name }}</li>
+                                    @endforeach
+                                </ul>
+
+                                {{-- BUTTON --}}
+                                <button type="button" onclick="openDrawer('{{ $package->name }}')" class="block w-full py-4 
+                    {{ $package->is_popular
+                        ? 'bg-gradient-to-r from-[#f4a261] to-[#e07a5f] text-white'
+                        : 'border-2 border-[#f4a261] text-[#f4a261] hover:bg-[#f4a261] hover:text-white' }}
+                    rounded-2xl font-semibold transition-all">
+
+                                    {{ $package->button_text ?? 'Choose Plan' }}
+
+                                </button>
+
+                            </div>
+
+                @endforeach
 
             </div>
+
+        </div>
+    </section>
+
+    <!-- ==================== LEFT DRAWER FORM ==================== -->
+    <div id="enquiryDrawer"
+        class="fixed top-0 left-0 h-full w-full md:w-1/3 bg-white shadow-2xl transform -translate-x-full transition-transform duration-300 z-50 overflow-y-auto">
+        <div class="p-8">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-2xl font-bold" id="drawerTitle">Request Quote</h3>
+                <button onclick="closeDrawer()" class="text-3xl text-gray-400 hover:text-gray-600">×</button>
+            </div>
+
+            <form id="quoteForm">
+                <input type="hidden" name="plan" id="selectedPlan">
+                <div class="mb-1">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                    <input type="text" id="name" class="form-input" placeholder="Enter your name" required>
+                </div>
+
+                <div class="mb-1">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Company Name</label>
+                    <input type="text" id="company" class="form-input" placeholder="Your Company Name" required>
+                </div>
+
+                <div class="mb-1">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                    <input type="email" id="email" class="form-input" placeholder="you@company.com" required>
+                </div>
+
+                <div class="mb-1">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Mobile Number</label>
+                    <input type="tel" id="phone" class="form-input" placeholder="+91 98765 43210" required>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Message / Special Requirement</label>
+                    <textarea id="message" rows="4" class="form-input"
+                        placeholder="Any specific requirement or customization needed?"></textarea>
+                </div>
+
+                <button type="submit"
+                    class="w-full py-5 bg-gradient-to-r from-[#f4a261] to-[#e07a5f] text-white rounded-2xl font-semibold text-lg">
+                    Submit Enquiry
+                </button>
+            </form>
         </div>
     </div>
-</section>
 
-<!-- Membership Plans Cards -->
-<section class="py-20 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-12">
-            <h2 class="text-4xl font-bold text-gray-900">Choose Your Membership</h2>
-            <p class="text-gray-600 mt-3 text-lg">Three plans designed for different business needs</p>
-        </div>
+    <!-- Overlay -->
+    <div id="drawerOverlay" onclick="closeDrawer()" class="fixed inset-0 bg-black/50 hidden z-40"></div>
 
-        <div class="grid md:grid-cols-3 gap-8">
+    <script>
+        function openDrawer(planName) {
+            document.getElementById('drawerTitle').textContent = `Enquiry for ${planName}`;
+            document.getElementById('selectedPlan').value = planName;
+            document.getElementById('enquiryDrawer').classList.remove('-translate-x-full');
+            document.getElementById('drawerOverlay').classList.remove('hidden');
+        }
 
-            <!-- Basic Plan -->
-            <div class="service-card bg-white rounded-3xl p-8 text-center">
-                <h3 class="text-2xl font-semibold mb-2">Starter</h3>
-                <p class="text-[#f4a261] font-medium mb-6">Occasional Gifting</p>
-                <div class="text-5xl font-bold text-gray-800 mb-1">₹15,000</div>
-                <p class="text-sm text-gray-500 mb-8">per year</p>
+        function closeDrawer() {
+            document.getElementById('enquiryDrawer').classList.add('-translate-x-full');
+            document.getElementById('drawerOverlay').classList.add('hidden');
+        }
 
-                <ul class="text-left space-y-4 mb-10 text-gray-600">
-                    <li>✓ Up to 5 bulk orders per year</li>
-                    <li>✓ Standard customization</li>
-                    <li>✓ 10% discount on orders</li>
-                    <li>✓ Email support</li>
-                </ul>
+        // Form Submit (Demo)
+        document.getElementById('quoteForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            alert("Thank you! Your enquiry for " + document.getElementById('selectedPlan').value + " has been received.\n\nOur team will contact you shortly.");
+            closeDrawer();
+        });
+    </script>
 
-                <a href="#" class="block w-full py-4 border-2 border-[#f4a261] text-[#f4a261] rounded-2xl font-semibold hover:bg-[#f4a261] hover:text-white transition-all">
-                    Choose Starter
-                </a>
-            </div>
 
-            <!-- Premium Plan (Most Popular) -->
-            <div class="service-card bg-white rounded-3xl p-8 text-center ring-2 ring-[#f4a261] relative">
-                <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#f4a261] text-white text-xs font-bold px-6 py-1.5 rounded-full">
-                    MOST POPULAR
-                </div>
-                <h3 class="text-2xl font-semibold mb-2">Premium</h3>
-                <p class="text-[#2ec4b6] font-medium mb-6">Regular Corporate Gifting</p>
-                <div class="text-5xl font-bold text-gray-800 mb-1">₹45,000</div>
-                <p class="text-sm text-gray-500 mb-8">per year</p>
-
-                <ul class="text-left space-y-4 mb-10 text-gray-600">
-                    <li>✓ Unlimited orders</li>
-                    <li>✓ Free premium customization</li>
-                    <li>✓ 20% discount on all orders</li>
-                    <li>✓ Dedicated account manager</li>
-                    <li>✓ Priority delivery</li>
-                </ul>
-
-                <a href="#" class="block w-full py-4 bg-gradient-to-r from-[#f4a261] to-[#e07a5f] text-white rounded-2xl font-semibold">
-                    Choose Premium
-                </a>
-            </div>
-
-            <!-- Enterprise Plan -->
-            <div class="service-card bg-white rounded-3xl p-8 text-center">
-                <h3 class="text-2xl font-semibold mb-2">Enterprise</h3>
-                <p class="text-[#e07a5f] font-medium mb-6">Large Organizations</p>
-                <div class="text-5xl font-bold text-gray-800 mb-1">Custom</div>
-                <p class="text-sm text-gray-500 mb-8">Tailored for you</p>
-
-                <ul class="text-left space-y-4 mb-10 text-gray-600">
-                    <li>✓ Everything in Premium</li>
-                    <li>✓ Custom branding solutions</li>
-                    <li>✓ API integration</li>
-                    <li>✓ Monthly gifting calendar</li>
-                    <li>✓ On-site support</li>
-                </ul>
-
-                <a href="#" class="block w-full py-4 border-2 border-gray-300 text-gray-700 rounded-2xl font-semibold hover:border-gray-400 transition-all">
-                    Contact Sales
-                </a>
-            </div>
-
-        </div>
-    </div>
-</section>
 
 @endsection

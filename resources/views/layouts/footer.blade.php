@@ -70,11 +70,11 @@
       <div>
         <h4 class="text-white font-semibold text-lg mb-5">Categories</h4>
         <ul class="space-y-3 text-sm">
-          @php
-            $categories = \App\Models\Category::orderBy('name')
-              ->whereNull('parent_id')
-              ->where('show_on_website',1)
+         @php
+            $categories = \App\Models\Category::whereNull('parent_id')
+              ->where('show_on_website', 1)
               ->where('status', 1)
+              ->orderBy('sort_order', 'asc')
               ->get();
           @endphp
           @foreach ($categories as $category)
@@ -97,10 +97,9 @@
           <li><a href="{{ route('contact-us') }}" class="hover:text-white transition-colors">Contact Us</a></li>
           <li><a href="{{ route('awards') }}" class="hover:text-white transition-colors">Awards & Recognition</a></li>
           <li><a href="{{ route('blogs') }}" class="hover:text-white transition-colors">Blogs</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Recycling Pledge</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Engraving Gallery</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Personalised Engraving</a></li>
-
+                    <li><a href="{{ route('recycling-pledge') }}" class="hover:text-white transition-colors">Recycling Pledge</a></li>
+          <li><a href="{{ route('engraving-gallery') }}" class="hover:text-white transition-colors">Engraving Gallery</a></li>
+          <li><a href="{{ route('personalised-engraving') }}" class="hover:text-white transition-colors">Personalised Engraving</a></li>
 
         </ul>
       </div>

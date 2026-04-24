@@ -31,6 +31,50 @@
         }
     }
 </style>
+
+<style>
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+    }
+
+    .modal-content {
+        background: white;
+        border-radius: 24px;
+        width: 90%;
+        max-width: 480px;
+        max-height: 92vh;
+        overflow-y: auto;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 14px 18px;
+        border: 2px solid #e5e7eb;
+        border-radius: 14px;
+        margin-bottom: 16px;
+        transition: all 0.3s;
+    }
+
+    .form-input:focus {
+        border-color: var(--primary-orange);
+        outline: none;
+        box-shadow: 0 0 0 4px rgba(244, 162, 97, 0.1);
+    }
+
+    .en-form {
+        z-index: 9999;
+    }
+</style>
 <!-- TOP ANNOUNCEMENT BAR -->
 <div id="announcement"
     class="bg-[#e07a5f] text-white px-2 py-3 text-center text-sm font-medium flex items-center justify-center gap-3 shadow-md">
@@ -163,7 +207,7 @@
                 <!-- Cart -->
                 <div class="relative">
                     <i class="fa-solid fa-cart-shopping cursor-pointer"></i>
-                    <span
+                    <span id="cart-count"
                         class="absolute -top-2 -right-2 bg-[#e07a5f] text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
                         {{ $globalCartCount }}
                     </span>

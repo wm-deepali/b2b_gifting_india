@@ -43,7 +43,7 @@
     </style>
 
 
-    <section class="py-20 bg-gradient-to-br from-[#f8f4f0] to-white">
+    <section class="py-8 md:py-20 bg-gradient-to-br from-[#f8f4f0] to-white">
         <div class="max-w-6xl mx-auto px-6 text-center">
             <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">Get In Touch</h1>
             <p class="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -52,25 +52,25 @@
         </div>
     </section>
 
-    <div class="max-w-7xl mx-auto px-6 py-16">
+    <div class="max-w-7xl mx-auto px-6 py-8 md:py-16">
         <div class="grid lg:grid-cols-5 gap-12">
 
             <!-- Contact Form -->
             <div class="lg:col-span-3">
-                <div class="bg-white rounded-3xl shadow-sm p-10">
+                <div class="bg-white rounded-3xl shadow-sm p-4 md:p-10">
                     <h2 class="text-3xl font-semibold mb-8">Send us a Message</h2>
 
                     <form method="POST" action="{{ route('contact.submit') }}">
                         @csrf
 
-                        {{-- SUCCESS MESSAGE --}}
+                        {{-- SUCCESS --}}
                         @if(session('success'))
                             <div class="mb-4 text-green-600 font-medium">
                                 {{ session('success') }}
                             </div>
                         @endif
 
-                        {{-- ERROR MESSAGE --}}
+                        {{-- GLOBAL ERRORS --}}
                         @if ($errors->any())
                             <div class="mb-4 text-red-500">
                                 <ul>
@@ -81,24 +81,44 @@
                             </div>
                         @endif
 
-                        <!-- NAME + EMAIL -->
                         <div class="grid md:grid-cols-2 gap-6">
-                            <input type="text" name="name" value="{{ old('name') }}" placeholder="Your Name"
-                                class="form-input" required>
 
-                            <input type="email" name="email" value="{{ old('email') }}" placeholder="Email Address"
-                                class="form-input" required>
+                            {{-- NAME --}}
+                            <div>
+                                <input type="text" name="name" value="{{ old('name') }}" placeholder="Your Name"
+                                    class="form-input" required>
+
+                                @error('name')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            {{-- EMAIL --}}
+                            <div>
+                                <input type="email" name="email" value="{{ old('email') }}" placeholder="Email Address"
+                                    class="form-input" required>
+
+                                @error('email')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
                         </div>
 
-                        <!-- MOBILE -->
-                        <input type="tel" name="mobile" value="{{ old('mobile') }}" placeholder="Mobile Number"
-                            class="form-input mt-6" required>
+                        {{-- MOBILE --}}
+                        <div>
+                            <input type="tel" name="mobile" value="{{ old('mobile') }}" placeholder="Mobile Number"
+                                pattern="[6-9]{1}[0-9]{9}" maxlength="10" class="form-input mt-6" required>
 
-                        <!-- COMPANY -->
+                            @error('mobile')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        {{-- COMPANY --}}
                         <input type="text" name="company" value="{{ old('company') }}" placeholder="Company Name"
                             class="form-input mt-6">
 
-                        <!-- INQUIRY TYPE (DYNAMIC) -->
+                        {{-- INQUIRY TYPE --}}
                         <select name="inquiry_type" class="form-input mt-6">
                             <option value="">Select Inquiry Type</option>
                             @foreach($inquiryTypes as $type)
@@ -108,20 +128,29 @@
                             @endforeach
                         </select>
 
-                        <!-- MESSAGE -->
-                        <textarea name="message" rows="5" placeholder="Your Message..." class="form-input mt-6"
-                            required>{{ old('message') }}</textarea>
-
+                        {{-- MESSAGE --}}
                         <div>
-                            <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
+                            <textarea name="message" rows="5" placeholder="Your Message..." class="form-input mt-6"
+                                required>{{ old('message') }}</textarea>
+
+                            @error('message')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
-                        <!-- SUBMIT BUTTON -->
+                        {{-- CAPTCHA --}}
+                        <div class="mt-4">
+                            <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
+
+                            @error('g-recaptcha-response')
+                                <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
+                            @enderror
+                        </div>
+
                         <button type="submit"
                             class="contact-btn w-full mt-8 text-white py-5 rounded-2xl font-semibold text-lg">
                             Send Message
                         </button>
-
                     </form>
 
                 </div>

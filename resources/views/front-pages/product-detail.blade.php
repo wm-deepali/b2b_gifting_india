@@ -1,5 +1,34 @@
 @extends('layouts.app')
 
+@section('meta_title', $product->meta_title ?? $product->name)
+
+@section('meta_description', $product->meta_description ?? $product->sub_title)
+
+
+<style>
+    .action-btn {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+}
+
+.action-btn:active {
+    transform: scale(0.97);
+}
+
+/* Responsive Grid Adjustment */
+@media (max-width: 640px) {
+    .action-btn {
+        padding: 18px 20px;
+        font-size: 1.05rem;
+    }
+}
+</style>
+
 @section('content')
 
 
@@ -32,7 +61,7 @@
             <div>
                 <div>
                     <!-- Main Slider -->
-                    <div class="product-slider h-[520px] bg-gray-100 relative" id="mainSlider">
+                    <div class="product-slider h-[300px] lg:h-[520px] bg-gray-100 relative" id="mainSlider">
 
                         @php
                             $images = [];
@@ -78,60 +107,37 @@
             <div>
 
                 <h1 class="text-4xl font-bold leading-tight text-gray-900 mb-2">
-                    {{ $product->name }}
+                    {{ $product->name }} 
                 </h1>
                 <div class="flex gap-2 flex-wrap mt-2">
 
-                    @if($product->featured)
-                        <span class="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded">Featured</span>
-                    @endif
 
                     @if($product->new_arrival)
-                        <span class="bg-green-100 text-green-700 text-xs px-2 py-1 rounded">New</span>
+                        <span class="bg-green-100 text-green-700 text-xs px-2 py-1 rounded">New Arrivals</span>
                     @endif
 
-                    @if($product->best_seller)
-                        <span class="bg-yellow-100 text-yellow-700 text-xs px-2 py-1 rounded">Best Seller</span>
-                    @endif
+                   
 
                     @if($product->sale)
-                        <span class="bg-red-100 text-red-700 text-xs px-2 py-1 rounded">Sale</span>
+                        <span class="bg-red-100 text-red-700 text-xs px-2 py-1 rounded">On Sale</span>
                     @endif
 
-                    @if($product->is_premium)
-                        <span class="bg-purple-100 text-purple-700 text-xs px-2 py-1 rounded">Premium</span>
-                    @endif
-
-                    @if($product->bulk_available)
-                        <span class="bg-gray-200 text-gray-800 text-xs px-2 py-1 rounded">Bulk</span>
-                    @endif
-
-                    @if($product->gift_hamper)
-                        <span class="bg-pink-100 text-pink-700 text-xs px-2 py-1 rounded">Gift</span>
-                    @endif
-
-                    @if($product->is_engraving)
-                        <span class="bg-indigo-100 text-indigo-700 text-xs px-2 py-1 rounded">Engraving</span>
-                    @endif
-
-                    @if($product->ready_to_ship)
-                        <span class="bg-green-200 text-green-800 text-xs px-2 py-1 rounded">Ready</span>
-                    @endif
-
+                   
                 </div>
+                <hr class="mt-3 mb-3">
                 <p class="text-gray-500 text-lg">{{ $product->sub_title }}</p>
-                <div class="text-sm text-gray-600 mt-3 space-y-2">
+                <div class=" text-sm text-gray-600 mt-3  gap-4" style="display:flex; align-items:center;">
 
                     @if($product->brand)
-                        <p><span class="font-medium text-gray-800">Brand:</span> {{ $product->brand->name }}</p>
+                        <p class="m-0"><span class="font-medium text-gray-800">Brand:</span> {{ $product->brand->name }}</p>
                     @endif
 
                     @if($product->sku)
-                        <p><span class="font-medium text-gray-800">SKU:</span> {{ $product->sku }}</p>
+                        <p class="m-0"><span class="font-medium text-gray-800">SKU:</span> {{ $product->sku }}</p>
                     @endif
 
                     @if($product->product_code)
-                        <p><span class="font-medium text-gray-800">Product Code:</span> {{ $product->product_code }}</p>
+                        <p class="m-0"><span class="font-medium text-gray-800">Product Code:</span> {{ $product->product_code }}</p>
                     @endif
 
                 </div>
@@ -186,14 +192,44 @@
                     </div>
                 @endif
 
+
+
                 @if($product->summary)
-                    <div class="mt-10">
-                        <h3 class="font-semibold mb-4">Product Summary</h3>
-                        <p class="text-gray-600 leading-relaxed">
-                            {{ $product->summary }}
-                        </p>
-                    </div>
-                @endif
+    <div class="mt-10">
+        <h3 class="font-semibold mb-4 text-gray-800">Product Summary</h3>
+        
+        <div id="summary-text" class="text-gray-600 leading-relaxed">
+            {{ $product->summary }} 
+        </div>
+
+        @if(strlen($product->summary) > 50)
+            <button onclick="toggleReadMore(this)" 
+                    id="read-more-btn"
+                    class=" text-[#f4a261] font-medium flex items-center gap-2 hover:text-[#e07a5f] transition-colors">
+                Read More 
+                <i class="fas fa-chevron-down text-sm transition-transform"></i>
+            </button>
+        @endif
+    </div>
+@endif
+ @if($product->occasions && $product->occasions->count())
+                <div class="mt-5">
+        <h3 class="font-semibold mb-4 text-gray-800">Suitable For</h3>
+        
+        <div class="flex flex-wrap gap-2">
+                                    @foreach($product->occasions as $o)
+                                        <span class="px-3 py-2 bg-gray-100 rounded-full text-sm">
+                                            {{ $o->title }}
+                                        </span>
+                                    @endforeach
+                                </div>
+
+
+    </div>
+                
+              
+                        
+                    @endif
 
                 <div class="mt-10 grid grid-cols-2 gap-4">
                     @if($product->min_qty)
@@ -209,34 +245,74 @@
                         </div>
                     @endif
                 </div>
+               
+                
+                <hr class="mt-3 mb-3">
+                <div class="flex gap-2 flex-wrap mt-2">
 
-                <!-- Action Buttons -->
-                <div class="mt-12 flex flex-col sm:flex-row gap-4">
-
-                    @if($product->cart)
-                        <button data-id="{{ $product->id }}"
-                            class="quote-btn flex-1 py-5 rounded-3xl text-lg font-semibold add-to-cart">
-                            Add to Cart
-                        </button>
+                    @if($product->featured)
+                        <span class="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded">Featured Products</span>
                     @endif
 
-                    @if($product->whatsapp)
-                        <a href="https://wa.me/919876543210" target="_blank"
-                            class="whatsapp-btn flex-1 py-5 rounded-3xl text-lg font-semibold text-white flex items-center justify-center gap-3">
-                            <i class="fa-brands fa-whatsapp text-2xl"></i>
-                            Chat on WhatsApp
-                        </a>
+                    
+
+                    @if($product->best_seller)
+                        <span class="bg-yellow-100 text-yellow-700 text-xs px-2 py-1 rounded">Best Seller</span>
                     @endif
 
-                    @if($product->call)
-                        <a href="tel:919876543210"
-                            class="flex-1 py-5 rounded-3xl text-lg font-semibold flex items-center justify-center gap-3 border border-blue-500 text-blue-600 hover:bg-blue-500 hover:text-white transition">
-                            <i class="fa-solid fa-phone text-xl"></i>
-                            Call Now
-                        </a>
+                   
+
+                    @if($product->is_premium)
+                        <span class="bg-purple-100 text-purple-700 text-xs px-2 py-1 rounded">Premium Gifting</span>
                     @endif
+
+                  
+
+                    @if($product->gift_hamper)
+                        <span class="bg-pink-100 text-pink-700 text-xs px-2 py-1 rounded">Gifting</span>
+                    @endif
+
+                    @if($product->is_engraving)
+                        <span class="bg-indigo-100 text-indigo-700 text-xs px-2 py-1 rounded">Engraving Available</span>
+                    @endif
+
 
                 </div>
+
+                <!-- Action Buttons -->
+<!-- ===================== PRODUCT ACTION BUTTONS ===================== -->
+<div class="mt-12">
+    <div class="grid grid-cols-1 sm:grid-cols-{{ $product->cart && $product->whatsapp && $product->call ? '3' : ($product->cart && $product->whatsapp || $product->cart && $product->call || $product->whatsapp && $product->call ? '2' : '1') }} gap-4">
+        
+        <!-- Add to Cart Button -->
+        @if($product->cart)
+        <button data-id="{{ $product->id }}"
+                class="action-btn add-to-cart flex items-center justify-center gap-3 py-5 rounded-3xl text-lg font-semibold bg-gradient-to-r from-[#f4a261] to-[#e07a5f] text-white shadow-lg hover:shadow-xl transition-all active:scale-[0.98]">
+            <i class="fa-solid fa-cart-plus"></i>
+            Add to Cart
+        </button>
+        @endif
+
+        <!-- WhatsApp Button -->
+        @if($product->whatsapp)
+        <a href="https://wa.me/919876543210" target="_blank"
+           class="action-btn whatsapp-btn flex items-center justify-center gap-3 py-5 rounded-3xl text-lg font-semibold bg-[#25D366] hover:bg-[#20ba5a] text-white shadow-lg hover:shadow-xl transition-all active:scale-[0.98]">
+            <i class="fa-brands fa-whatsapp text-2xl"></i>
+             WhatsApp
+        </a>
+        @endif
+
+        <!-- Call Now Button -->
+        @if($product->call)
+        <a href="tel:919876543210"
+           class="action-btn call-btn flex items-center justify-center gap-3 py-5 rounded-3xl text-lg font-semibold border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition-all active:scale-[0.98]">
+            <i class="fa-solid fa-phone text-xl"></i>
+            Call Now
+        </a>
+        @endif
+
+    </div>
+</div>
                 <div class="flex gap-6 mt-8 text-sm">
                     <div class="flex items-center gap-2 text-gray-600">
                         @if($product->pan_india)
@@ -250,9 +326,31 @@
                             <span>Quality Guaranteed</span>
                         @endif
                     </div>
+                    <div class="flex items-center gap-2 text-gray-600">
+                        @if($product->bulk_available)
+                            <i class="fa-solid fa-dolly"></i>
+                            <span>Bulk Orders</span>
+                        @endif
+                    </div>
+                    <div class="flex items-center gap-2 text-gray-600">
+                        @if($product->ready_to_ship)
+                            <i class="fa-solid fa-truck-fast"></i>
+                            <span>Ready to Ship</span>
+                        @endif
+                    </div>
+                    
+                    
                 </div>
 
-                <div class="mt-10 border-t pt-6">
+                
+
+            </div>
+
+        </div>
+
+    </div>
+    <section class="max-w-7xl mx-auto px-6 py-12">
+        <div class="mt-10 pt-6">
 
                     <!-- ITEM 2 -->
                     @if($product->details)
@@ -302,7 +400,7 @@
                         </div>
                     @endif
 
-                    @if($product->occasions && $product->occasions->count())
+                {{--    @if($product->occasions && $product->occasions->count())
                         <div class="border-b py-4">
                             <button onclick="toggleAccordion(this)"
                                 class="w-full flex justify-between items-center font-semibold text-lg">
@@ -321,14 +419,10 @@
                             </div>
                         </div>
                     @endif
+                    --}}
 
                 </div>
-
-            </div>
-
-        </div>
-
-    </div>
+    </section>
 
     @if($newArrivals->count())
         <section class="py-16 bg-gray-50">
@@ -345,7 +439,7 @@
                                 <img src="{{ asset('storage/' . $item->image) }}" class="w-full h-56 object-cover">
 
                                 <div class="p-5">
-                                    <h3 class="font-semibold">{{ $item->name }}</h3>
+                                    <h3 class="font-semibold">{{ \Illuminate\Support\Str::words($item->name, 7, '...') }}</h3>
                                     <p class="text-gray-500 text-sm">{{ $item->sub_title }}</p>
 
                                     @if($price > 0)
@@ -374,7 +468,7 @@
                                 <img src="{{ asset('storage/' . $item->image) }}" class="w-full h-56 object-cover">
 
                                 <div class="p-5">
-                                    <h3 class="font-semibold">{{ $item->name }}</h3>
+                                    <h3 class="font-semibold">{{ \Illuminate\Support\Str::words($item->name, 7, '...') }}</h3>
                                     <p class="text-gray-500 text-sm">{{ $item->sub_title }}</p>
                                     @if($price > 0)
                                         <p class="font-bold mt-2">₹{{ $price }}</p>
@@ -467,6 +561,29 @@
             });
         });
     </script>
+<script>
+function toggleReadMore(btn) {
+    const textDiv = document.getElementById('summary-text');
+    const icon = btn.querySelector('i');
+    
+    if (textDiv.classList.contains('line-clamp-3')) {
+        // Show full text
+        textDiv.classList.remove('line-clamp-3');
+        btn.innerHTML = `Read Less <i class="fas fa-chevron-up text-sm transition-transform"></i>`;
+    } else {
+        // Collapse back
+        textDiv.classList.add('line-clamp-3');
+        btn.innerHTML = `Read More <i class="fas fa-chevron-down text-sm transition-transform"></i>`;
+    }
+}
 
+// Initial setup - limit to 3 lines if long text
+document.addEventListener('DOMContentLoaded', function() {
+    const summaryText = document.getElementById('summary-text');
+    if (summaryText && summaryText.textContent.length > 50) {
+        summaryText.classList.add('line-clamp-3');
+    }
+});
+</script>
 
 @endsection

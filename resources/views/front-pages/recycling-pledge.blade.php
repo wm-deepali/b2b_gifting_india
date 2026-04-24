@@ -15,7 +15,7 @@
         </p>
 
         <div class="mt-10">
-            <a href="#" 
+           <a href="javascript:void(0)" onclick="openGlobalDrawer('Speak With Our Expert', 'recycling_pledge_page')"
                class="inline-block bg-gradient-to-r from-[#e07a5f] to-[#f4a261] text-white px-10 py-4 rounded-2xl font-semibold text-lg hover:shadow-xl transition-all">
                 Speak With Our Expert
             </a>

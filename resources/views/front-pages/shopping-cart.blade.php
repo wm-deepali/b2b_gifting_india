@@ -23,7 +23,7 @@
 
     <div class="max-w-7xl mx-auto px-6 py-12">
 
-        <h1 class="text-4xl font-bold text-gray-900 mb-2">Your Cart</h1>
+        <h1 class="text-2xl md:text-4xl font-bold text-gray-900 mb-2">Your Cart</h1>
         <p class="text-gray-600">Review your selected products before requesting a final quote</p>
 
         <div class="grid lg:grid-cols-12 gap-10 mt-10">
@@ -32,21 +32,21 @@
             <div class="lg:col-span-8">
 
                 @forelse($cartItems as $item)
-                    <div class="cart-item flex gap-6 bg-white border border-gray-100 rounded-3xl p-6 mb-6">
+                    <div class="cart-item flex flex-col sm:flex-row  gap-2 md:gap-6 bg-white border border-gray-100 rounded-3xl p-3 md:p-6 mb-6">
 
-                        <div class="w-32 h-32 bg-gray-100 rounded-2xl overflow-hidden flex-shrink-0">
+                        <div class="w-100 h-100 md:w-32 md:h-32 bg-gray-100 rounded-2xl overflow-hidden flex-shrink-0">
                             <img src="{{ asset('storage/' . $item->product->image) }}" class="w-full h-full object-cover">
                         </div>
 
                         <div class="flex-1">
-                            <div class="flex justify-between">
-                                <div>
+                            <div class=" flex flex-col sm:flex-row justify-between">
+                                <div class="mb-2">
                                     <h3 class="font-semibold text-xl">{{ $item->product->name }}</h3>
                                     <p class="text-gray-500">
                                         Quantity: {{ $item->quantity }}
                                     </p>
                                 </div>
-                                <button class="remove-item text-red-500 hover:text-red-600 text-sm" data-id="{{ $item->id }}">
+                                <button class="remove-item bg-red-50 py-2 px-3 rounded content-fit text-red-500 hover:text-red-600 text-sm" data-id="{{ $item->id }}">
                                     Remove
                                 </button>
                             </div>
@@ -76,7 +76,7 @@
 
             <!-- Order Summary Sidebar -->
             <div class="lg:col-span-4">
-                <div class="bg-white border border-gray-100 rounded-3xl p-8 sticky top-24">
+                <div class="bg-white border border-gray-100 rounded-3xl p-4 md:p-8 sticky top-24">
 
                     <h3 class="font-semibold text-2xl mb-6">Order Summary</h3>
 
@@ -163,7 +163,7 @@
 
                     <div>
                         <label class="text-sm text-gray-600">Mobile</label>
-                        <input type="text" name="mobile" class="input mt-1" required>
+                        <input type="text" name="mobile" class="input mt-1" pattern="[6-9]{1}[0-9]{9}" maxlength="10" required>
                     </div>
                 </div>
 
@@ -341,35 +341,52 @@
                 },
                 body: formData
             })
-                .then(res => res.json())
-                .then(data => {
+                .then(async res => {
+                    let data = await res.json();
 
                     btn.disabled = false;
                     loader.classList.add('hidden');
                     text.innerText = "Submit Enquiry";
 
-                    if (data.status) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success',
-                            text: data.message,
-                            timer: 1500,
-                            showConfirmButton: false
-                        });
+                    if (!res.ok) {
+                        // 🔥 VALIDATION ERRORS
+                        if (data.errors) {
+                            let errorHtml = '';
 
-                        setTimeout(() => {
-                            window.location.href = data.redirect;
-                        }, 1500);
-                    } else {
-                        Swal.fire('Error', data.message, 'error');
+                            Object.values(data.errors).forEach(arr => {
+                                errorHtml += arr[0] + '<br>';
+                            });
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Validation Error',
+                                html: errorHtml
+                            });
+                        } else {
+                            Swal.fire('Error', data.message || 'Something went wrong', 'error');
+                        }
+                        return;
                     }
+
+                    // ✅ SUCCESS
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: data.message,
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+
+                    setTimeout(() => {
+                        window.location.href = data.redirect;
+                    }, 1500);
                 })
                 .catch(() => {
                     btn.disabled = false;
                     loader.classList.add('hidden');
                     text.innerText = "Submit Enquiry";
 
-                    Swal.fire('Error', 'Something went wrong', 'error');
+                    Swal.fire('Error', 'Network error', 'error');
                 });
         });
 

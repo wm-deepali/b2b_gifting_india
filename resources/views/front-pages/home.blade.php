@@ -326,31 +326,32 @@
                 d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.707 8.707a1 1 0 011.414 0L9 11.586l5.293-5.293a1 1 0 111.414 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414z"
                 clip-rule="evenodd" />
             </svg>
-            Trusted by 5000+ Companies
+            {{ $hero->trusted_text ?? 'Trusted by 5000+ Companies' }}
           </div>
 
           <h1
             class="text-4xl sm:text-5xl lg:text-5xl font-bold leading-[1.05] tracking-tighter text-dark-600 banner-hero-title">
-            Premium Corporate Gifting That
+            {{ $hero->title_black_1 }}
+
             <span class="bg-gradient-to-r from-[#2ec4b6] to-[#f4a261] bg-clip-text text-transparent">
-              Builds Lasting
+              {{ $hero->title_gradient }}
             </span>
-            Relationships
+
+            {{ $hero->title_black_2 }}
           </h1>
 
           <p class="text-lg sm:text-xl text-gray-700 font-light max-w-xl">
-            Branded, customizable & thoughtful gifts for employees, clients & partners — delivered with your brand
-            identity.
+            {{ $hero->description }}
           </p>
 
           <!-- Buttons – forced single line with flex-nowrap -->
           <div class="flex flex-col sm:flex-row flex-nowrap gap-4 sm:gap-5 pt-4">
-            <a href="#featured"
+            <a href="{{ route('products', ['featured' => 1]) }}"
               class="inline-flex items-center justify-center bg-[#2ec4b6] hover:bg-[#26a395] text-white font-semibold px-8 py-4 rounded-full shadow-md transition-all duration-300 min-w-[220px] text-center">
               Browse Premium Collection
             </a>
 
-            <a href="#contact"
+            <a href="#contact-section"
               class="inline-flex items-center justify-center border-2 border-gray-800 hover:bg-gray-800 hover:text-white text-gray-800 font-semibold px-8 py-4 rounded-full transition-all duration-300 min-w-[180px] text-center">
               Get Custom Quote
             </a>
@@ -380,7 +381,8 @@
         <!-- Right: Image – reliable Pexels direct link -->
         <div class="relative mt-8 lg:mt-0">
           <div class="absolute -inset-6 bg-[#2ec4b6]/5 rounded-3xl blur-2xl opacity-50"></div>
-          <img src="{{ asset('images/hero-banner.webp') }}" alt="Premium Corporate Gift Set"
+          <img src="{{ $hero && $hero->image ? asset('storage/' . $hero->image) : asset('images/hero-banner.webp') }}"
+            alt="Premium Corporate Gift Set"
             class="relative rounded-2xl shadow-2xl object-cover w-full h-[300px] md:h-[480px] lg:h-[520px] border border-gray-200/40"
             loading="lazy" onerror="this.src='https://via.placeholder.com/800x520/2ec4b6/ffffff?text=Corporate+Gifts';">
           <!-- Floating badge -->
@@ -403,63 +405,29 @@
       <!-- Heading -->
       <div class="text-center mb-12 md:mb-16">
         <h2 class="why-heading text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">
-          Why Choose B2B Gift India
+          {{ $why->heading ?? 'Why Choose Us' }}
         </h2>
         <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-          We go beyond just food. Every order is an experience designed to delight your senses and warm your heart.
+          {{ $why->sub_heading ?? '' }}
         </p>
       </div>
 
       <!-- Features Grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
 
-        <!-- Card 1 -->
-        <div class="why-card group">
-          <div class="why-icon">
-            <img src="{{ asset('images/premium (1).png') }}" alt="Premium Quality">
-          </div>
-          <h3 class="why-card-title">Premium Quality</h3>
-          <p class="why-card-text">
-            Every product is carefully sourced from the finest artisans and producers.
-            We partner only with those who share our obsession with quality.
-          </p>
-        </div>
+        @foreach($whyCards as $card)
+          <div class="why-card group">
+            <div class="why-icon">
+              <img src="{{ asset('storage/' . $card->icon) }}">
+            </div>
 
-        <!-- Card 2 -->
-        <div class="why-card group">
-          <div class="why-icon">
-            <img src="{{ asset('images/hamper.png') }}" alt="Handcrafted Hampers">
-          </div>
-          <h3 class="why-card-title">Handcrafted Hampers</h3>
-          <p class="why-card-text">
-            Each hamper is assembled by hand with meticulous attention to detail.
-            We combine flavours and textures to create a truly memorable unboxing experience.
-          </p>
-        </div>
+            <h3 class="why-card-title">{{ $card->title }}</h3>
 
-        <!-- Card 3 -->
-        <div class="why-card group">
-          <div class="why-icon">
-            <img src="{{ asset('images/fast-delivery.png') }}" alt="Express Mumbai Delivery">
+            <p class="why-card-text">
+              {{ $card->content }}
+            </p>
           </div>
-          <h3 class="why-card-title">Express Mumbai Delivery</h3>
-          <p class="why-card-text">
-            Same-day and next-day delivery available across Mumbai. Pan-India shipping with
-            careful temperature-controlled packaging for freshness.
-          </p>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="why-card group">
-          <div class="why-icon">
-            <img src="{{ asset('images/gift-wrap.png') }}" alt="Beautiful Gift Wrapping">
-          </div>
-          <h3 class="why-card-title">Beautiful Gift Wrapping</h3>
-          <p class="why-card-text">
-            Complimentary luxury gift wrapping with every order. Add a personalised message
-            card to make your gift extra special for any occasion.
-          </p>
-        </div>
+        @endforeach
 
       </div>
     </div>
@@ -517,8 +485,8 @@
               <!-- Gloss Wave Overlay -->
               <div
                 class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent 
-                                                                                                                                        -skew-x-12 translate-x-[-150%] group-hover:translate-x-[150%] 
-                                                                                                                                        transition-transform duration-700 ease-out">
+                                                                                                                                                                                -skew-x-12 translate-x-[-150%] group-hover:translate-x-[150%] 
+                                                                                                                                                                                transition-transform duration-700 ease-out">
               </div>
             </div>
 
@@ -552,7 +520,7 @@
   <section id="shop-section" class="max-w-7xl mx-auto px-6 py-8 md:py-24">
     <div class="flex justify-between items-center mb-12">
       <h2 class="text-4xl font-bold tracking-tighter">Featured Products</h2>
-      <a href="#" class="hidden md:flex text-[#2ec4b6] flex items-center gap-2 text-lg font-medium">
+      <a href="{{ route('products') }}" class="hidden md:flex text-[#2ec4b6] flex items-center gap-2 text-lg font-medium">
         Shop entire collection
         <span class="text-2xl">→</span>
       </a>
@@ -602,7 +570,7 @@
             @foreach($tags as $index => $tag)
               <div
                 class="absolute {{ $index == 0 ? 'top-4 right-4' : 'top-4 left-4' }} 
-                                                                                                                                                        {{ $tag['class'] }} px-4 py-1 rounded-3xl text-xs font-medium shadow">
+                                                                                                                                                                                                                    {{ $tag['class'] }} px-4 py-1 rounded-3xl text-xs font-medium shadow">
                 {{ $tag['label'] }}
               </div>
             @endforeach
@@ -660,68 +628,30 @@
 
       <div class="b2b-feature-grid grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-8">
 
-        <!-- Card 1: Gift Hampers -->
-        <div onclick="window.location.href='{{ route('products', ['gift_hamper' => 1]) }}'"
-          class="b2b-feature-card group cursor-pointer overflow-hidden rounded-3xl bg-[#f8f5f0] hover:shadow-2xl transition-all duration-500">
+        @foreach($featureCards as $card)
+          <div onclick="window.location.href='{{ $card->link ?? '#' }}'"
+            class="b2b-feature-card group cursor-pointer overflow-hidden rounded-3xl bg-[#f8f5f0] hover:shadow-2xl">
 
-          <div class="b2b-feature-image-wrapper relative h-80 overflow-hidden">
-            <img src="{{ asset('images/gifthampers.webp') }}" alt="Gift Hampers"
-              class="b2b-feature-image w-full h-full object-fill transition-transform duration-700 group-hover:scale-110">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
+            <div class="relative h-80 overflow-hidden">
+              <img src="{{ asset('storage/' . $card->image) }}"
+                class="w-full h-full object-fill group-hover:scale-110 transition">
+
+              <div class="absolute inset-0 bg-gradient-to-t from-black/30"></div>
+            </div>
+
+            <div class="p-8">
+              <h3 class="text-2xl font-semibold">{{ $card->title }}</h3>
+
+              <p class="mt-2 text-gray-600">
+                {{ $card->sub_title }}
+              </p>
+
+              <button class="mt-6 bg-black text-white px-6 py-3 rounded-xl">
+                {{ $card->button_text ?? 'Shop Now' }}
+              </button>
+            </div>
           </div>
-
-          <div class="b2b-feature-content p-8">
-            <h3 class="b2b-feature-title text-2xl font-semibold text-gray-900">Gift Hampers</h3>
-            <p class="b2b-feature-desc mt-2 text-gray-600">Browse our gifting collection</p>
-
-            <button
-              class=" b2b-feature-btn mt-8 bg-gray-900 hover:bg-black text-white px-8 py-3.5 rounded-2xl text-sm font-medium transition-all">
-              SHOP NOW
-            </button>
-          </div>
-        </div>
-
-        <!-- Card 2: Bulk Orders -->
-        <div onclick="window.location.href='{{ route('products', ['bulk_available' => 1]) }}'"
-          class="b2b-feature-card group cursor-pointer overflow-hidden rounded-3xl bg-[#f8f5f0] hover:shadow-2xl transition-all duration-500">
-
-          <div class="b2b-feature-image-wrapper relative h-80 overflow-hidden">
-            <img src="{{ asset('images/bulkorders.webp') }}" alt="Bulk Orders"
-              class="b2b-feature-image w-full h-full object-fill transition-transform duration-700 group-hover:scale-110">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
-          </div>
-
-          <div class="b2b-feature-content p-8">
-            <h3 class="b2b-feature-title text-2xl font-semibold text-gray-900">Bulk Orders</h3>
-            <p class="b2b-feature-desc mt-2 text-gray-600">Bulk Gifting, Handled Smoothly</p>
-
-            <button
-              class="b2b-feature-btn mt-8 bg-white border-2 border-gray-900 hover:bg-gray-900 hover:text-white text-gray-900 px-8 py-3.5 rounded-2xl text-sm font-medium transition-all">
-              ORDER NOW
-            </button>
-          </div>
-        </div>
-
-        <!-- Card 3: Ready-to-Ship -->
-        <div onclick="window.location.href='{{ route('products', ['ready_to_ship' => 1]) }}'"
-          class="b2b-feature-card group cursor-pointer overflow-hidden rounded-3xl bg-[#f8f5f0] hover:shadow-2xl transition-all duration-500">
-
-          <div class="b2b-feature-image-wrapper relative h-80 overflow-hidden">
-            <img src="{{ asset('images/readytodeliver.webp') }}" alt="Ready to Ship"
-              class="b2b-feature-image w-full h-full object-fill transition-transform duration-700 group-hover:scale-110">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
-          </div>
-
-          <div class="b2b-feature-content p-8">
-            <h3 class="b2b-feature-title text-2xl font-semibold text-gray-900">Ready-to-Ship</h3>
-            <p class="b2b-feature-desc mt-2 text-gray-600">Stress-Free Ordering Experience</p>
-
-            <button
-              class="b2b-feature-btn mt-8 bg-gray-900 hover:bg-black text-white px-8 py-3.5 rounded-2xl text-sm font-medium transition-all">
-              SHOP NOW
-            </button>
-          </div>
-        </div>
+        @endforeach
 
       </div>
     </div>
@@ -736,25 +666,23 @@
       <div
         class="lg:col-span-8 relative rounded-xl overflow-hidden bg-gradient-to-br from-gray-50 to-white shadow-xl h-[255px] md:h-[580px] lg:h-[580px]">
 
-        <!-- Slider Container -->
         <div id="heroSlider" class="relative w-full h-full">
 
-          <!-- Slide 1 -->
-          <div class="slider-slide absolute inset-0 bg-cover bg-center transition-opacity duration-1000"
-            style="background-image: url('https://makoba.com/cdn/shop/articles/WhatsApp_Image_2026-02-18_at_2.59.59_PM_2_540x.jpg?v=1772009464')">
-          </div>
+          @foreach($sliders as $index => $slide)
 
-          <!-- Slide 2 -->
-          <div class="slider-slide absolute inset-0 bg-cover bg-center opacity-0 transition-opacity duration-1000"
-            style="background-image: url('https://images.pexels.com/photos/5632402/pexels-photo-5632402.jpeg')">
-          </div>
+            <a href="{{ $slide->link ?? '#' }}">
 
-          <!-- Slide 3 -->
-          <div class="slider-slide absolute inset-0 bg-cover bg-center opacity-0 transition-opacity duration-1000"
-            style="background-image: url('https://images.pexels.com/photos/5632410/pexels-photo-5632410.jpeg')">
-          </div>
+              <div
+                class="slider-slide absolute inset-0 bg-cover bg-center transition-opacity duration-1000 {{ $index != 0 ? 'opacity-0' : '' }}"
+                style="background-image: url('{{ asset('storage/' . $slide->image) }}')">
+              </div>
+
+            </a>
+
+          @endforeach
 
         </div>
+
 
         <!-- Optional Overlay for better text readability (if needed later) -->
         <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
@@ -824,8 +752,8 @@
             <a href="{{ route('products') }}">
 
               <div class="scroll-card border-2 border-dashed border-gray-300 rounded-2xl p-6 mb-5 
-          flex items-center justify-center text-center 
-          hover:border-[#e07a5f] hover:shadow-md transition-all cursor-pointer">
+                              flex items-center justify-center text-center 
+                              hover:border-[#e07a5f] hover:shadow-md transition-all cursor-pointer">
 
                 <p class="text-gray-600 font-semibold text-lg">
                   + Show more Products
@@ -1031,42 +959,87 @@
       <!-- Right: Form -->
       <form method="POST" action="{{ route('home.enquiry') }}" class="bg-white rounded-3xl p-4 md:p-10 shadow-xl">
         @csrf
+
         <h3 class="font-semibold text-2xl mb-8">Get in touch today</h3>
 
+        {{-- ✅ SUCCESS --}}
         @if(session('success'))
           <div class="bg-green-100 text-green-700 p-3 rounded mb-4">
             {{ session('success') }}
           </div>
         @endif
 
+        {{-- ✅ ALL ERRORS --}}
         @if($errors->any())
           <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
-            {{ $errors->first() }}
+            <ul class="text-sm">
+              @foreach($errors->all() as $error)
+                <li>• {{ $error }}</li>
+              @endforeach
+            </ul>
           </div>
         @endif
 
-        <!-- 🔥 yaha change -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <input type="text" placeholder="Your Name" name="name"
-            class="border border-[#e0d6c7] focus:border-[#2ec4b6] rounded-2xl px-6 py-4">
 
-          <input type="email" placeholder="Business Email" name="email"
-            class="border border-[#e0d6c7] focus:border-[#2ec4b6] rounded-2xl px-6 py-4">
+          {{-- NAME --}}
+          <div>
+            <input type="text" name="name" placeholder="Your Name" value="{{ old('name') }}"
+              class="border {{ $errors->has('name') ? 'border-red-500' : 'border-[#e0d6c7]' }} focus:border-[#2ec4b6] rounded-2xl px-6 py-4 w-full">
+
+            @error('name')
+              <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
+          </div>
+
+          {{-- EMAIL --}}
+          <div>
+            <input type="email" name="email" placeholder="Business Email" value="{{ old('email') }}"
+              class="border {{ $errors->has('email') ? 'border-red-500' : 'border-[#e0d6c7]' }} focus:border-[#2ec4b6] rounded-2xl px-6 py-4 w-full">
+
+            @error('email')
+              <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
+          </div>
         </div>
 
-        <input type="text" placeholder="Mobile Number" name="phone"
-          class="mt-6 w-full border border-[#e0d6c7] focus:border-[#2ec4b6] rounded-2xl px-6 py-4">
+        {{-- PHONE --}}
+        <div>
+          <input type="tel" name="phone" placeholder="Mobile Number" value="{{ old('phone') }}" pattern="[6-9]{1}[0-9]{9}"
+            maxlength="10"
+            class="mt-6 w-full border {{ $errors->has('phone') ? 'border-red-500' : 'border-[#e0d6c7]' }} focus:border-[#2ec4b6] rounded-2xl px-6 py-4">
 
-        <input type="text" placeholder="Company Name" name="company"
-          class="mt-6 w-full border border-[#e0d6c7] focus:border-[#2ec4b6] rounded-2xl px-6 py-4">
+          @error('phone')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+          @enderror
+        </div>
 
-        <textarea name="message" placeholder="Tell us about your gifting requirement (budget, quantity, occasion)"
-          class="mt-6 w-full h-40 border border-[#e0d6c7] focus:border-[#2ec4b6] rounded-3xl px-6 py-5 resize-none"></textarea>
+        {{-- COMPANY --}}
+        <div>
+          <input type="text" name="company" placeholder="Company Name" value="{{ old('company') }}"
+            class="mt-6 w-full border border-[#e0d6c7] focus:border-[#2ec4b6] rounded-2xl px-6 py-4">
+        </div>
 
+        {{-- MESSAGE --}}
+        <div>
+          <textarea name="message" placeholder="Tell us about your gifting requirement (budget, quantity, occasion)"
+            class="mt-6 w-full h-40 border {{ $errors->has('message') ? 'border-red-500' : 'border-[#e0d6c7]' }} focus:border-[#2ec4b6] rounded-3xl px-6 py-5 resize-none">{{ old('message') }}</textarea>
+
+          @error('message')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+          @enderror
+        </div>
+
+        {{-- CAPTCHA --}}
         <div class="mt-6">
-           <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
+          <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
+
+          @error('g-recaptcha-response')
+            <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
+          @enderror
         </div>
 
+        {{-- BUTTON --}}
         <button type="submit"
           class="mt-8 w-full bg-[#f4a261] hover:bg-[#e07a5f] transition-colors text-white font-semibold py-6 p-2 rounded-3xl">
           SEND MESSAGE — WE'LL REPLY IN 2 HOURS
@@ -1358,31 +1331,31 @@
       products.forEach(product => {
 
         html += `
-                                              <div class="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
+                                                                  <div class="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
 
-                                                <div class="relative h-40 md:h-64 overflow-hidden">
-                                                  <img src="${BASE_URL}storage/${product.image}" 
-                                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                                  ${product.new_arrival ? `
-                                                    <div class="absolute top-3 left-3 bg-[#e07a5f] text-white text-xs px-3 py-1 rounded-full">
-                                                      New
-                                                    </div>` : ''}
-                                                </div>
+                                                                    <div class="relative h-40 md:h-64 overflow-hidden">
+                                                                      <img src="${BASE_URL}storage/${product.image}" 
+                                                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                                                      ${product.new_arrival ? `
+                                                                        <div class="absolute top-3 left-3 bg-[#e07a5f] text-white text-xs px-3 py-1 rounded-full">
+                                                                          New
+                                                                        </div>` : ''}
+                                                                    </div>
 
-                                                <div class="p-3 md:p-5 text-center">
-                                                  <p class="text-sm text-gray-500 mb-1">${product.sub_title ?? ''}</p>
+                                                                    <div class="p-3 md:p-5 text-center">
+                                                                      <p class="text-sm text-gray-500 mb-1">${product.sub_title ?? ''}</p>
 
-                                                  <h4 class="font-semibold text-base leading-tight mb-3">
-                                                    ${product.name}
-                                                  </h4>
+                                                                      <h4 class="font-semibold text-base leading-tight mb-3">
+                                                                        ${product.name}
+                                                                      </h4>
 
-                                                  <p class="text-[#e07a5f] font-bold text-xl">
-                                                    ₹${parseInt(product.price).toLocaleString()}
-                                                  </p>
-                                                </div>
+                                                                      <p class="text-[#e07a5f] font-bold text-xl">
+                                                                        ₹${parseInt(product.price).toLocaleString()}
+                                                                      </p>
+                                                                    </div>
 
-                                              </div>
-                                            `;
+                                                                  </div>
+                                                                `;
       });
 
       // 🔥 replace ONLY that slide content

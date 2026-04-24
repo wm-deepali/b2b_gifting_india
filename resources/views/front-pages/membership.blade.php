@@ -1,49 +1,5 @@
 @extends('layouts.app')
 
-<style>
-    .modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.6);
-        display: none;
-        align-items: center;
-        justify-content: center;
-        z-index: 1000;
-    }
-
-    .modal-content {
-        background: white;
-        border-radius: 24px;
-        width: 90%;
-        max-width: 480px;
-        max-height: 92vh;
-        overflow-y: auto;
-        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
-    }
-
-    .form-input {
-        width: 100%;
-        padding: 14px 18px;
-        border: 2px solid #e5e7eb;
-        border-radius: 14px;
-        margin-bottom: 16px;
-        transition: all 0.3s;
-    }
-
-    .form-input:focus {
-        border-color: var(--primary-orange);
-        outline: none;
-        box-shadow: 0 0 0 4px rgba(244, 162, 97, 0.1);
-    }
-
-    .en-form {
-        z-index: 9999;
-    }
-</style>
-
 @section('content')
 
 
@@ -143,7 +99,7 @@
 
                         <div
                             class="service-card bg-white rounded-3xl p-8 text-center 
-                                                                                                    {{ $package->is_popular ? 'ring-2 ring-[#f4a261] relative' : '' }}">
+                                                                                                                                        {{ $package->is_popular ? 'ring-2 ring-[#f4a261] relative' : '' }}">
 
                             {{-- MOST POPULAR --}}
                             @if($package->is_popular)
@@ -180,11 +136,12 @@
                             </ul>
 
                             {{-- BUTTON --}}
-                            <button type="button" onclick="openDrawer('{{ $package->name }}', {{ $package->id }})" class="block w-full py-4 
-                                                                                {{ $package->is_popular
+                            <button type="button" onclick="openDrawer('{{ $package->name }}', {{ $package->id }})"
+                                class="block w-full py-4 
+                                                                                                                    {{ $package->is_popular
                     ? 'bg-gradient-to-r from-[#f4a261] to-[#e07a5f] text-white'
                     : 'border-2 border-[#f4a261] text-[#f4a261] hover:bg-[#f4a261] hover:text-white' }}
-                                                                                rounded-2xl font-semibold transition-all">
+                                                                                                                    rounded-2xl font-semibold transition-all">
 
                                 {{ $package->button_text ?? 'Choose Plan' }}
 
@@ -215,29 +172,32 @@
 
                 <div class="mb-1">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
-                    <input type="text" id="name" name="name" class="form-input" placeholder="Enter your name" required>
+                    <input type="text" id="name" name="name" class="form-input" value="{{ old('name') }}"
+                        placeholder="Enter your name" required>
                 </div>
 
                 <div class="mb-1">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Company Name</label>
-                    <input type="text" id="company" name="company" class="form-input" placeholder="Your Company Name"
-                        required>
+                    <input type="text" id="company" name="company" value="{{ old('company') }}" class="form-input"
+                        placeholder="Your Company Name" required>
                 </div>
 
                 <div class="mb-1">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
-                    <input type="email" id="email" name="email" class="form-input" placeholder="you@company.com" required>
+                    <input type="email" id="email" name="email" value="{{ old('email') }}" class="form-input"
+                        placeholder="you@company.com" required>
                 </div>
 
                 <div class="mb-1">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Mobile Number</label>
-                    <input type="tel" id="phone" name="phone" class="form-input" placeholder="+91 98765 43210" required>
+                    <input type="tel" id="phone" name="phone" value="{{ old('phone') }}" pattern="[6-9]{1}[0-9]{9}"
+                        maxlength="10" class="form-input" placeholder="+91 98765 43210" required>
                 </div>
 
                 <div class="mb-4">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Message / Special Requirement</label>
                     <textarea id="message" rows="4" class="form-input" name="message"
-                        placeholder="Any specific requirement or customization needed?"></textarea>
+                        placeholder="Any specific requirement or customization needed?">{{ old('message') }}</textarea>
                 </div>
 
                 <div class="mb-4">
@@ -254,8 +214,6 @@
 
     <!-- Overlay -->
     <div id="drawerOverlay" onclick="closeDrawer()" class="fixed inset-0 bg-black/50 hidden z-40"></div>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
         function openDrawer(planName, packageId) {
             document.getElementById('drawerTitle').textContent = `Enquiry for ${planName}`;
@@ -271,37 +229,36 @@
         }
     </script>
 
-    @if(session('success'))
+    @if(session('success_package'))
         <script>
             Swal.fire({
                 icon: 'success',
                 title: 'Success!',
-                text: "{{ session('success') }}",
-                confirmButtonColor: '#f4a261'
+                text: "{{ session('success_package') }}"
             });
 
-            // optional: close drawer after success
             document.getElementById('enquiryDrawer').classList.add('-translate-x-full');
             document.getElementById('drawerOverlay').classList.add('hidden');
         </script>
     @endif
 
-    @if($errors->any())
-    <div class="mb-4 p-4 bg-red-100 text-red-700 rounded-xl">
-        <ul class="text-sm">
-            @foreach($errors->all() as $error)
-                <li>• {{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
+    @if($errors->packageForm->any())
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
 
-    <script>
-        // reopen drawer if validation fails
-        document.addEventListener('DOMContentLoaded', function () {
-            document.getElementById('enquiryDrawer').classList.remove('-translate-x-full');
-            document.getElementById('drawerOverlay').classList.remove('hidden');
-        });
-    </script>
-@endif
+                // open only this drawer
+                document.getElementById('enquiryDrawer').classList.remove('-translate-x-full');
+                document.getElementById('drawerOverlay').classList.remove('hidden');
+
+                // show errors in Swal
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    html: `{!! implode('<br>', $errors->packageForm->all()) !!}`
+                });
+
+            });
+        </script>
+    @endif
 
 @endsection

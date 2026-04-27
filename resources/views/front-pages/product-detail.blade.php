@@ -59,26 +59,17 @@
 
             <!-- ==================== LEFT: IMAGE SLIDER ==================== -->
             <div>
-                <div>
-                    <!-- Main Slider -->
+            <div>
+
+                    <!-- MAIN SLIDER -->
                     <div class="product-slider h-[300px] lg:h-[520px] bg-gray-100 relative" id="mainSlider">
 
                         @php
-                            $images = [];
-
-                            // main image
-                            if ($product->image) {
-                                $images[] = $product->image;
-                            }
-
-                            // future support (if you add multiple images)
-                            if (isset($product->images)) {
-                                foreach ($product->images as $img) {
-                                    $images[] = $img->image;
-                                }
-                            }
+                            // ✅ ONLY NEW IMAGE SYSTEM
+                            $images = $product->images->sortByDesc('is_default')->pluck('image')->toArray();
                         @endphp
 
+                        {{-- IMAGES --}}
                         @if(count($images))
                             @foreach($images as $key => $img)
                                 <img src="{{ asset('storage/' . $img) }}"
@@ -86,17 +77,45 @@
                                     alt="{{ $product->name }}">
                             @endforeach
                         @else
-                            <img src="/default-product.png" class="w-full h-full object-cover">
+                            <img src="{{ asset('no-image.jpg') }}" class="w-full h-full object-cover">
+                        @endif
+
+                        {{-- VIDEO (LAST) --}}
+                        @if($product->video_url)
+                            @php
+                                $videoUrl = str_replace('watch?v=', 'embed/', $product->video_url);
+                            @endphp
+
+                            <iframe class="slide w-full h-full {{ count($images) == 0 ? 'active' : '' }}" src="{{ $videoUrl }}"
+                                frameborder="0" allowfullscreen>
+                            </iframe>
                         @endif
 
                     </div>
 
-                    <!-- Thumbnail Strip -->
-                    <div class="flex gap-4 mt-6">
+                    <!-- THUMBNAILS -->
+                    <div class="flex gap-4 mt-6 flex-wrap">
+
+                        {{-- IMAGE THUMBNAILS --}}
                         @foreach($images as $key => $img)
-                            <img onclick="changeSlide({{ $key }})" src="{{ asset('storage/' . $img) }}"
-                                class="thumb w-20 h-20 object-cover rounded-2xl cursor-pointer {{ $key == 0 ? 'active' : '' }}">
+                            <img onclick="changeSlide({{ $key }})" src="{{ asset('storage/' . $img) }}" class="thumb w-20 h-20 object-cover rounded-2xl cursor-pointer border 
+                                                    {{ $key == 0 ? 'border-black' : 'border-transparent' }}">
                         @endforeach
+
+                        {{-- VIDEO THUMBNAIL --}}
+                        @if($product->video_url)
+                            @php
+                                preg_match('/[\\?\\&]v=([^\\?\\&]+)/', $product->video_url, $matches);
+                                $videoId = $matches[1] ?? null;
+                            @endphp
+
+                            @if($videoId)
+                                <img onclick="changeSlide({{ count($images) }})"
+                                    src="https://img.youtube.com/vi/{{ $videoId }}/0.jpg"
+                                    class="thumb w-20 h-20 object-cover rounded-2xl cursor-pointer border border-red-500">
+                            @endif
+                        @endif
+
                     </div>
 
                 </div>
@@ -443,7 +462,9 @@
                         <a href="{{ route('product.detail', $item->slug) }}" class="block">
 
                             <div class="product-card bg-white rounded-3xl overflow-hidden">
-                                <img src="{{ asset('storage/' . $item->image) }}" class="w-full h-56 object-cover">
+                                <img src="{{ $item->display_image 
+        ? asset('storage/' . $item->display_image) 
+        : asset('no-image.jpg') }}" class="w-full h-56 object-cover">
 
                                 <div class="p-5">
                                     <h3 class="font-semibold">{{ \Illuminate\Support\Str::words($item->name, 7, '...') }}</h3>
@@ -472,7 +493,9 @@
                         @php $price = (float) $item->price; @endphp
                         <a href="{{ route('product.detail', $item->slug) }}" class="block">
                             <div class="product-card bg-white rounded-3xl overflow-hidden">
-                                <img src="{{ asset('storage/' . $item->image) }}" class="w-full h-56 object-cover">
+                                <img src="{{ $item->display_image 
+        ? asset('storage/' . $item->display_image) 
+        : asset('no-image.jpg') }}" class="w-full h-56 object-cover">
 
                                 <div class="p-5">
                                     <h3 class="font-semibold">{{ \Illuminate\Support\Str::words($item->name, 7, '...') }}</h3>

@@ -485,8 +485,8 @@
               <!-- Gloss Wave Overlay -->
               <div
                 class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent 
-                                                                                                                                                                                -skew-x-12 translate-x-[-150%] group-hover:translate-x-[150%] 
-                                                                                                                                                                                transition-transform duration-700 ease-out">
+                                                                                                                                                                                    -skew-x-12 translate-x-[-150%] group-hover:translate-x-[150%] 
+                                                                                                                                                                                    transition-transform duration-700 ease-out">
               </div>
             </div>
 
@@ -534,8 +534,9 @@
 
           <div class="relative">
 
-  <a href="{{ route('product.detail', $product->slug) }}">
-            <img src="{{ asset('storage/' . $product->image) }}" class="w-full h-72 object-cover">
+            <a href="{{ route('product.detail', $product->slug) }}">
+              <img src="{{ $product->display_image ? asset('storage/' . $product->display_image) : asset('no-image.jpg') }}"
+                class="w-full h-72 object-cover">
             </a>
 
             @php
@@ -572,7 +573,7 @@
             @foreach($tags as $index => $tag)
               <div
                 class="absolute {{ $index == 0 ? 'top-4 right-4' : 'top-4 left-4' }} 
-                                                                                                                                                                                                                    {{ $tag['class'] }} px-4 py-1 rounded-3xl text-xs font-medium shadow">
+                                                                                                                                                                                                                          {{ $tag['class'] }} px-4 py-1 rounded-3xl text-xs font-medium shadow">
                 {{ $tag['label'] }}
               </div>
             @endforeach
@@ -584,8 +585,8 @@
 
               <div>
                 <h4 class="font-semibold text-lg">
-                      <a href="{{ route('product.detail', $product->slug) }}">
-                  {{ $product->name }}
+                  <a href="{{ route('product.detail', $product->slug) }}">
+                    {{ $product->name }}
                   </a>
                 </h4>
 
@@ -756,8 +757,8 @@
             <a href="{{ route('products') }}">
 
               <div class="scroll-card border-2 border-dashed border-gray-300 rounded-2xl p-6 mb-5 
-                              flex items-center justify-center text-center 
-                              hover:border-[#e07a5f] hover:shadow-md transition-all cursor-pointer">
+                                flex items-center justify-center text-center 
+                                hover:border-[#e07a5f] hover:shadow-md transition-all cursor-pointer">
 
                 <p class="text-gray-600 font-semibold text-lg">
                   + Show more Products
@@ -1335,35 +1336,35 @@
       products.forEach(product => {
 
         html += `
-          <div class="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
+            <div class="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
 
-                                                                    <div class="relative h-40 md:h-64 overflow-hidden">
-                                                                     <a href="${BASE_URL}product/${product.slug}">
-                                                                      <img src="${BASE_URL}storage/${product.image}" 
-                                                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                                                        </a>
-                                                                      ${product.new_arrival ? `
-                                                                        <div class="absolute top-3 left-3 bg-[#e07a5f] text-white text-xs px-3 py-1 rounded-full">
-                                                                          New
-                                                                        </div>` : ''}
-                                                                    </div>
-
-                                                                    <div class="p-3 md:p-5 text-center">
-                                                                      <p class="text-sm text-gray-500 mb-1">${product.sub_title ?? ''}</p>
-
-                                                                      <h4 class="font-semibold text-base leading-tight mb-3">
+                                                                      <div class="relative h-40 md:h-64 overflow-hidden">
                                                                        <a href="${BASE_URL}product/${product.slug}">
-                                                                        ${product.name}
-                                                                        </a>
-                                                                      </h4>
+                                                                        <img src="${BASE_URL}storage/${product.image}" 
+                                                                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                                                          </a>
+                                                                        ${product.new_arrival ? `
+                                                                          <div class="absolute top-3 left-3 bg-[#e07a5f] text-white text-xs px-3 py-1 rounded-full">
+                                                                            New
+                                                                          </div>` : ''}
+                                                                      </div>
 
-                                                                      <p class="text-[#e07a5f] font-bold text-xl">
-                                                                        ₹${parseInt(product.price).toLocaleString()}
-                                                                      </p>
+                                                                      <div class="p-3 md:p-5 text-center">
+                                                                        <p class="text-sm text-gray-500 mb-1">${product.sub_title ?? ''}</p>
+
+                                                                        <h4 class="font-semibold text-base leading-tight mb-3">
+                                                                         <a href="${BASE_URL}product/${product.slug}">
+                                                                          ${product.name}
+                                                                          </a>
+                                                                        </h4>
+
+                                                                        <p class="text-[#e07a5f] font-bold text-xl">
+                                                                          ₹${parseInt(product.price).toLocaleString()}
+                                                                        </p>
+                                                                      </div>
+
                                                                     </div>
-
-                                                                  </div>
-                                                                `;
+                                                                  `;
       });
 
       // 🔥 replace ONLY that slide content

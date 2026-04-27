@@ -25,7 +25,7 @@
     /* FORM */
     label {
         font-weight: 500;
-        margin-bottom: 5px;
+        margin-bottom: 3px;
         font-size: 14px;
     }
 
@@ -162,7 +162,7 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        padding: 10px 12px;
+        padding: 2px 12px;
         border: 1px solid #e5e7eb;
         border-radius: 12px;
         background: #f9fafb;
@@ -206,56 +206,86 @@
     }
 
     /* CATEGORY CARD */
-.category-card {
-    border: 1px solid #eee;
-    border-radius: 10px;
-    padding: 10px 12px;
-    margin-bottom: 10px;
-    background: #fff;
-    transition: 0.2s;
-}
+    .category-card {
+        border: 1px solid #eee;
+        border-radius: 10px;
+        padding: 10px 12px;
+        margin-bottom: 10px;
+        background: #fff;
+        transition: 0.2s;
+    }
 
-.category-card:hover {
-    border-color: #f97316;
-    background: #fff7ed;
-}
+    .category-card:hover {
+        border-color: #f97316;
+        background: #fff7ed;
+    }
 
-/* CATEGORY ITEM */
-.category-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 500;
-    cursor: pointer;
-}
+    /* CATEGORY ITEM */
+    .category-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 500;
+        cursor: pointer;
+    }
 
-/* CATEGORY NAME */
-.cat-name {
-    font-size: 14px;
-}
+    /* CATEGORY NAME */
+    .cat-name {
+        font-size: 14px;
+    }
 
-/* SUBCATEGORY BOX */
-.subcategory-box {
-    margin-top: 8px;
-    padding-left: 20px;
-    display: none;
-}
+    /* SUBCATEGORY BOX */
+    .subcategory-box {
+        margin-top: 8px;
+        padding-left: 20px;
+        display: none;
+    }
 
-/* SUBCATEGORY ITEM */
-.subcategory-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    margin-bottom: 4px;
-    cursor: pointer;
-}
+    /* SUBCATEGORY ITEM */
+    .subcategory-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        margin-bottom: 4px;
+        cursor: pointer;
+    }
 
-/* CHECKBOX COLOR */
-.category-item input,
-.subcategory-item input {
-    accent-color: #f97316;
-}
+    /* CHECKBOX COLOR */
+    .category-item input,
+    .subcategory-item input {
+        accent-color: #f97316;
+    }
+
+    .thumb-box {
+        position: relative;
+        margin: 5px;
+    }
+
+    .thumb-box img {
+        width: 80px;
+        height: 80px;
+        border-radius: 8px;
+        object-fit: cover;
+        border: 2px solid #eee;
+    }
+
+    .thumb-actions {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+    }
+
+    .remove-btn {
+        background: red;
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        font-size: 12px;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
 </style>
 
 <div class="main-section">
@@ -279,40 +309,36 @@
                             <div class="card p-3 mb-3">
                                 <h5><b>Category & Sub Category</b></h5>
 
-                             <div class="category-scroll">
+                                <div class="category-scroll">
 
-    @foreach($categories as $cat)
-        <div class="category-card">
+                                    @foreach($categories as $cat)
+                                        <div class="category-card">
 
-            <!-- CATEGORY -->
-            <label class="category-item">
-                <input type="checkbox"
-                       class="category-checkbox"
-                       data-id="{{ $cat->id }}"
-                       name="categories[]"
-                       value="{{ $cat->id }}">
+                                            <!-- CATEGORY -->
+                                            <label class="category-item">
+                                                <input type="checkbox" class="category-checkbox" data-id="{{ $cat->id }}"
+                                                    name="categories[]" value="{{ $cat->id }}">
 
-                <span class="cat-name">{{ $cat->name }}</span>
-            </label>
+                                                <span class="cat-name">{{ $cat->name }}</span>
+                                            </label>
 
-            <!-- SUBCATEGORY -->
-            <div class="subcategory-box" id="subcat_{{ $cat->id }}">
-                @foreach($cat->children as $sub)
-                    <label class="subcategory-item">
-                        <input type="checkbox"
-                               name="sub_categories[]"
-                               value="{{ $sub->id }}">
+                                            <!-- SUBCATEGORY -->
+                                            <div class="subcategory-box" id="subcat_{{ $cat->id }}">
+                                                @foreach($cat->children as $sub)
+                                                    <label class="subcategory-item">
+                                                        <input type="checkbox" name="sub_categories[]" value="{{ $sub->id }}">
 
-                        <span>{{ $sub->name }}</span>
-                    </label>
-                @endforeach
-            </div>
+                                                        <span>{{ $sub->name }}</span>
+                                                    </label>
+                                                @endforeach
+                                            </div>
 
-        </div>
-    @endforeach
+                                        </div>
+                                    @endforeach
 
-</div>
+                                </div>
                             </div>
+
 
                             {{-- BASIC --}}
                             <div class="card p-3 mb-3">
@@ -334,14 +360,32 @@
                                     @endforeach
                                 </select>
 
-                                <label class="mt-2">Image</label>
-                                <input type="file" name="image" class="form-control">
-
                                 <label class="mt-2">Sub Title</label>
                                 <input type="text" name="sub_title" class="form-control">
 
                                 <label class="mt-2">Summary</label>
                                 <textarea name="summary" class="form-control"></textarea>
+                            </div>
+
+                            <div class="card p-3 mb-3">
+                                <h5><b>Media</b></h5>
+                                <label class="mt-2">Upload Images (Max 6)</label>
+                                <input type="file" id="images" name="images[]" multiple accept="image/*"
+                                    class="form-control">
+
+                                <small class="text-muted">Max 6 images allowed</small>
+
+                                <!-- Thumbnails Preview -->
+                                <div id="previewContainer" class="d-flex flex-wrap mt-2"></div>
+                                <label class="mt-3">Video URL (YouTube / MP4)</label>
+
+                                <input type="text" name="video_url" class="form-control"
+                                    placeholder="Enter full YouTube URL (https://youtube.com/watch?v=xxxx) OR direct MP4 link">
+
+                                <small class="text-muted">
+                                    👉 Enter full YouTube URL. Example:
+                                    https://www.youtube.com/watch?v=abc123XYZ
+                                </small>
                             </div>
 
                             {{-- SKU --}}
@@ -358,6 +402,17 @@
                                         <label>Min Qty</label>
                                         <input type="number" name="min_qty" class="form-control">
                                     </div>
+
+                                    <div class="col-md-6">
+                                        <label>Product Code</label>
+                                        <input type="text" name="product_code" class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="mt-2">Sort Order</label>
+                                        <input type="number" name="sort_order" class="form-control">
+                                    </div>
+
                                 </div>
 
                                 <label class="mt-2">Delivery Time</label>
@@ -412,78 +467,6 @@
                                 <input type="text" name="price" id="price" readonly class="form-control">
                             </div>
 
-                            {{-- FLAGS --}}
-                            <div class="card p-3 mb-3">
-                                <h5 class="mb-3"><b>Product Flags</b></h5>
-
-                                <div class="row">
-
-                                    <!-- LEFT GROUP -->
-                                    <div class="col-md-6">
-                                        <div class="flag-group">
-                                            <p class="flag-title">Marketing</p>
-
-                                            <label class="flag-item">
-                                                <input type="checkbox" name="featured"> Featured Products
-                                            </label>
-
-                                            <label class="flag-item">
-                                                <input type="checkbox" name="new_arrival"> New Arrivals
-                                            </label>
-
-                                            <label class="flag-item">
-                                                <input type="checkbox" name="sale"> Sale
-                                            </label>
-
-                                            <label class="flag-item">
-                                                <input type="checkbox" name="best_seller"> Best Sellers
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <!-- RIGHT GROUP -->
-                                    <div class="col-md-6">
-                                        <div class="flag-group">
-                                            <p class="flag-title">Availability</p>
-
-                                            <label class="flag-item">
-                                                <input type="checkbox" name="ready_to_ship"> Ready to Ship
-                                            </label>
-
-                                            <label class="flag-item">
-                                                <input type="checkbox" name="bulk_available"> Bulk Orders
-                                            </label>
-
-                                            <label class="flag-item">
-                                                <input type="checkbox" name="gift_hamper"> Gift Hamper
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <!-- EXTRA FLAGS -->
-                                <div class="flag-group mt-3">
-                                    <p class="flag-title">Other Settings</p>
-
-                                    <label class="flag-item">
-                                        <input type="checkbox" name="is_premium"> Premium Products
-                                    </label>
-
-                                    <label class="flag-item">
-                                        <input type="checkbox" name="is_engraving"> Engravings
-                                    </label>
-
-                                    <label class="flag-item">
-                                        <input type="checkbox" name="is_personalized_engraving">
-                                        Personalized Engraving
-                                    </label>
-
-                                    <label class="flag-item">
-                                        <input type="checkbox" name="show_on_website" checked> Show on Website
-                                    </label>
-                                </div>
-                            </div>
 
                             {{-- CUSTOMIZATION --}}
                             <div class="card p-3 mb-3">
@@ -545,17 +528,112 @@
                                 </div>
                             </div>
 
+                            <div class="card p-3 mb-3">
+                                <h5 class="mb-3"><b>Marketing Options</b></h5>
+
+                                <div class="row">
+
+                                    <div class="col-12 mb-2">
+                                        <label class="occasion-box">
+                                            <input type="checkbox" name="featured">
+                                            <span>Featured Products</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="col-12 mb-2">
+                                        <label class="occasion-box">
+                                            <input type="checkbox" name="new_arrival">
+                                            <span>New Arrivals</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="col-12 mb-2">
+                                        <label class="occasion-box">
+                                            <input type="checkbox" name="sale">
+                                            <span>Exclusive on Sale</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="col-12 mb-2">
+                                        <label class="occasion-box">
+                                            <input type="checkbox" name="best_seller">
+                                            <span>Best Sellers</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="card p-3 mb-3">
+                                <h5 class="mb-3"><b>Availability</b></h5>
+
+                                <div class="row">
+                                    <div class="col-12 mb-2">
+                                        <label class="occasion-box">
+                                            <input type="checkbox" name="ready_to_ship">
+                                            <span>Ready to Ship</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="col-12 mb-2">
+                                        <label class="occasion-box">
+                                            <input type="checkbox" name="bulk_available">
+                                            <span>For Bulk Orders</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="col-12 mb-2">
+                                        <label class="occasion-box">
+                                            <input type="checkbox" name="gift_hamper">
+                                            <span>Gift Hampers</span>
+                                        </label>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="card p-3 mb-3">
+                                <h5 class="mb-3"><b>Sell by Collections</b></h5>
+
+                                <div class="row">
+
+                                    <div class="col-12 mb-2">
+                                        <label class="occasion-box">
+                                            <input type="checkbox" name="is_premium">
+                                            <span>Premium Products</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="col-12 mb-2">
+                                        <label class="occasion-box">
+                                            <input type="checkbox" name="is_engraving">
+                                            <span>Engravings</span>
+                                        </label>
+                                    </div>
+
+
+                                    <div class="col-12 mb-2">
+                                        <label class="occasion-box">
+                                            <input type="checkbox" name="is_personalized_engraving">
+                                            <span>Personalized Engraving</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="col-12 mb-2">
+                                        <label class="occasion-box">
+                                            <input type="checkbox" name="show_on_website" checked>
+                                            <span>Show on Website</span>
+                                        </label>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
                             {{-- ADVANCED --}}
                             <div class="card p-3 mb-3">
-                                <h5><b>Advanced</b></h5>
-
-                                <label>Product Code</label>
-                                <input type="text" name="product_code" class="form-control">
-
-                                <label class="mt-2">Sort Order</label>
-                                <input type="number" name="sort_order" class="form-control">
-
-                                <label class="mt-2">Added By</label>
+                                <h5><b>Added By</b></h5>
                                 <input type="text" name="added_by" class="form-control">
                             </div>
 
@@ -572,11 +650,31 @@
 
                             {{-- BUTTONS --}}
                             <div class="card p-3 mb-3">
-                                <h5><b>Actions</b></h5>
+                                <h5 class="mb-3"><b>Marketing Options</b></h5>
 
-                                <label><input type="checkbox" name="cart" checked> Add to Cart</label><br>
-                                <label><input type="checkbox" name="whatsapp"> WhatsApp</label><br>
-                                <label><input type="checkbox" name="call"> Call</label>
+                                <div class="row">
+
+                                    <div class="col-12 mb-2">
+                                        <label class="occasion-box">
+                                            <input type="checkbox" name="cart" checked>
+                                            <span>Add to Cart</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="col-12 mb-2">
+                                        <label class="occasion-box">
+                                            <input type="checkbox" name="whatsapp">
+                                            <span>WhatsApp</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="col-12 mb-2">
+                                        <label class="occasion-box">
+                                            <input type="checkbox" name="call">
+                                            <span>Call</span>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="card p-3">
@@ -628,15 +726,75 @@
     function addInc() {
         $('#incWrap').append('<input type="text" name="inclusions[]" class="form-control mb-2">');
     }
-    
-    $('.category-checkbox').on('change', function () {
-    let id = $(this).data('id');
 
-    if ($(this).is(':checked')) {
-        $('#subcat_' + id).slideDown();
-    } else {
-        $('#subcat_' + id).slideUp();
-        $('#subcat_' + id).find('input').prop('checked', false);
+    $('.category-checkbox').on('change', function () {
+        let id = $(this).data('id');
+
+        if ($(this).is(':checked')) {
+            $('#subcat_' + id).slideDown();
+        } else {
+            $('#subcat_' + id).slideUp();
+            $('#subcat_' + id).find('input').prop('checked', false);
+        }
+    });
+
+    let selectedFiles = [];
+
+    $('#images').on('change', function (e) {
+        let files = Array.from(e.target.files);
+
+        if ((selectedFiles.length + files.length) > 6) {
+            alert('Maximum 6 images allowed');
+            return;
+        }
+
+        files.forEach(file => {
+            selectedFiles.push(file);
+        });
+
+        renderPreview();
+    });
+
+    function renderPreview() {
+        $('#previewContainer').html('');
+
+        selectedFiles.forEach((file, index) => {
+            let reader = new FileReader();
+
+            reader.onload = function (e) {
+                let html = `
+                <div class="thumb-box">
+                    <img src="${e.target.result}">
+
+                    <div class="thumb-actions">
+                        <button type="button" class="remove-btn" onclick="removeImage(${index})">×</button>
+                    </div>
+
+                    <div class="text-center mt-1">
+                        <input type="radio" name="default_image" value="${index}" ${index === 0 ? 'checked' : ''}>
+                        <small>Default</small>
+                    </div>
+                </div>
+            `;
+                $('#previewContainer').append(html);
+            };
+
+            reader.readAsDataURL(file);
+        });
     }
-});
+
+    function removeImage(index) {
+        selectedFiles.splice(index, 1);
+        renderPreview();
+    }
+
+    $('form').on('submit', function () {
+        let dataTransfer = new DataTransfer();
+
+        selectedFiles.forEach(file => {
+            dataTransfer.items.add(file);
+        });
+
+        document.getElementById('images').files = dataTransfer.files;
+    });
 </script>

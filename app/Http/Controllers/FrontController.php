@@ -123,6 +123,22 @@ class FrontController extends Controller
 
         $products = $query->take(4)->get();
 
+         $products = $products->map(function ($product) {
+
+            return [
+                'id' => $product->id,
+                'name' => $product->name,
+                'slug' => $product->slug,
+                'price' => $product->price,
+                'sub_title' => $product->sub_title,
+                'new_arrival' => $product->new_arrival,
+
+                // 🔥 MAIN FIX
+                'image' => $product->display_image,
+            ];
+        });
+
+        
         return response()->json($products);
     }
 

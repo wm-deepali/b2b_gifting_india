@@ -33,8 +33,7 @@ use App\Http\Controllers\Admin\VendorEnquiryController;
 use App\Http\Controllers\Admin\VendorTypeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
-
-
+use App\Http\Controllers\Admin\AnnouncementController;
 use App\Http\Controllers\FrontController;
 
 Route::controller(FrontController::class)->group(function () {
@@ -201,6 +200,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('/seo', [SeoController::class, 'index'])->name('seo.index');
         Route::put('/seo/{id}', [SeoController::class, 'update'])->name('seo.update');
+            Route::resource('announcements', AnnouncementController::class);
+
 
     });
 });

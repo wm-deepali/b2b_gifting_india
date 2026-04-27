@@ -418,9 +418,13 @@
                         @foreach($products as $product)
                             <div class="product-card bg-white">
                                 <div class="relative">
-                                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
-                                        class="product-img w-full object-fill">
 
+                                        <img src="{{ $product->display_image 
+        ? asset('storage/' . $product->display_image) 
+        : asset('no-image.jpg') }}"
+        alt="{{ $product->name }}"
+         class="product-img w-full object-fill">
+        
                                     {{-- Badge Logic --}}
                                     @if($product->new_arrival)
                                         <span class="absolute top-4 right-4 bg-white text-xs font-bold px-3 py-1 rounded-full shadow">
@@ -441,6 +445,18 @@
 
                                 <div class="p-5">
                                     <h3 class="font-semibold text-xl">{{ $product->name }}</h3>
+
+                                    @if($product->category_names || $product->subcategory_names)
+    <p class="text-xs text-gray-500 mt-1">
+
+        {{ $product->category_names }}
+
+        @if($product->subcategory_names)
+            → {{ $product->subcategory_names }}
+        @endif
+
+    </p>
+@endif
 
                                     <p class="text-gray-500 text-sm mt-1">
                                         {{ $product->sub_title }}

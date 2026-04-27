@@ -17,46 +17,49 @@
 
 @section('content')
 
-<section class="about-hero py-20 md:py-20 bg-white">
-    <div class="max-w-5xl mx-auto px-6 text-center">
-        <p class="uppercase tracking-widest text-sm font-medium text-gray-500 mb-4">
-            Personalised Craftsmanship
-        </p>
-        <h1 class="text-5xl md:text-6xl font-bold leading-tight text-gray-900 mb-6">
-            Personalised Engraving
-        </h1>
-        <p class="max-w-3xl mx-auto text-xl text-gray-600">
-            Turn meaningful moments into lasting memories with precision engraving. From names and messages to special dates, 
-            create unique gifts that feel truly personal and timeless.
-        </p>
+    <section class="about-hero py-20 md:py-20 bg-white">
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <p class="uppercase tracking-widest text-sm font-medium text-gray-500 mb-4">
+                Personalised Craftsmanship
+            </p>
+            <h1 class="text-5xl md:text-6xl font-bold leading-tight text-gray-900 mb-6">
+                Personalised Engraving
+            </h1>
+            <p class="max-w-3xl mx-auto text-xl text-gray-600">
+                Turn meaningful moments into lasting memories with precision engraving. From names and messages to special
+                dates,
+                create unique gifts that feel truly personal and timeless.
+            </p>
 
-        <div class="mt-12">
-            <a href="javascript:void(0)" onclick="openGlobalDrawer('Start Your Custom Project', 'personalised_engraving')"
-               class="inline-block bg-gradient-to-r from-[#e07a5f] to-[#f4a261] text-white px-10 py-4 rounded-2xl font-semibold text-lg hover:shadow-xl transition-all">
-                Start Your Custom Project
-            </a>
+            <div class="mt-12">
+                <a href="javascript:void(0)"
+                    onclick="openGlobalDrawer('Start Your Custom Project', 'personalised_engraving')"
+                    class="inline-block bg-gradient-to-r from-[#e07a5f] to-[#f4a261] text-white px-10 py-4 rounded-2xl font-semibold text-lg hover:shadow-xl transition-all">
+                    Start Your Custom Project
+                </a>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
 
-<!-- ==================== DETAIL CONTENT ==================== -->
-<section class="py-20 bg-gray-50">
-    <div class="max-w-4xl mx-auto px-6 text-center">
-        <h2 class="text-4xl font-bold text-gray-900 mb-6">Why Choose Our Personal Engraving?</h2>
-        <p class="text-lg text-gray-600 leading-relaxed">
-            From elegant diaries to premium drinkware and lifestyle products, we craft personalised engravings with precision and care — turning your names, messages, and special moments into timeless keepsakes.
-        </p>
-    </div>
-</section>
+    <!-- ==================== DETAIL CONTENT ==================== -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">Why Choose Our Personal Engraving?</h2>
+            <p class="text-lg text-gray-600 leading-relaxed">
+                From elegant diaries to premium drinkware and lifestyle products, we craft personalised engravings with
+                precision and care — turning your names, messages, and special moments into timeless keepsakes.
+            </p>
+        </div>
+    </section>
 
 
-<!-- ==================== PRODUCT SAMPLES ==================== -->
-<section class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-6">
-        <h2 class="text-3xl font-semibold text-center mb-12">Our Personal Engraving Works</h2>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <!-- ==================== PRODUCT SAMPLES ==================== -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-3xl font-semibold text-center mb-12">Our Personal Engraving Works</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
                 @if($products->count() > 0)
 
@@ -64,8 +67,9 @@
 
                         <div class="rounded-3xl overflow-hidden shadow-sm">
 
-                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
-                                class="w-full h-80 object-cover">
+                            <img src="{{ $product->display_image
+                        ? asset('storage/' . $product->display_image)
+                        : asset('no-image.jpg') }}" alt="{{ $product->name }}" class="w-full h-80 object-cover">
 
                             <div class="p-5 bg-white">
                                 <h3 class="font-semibold">
@@ -106,58 +110,71 @@
                 @endif
 
             </div>
-    </div>
-</section>
-
-<!-- ==================== STEP-BY-STEP GUIDE ==================== -->
-<section class="py-20 bg-gray-50">
-    <div class="max-w-5xl mx-auto px-6">
-        <div class="text-center mb-16">
-            <span class="uppercase text-sm font-medium text-gray-500">PROCESS</span>
-            <h2 class="text-4xl font-bold text-gray-900 mt-3">Step-by-Step Guide</h2>
         </div>
+    </section>
 
-        <div class="max-w-3xl mx-auto space-y-16 relative before:absolute before:left-6 before:top-8 before:bottom-8 before:w-0.5 before:bg-gradient-to-b before:from-[#f4a261] before:to-[#e07a5f]">
-
-            <!-- Step 1 -->
-            <div class="process-step flex gap-5 md:gap-10">
-                <div class="w-12 h-12 bg-[#f4a261] text-white rounded-2xl flex items-center justify-center text-2xl font-bold flex-shrink-0">1</div>
-                <div class="flex-1 bg-white rounded-3xl p-8 shadow-sm">
-                    <h3 class="text-2xl font-semibold mb-2">Share Your Requirement</h3>
-                    <p class="text-gray-600">Tell us about your brand, logo, message, and the products you want to engrave.</p>
-                </div>
+    <!-- ==================== STEP-BY-STEP GUIDE ==================== -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="uppercase text-sm font-medium text-gray-500">PROCESS</span>
+                <h2 class="text-4xl font-bold text-gray-900 mt-3">Step-by-Step Guide</h2>
             </div>
 
-            <!-- Step 2 -->
-            <div class="process-step flex gap-5 md:gap-10">
-                <div class="w-12 h-12 bg-[#2ec4b6] text-white rounded-2xl flex items-center justify-center text-2xl font-bold flex-shrink-0">2</div>
-                <div  class="flex-1 bg-white rounded-3xl p-8 shadow-sm">
-                    <h3 class="text-2xl font-semibold mb-2">Design Approval</h3>
-                    <p class="text-gray-600">We create a digital mockup of the engraving and get your approval before production.</p>
-                </div>
-            </div>
+            <div
+                class="max-w-3xl mx-auto space-y-16 relative before:absolute before:left-6 before:top-8 before:bottom-8 before:w-0.5 before:bg-gradient-to-b before:from-[#f4a261] before:to-[#e07a5f]">
 
-            <!-- Step 3 -->
-            <div class="process-step flex gap-5 md:gap-10">
-                <div class="w-12 h-12 bg-[#e07a5f] text-white rounded-2xl flex items-center justify-center text-2xl font-bold flex-shrink-0">3</div>
-                <div  class="flex-1 bg-white rounded-3xl p-8 shadow-sm">
-                    <h3 class="text-2xl font-semibold mb-2">Precision Engraving</h3>
-                    <p class="text-gray-600">Our expert team performs high-precision laser engraving on your selected products.</p>
+                <!-- Step 1 -->
+                <div class="process-step flex gap-5 md:gap-10">
+                    <div
+                        class="w-12 h-12 bg-[#f4a261] text-white rounded-2xl flex items-center justify-center text-2xl font-bold flex-shrink-0">
+                        1</div>
+                    <div class="flex-1 bg-white rounded-3xl p-8 shadow-sm">
+                        <h3 class="text-2xl font-semibold mb-2">Share Your Requirement</h3>
+                        <p class="text-gray-600">Tell us about your brand, logo, message, and the products you want to
+                            engrave.</p>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Step 4 -->
-            <div class="process-step flex gap-5 md:gap-10">
-                <div class="w-12 h-12 bg-gray-700 text-white rounded-2xl flex items-center justify-center text-2xl font-bold flex-shrink-0">4</div>
-                <div  class="flex-1 bg-white rounded-3xl p-8 shadow-sm">
-                    <h3 class="text-2xl font-semibold mb-2">Quality Check & Delivery</h3>
-                    <p class="text-gray-600">Every piece is inspected for perfection before secure packaging and timely delivery.</p>
+                <!-- Step 2 -->
+                <div class="process-step flex gap-5 md:gap-10">
+                    <div
+                        class="w-12 h-12 bg-[#2ec4b6] text-white rounded-2xl flex items-center justify-center text-2xl font-bold flex-shrink-0">
+                        2</div>
+                    <div class="flex-1 bg-white rounded-3xl p-8 shadow-sm">
+                        <h3 class="text-2xl font-semibold mb-2">Design Approval</h3>
+                        <p class="text-gray-600">We create a digital mockup of the engraving and get your approval before
+                            production.</p>
+                    </div>
                 </div>
-            </div>
 
+                <!-- Step 3 -->
+                <div class="process-step flex gap-5 md:gap-10">
+                    <div
+                        class="w-12 h-12 bg-[#e07a5f] text-white rounded-2xl flex items-center justify-center text-2xl font-bold flex-shrink-0">
+                        3</div>
+                    <div class="flex-1 bg-white rounded-3xl p-8 shadow-sm">
+                        <h3 class="text-2xl font-semibold mb-2">Precision Engraving</h3>
+                        <p class="text-gray-600">Our expert team performs high-precision laser engraving on your selected
+                            products.</p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="process-step flex gap-5 md:gap-10">
+                    <div
+                        class="w-12 h-12 bg-gray-700 text-white rounded-2xl flex items-center justify-center text-2xl font-bold flex-shrink-0">
+                        4</div>
+                    <div class="flex-1 bg-white rounded-3xl p-8 shadow-sm">
+                        <h3 class="text-2xl font-semibold mb-2">Quality Check & Delivery</h3>
+                        <p class="text-gray-600">Every piece is inspected for perfection before secure packaging and timely
+                            delivery.</p>
+                    </div>
+                </div>
+
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
 
 

@@ -264,7 +264,7 @@
       <div class="tab-pane fade" id="general">
         @include('admin.dashboard.table', [
     'items' => $latestGeneralEnquiries,
-    'route' => 'admin.other-enquirie'
+    'route' => 'admin.other-enquiries'
 ])
       </div>
 

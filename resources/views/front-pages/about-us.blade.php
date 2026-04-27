@@ -10,10 +10,10 @@
                     class="text-[#e07a5f]"> India</span>
             </h1>
             <p class="max-w-3xl mx-auto text-xl text-gray-700">
-                Premium corporate gifting solutions that help Indian businesses strengthen relationships, appreciate
-                employees,
-                and create lasting impressions with clients and partners.
-            </p>
+    We create premium corporate gifting solutions that help businesses build stronger relationships, 
+    enhance brand value, and leave lasting impressions on clients, employees, and partners.
+</p>
+
 
             <div class="mt-10">
                 <a href="javascript:void(0)" onclick="openGlobalDrawer('Speak With Our Expert', 'about_page')"
@@ -30,7 +30,7 @@
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-10 text-center">
 
                 <div class="stats-card bg-white p-8 rounded-3xl shadow-sm">
-                    <h3 class="text-2xl md:text-4xl font-bold text-[#f4a261] mb-2">5000+</h3>
+                    <h3 class="text-2xl md:text-4xl font-bold text-[#f4a261] mb-2">500+</h3>
                     <p class="text-gray-600 font-medium">Happy Corporate Clients</p>
                 </div>
 
@@ -40,103 +40,138 @@
                 </div>
 
                 <div class="stats-card bg-white p-8 rounded-3xl shadow-sm">
-                    <h3 class="text-2xl md:text-4xl font-bold text-[#e07a5f] mb-2">350+</h3>
+                    <h3 class="text-2xl md:text-4xl font-bold text-[#e07a5f] mb-2">700+</h3>
                     <p class="text-gray-600 font-medium">Premium Products</p>
                 </div>
 
                 <div class="stats-card bg-white p-8 rounded-3xl shadow-sm">
-                    <h3 class="text-2xl md:text-4xl font-bold text-gray-800 mb-2">18</h3>
-                    <p class="text-gray-600 font-medium">Cities Across India</p>
+                    <h3 class="text-2xl md:text-4xl font-bold text-gray-800 mb-2">100</h3>
+                    <p class="text-gray-600 font-medium">Partners / Vendors</p>
                 </div>
 
             </div>
         </div>
     </section>
+    
+   
+
 
     <section class="py-16 md:py-24 bg-gray-50">
         <div class="max-w-6xl mx-auto px-6">
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <!-- Left Image -->
-                <div class="relative">
-                    <div class="absolute -inset-4 bg-gradient-to-br from-[#f4a261]/10 to-[#2ec4b6]/10 rounded-3xl"></div>
-                    <img src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg" alt="Our Journey"
-                        class="relative rounded-3xl shadow-2xl w-full h-full object-cover">
-                </div>
+               <div class="relative">
+    <div class="absolute -inset-4 bg-gradient-to-br from-[#f4a261]/10 to-[#2ec4b6]/10 rounded-3xl"></div>
+    <img 
+        src="{{ asset('images/aboutus-intro.webp') }}" 
+        alt="B2b Gift India About Us"
+        class="relative rounded-3xl shadow-2xl w-full h-full object-cover">
+</div>
 
                 <!-- Right Content -->
                 <div>
-                    <h2 class="text-4xl font-bold text-gray-900 mb-6">Our Brand Story</h2>
+                    <h2 class="text-4xl font-bold text-gray-900 mb-6">Discover B2B Gifts India</h2>
                     <div class="space-y-6 text-lg text-gray-700 leading-relaxed">
-                        <p>
-                            Founded in 2022 with a simple yet powerful vision — to transform the way Indian businesses
-                            express gratitude and appreciation.
+                       
+                       <p>
+                            Our Giftech platform provides access to the next level corporate gifting, Sharing successful journey of over 5 years, 
+                            we've been spreading joy and fostering connections through thoughtfully chosen Gifts.
                         </p>
                         <p>
-                            What started as a small team passionate about meaningful gifting has grown into one of India’s
-                            most trusted corporate gifting partners.
-                            We believe that every gift has the power to strengthen relationships and create lasting
-                            memories.
+                            Our goal is to offer you the finest selection of options that cater to your specific corporate needs for any occasion. 
+We will closely collaborate with you to gain a comprehensive understanding of your choices, budget and timelines.
                         </p>
-                        <p>
-                            Today, B2B Gifts India proudly serves over 5000+ corporate clients across 18 cities, delivering
-                            not just products, but experiences that reflect the values and aspirations of the organizations
-                            we serve.
-                        </p>
+                        
                     </div>
                 </div>
             </div>
         </div>
     </section>
+     <section class="w-full bg-[#f8f5f0] py-12 md:py-20 px-4 md:px-6">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Card -->
+    <div class="bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 p-8 md:p-14 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-8">
+
+      <!-- Left Content -->
+      <div class="">
+        <h2 class="text-2xl md:text-4xl font-semibold text-gray-900 leading-tight">
+          Elevate Your Corporate Gifting Experience
+        </h2>
+
+      
+        <p class="mt-4 md:mt-6 text-gray-600 text-sm md:text-lg leading-relaxed">
+          We, as a Gift-Tech company, distinguish ourselves from others through our cutting-edge technological tools, 
+including an E-commerce website, CRM system, and well-defined processes and policies. These elements shape our unique 
+approach, vision, and mission, ensuring customer satisfaction, exceptional service, and a strong brand value..
+        </p>
+        <p>We efficiently handle a wide range of over 5000+ products & Serving a client base of over 400 plus corporate 
+        and established corporate partnerships with more than 150 national and international brands across 18 major categories and 100 subcategories.
+</p>
+<p>To promote local trade, support local artisans, and contribute to the growth of the Indian economy, 
+the majority of our products are manufactured in India. We are delighted to offer an exciting opportunity for brand partnerships.
+</p>
+<p>Reach us for extraordinary gifting experience. </p>        
+      </div>
+
+      <!-- Optional Button -->
+      
+
+    </div>
+
+  </div>
+</section>
 
     <!-- ==================== BRAND PROMISE SECTION ==================== -->
     <section class="py-16 md:py-24 bg-white">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-gray-900 mb-4">Our Brand Promise</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">
-                    We don’t just sell gifts — we help you build stronger, more meaningful business relationships.
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">Our Brand Promise</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                We go beyond gifting — we deliver experiences that strengthen relationships, elevate your brand, and create lasting impressions.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <div
+                class="brand-promise-card p-8 bg-white border border-gray-100 rounded-3xl hover:border-[#f4a261] transition-all group">
+                <div
+                    class="w-14 h-14 bg-[#f4a261]/10 text-[#f4a261] rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+                    ✨
+                </div>
+                <h3 class="font-semibold text-2xl mb-3">Premium Quality</h3>
+                <p class="text-gray-600">
+                    Carefully curated, high-quality products that reflect your brand standards and leave a lasting impression.
                 </p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8">
+            <div
+                class="brand-promise-card p-8 bg-white border border-gray-100 rounded-3xl hover:border-[#2ec4b6] transition-all group">
                 <div
-                    class="brand-promise-card p-8 bg-white border border-gray-100 rounded-3xl hover:border-[#f4a261] transition-all group">
-                    <div
-                        class="w-14 h-14 bg-[#f4a261]/10 text-[#f4a261] rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
-                        ✨
-                    </div>
-                    <h3 class="font-semibold text-2xl mb-3">Premium Quality</h3>
-                    <p class="text-gray-600">
-                        Only the finest products from trusted artisans and brands. We never compromise on quality.
-                    </p>
+                    class="w-14 h-14 bg-[#2ec4b6]/10 text-[#2ec4b6] rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+                    🎨
                 </div>
+                <h3 class="font-semibold text-2xl mb-3">Creative Customization</h3>
+                <p class="text-gray-600">
+                    Tailored branding solutions including logo printing, engraving, and premium packaging to make every gift uniquely yours.
+                </p>
+            </div>
 
+            <div
+                class="brand-promise-card p-8 bg-white border border-gray-100 rounded-3xl hover:border-[#e07a5f] transition-all group">
                 <div
-                    class="brand-promise-card p-8 bg-white border border-gray-100 rounded-3xl hover:border-[#2ec4b6] transition-all group">
-                    <div
-                        class="w-14 h-14 bg-[#2ec4b6]/10 text-[#2ec4b6] rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
-                        🎨
-                    </div>
-                    <h3 class="font-semibold text-2xl mb-3">Creative Customization</h3>
-                    <p class="text-gray-600">
-                        From logo engraving to personalized packaging — we make every gift uniquely yours.
-                    </p>
+                    class="w-14 h-14 bg-[#e07a5f]/10 text-[#e07a5f] rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+                    🤝
                 </div>
-
-                <div
-                    class="brand-promise-card p-8 bg-white border border-gray-100 rounded-3xl hover:border-[#e07a5f] transition-all group">
-                    <div
-                        class="w-14 h-14 bg-[#e07a5f]/10 text-[#e07a5f] rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
-                        🤝
-                    </div>
-                    <h3 class="font-semibold text-2xl mb-3">Exceptional Service</h3>
-                    <p class="text-gray-600">
-                        From consultation to timely delivery — we are with you at every step of your gifting journey.
-                    </p>
-                </div>
+                <h3 class="font-semibold text-2xl mb-3">Exceptional Service</h3>
+                <p class="text-gray-600">
+                    End-to-end support from consultation to delivery, ensuring a smooth, reliable, and hassle-free gifting experience.
+                </p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
 
     <!-- Vision & Mission -->
     <section class="py-8 md:py-24 bg-gray-50">
@@ -144,23 +179,21 @@
             <div class="grid md:grid-cols-2 gap-10">
 
                 <!-- Vision -->
-                <div class="bg-white p-4 md:p-10 rounded-3xl shadow-sm">
-                    <h2 class="text-3xl font-semibold mb-6 text-gray-800">Our Vision</h2>
-                    <p class="text-gray-700 leading-relaxed text-lg">
-                        To become India’s most trusted and preferred corporate gifting partner, known for premium quality,
-                        creative customization, and exceptional service that helps businesses build stronger relationships.
-                    </p>
-                </div>
+<div class="bg-white p-4 md:p-10 rounded-3xl shadow-sm">
+    <h2 class="text-3xl font-semibold mb-6 text-gray-800">Our Vision</h2>
+    <p class="text-gray-700 leading-relaxed text-lg">
+        To redefine corporate gifting by making it more meaningful, personalized, and result-driven — helping businesses create real impact through every gift they share.
+    </p>
+</div>
 
-                <!-- Mission -->
-                <div class="bg-white p-4 md:p-10 rounded-3xl shadow-sm">
-                    <h2 class="text-3xl font-semibold mb-6 text-gray-800">Our Mission</h2>
-                    <p class="text-gray-700 leading-relaxed text-lg">
-                        To deliver thoughtful, high-quality, and beautifully crafted corporate gifts that create memorable
-                        moments
-                        and reflect the values of the organizations we serve.
-                    </p>
-                </div>
+<!-- Mission -->
+<div class="bg-white p-4 md:p-10 rounded-3xl shadow-sm">
+    <h2 class="text-3xl font-semibold mb-6 text-gray-800">Our Mission</h2>
+    <p class="text-gray-700 leading-relaxed text-lg">
+        To provide reliable, high-quality, and customized gifting solutions with seamless execution — ensuring every order reflects our client’s brand and delivers a smooth, hassle-free experience from start to finish.
+    </p>
+</div>
+
 
             </div>
         </div>
@@ -216,18 +249,21 @@
                 <div class="grid md:grid-cols-2">
                     <!-- Left Image -->
                     <div class="bg-gray-900 p-12 flex items-center justify-center">
-                        <img src="https://via.placeholder.com/600x500?text=Corporate+Gifting+India" alt="B2B Gifts India"
-                            class="max-w-full rounded-2xl shadow-2xl">
-                    </div>
+    <img 
+        src="{{ asset('images/aboutus-corporates.webp') }}" 
+        alt="B2B Gifts India"
+        class="max-w-full rounded-2xl shadow-2xl"
+    >
+</div>
 
                     <!-- Right Content -->
                     <div class="p-4 md:p-16 flex flex-col justify-center">
-                        <h2 class="text-3xl font-semibold mb-6">Connecting Businesses Through Thoughtful Gifting</h2>
-                        <p class="text-gray-700 leading-relaxed text-lg">
-                            At B2B Gifts India, we believe every gift tells a story. We help organizations express
-                            gratitude, celebrate milestones,
-                            and strengthen professional relationships with carefully curated corporate gifts.
-                        </p>
+                        <h2 class="text-3xl font-semibold mb-6">Turn Every Gift into a Powerful Business Impression</h2>
+<p class="text-gray-700 leading-relaxed text-lg">
+    From employee appreciation to client engagement, we help you deliver thoughtful, 
+    customized corporate gifts that truly stand out. Let’s create gifting experiences that strengthen relationships and elevate your brand.
+</p>
+
 
                         <div class="mt-10 flex flex-col sm:flex-col gap-4">
                             <a href="#" class="px-8 py-4 bg-[#f4a261] text-white text-center rounded-2xl font-semibold">For

@@ -45,54 +45,63 @@
 @section('content')
 
     <!-- Hero Section -->
-    <section class="py-24 md:py-32 bg-white">
-        <div class="max-w-5xl mx-auto px-6 text-center">
-            <p class="uppercase tracking-widest text-sm font-medium text-gray-500 mb-4">
-                Become a Partner
-            </p>
-            <h1 class="text-5xl md:text-6xl font-bold leading-tight text-gray-900 mb-6">
-                Partner with <span class="text-[#f4a261]">B2B Gifts</span><span class="text-[#2ec4b6]"> India</span>
-            </h1>
-            <p class="max-w-3xl mx-auto text-xl text-gray-600">
-                Join hands with India's fastest growing corporate gifting company.
-                Whether you're a manufacturer, supplier, designer, or logistics partner — we welcome quality collaborations.
-            </p>
+   <section class="py-24 md:py-32 bg-white">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+        <p class="uppercase tracking-widest text-sm font-medium text-gray-500 mb-4">
+            Partner With Us
+        </p>
+        <h1 class="text-5xl md:text-6xl font-bold leading-tight text-gray-900 mb-6">
+            Grow with <span class="text-[#f4a261]">B2B Gifts</span><span class="text-[#2ec4b6]"> India</span>
+        </h1>
+        <p class="max-w-3xl mx-auto text-xl text-gray-600">
+            We collaborate with manufacturers, suppliers, designers, and service providers to deliver high-quality corporate gifting solutions. 
+            Partner with us to access consistent business opportunities, bulk orders, and long-term growth.
+        </p>
 
-            <div class="mt-12">
-                <a href="#enquiry-form"
-                    class="inline-block bg-gradient-to-r from-[#e07a5f] to-[#f4a261] text-white px-10 py-4 rounded-2xl font-semibold text-lg hover:shadow-xl transition-all">
-                    Submit Your Enquiry
-                </a>
-            </div>
+        <div class="mt-12">
+            <a href="#enquiry-form"
+                class="inline-block bg-gradient-to-r from-[#e07a5f] to-[#f4a261] text-white px-10 py-4 rounded-2xl font-semibold text-lg hover:shadow-xl transition-all">
+                Submit Your Enquiry
+            </a>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Benefits -->
     <section class="py-20 bg-gray-50">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-semibold">Why Partner With Us?</h2>
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-semibold">Why Partner With Us?</h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white p-8 rounded-3xl text-center">
+                <div class="text-5xl mb-6">📦</div>
+                <h3 class="font-semibold text-xl mb-3">Consistent Bulk Orders</h3>
+                <p class="text-gray-600">
+                    Access regular, high-volume order opportunities from a growing network of corporate clients across multiple industries.
+                </p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white p-8 rounded-3xl text-center">
-                    <div class="text-5xl mb-6">📦</div>
-                    <h3 class="font-semibold text-xl mb-3">Large Volume Orders</h3>
-                    <p class="text-gray-600">Consistent bulk orders throughout the year from our corporate clients.</p>
-                </div>
-                <div class="bg-white p-8 rounded-3xl text-center">
-                    <div class="text-5xl mb-6">💰</div>
-                    <h3 class="font-semibold text-xl mb-3">Timely Payments</h3>
-                    <p class="text-gray-600">100% transparent and on-time payment terms.</p>
-                </div>
-                <div class="bg-white p-8 rounded-3xl text-center">
-                    <div class="text-5xl mb-6">🤝</div>
-                    <h3 class="font-semibold text-xl mb-3">Long-term Partnership</h3>
-                    <p class="text-gray-600">Grow together as we expand our presence across India.</p>
-                </div>
+            <div class="bg-white p-8 rounded-3xl text-center">
+                <div class="text-5xl mb-6">₹</div>
+                <h3 class="font-semibold text-xl mb-3">Transparent & Timely Payments</h3>
+                <p class="text-gray-600">
+                    Structured and reliable payment processes with clear terms, ensuring smooth and hassle-free transactions.
+                </p>
+            </div>
+
+            <div class="bg-white p-8 rounded-3xl text-center">
+                <div class="text-5xl mb-6">🤝</div>
+                <h3 class="font-semibold text-xl mb-3">Long-Term Business Growth</h3>
+                <p class="text-gray-600">
+                    Build a sustainable partnership with opportunities to scale as we expand our reach and client base across India.
+                </p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
 
     <!-- <section class="py-20 bg-gray-50">
                                 <div class="max-w-6xl mx-auto px-6">
@@ -127,45 +136,50 @@
 
     <!-- Investment Opportunities -->
     <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold">Investor-Focused Opportunities</h2>
-                <p class="text-gray-600 mt-3">From equity stakes to diversified gifting solutions</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-
-                <div class="bg-gray-50 p-8 rounded-3xl">
-                    <h3 class="text-[#f4a261] font-semibold mb-1">Equity Partnership</h3>
-                    <div class="text-4xl font-bold text-gray-800 mb-4">₹50K+</div>
-                    <p class="text-gray-600 text-sm">Become a strategic partner and get priority access to premium products
-                        at wholesale rates.</p>
-                </div>
-
-                <div class="bg-gray-50 p-8 rounded-3xl">
-                    <h3 class="text-[#2ec4b6] font-semibold mb-1">Bulk Gifting</h3>
-                    <div class="text-4xl font-bold text-gray-800 mb-4">12% OFF</div>
-                    <p class="text-gray-600 text-sm">Annual membership with guaranteed discounts on all corporate orders.
-                    </p>
-                </div>
-
-                <div class="bg-gray-50 p-8 rounded-3xl">
-                    <h3 class="text-[#e07a5f] font-semibold mb-1">Co-Branded Collections</h3>
-                    <div class="text-4xl font-bold text-gray-800 mb-4">Custom</div>
-                    <p class="text-gray-600 text-sm">Create exclusive co-branded gift lines with your logo and messaging.
-                    </p>
-                </div>
-
-                <div class="bg-gray-50 p-8 rounded-3xl">
-                    <h3 class="text-gray-700 font-semibold mb-1">Diversified Network</h3>
-                    <div class="text-4xl font-bold text-gray-800 mb-4">18+</div>
-                    <p class="text-gray-600 text-sm">Access to a network of 18+ cities across India for seamless pan-India
-                        gifting.</p>
-                </div>
-
-            </div>
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold">Our Gifting Capabilities</h2>
+            <p class="text-gray-600 mt-3">Comprehensive solutions designed for modern corporate gifting needs</p>
         </div>
-    </section>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+            <div class="bg-gray-50 p-8 rounded-3xl">
+                <h3 class="text-[#f4a261] font-semibold mb-1">Customized Solutions</h3>
+                <div class="text-4xl font-bold text-gray-800 mb-4">Tailored</div>
+                <p class="text-gray-600 text-sm">
+                    Personalized gifting solutions with branding options like logo printing, engraving, and custom packaging.
+                </p>
+            </div>
+
+            <div class="bg-gray-50 p-8 rounded-3xl">
+                <h3 class="text-[#2ec4b6] font-semibold mb-1">Bulk Order Handling</h3>
+                <div class="text-4xl font-bold text-gray-800 mb-4">Scalable</div>
+                <p class="text-gray-600 text-sm">
+                    Efficient handling of large-volume orders with consistent quality and timely execution.
+                </p>
+            </div>
+
+            <div class="bg-gray-50 p-8 rounded-3xl">
+                <h3 class="text-[#e07a5f] font-semibold mb-1">Product Variety</h3>
+                <div class="text-4xl font-bold text-gray-800 mb-4">Wide Range</div>
+                <p class="text-gray-600 text-sm">
+                    Extensive selection of corporate gifts across categories including lifestyle, tech, drinkware, and more.
+                </p>
+            </div>
+
+            <div class="bg-gray-50 p-8 rounded-3xl">
+                <h3 class="text-gray-700 font-semibold mb-1">Pan-India Delivery</h3>
+                <div class="text-4xl font-bold text-gray-800 mb-4">Nationwide</div>
+                <p class="text-gray-600 text-sm">
+                    Reliable delivery network ensuring smooth and timely fulfillment across multiple locations in India.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
 
     <!-- Our Trusted Partners / Team -->
     <!-- <section class="py-20 bg-gray-50">
@@ -209,49 +223,53 @@
                             </section> -->
 
     <!-- Our Process -->
-    <section class="py-20 bg-white">
-        <div class="max-w-5xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold">Our Process</h2>
-                <p class="text-gray-600 mt-4">A clear path to smarter corporate gifting partnerships</p>
-            </div>
-
-            <div
-                class="max-w-3xl mx-auto space-y-16 relative before:absolute before:left-8 before:top-10 before:bottom-10 before:w-0.5 before:bg-gradient-to-b before:from-[#f4a261] before:to-[#e07a5f]">
-
-                <div class="process-step flex gap-10">
-                    <div class="w-16 h-16 bg-[#f4a261] text-white rounded-2xl flex items-center justify-center text-2xl font-bold flex-shrink-0"
-                        style="z-index: 10;">1</div>
-                    <div>
-                        <h3 class="text-2xl font-semibold mb-3">Discovery & Consultation</h3>
-                        <p class="text-gray-600">We understand your brand values, gifting goals, and budget to create a
-                            tailored plan.</p>
-                    </div>
-                </div>
-
-                <div class="process-step flex gap-10">
-                    <div class="w-16 h-16 bg-[#2ec4b6] text-white rounded-2xl flex items-center justify-center text-2xl font-bold flex-shrink-0"
-                        style="z-index: 10;">2</div>
-                    <div>
-                        <h3 class="text-2xl font-semibold mb-3">Curated Solutions</h3>
-                        <p class="text-gray-600">Get handpicked premium products with customization options that perfectly
-                            match your needs.</p>
-                    </div>
-                </div>
-
-                <div class="process-step flex gap-10">
-                    <div class="w-16 h-16 bg-[#e07a5f] text-white rounded-2xl flex items-center justify-center text-2xl font-bold flex-shrink-0"
-                        style="z-index: 10;">3</div>
-                    <div>
-                        <h3 class="text-2xl font-semibold mb-3">Ongoing Partnership</h3>
-                        <p class="text-gray-600">Enjoy dedicated support, priority service, and continuous opportunities to
-                            strengthen your brand presence.</p>
-                    </div>
-                </div>
-
-            </div>
+  <section class="py-20 bg-white">
+    <div class="max-w-5xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold">Our Process</h2>
+            <p class="text-gray-600 mt-4">A streamlined approach to deliver seamless corporate gifting solutions</p>
         </div>
-    </section>
+
+        <div
+            class="max-w-3xl mx-auto space-y-16 relative before:absolute before:left-8 before:top-10 before:bottom-10 before:w-0.5 before:bg-gradient-to-b before:from-[#f4a261] before:to-[#e07a5f]">
+
+            <div class="process-step flex gap-10">
+                <div class="w-16 h-16 bg-[#f4a261] text-white rounded-2xl flex items-center justify-center text-2xl font-bold flex-shrink-0"
+                    style="z-index: 10;">1</div>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-3">Requirement Understanding</h3>
+                    <p class="text-gray-600">
+                        We begin by understanding your gifting needs, target audience, quantity, and branding requirements to plan the right solution.
+                    </p>
+                </div>
+            </div>
+
+            <div class="process-step flex gap-10">
+                <div class="w-16 h-16 bg-[#2ec4b6] text-white rounded-2xl flex items-center justify-center text-2xl font-bold flex-shrink-0"
+                    style="z-index: 10;">2</div>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-3">Product Selection & Approval</h3>
+                    <p class="text-gray-600">
+                        We share curated product options with customization details, followed by design mockups and approvals before production.
+                    </p>
+                </div>
+            </div>
+
+            <div class="process-step flex gap-10">
+                <div class="w-16 h-16 bg-[#e07a5f] text-white rounded-2xl flex items-center justify-center text-2xl font-bold flex-shrink-0"
+                    style="z-index: 10;">3</div>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-3">Production & Delivery</h3>
+                    <p class="text-gray-600">
+                        Once approved, we manage production, quality checks, and timely delivery to ensure a smooth and hassle-free experience.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
 
 
     <!-- Vendor Enquiry Form -->

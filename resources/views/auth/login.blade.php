@@ -1,73 +1,206 @@
 @extends('layouts.admin-app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">   {{ __('Login') }}</div>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login.post') }}">
-                        @csrf
+<style>
+    body {
+        background: #f3f4f6;
+    }
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+    .login-wrapper {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+    .login-card {
+        width: 100%;
+        max-width: 950px;
+        display: flex;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        background: #fff;
+    }
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+.logo-box {
+    background: #fff;
+    padding: 15px;
+    border-radius: 15px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+.logo-box img {
+    width: 140px;
+    height: auto;
+}
+    .login-left {
+        width: 45%;
+        background: linear-gradient(135deg, #f97316, #fb923c);
+        color: #fff;
+        text-align: center;
+        padding: 40px 20px;
+    }
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+    .login-left img {
+        width: 120px;
+        margin-bottom: 20px;
+    }
 
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+    .login-left h2 {
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
 
-                        <div class="row mb-3">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+    .login-left p {
+        font-size: 14px;
+        opacity: 0.9;
+    }
 
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+    .login-right {
+        width: 55%;
+        padding: 40px;
+    }
 
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
+    .login-title {
+        font-weight: 600;
+        margin-bottom: 25px;
+        color: #333;
+    }
 
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
+    .form-control {
+        border-radius: 10px;
+        padding: 12px;
+        background: #f1f5f9;
+        border: none;
+    }
+
+    .form-control:focus {
+        box-shadow: none;
+        border: 1px solid #f97316;
+        background: #fff;
+    }
+
+    .btn-login {
+        width: 100%;
+        padding: 12px;
+        border-radius: 12px;
+        border: none;
+        background: linear-gradient(90deg, #f97316, #fb923c);
+        color: #fff;
+        font-weight: 500;
+    }
+
+    .btn-login:hover {
+        opacity: 0.9;
+    }
+
+    .form-check-label {
+        font-size: 14px;
+    }
+
+    .forgot-link {
+        font-size: 14px;
+        text-decoration: none;
+        color: #f97316;
+    }
+
+    .forgot-link:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+        .login-card {
+            flex-direction: column;
+        }
+        .login-left, .login-right {
+            width: 100%;
+        }
+        .login-left {
+    background: linear-gradient(135deg, #f97316, #fbbf24);
+}
+    }
+</style>
+
+<div class="login-wrapper">
+    <div class="login-card">
+
+        <!-- LEFT SIDE -->
+        <div class="login-left">
+    
+    <div class="logo-box">
+        <img src="{{ asset('images/B2B_logo.png') }}" alt="B2B Gifting Logo">
+    </div>
+
+    <h2>B2B Gifts India</h2>
+    <p>Corporate Gifting Solutions for Every Business</p>
+</div>
+
+        <!-- RIGHT SIDE -->
+        <div class="login-right">
+            <h4 class="login-title">Admin Login</h4>
+
+            <form method="POST" action="{{ route('login.post') }}">
+                @csrf
+
+                <!-- EMAIL -->
+                <div class="mb-3">
+                    <label>Email Address</label>
+                    <input id="email" type="email"
+                        class="form-control @error('email') is-invalid @enderror"
+                        name="email" value="{{ old('email') }}"
+                        required autofocus>
+
+                    @error('email')
+                        <span class="invalid-feedback d-block">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
-            </div>
+
+                <!-- PASSWORD -->
+                <div class="mb-3">
+                    <label>Password</label>
+                    <input id="password" type="password"
+                        class="form-control @error('password') is-invalid @enderror"
+                        name="password" required>
+
+                    @error('password')
+                        <span class="invalid-feedback d-block">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                <!-- REMEMBER -->
+                <div class="mb-3 d-flex justify-content-between align-items-center">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox"
+                            name="remember" id="remember"
+                            {{ old('remember') ? 'checked' : '' }}>
+                        <label class="form-check-label">
+                            Remember Me
+                        </label>
+                    </div>
+
+                    @if (Route::has('password.request'))
+                        <a class="forgot-link" href="{{ route('password.request') }}">
+                            Forgot Password?
+                        </a>
+                    @endif
+                </div>
+
+                <!-- BUTTON -->
+                <button type="submit" class="btn btn-login">
+                    Login
+                </button>
+
+            </form>
         </div>
+
     </div>
 </div>
+
 @endsection

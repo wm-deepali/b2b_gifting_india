@@ -6,6 +6,11 @@
 
 @section('content')
 
+<style>
+    .terms-container{
+        max-width:100% !important;
+    }
+</style>
 <!-- Breadcrumb -->
 <div class="bg-gray-50 py-4 border-b">
     <div class="max-w-7xl mx-auto px-6">
@@ -21,10 +26,10 @@
 
 <!-- Page Content -->
 <section class="py-16 bg-white">
-    <div class="max-w-4xl mx-auto px-6">
+    <div class="max-w-7xl mx-auto px-6">
 
         <!-- Title -->
-        <h1 class="text-4xl font-bold text-gray-900 mb-6">
+        <h1 class="text-4xl text-center font-bold text-gray-900 mb-6">
             {{ $page->heading ?? $page->page_name }}
         </h1>
 

@@ -52,10 +52,13 @@ class VendorTypeController extends Controller
             ->with('success', 'Updated successfully');
     }
 
-    public function destroy($id)
+      public function destroy($id)
     {
         VendorType::findOrFail($id)->delete();
 
-        return back()->with('success', 'Deleted successfully');
+        return response()->json([
+            'status' => true,
+            'message' => 'Deleted successfully'
+        ]);
     }
 }

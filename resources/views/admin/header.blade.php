@@ -116,6 +116,12 @@
                     </a>
                 </li>
 
+<li class="{{ request()->routeIs('admin.announcements.*') ? 'active' : '' }}">
+    <a href="{{ route('admin.announcements.index') }}">
+        <i class="fa-solid fa-bullhorn"></i> Announcement Bar
+    </a>
+</li>
+
                 <li class="{{ request()->routeIs('admin.pages.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.pages.index') }}">
                         <i class="fa-solid fa-file"></i> Dynamic Pages

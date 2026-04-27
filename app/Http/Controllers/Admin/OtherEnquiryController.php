@@ -25,6 +25,9 @@ class OtherEnquiryController extends Controller
     {
         GeneralEnquiry::findOrFail($id)->delete();
 
-        return back()->with('success', 'Deleted successfully');
+         return response()->json([
+        'status' => true,
+        'message' => 'Deleted successfully'
+    ]);
     }
 }

@@ -53,17 +53,29 @@
 
                             <div class="mt-6 flex justify-between items-end">
                                 <div>
-                                    <span class="text-2xl font-bold">
-                                        ₹{{ $item->price }}
-                                    </span>
-                                    <span class="text-sm text-gray-400">per piece</span>
-                                </div>
+    @if($item->price > 0)
+        <span class="text-2xl font-bold">
+            ₹{{ $item->price }}
+        </span>
+        <span class="text-sm text-gray-400">per piece</span>
+    @else
+        <p class="text-xs text-[#e07a5f] font-medium">
+            For Price Contact Us
+        </p>
+    @endif
+</div>
 
                                 <div class="text-right">
                                     <p class="text-gray-600">Subtotal</p>
-                                    <p class="text-2xl font-semibold text-gray-800">
-                                        ₹{{ $item->total }}
-                                    </p>
+                                   <p class="text-2xl font-semibold text-gray-800">
+    @if($item->price > 0)
+        ₹{{ $item->total }}
+    @else
+        <span class="text-sm text-gray-500">
+            Quote Required
+        </span>
+    @endif
+</p>
                                 </div>
                             </div>
                         </div>

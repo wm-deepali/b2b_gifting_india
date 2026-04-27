@@ -152,10 +152,11 @@
     $discountPercent = $mrp > 0 ? round(($discountAmount / $mrp) * 100) : 0;
 @endphp
 
-@if($price > 0)
-    <div class="mt-6">
+<div class="mt-6">
 
-        <!-- PRICE ROW -->
+    @if($price > 0)
+
+        <!-- NORMAL PRICE -->
         <div class="flex items-center gap-3">
             <span class="text-4xl font-bold text-gray-800">₹{{ $price }}</span>
 
@@ -164,21 +165,27 @@
             @endif
         </div>
 
-        <!-- SAVE TEXT -->
         @if($hasDiscount)
             <div class="mt-2 text-green-600 font-medium text-sm">
-
                 @if($product->discount_type == 'percentage')
                     You Save {{ $discountPercent }}%
                 @else
                     You Save ₹{{ $discountAmount }}
                 @endif
-
             </div>
         @endif
 
-    </div>
-@endif
+    @else
+
+        <!-- ✅ PRICE HIDDEN -->
+        <p class="text-sm text-gray-500 font-medium">
+            For Price Contact Us
+        </p>
+
+    @endif
+
+</div>
+
                 @if($product->customizations && $product->customizations->count())
                     <div class="mt-8">
                         <h3 class="font-semibold mb-3">Customization Options</h3>

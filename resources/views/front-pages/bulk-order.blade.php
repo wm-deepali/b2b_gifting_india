@@ -46,31 +46,32 @@
 
     <!-- Hero Section -->
     <section class="py-24 md:py-32 bg-white">
-        <div class="max-w-5xl mx-auto px-6 text-center">
-            <p class="uppercase tracking-widest text-sm font-medium text-gray-500 mb-4">
-                Manufacturing & Supply Partnership
-            </p>
-            <h1 class="text-5xl md:text-6xl font-bold leading-tight text-gray-900 mb-6">
-                Partner with <span class="text-[#f4a261]">B2B Gifts</span><span class="text-[#2ec4b6]"> India</span>
-            </h1>
-            <p class="max-w-3xl mx-auto text-xl text-gray-600">
-                We are actively looking for reliable manufacturers and suppliers for bulk corporate gifting.
-                Join hands with us to supply high-quality products for our growing corporate clientele across India.
-            </p>
+    <div class="max-w-5xl mx-auto px-6 text-center">
+        <p class="uppercase tracking-widest text-sm font-medium text-gray-500 mb-4">
+            Bulk Corporate Gifting
+        </p>
+        <h1 class="text-5xl md:text-6xl font-bold leading-tight text-gray-900 mb-6">
+            Bulk Orders Made <span class="text-[#f4a261]">Simple</span> & <span class="text-[#2ec4b6]">Efficient</span>
+        </h1>
+        <p class="max-w-3xl mx-auto text-xl text-gray-600">
+            Whether it’s employee gifting, client giveaways, or large-scale campaigns, we handle bulk orders with 
+            customized solutions, consistent quality, and reliable delivery across India.
+        </p>
 
-            <div class="mt-12">
-                <a href="#enquiry-form"
-                    class="inline-block bg-gradient-to-r from-[#e07a5f] to-[#f4a261] text-white px-10 py-4 rounded-2xl font-semibold text-lg hover:shadow-xl transition-all">
-                    Submit Bulk Supply Enquiry
-                </a>
-            </div>
+        <div class="mt-12">
+            <a href="#enquiry-form"
+                class="inline-block bg-gradient-to-r from-[#e07a5f] to-[#f4a261] text-white px-10 py-4 rounded-2xl font-semibold text-lg hover:shadow-xl transition-all">
+                Request Bulk Quote
+            </a>
         </div>
-    </section>
+    </div>
+</section>
+
     <!-- Vendor Enquiry Form -->
     <section id="enquiry-form" class="py-20 bg-white">
         <div class="max-w-4xl mx-auto px-6">
             <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-gray-900">Bulk Order Vendor / Supplier Enquiry</h2>
+                <h2 class="text-4xl font-bold text-gray-900">Bulk Order Enquiry</h2>
                 <p class="text-gray-600 mt-3">Please provide your details below. Our procurement team will contact you
                     within 48 hours.</p>
             </div>

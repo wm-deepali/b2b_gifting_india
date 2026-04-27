@@ -25,6 +25,9 @@ class PackageEnquiryController extends Controller
     {
         PackageEnquiry::findOrFail($id)->delete();
 
-        return back()->with('success', 'Deleted successfully');
+       return response()->json([
+        'status' => true,
+        'message' => 'Deleted successfully'
+    ]);
     }
 }

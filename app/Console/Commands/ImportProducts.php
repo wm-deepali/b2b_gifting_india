@@ -159,7 +159,7 @@ class ImportProducts extends Command
                 'old_id' => $oldId,
 
                 'name' => $title,
-                'slug' => Str::slug($title),
+                'slug' => Str::slug($title . '-' . $oldId),
 
                 'summary' => $description,
                 'details' => $description,

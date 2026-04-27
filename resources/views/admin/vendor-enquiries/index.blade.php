@@ -55,20 +55,19 @@
                                     <td>{{ $item->city }}</td>
                                     <td>{{ $item->created_at->format('d M Y') }}</td>
 
-                                    <td>
-                                        <a href="{{ route('admin.vendor-enquiries.show', $item->id) }}"
-                                            class="btn btn-info btn-sm">View</a>
+                                   <td>
+    <!-- VIEW -->
+    <a href="{{ route('admin.vendor-enquiries.show', $item->id) }}"
+       class="btn btn-info btn-sm">
+        View
+    </a>
 
-                                        <form action="{{ route('admin.vendor-enquiries.destroy', $item->id) }}"
-                                            method="POST" style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-
-                                            <button onclick="return confirm('Delete?')" class="btn btn-danger btn-sm">
-                                                Delete
-                                            </button>
-                                        </form>
-                                    </td>
+    <!-- DELETE (AJAX) -->
+    <button onclick="deleteEnquiry({{ $item->id }})"
+            class="btn btn-danger btn-sm">
+        Delete
+    </button>
+</td>
                                 </tr>
 
                                 @endforeach
@@ -94,3 +93,41 @@
 </div>
 
 @include('admin.footer')
+<script>
+function deleteEnquiry(id) {
+    Swal.fire({
+        title: 'Delete Enquiry?',
+        text: "This action cannot be undone.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        confirmButtonText: 'Yes, Delete'
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+
+            $.ajax({
+                url: `/admin/vendor-enquiries/${id}`, // ✅ correct route
+                type: "DELETE",
+                data: {
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function (res) {
+
+                    Swal.fire('Deleted!', res.message, 'success');
+
+                    $("#row" + id).fadeOut(400, function () {
+                        $(this).remove();
+                    });
+
+                },
+                error: function () {
+                    Swal.fire('Error', 'Something went wrong', 'error');
+                }
+            });
+
+        }
+
+    });
+}
+</script>

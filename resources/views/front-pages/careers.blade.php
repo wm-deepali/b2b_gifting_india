@@ -130,7 +130,7 @@
                         <div class="flex flex-col md:flex-row justify-between items-start gap-4">
                             <div>
                                 <h3 class="text-2xl font-semibold mb-2">React Developer</h3>
-                                <div class="flex gap-3 mb-4">
+                                <div class="flex flex-col sm:flex-row gap-3 mb-4">
                                     <span class="job-badge">📍 Delhi</span>
                                     <span class="job-badge">💼 Full Time</span>
                                     <span class="job-badge">2+ Years Exp.</span>
@@ -148,7 +148,7 @@
                         <div class="flex flex-col md:flex-row justify-between items-start gap-4">
                             <div>
                                 <h3 class="text-2xl font-semibold mb-2">Backend Developer (Laravel/Node.js)</h3>
-                                <div class="flex gap-3 mb-4">
+                                <div class="flex flex-col sm:flex-row gap-3 mb-4">
                                     <span class="job-badge">📍 Remote / Hybrid</span>
                                     <span class="job-badge">💼 Full Time</span>
                                 </div>

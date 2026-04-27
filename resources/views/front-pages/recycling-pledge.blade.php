@@ -6,12 +6,12 @@
 
 <section class="about-hero py-20 md:py-20 bg-white">
     <div class="max-w-6xl mx-auto px-6 text-center">
-        <p class="text-lg text-gray-600 mb-4">Empowering Businesses • Creating Memorable Experiences</p>
+        <p class="text-lg text-gray-600 mb-4">Sustainable Gifting • Responsible Choices • Better Impact</p>
         <h1 class="text-5xl md:text-6xl font-bold leading-tight text-gray-900 mb-6">
-            About <span class="text-[#f4a261]">B2B</span><span class="text-[#2ec4b6]"> Gifts</span><span class="text-[#e07a5f]"> India</span>
+            Eco-Friendly <span class="text-[#f4a261]">Corporate</span><span class="text-[#2ec4b6]"> Gifting</span><span class="text-[#e07a5f]"> Solutions</span>
         </h1>
         <p class="max-w-3xl mx-auto text-xl text-gray-700">
-            We help Indian businesses build stronger relationships through thoughtful, premium and beautifully customized corporate gifts.
+            We help businesses make a positive impact with sustainable corporate gifts crafted from eco-conscious materials — combining thoughtful gifting with environmental responsibility.
         </p>
 
         <div class="mt-10">
@@ -23,6 +23,7 @@
     </div>
 </section>
 
+
 <!-- ==================== ABOUT US SECTION ==================== -->
 <section class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-6">
@@ -30,7 +31,8 @@
 
             <!-- Left Side - Image -->
             <div class="relative">
-                <img src="https://images.unsplash.com/photo-1556761175-5973f0c0f7b8" 
+              
+                <img src="{{ asset('images/recycling-pledge.webp') }}" 
                      alt="B2B Gifts India Team" 
                      class="rounded-3xl shadow-2xl w-full">
                 
@@ -39,8 +41,8 @@
                     <div class="flex items-center gap-4">
                         <div class="w-12 h-12 bg-[#f4a261] text-white rounded-2xl flex items-center justify-center text-3xl">🎁</div>
                         <div>
-                            <p class="font-semibold text-gray-800">Since 2018</p>
-                            <p class="text-sm text-gray-500">Delivering Happiness Across India</p>
+                            <p class="font-semibold text-gray-800">Since 2020</p>
+                            <p class="text-sm text-gray-500">Elevating Corporate Gifting Experiences</p>
                         </div>
                     </div>
                 </div>
@@ -49,19 +51,43 @@
             <!-- Right Side - Content -->
             <div class="space-y-8">
                 <div>
-                    <span class="uppercase tracking-widest text-sm font-medium text-[#f4a261]">Our Story</span>
-                    <h2 class="text-4xl font-bold text-gray-900 mt-3 leading-tight">
-                        Crafting Memorable Moments Through <span class="text-[#f4a261]">Premium Corporate Gifting</span>
-                    </h2>
-                </div>
+    <span class="uppercase tracking-widest text-sm font-medium text-[#f4a261]">Our Pledge</span>
+    <h2 class="text-4xl font-bold text-gray-900 mt-3 leading-tight">
+    Thoughtful Gifting with <span class="text-[#f4a261]">Quality & Precision</span>
+</h2>
 
-                <p class="text-gray-600 text-lg leading-relaxed">
-                    At B2B Gifts India, we understand that every gift tells a story. Founded with a passion for quality and creativity, 
-                    we have become one of India’s most trusted names in corporate gifting. Our mission is simple — to help businesses 
-                    express gratitude and strengthen relationships through meaningful, beautifully crafted gifts.
-                </p>
+</div>
 
-                <div class="grid grid-cols-2 gap-8">
+<p class="text-gray-600 text-lg leading-relaxed">
+    We deliver high-quality, customized corporate gifts that reflect your brand, with a focus on reliability and seamless execution.
+</p>
+
+<ul class="list-disc pl-6 space-y-4 text-gray-600 text-lg leading-relaxed">
+    <li>
+        Promoting responsible waste management by encouraging proper segregation of recyclable and non-recyclable materials.
+    </li>
+    <li>
+        Staying aligned with local recycling guidelines and continuously improving our processes to ensure effective sustainability practices.
+    </li>
+    <li>
+        Reducing waste through conscious efforts such as reusing materials, optimizing packaging, and minimizing unnecessary consumption.
+    </li>
+    <li>
+        Prioritizing eco-friendly, sustainable, and recyclable products within our corporate gifting solutions.
+    </li>
+    <li>
+        Encouraging awareness among clients and partners about responsible gifting and environmentally conscious choices.
+    </li>
+    <li>
+        Supporting sustainable initiatives, including recycling programs and community-driven environmental efforts.
+    </li>
+    <li>
+        Continuously evolving by adopting better practices, materials, and innovations that contribute to a greener future.
+    </li>
+</ul>
+
+
+             <!--   <div class="grid grid-cols-2 gap-8">
                     <div>
                         <h4 class="font-semibold text-xl text-gray-800 mb-2">Our Mission</h4>
                         <p class="text-gray-600">
@@ -74,7 +100,7 @@
                             To become India’s most preferred corporate gifting partner, known for excellence, innovation and unmatched customer experience.
                         </p>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="pt-6">
                     <a href="#" 
@@ -85,7 +111,7 @@
                 </div>
 
                 <!-- Trust Signals -->
-                <div class="flex items-center gap-10 pt-8 border-t">
+              <!--  <div class="flex items-center gap-10 pt-8 border-t">
                     <div>
                         <p class="text-3xl font-bold text-gray-800">5000+</p>
                         <p class="text-sm text-gray-500">Happy Clients</p>
@@ -98,7 +124,7 @@
                         <p class="text-3xl font-bold text-gray-800">18</p>
                         <p class="text-sm text-gray-500">Cities Served</p>
                     </div>
-                </div>
+                </div> -->
             </div>
 
         </div>
@@ -118,15 +144,15 @@
         <div class="max-w-3xl mx-auto bg-white rounded-3xl shadow-2xl p-12 md:p-16 text-center">
             
             <h2 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-8">
-                Our Brand Promise
-            </h2>
+    Our Sustainability Commitment
+</h2>
 
-            <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
-                Gestures of appreciation and love are what makes a relationship more meaningful. 
-                In a world where gifting is just an object being passed from one hand to another, 
-                we at <span class="font-semibold text-[#f4a261]">B2B Gifts India</span> believe that gifting 
-                is a symbol of love being passed from one soul to another.
-            </p>
+<p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+    We believe corporate gifting should not only create meaningful impressions but also contribute responsibly to the environment. 
+    At <span class="font-semibold text-[#f4a261]">B2B Gifts India</span>, we are committed to promoting sustainable practices by 
+    offering eco-friendly solutions and encouraging conscious gifting choices that support a greener future.
+</p>
+
 
             <!-- Decorative Line -->
             <div class="w-24 h-1 bg-gradient-to-r from-[#f4a261] to-[#e07a5f] mx-auto mt-10 rounded-full"></div>

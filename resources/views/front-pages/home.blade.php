@@ -534,7 +534,9 @@
 
           <div class="relative">
 
+  <a href="{{ route('product.detail', $product->slug) }}">
             <img src="{{ asset('storage/' . $product->image) }}" class="w-full h-72 object-cover">
+            </a>
 
             @php
               $tags = [];
@@ -582,7 +584,9 @@
 
               <div>
                 <h4 class="font-semibold text-lg">
+                      <a href="{{ route('product.detail', $product->slug) }}">
                   {{ $product->name }}
+                  </a>
                 </h4>
 
                 <p class="text-[#6b635a] text-sm">
@@ -1331,11 +1335,13 @@
       products.forEach(product => {
 
         html += `
-                                                                  <div class="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
+          <div class="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
 
                                                                     <div class="relative h-40 md:h-64 overflow-hidden">
+                                                                     <a href="${BASE_URL}product/${product.slug}">
                                                                       <img src="${BASE_URL}storage/${product.image}" 
                                                                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                                                        </a>
                                                                       ${product.new_arrival ? `
                                                                         <div class="absolute top-3 left-3 bg-[#e07a5f] text-white text-xs px-3 py-1 rounded-full">
                                                                           New
@@ -1346,7 +1352,9 @@
                                                                       <p class="text-sm text-gray-500 mb-1">${product.sub_title ?? ''}</p>
 
                                                                       <h4 class="font-semibold text-base leading-tight mb-3">
+                                                                       <a href="${BASE_URL}product/${product.slug}">
                                                                         ${product.name}
+                                                                        </a>
                                                                       </h4>
 
                                                                       <p class="text-[#e07a5f] font-bold text-xl">

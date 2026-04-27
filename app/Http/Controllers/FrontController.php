@@ -460,7 +460,7 @@ class FrontController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Product added to cart',
-            'cart_count' => $cart->items()->sum('quantity') // 🔥 IMPORTANT
+            'cart_count' => $cart->items()->count()
         ]);
     }
 

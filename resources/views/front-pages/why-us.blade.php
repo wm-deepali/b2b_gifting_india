@@ -10,13 +10,15 @@
 
 <section class="py-8 md:py-28 bg-gradient-to-br from-[#f8f4f0] to-white">
     <div class="max-w-6xl mx-auto px-6 text-center">
-        <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-            Why Choose <span class="text-[#f4a261]">B2B</span><span class="text-[#2ec4b6]"> Gifts</span><span class="text-[#e07a5f]"> India</span>
-        </h1>
-        <p class="max-w-3xl mx-auto text-xl text-gray-600">
-            We don’t just sell gifts — we help you create meaningful connections and lasting impressions.
-        </p>
-    </div>
+    <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+        Why Choose <span class="text-[#f4a261]">B2B</span><span class="text-[#2ec4b6]"> Gifts</span><span class="text-[#e07a5f]"> India</span>
+    </h1>
+    <p class="max-w-3xl mx-auto text-xl text-gray-600">
+        From premium product selection to seamless customization and reliable delivery, we provide end-to-end 
+        corporate gifting solutions designed to save your time and elevate your brand.
+    </p>
+</div>
+
 </section>
 
 <!-- Key Benefits Grid -->
@@ -25,58 +27,59 @@
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
             <!-- Benefit 1 -->
-            <div class="why-card bg-white border border-gray-100 rounded-3xl p-4 md:p-10">
-                <div class="benefit-icon mb-6 text-4xl">🎨</div>
-                <h3 class="text-2xl font-semibold mb-4">Premium Quality & Customization</h3>
-                <p class="text-gray-600 leading-relaxed">
-                    Every product is carefully selected for superior quality. We offer extensive customization options — laser engraving, printing, embroidery, and more — to make your brand shine.
-                </p>
-            </div>
+<div class="why-card bg-white border border-gray-100 rounded-3xl p-4 md:p-10">
+    <div class="benefit-icon mb-6 text-4xl">🎨</div>
+    <h3 class="text-2xl font-semibold mb-4">Premium Quality & Customization</h3>
+    <p class="text-gray-600 leading-relaxed">
+        We offer meticulously curated products that meet high-quality standards, complemented by advanced customization options such as laser engraving, precision printing, and bespoke branding solutions.
+    </p>
+</div>
 
-            <!-- Benefit 2 -->
-            <div class="why-card bg-white border border-gray-100 rounded-3xl p-4 md:p-10">
-                <div class="benefit-icon mb-6 text-4xl">🚚</div>
-                <h3 class="text-2xl font-semibold mb-4">Fast & Reliable Delivery</h3>
-                <p class="text-gray-600 leading-relaxed">
-                    On-time delivery across India. Standard orders delivered in 7–12 days. Urgent requirements handled with express delivery options.
-                </p>
-            </div>
+<!-- Benefit 2 -->
+<div class="why-card bg-white border border-gray-100 rounded-3xl p-4 md:p-10">
+    <div class="benefit-icon mb-6 text-4xl">🚚</div>
+    <h3 class="text-2xl font-semibold mb-4">Efficient & Reliable Delivery</h3>
+    <p class="text-gray-600 leading-relaxed">
+        Our streamlined logistics ensure timely and dependable delivery across India, with the flexibility to accommodate urgent requirements through expedited processing.
+    </p>
+</div>
 
-            <!-- Benefit 3 -->
-            <div class="why-card bg-white border border-gray-100 rounded-3xl p-4 md:p-10">
-                <div class="benefit-icon mb-6 text-4xl">🌱</div>
-                <h3 class="text-2xl font-semibold mb-4">Eco-Friendly Options</h3>
-                <p class="text-gray-600 leading-relaxed">
-                    Wide range of sustainable and environmentally responsible gifts made from bamboo, recycled materials, and organic fabrics.
-                </p>
-            </div>
+<!-- Benefit 3 -->
+<div class="why-card bg-white border border-gray-100 rounded-3xl p-4 md:p-10">
+    <div class="benefit-icon mb-6 text-4xl">🌱</div>
+    <h3 class="text-2xl font-semibold mb-4">Sustainable Gifting Solutions</h3>
+    <p class="text-gray-600 leading-relaxed">
+        We offer a thoughtfully curated range of eco-conscious products crafted from sustainable materials, enabling your brand to align with responsible and environmentally mindful practices.
+    </p>
+</div>
 
-            <!-- Benefit 4 -->
-            <div class="why-card bg-white border border-gray-100 rounded-3xl p-4 md:p-10">
-                <div class="benefit-icon mb-6 text-4xl">💰</div>
-                <h3 class="text-2xl font-semibold mb-4">Best Value for Money</h3>
-                <p class="text-gray-600 leading-relaxed">
-                    Competitive pricing with no compromise on quality. Bulk order discounts and seasonal offers make us the smartest choice for corporates.
-                </p>
-            </div>
+<!-- Benefit 4 -->
+<div class="why-card bg-white border border-gray-100 rounded-3xl p-4 md:p-10">
+    <div class="benefit-icon mb-6 text-4xl">💰</div>
+    <h3 class="text-2xl font-semibold mb-4">Cost-Effective Value</h3>
+    <p class="text-gray-600 leading-relaxed">
+        We deliver optimal value through competitive pricing structures, ensuring high-quality gifting solutions without compromising on standards, especially for bulk and recurring requirements.
+    </p>
+</div>
 
-            <!-- Benefit 5 -->
-            <div class="why-card bg-white border border-gray-100 rounded-3xl p-4 md:p-10">
-                <div class="benefit-icon mb-6 text-4xl">🛡️</div>
-                <h3 class="text-2xl font-semibold mb-4">100% Satisfaction Guarantee</h3>
-                <p class="text-gray-600 leading-relaxed">
-                    We stand behind every gift we deliver. Dedicated support team to resolve any issues quickly and professionally.
-                </p>
-            </div>
+<!-- Benefit 5 -->
+<div class="why-card bg-white border border-gray-100 rounded-3xl p-4 md:p-10">
+    <div class="benefit-icon mb-6 text-4xl">🛡️</div>
+    <h3 class="text-2xl font-semibold mb-4">Quality Assurance & Support</h3>
+    <p class="text-gray-600 leading-relaxed">
+        Every order undergoes strict quality checks, supported by a responsive team committed to addressing concerns promptly and ensuring a smooth client experience.
+    </p>
+</div>
 
-            <!-- Benefit 6 -->
-            <div class="why-card bg-white border border-gray-100 rounded-3xl p-4 md:p-10">
-                <div class="benefit-icon mb-6 text-4xl">🤝</div>
-                <h3 class="text-2xl font-semibold mb-4">Dedicated Corporate Support</h3>
-                <p class="text-gray-600 leading-relaxed">
-                    Personal account manager for large orders, artwork approval process, and complete assistance from selection to delivery.
-                </p>
-            </div>
+<!-- Benefit 6 -->
+<div class="why-card bg-white border border-gray-100 rounded-3xl p-4 md:p-10">
+    <div class="benefit-icon mb-6 text-4xl">🤝</div>
+    <h3 class="text-2xl font-semibold mb-4">Dedicated Corporate Assistance</h3>
+    <p class="text-gray-600 leading-relaxed">
+        We provide end-to-end support with structured coordination, including requirement consultation, artwork approvals, and seamless execution from product selection to final delivery.
+    </p>
+</div>
+
 
         </div>
     </div>
@@ -92,9 +95,10 @@
           Our Trusted Brand Partners
         </h2>
         <p class="text-lg text-gray-600 max-w-3xl mx-auto mb-12">
-          We proudly collaborate with leading premium brands to bring you the highest quality corporate gifts, customized
-          with your logo and delivered across India.
-        </p>
+    Backed by a strong vendor network, we ensure access to quality products, 
+    efficient sourcing, and consistent delivery for all your corporate gifting requirements.
+</p>
+
 
         <!-- Logo Trail -->
         <div class="overflow-x-auto scrollbar-hide trusted-brand">

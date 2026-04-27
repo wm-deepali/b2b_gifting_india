@@ -33,68 +33,164 @@
 
             <div class="row">
 
-                <!-- LEFT: CUSTOMER DETAILS -->
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
+               <div class="row g-4">
 
-                            <h4 class="mb-3">Customer Details</h4>
+    <!-- LEFT: CUSTOMER DETAILS -->
+    <div class="col-lg-4">
+        <div class="card shadow-sm border-0 h-100">
+            
+            <div class="card-header bg-light">
+                <h5 class="mb-0">Customer Details</h5>
+            </div>
 
-                            <p><strong>Business:</strong> {{ $enquiry->business_name }}</p>
-                            <p><strong>Owner:</strong> {{ $enquiry->owner_name }}</p>
-                            <p><strong>Email:</strong> {{ $enquiry->email }}</p>
-                            <p><strong>Mobile:</strong> {{ $enquiry->mobile }}</p>
-                            <p><strong>Address:</strong> {{ $enquiry->address }}</p>
-                            <p><strong>State:</strong> {{ $enquiry->state->name ?? '-' }}</p>
-                            <p><strong>City:</strong> {{ $enquiry->city->name ?? '-' }}</p>
-                            <p><strong>Date:</strong> {{ $enquiry->created_at->format('d M Y h:i A') }}</p>
+            <div class="card-body">
 
-                        </div>
+                <div class="row g-2 small">
+
+                    <div class="col-6"><strong>Business</strong></div>
+                    <div class="col-6 text-end">{{ $enquiry->business_name }}</div>
+
+                    <div class="col-6"><strong>Owner</strong></div>
+                    <div class="col-6 text-end">{{ $enquiry->owner_name }}</div>
+
+                    <div class="col-6"><strong>Email</strong></div>
+                    <div class="col-6 text-end">{{ $enquiry->email }}</div>
+
+                    <div class="col-6"><strong>Mobile</strong></div>
+                    <div class="col-6 text-end">{{ $enquiry->mobile }}</div>
+
+                    
+
+                    <div class="col-12 mt-2">
+                        <strong>Address</strong><br>
+                        <span class="text-muted">{{ $enquiry->address }}</span>
                     </div>
+                    <div class="col-6"><strong>State</strong></div>
+                    <div class="col-6 text-end">{{ $enquiry->state->name ?? '-' }}</div>
+
+                    <div class="col-6"><strong>City</strong></div>
+                    <div class="col-6 text-end">{{ $enquiry->city->name ?? '-' }}</div>
+
+                    <div class="col-12 mt-2">
+                        <strong>Date</strong><br>
+                        <span class="text-muted">{{ $enquiry->created_at->format('d M Y h:i A') }}</span>
+                    </div>
+
                 </div>
 
-                <!-- RIGHT: PRODUCTS -->
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
+            </div>
+        </div>
+    </div>
 
-                            <h4 class="mb-3">Enquiry Products</h4>
 
-                            <div class="table-responsive">
+    <!-- RIGHT: PRODUCTS -->
+    <div class="col-lg-8">
+        <div class="card shadow-sm border-0">
+            
+            <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Enquiry Products</h5>
 
-                                <table class="table table-bordered">
+                <span class="badge bg-primary">
+                    {{ $enquiry->items->count() }} Items
+                </span>
+            </div>
 
-                                    <thead>
-                                        <tr>
-                                            <th>Product</th>
-                                            <th>Qty</th>
-                                            <th>Price</th>
-                                            <th>Total</th>
-                                        </tr>
-                                    </thead>
+            <div class="card-body p-0">
 
-                                    <tbody>
+                <div class="table-responsive">
 
-                                        @foreach($enquiry->items as $item)
+                    <table class="table table-hover align-middle mb-0">
 
-                                            <tr>
-                                                <td>{{ $item->product->name ?? '-' }}</td>
-                                                <td>{{ $item->quantity }}</td>
-                                                <td>₹{{ $item->price }}</td>
-                                                <td>₹{{ $item->total }}</td>
-                                            </tr>
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width:50%">Product</th>
+                                <th class="text-center">Qty</th>
+                                <th class="text-end">Price</th>
+                                <th class="text-end">Total</th>
+                            </tr>
+                        </thead>
 
-                                        @endforeach
+                        <tbody>
 
-                                    </tbody>
+                        @foreach($enquiry->items as $item)
+                            <tr>
 
-                                </table>
+                                <td>
+                                    <div class="d-flex align-items-center gap-3">
 
-                            </div>
+                                        <!-- PRODUCT IMAGE -->
+                                        
 
-                        </div>
-                    </div>
+                                        <!-- PRODUCT NAME -->
+                                        <div>
+                                            <div class="fw-semibold">
+                                                {{ $item->product->name ?? '-' }}
+                                            </div>
+
+                                            <small class="text-muted">
+                                                SKU: {{ $item->product->sku ?? 'N/A' }}
+                                            </small>
+                                        </div>
+
+                                    </div>
+                                </td>
+
+                                <td class="text-center">
+                                    <span class="badge bg-light text-dark">
+                                        {{ $item->quantity }}
+                                    </span>
+                                </td>
+
+                                <td class="text-end">
+                                    ₹{{ number_format($item->price) }}
+                                </td>
+
+                                <td class="text-end fw-semibold">
+                                    ₹{{ number_format($item->total) }}
+                                </td>
+
+                            </tr>
+                        @endforeach
+
+                        </tbody>
+
+                        <tfoot class="table-light">
+
+                            <tr>
+                                <td colspan="2" class="fw-semibold">
+                                    Total Qty: {{ $enquiry->items->sum('quantity') }}
+                                </td>
+
+                                <td class="text-end fw-bold">
+                                    Grand Total
+                                </td>
+
+                                <td class="text-end fw-bold text-success">
+                                    ₹{{ number_format($enquiry->items->sum('total')) }}
+                                </td>
+                            </tr>
+
+                        </tfoot>
+
+                    </table>
+
                 </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
 
             </div>
 

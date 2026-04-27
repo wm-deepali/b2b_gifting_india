@@ -1,4 +1,4 @@
-<!-- ðŸ“± Mobile Bottom Menu -->
+<!-- 📱 Mobile Bottom Menu -->
 <div class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 shadow-md md:hidden z-[999]">
 
 
@@ -165,7 +165,7 @@
 
   <!-- Copyright -->
   <div class="bg-[#111] py-6 text-center text-sm text-gray-500">
-    <p>Â© 2026 B2B Gifts India. All Rights Reserved.</p>
+    <p>© 2026 B2B Gifts India. All Rights Reserved.</p>
   </div>
 </footer>
 
@@ -177,7 +177,7 @@
   <div class="p-8">
     <div class="flex justify-between items-center mb-8">
       <h3 class="text-2xl font-bold" id="globalDrawerTitle">Get a Quote</h3>
-      <button onclick="closeGlobalDrawer()" class="text-3xl text-gray-400">×</button>
+      <button onclick="closeGlobalDrawer()" class="text-3xl text-gray-400">�</button>
     </div>
 
     <form method="POST" action="{{ route('general.enquiry') }}">
@@ -232,7 +232,7 @@
 <div id="globalOverlay" onclick="closeGlobalDrawer()" class="fixed inset-0 bg-black/50 hidden z-40"></div>
 
 <!-- Sticky WhatsApp Button -->
-<a href="https://wa.me/917607770184" target="_blank"
+<a href="https://wa.me/918010478073" target="_blank"
   class="fixed bottom-[68px] right-5 md:bottom-5 z-50 hover:scale-110 transition-all duration-300">
 
   <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"

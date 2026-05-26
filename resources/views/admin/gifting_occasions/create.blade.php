@@ -74,6 +74,23 @@
                             <input type="file" name="image" class="form-control">
                         </div>
 
+                        <!-- Font Awesome Icon -->
+<div class="form-group mt-3">
+    <label>Font Awesome Icon</label>
+    <input type="text"
+           name="icon"
+           class="form-control"
+           placeholder="e.g. fa-solid fa-gift">
+
+    <small class="text-muted">
+        Enter Font Awesome class like:
+        fa-solid fa-gift,
+        fa-solid fa-cake-candles,
+        fa-solid fa-heart,
+        fa-solid fa-star
+    </small>
+</div>
+
                         <!-- Meta -->
                         <div class="form-group mt-3">
                             <label>Meta Title</label>

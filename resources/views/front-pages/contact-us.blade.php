@@ -1,219 +1,148 @@
 @extends('layouts.app')
 
 @section('content')
+  <main class="aq-contact-page">
+        <!-- Contact Hero Section -->
+        <section class="aq-contact-hero p-relative pt-120 pb-80">
+            <div class="container text-center">
+                <span class="aq-section-title-sm mb-15 d-inline-block text-white">Reach Out</span>
+                <h1 class="font-family-heading text-white mb-20">Let's Connect</h1>
+                <p class="aq-contact-hero-desc text-white">
+                    Need a custom solution or bulk order assistance? Reach out — we’re happy to help.
+                </p>
+            </div>
+        </section>
 
-    <style>
-        .form-input {
-            width: 100%;
-            padding: 14px 18px;
-            border: 1.5px solid #e5e7eb;
-            border-radius: 12px;
-            background: #fff;
-            transition: all 0.3s ease;
-        }
-
-        .form-input:focus {
-            border-color: var(--primary-orange);
-            box-shadow: 0 0 0 4px rgba(244, 162, 97, 0.15);
-            outline: none;
-        }
-
-        .office-card {
-            transition: all 0.4s ease;
-        }
-
-        .office-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 45px rgba(244, 162, 97, 0.12);
-        }
-
-        .send-btn {
-            background: linear-gradient(135deg, #e07a5f, #f4a261);
-            color: white;
-            font-weight: 600;
-            padding: 16px 40px;
-            border-radius: 9999px;
-            transition: all 0.3s ease;
-        }
-
-        .send-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(224, 122, 95, 0.3);
-        }
-    </style>
-
-
-    <section class="py-8 md:py-20 bg-gradient-to-br from-[#f8f4f0] to-white">
-        <div class="max-w-6xl mx-auto px-6 text-center">
-            <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">Get In Touch</h1>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                Have questions about corporate gifting? Our team is ready to help you find the perfect solution.
-            </p>
-        </div>
-    </section>
-
-    <div class="max-w-7xl mx-auto px-6 py-8 md:py-16">
-        <div class="grid lg:grid-cols-5 gap-12">
-
-            <!-- Contact Form -->
-            <div class="lg:col-span-3">
-                <div class="bg-white rounded-3xl shadow-sm p-4 md:p-10">
-                    <h2 class="text-3xl font-semibold mb-8">Send us a Message</h2>
-
-                    <form method="POST" action="{{ route('contact.submit') }}">
-                        @csrf
-
-                        {{-- SUCCESS --}}
-                        @if(session('success'))
-                            <div class="mb-4 text-green-600 font-medium">
-                                {{ session('success') }}
-                            </div>
-                        @endif
-
-                        {{-- GLOBAL ERRORS --}}
-                        @if ($errors->any())
-                            <div class="mb-4 text-red-500">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>• {{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
-                        <div class="grid md:grid-cols-2 gap-6">
-
-                            {{-- NAME --}}
-                            <div>
-                                <input type="text" name="name" value="{{ old('name') }}" placeholder="Your Name"
-                                    class="form-input" required>
-
-                                @error('name')
-                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                                @enderror
+        <!-- Contact Content Section -->
+        <section class="aq-contact-content pt-100 pb-100">
+            <div class="container">
+                <div class="row g-5">
+                    <!-- Left: Locations -->
+                    <div class="col-lg-5">
+                        <div class="aq-contact-info-wrapper pe-lg-4">
+                            <h3 class="font-family-heading mb-40">Our Offices</h3>
+                            
+                            <div class="aq-office-card corporate-card mb-30 p-4">
+                                <div class="d-flex align-items-start">
+                                    <div class="aq-office-icon me-3 mt-1">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-family-heading mb-2">Corporate Office</h4>
+                                        <p class="aq-office-address mb-2">
+                                            Unit No 319, iThum Tower - C, Sector 62,<br> Noida, Uttar Pradesh - 201301
+                                        </p>
+                                        <div class="aq-office-details">
+                                            <strong>Phone:</strong> +91 80104 78073<br>
+                                            <strong>Email:</strong> sales@b2bgiftsindia.com<br>
+                                            <strong>Working Hours:</strong> 10:00 AM - 7:00 PM
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
-                            {{-- EMAIL --}}
-                            <div>
-                                <input type="email" name="email" value="{{ old('email') }}" placeholder="Email Address"
-                                    class="form-input" required>
+                            <div class="aq-office-card mb-30 p-4">
+                                <div class="d-flex align-items-start">
+                                    <div class="aq-office-icon me-3 mt-1">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-family-heading mb-2">Branch Office - Mumbai</h4>
+                                        <p class="aq-office-address mb-2">
+                                            502, Donde Heights, Vasai,<br> Mumbai, Maharashtra - 401201
+                                        </p>
+                                        <div class="aq-office-details">
+                                            <strong>Phone:</strong> +91 96507 94454<br>
+                                            <strong>Email:</strong> sales@b2bgiftsindia.com<br>
+                                            <strong>Working Hours:</strong> 10:00 AM - 7:00 PM
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                                @error('email')
-                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                                @enderror
+                            <div class="aq-office-card p-4">
+                                <div class="d-flex align-items-start">
+                                    <div class="aq-office-icon me-3 mt-1">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-family-heading mb-2">Branch Office - Vadodara</h4>
+                                        <p class="aq-office-address mb-2">
+                                            79, Mangalya, Akapuri,<br> Vadodara, Gujarat - 390007
+                                        </p>
+                                        <div class="aq-office-details">
+                                            <strong>Phone:</strong> +91 99101 34826<br>
+                                            <strong>Email:</strong> sales@b2bgiftsindia.com<br>
+                                            <strong>Working Hours:</strong> 10:00 AM - 7:00 PM
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                    </div>
 
-                        {{-- MOBILE --}}
-                        <div>
-                            <input type="tel" name="mobile" value="{{ old('mobile') }}" placeholder="Mobile Number"
-                                pattern="[6-9]{1}[0-9]{9}" maxlength="10" class="form-input mt-6" required>
-
-                            @error('mobile')
-                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                            @enderror
+                    <!-- Right: Form -->
+                    <div class="col-lg-7">
+                        <div class="aq-contact-form-wrapper p-5">
+                            <h3 class="font-family-heading mb-4 aq-contact-form-title">Send us a Message</h3>
+                            
+                            <form id="aqContactPageForm" onsubmit="event.preventDefault(); window.location.href='thankyou.html';">
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <label class="aq-contact-label">Your Name *</label>
+                                        <div class="position-relative">
+                                            <i class="fa-regular fa-user position-absolute aq-contact-input-icon"></i>
+                                            <input type="text" class="form-control aq-contact-input" required placeholder="E.g. Rajesh Kumar" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <label class="aq-contact-label">Email Address *</label>
+                                        <div class="position-relative">
+                                            <i class="fa-regular fa-envelope position-absolute aq-contact-input-icon"></i>
+                                            <input type="email" class="form-control aq-contact-input" required placeholder="rajesh@company.com" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <label class="aq-contact-label">Mobile Number *</label>
+                                        <div class="position-relative">
+                                            <i class="fa-solid fa-phone position-absolute aq-contact-input-icon"></i>
+                                            <input type="tel" class="form-control aq-contact-input" required placeholder="+91 98765 43210" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <label class="aq-contact-label">Company Name *</label>
+                                        <div class="position-relative">
+                                            <i class="fa-solid fa-building position-absolute aq-contact-input-icon"></i>
+                                            <input type="text" class="form-control aq-contact-input" required placeholder="E.g. XYZ Corp" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="aq-contact-label">Select Inquiry Type *</label>
+                                    <select class="form-select aq-contact-input" required>
+                                        <option value="" disabled selected>What can we help you with?</option>
+                                        <option value="Bulk Corporate Gifting">Bulk Corporate Gifting</option>
+                                        <option value="Custom Product Development">Custom Product Development</option>
+                                        <option value="Partnership / Vendor">Partnership / Vendor Inquiry</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="aq-contact-label">Your Message...</label>
+                                    <textarea class="form-control aq-contact-input" required placeholder="Tell us about your requirements..." rows="4"></textarea>
+                                </div>
+                                <button type="submit" class="aq-contact-btn-submit w-100">
+                                    <span>Send Message</span>
+                                    <i class="fa-solid fa-paper-plane ml-10"></i>
+                                </button>
+                            </form>
                         </div>
-
-                        {{-- COMPANY --}}
-                        <input type="text" name="company" value="{{ old('company') }}" placeholder="Company Name"
-                            class="form-input mt-6">
-
-                        {{-- INQUIRY TYPE --}}
-                        <select name="inquiry_type" class="form-input mt-6">
-                            <option value="">Select Inquiry Type</option>
-                            @foreach($inquiryTypes as $type)
-                                <option value="{{ $type }}" {{ old('inquiry_type') == $type ? 'selected' : '' }}>
-                                    {{ $type }}
-                                </option>
-                            @endforeach
-                        </select>
-
-                        {{-- MESSAGE --}}
-                        <div>
-                            <textarea name="message" rows="5" placeholder="Your Message..." class="form-input mt-6"
-                                required>{{ old('message') }}</textarea>
-
-                            @error('message')
-                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        {{-- CAPTCHA --}}
-                        <div class="mt-4">
-                            <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
-
-                            @error('g-recaptcha-response')
-                                <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <button type="submit"
-                            class="contact-btn w-full mt-8 text-white py-5 rounded-2xl font-semibold text-lg">
-                            Send Message
-                        </button>
-                    </form>
-
+                    </div>
                 </div>
             </div>
-
-            <!-- Offices -->
-            <div class="lg:col-span-2 space-y-8">
-
-                @foreach($branches as $branch)
-                    <div class="office-card bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
-
-                        <div class="flex items-center gap-4 mb-6">
-                            <div
-                                class="w-12 h-12 {{ $branch->icon ?? 'bg-[#f4a261]' }} text-white rounded-2xl flex items-center justify-center text-2xl">
-                                {!! $branch->icon ?? '📍' !!}
-                            </div>
-
-                            <div>
-                                <h3 class="font-semibold text-xl">
-                                    {{ $branch->title }}
-                                </h3>
-
-                                @if($branch->subtitle)
-                                    <p class="text-[#f4a261] font-medium">
-                                        {{ $branch->subtitle }}
-                                    </p>
-                                @endif
-                            </div>
-                        </div>
-
-                        <p class="text-gray-600 mb-4">
-                            {{ $branch->address }}
-                        </p>
-
-                        <div class="space-y-3 text-sm">
-
-                            @if($branch->phone)
-                                <p><strong>Phone:</strong> {{ $branch->phone }}</p>
-                            @endif
-
-                            @if($branch->email)
-                                <p><strong>Email:</strong> {{ $branch->email }}</p>
-                            @endif
-
-                            @if($branch->working_hours)
-                                <p><strong>Working Hours:</strong> {{ $branch->working_hours }}</p>
-                            @endif
-
-                        </div>
-
-                    </div>
-                @endforeach
-
-            </div>
-
-        </div>
-    </div>
-
-    <!-- Map / Quick Contact -->
-    <section class="bg-gray-50 py-12">
-        <div class="max-w-6xl mx-auto px-6 text-center">
-            <p class="text-gray-500">We serve clients across 18+ cities in India</p>
-        </div>
-    </section>
-   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        </section>
+    </main>
+    
 @endsection

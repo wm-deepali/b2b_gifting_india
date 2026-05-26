@@ -32,16 +32,13 @@ class AnnouncementController extends Controller
     {
         $request->validate([
             'title' => 'required|max:255',
-            'link'  => 'nullable|url'
+            'link' => 'nullable|url'
         ]);
 
-        // Only one active
-        Announcement::where('status', 1)->update(['status' => 0]);
-
         Announcement::create([
-            'title'  => $request->title,
-            'link'   => $request->link,
-            'status' => 1
+            'title' => $request->title,
+            'link' => $request->link,
+            'status' => $request->status ?? 0
         ]);
 
         return redirect()->route('admin.announcements.index')
@@ -73,19 +70,15 @@ class AnnouncementController extends Controller
     {
         $request->validate([
             'title' => 'required|max:255',
-            'link'  => 'nullable|url'
+            'link' => 'nullable|url'
         ]);
 
         $announcement = Announcement::findOrFail($id);
 
-        // If making active → deactivate others
-        if ($request->status == 1) {
-            Announcement::where('status', 1)->update(['status' => 0]);
-        }
 
         $announcement->update([
-            'title'  => $request->title,
-            'link'   => $request->link,
+            'title' => $request->title,
+            'link' => $request->link,
             'status' => $request->status ?? 0
         ]);
 

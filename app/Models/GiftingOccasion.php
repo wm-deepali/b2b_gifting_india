@@ -15,12 +15,18 @@ class GiftingOccasion extends Model
         'meta_title',
         'meta_description',
         'image',
+        'icon',
         'status'
     ];
 
     // 🔥 Products linked
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'occasion_product');
+        return $this->belongsToMany(
+            Product::class,
+            'occasion_product',
+            'occasion_id',
+            'product_id'
+        );
     }
 }

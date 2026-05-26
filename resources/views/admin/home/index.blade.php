@@ -45,9 +45,38 @@
 
                             <tbody>
 
-                                {{-- HERO --}}
+
                                 <tr>
                                     <td>1</td>
+                                    <td><strong>Home Sliders</strong></td>
+                                    <td>
+                                        <span class="badge badge-info">Multiple</span>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('admin.home.sliders.index') }}"
+                                            class="btn btn-sm btn-outline-dark">
+                                            <i class="fa fa-pencil"></i> Manage
+                                        </a>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>2</td>
+                                    <td><strong>Text Slider Section</strong></td>
+                                    <td>
+                                        <span class="badge badge-info">Multiple</span>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('admin.home.text-sliders.index') }}"
+                                            class="btn btn-sm btn-outline-dark">
+                                            <i class="fa fa-pencil"></i> Manage
+                                        </a>
+                                    </td>
+                                </tr>
+
+                                {{-- HERO --}}
+                                <tr>
+                                    <td>3</td>
                                     <td><strong>Hero Section</strong></td>
                                     <td>
                                         <span class="badge badge-primary">Fixed</span>
@@ -62,7 +91,7 @@
 
                                 {{-- WHY --}}
                                 <tr>
-                                    <td>2</td>
+                                    <td>4</td>
                                     <td><strong>Why Choose Us</strong></td>
                                     <td>
                                         <span class="badge badge-info">Multiple</span>
@@ -77,7 +106,7 @@
 
                                 {{-- BANNERS --}}
                                 <tr>
-                                    <td>3</td>
+                                    <td>5</td>
                                     <td><strong>Offer & Product Banners</strong></td>
                                     <td>
                                         <span class="badge badge-info">Multiple</span>
@@ -91,7 +120,7 @@
                                 </tr>
 
                                 <tr>
-                                    <td>4</td>
+                                    <td>6</td>
                                     <td><strong>Feature Cards Section</strong></td>
                                     <td><span class="badge badge-info">Multiple</span></td>
                                     <td>

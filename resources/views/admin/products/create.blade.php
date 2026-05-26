@@ -361,10 +361,19 @@
                                 </select>
 
                                 <label class="mt-2">Sub Title</label>
-                                <input type="text" name="sub_title" class="form-control">
+                                <textarea name="sub_title" class="form-control"></textarea>
+                            </div>
 
-                                <label class="mt-2">Summary</label>
-                                <textarea name="summary" class="form-control"></textarea>
+                             {{-- INCLUSIONS --}}
+                            <div class="card p-3 mb-3">
+                                <h5><b>Summary</b></h5>
+
+                                <div id="incWrap">
+                                    <input type="text" name="inclusions[]" class="form-control mb-2">
+                                </div>
+
+                                <button type="button" onclick="addInc()" class="btn btn-sm btn-primary">Add
+                                    More</button>
                             </div>
 
                             <div class="card p-3 mb-3">
@@ -484,17 +493,7 @@
                                 </div>
                             </div>
 
-                            {{-- INCLUSIONS --}}
-                            <div class="card p-3 mb-3">
-                                <h5><b>Inclusions</b></h5>
-
-                                <div id="incWrap">
-                                    <input type="text" name="inclusions[]" class="form-control mb-2">
-                                </div>
-
-                                <button type="button" onclick="addInc()" class="btn btn-sm btn-primary">Add
-                                    More</button>
-                            </div>
+                           
 
                             {{-- DETAILS --}}
                             <div class="card p-3 mb-3">
@@ -503,7 +502,7 @@
                                 <label>Details</label>
                                 <textarea name="details" id="details" class="form-control"></textarea>
 
-                                <label class="mt-2">Delivery & Returns</label>
+                                <label class="mt-2">Branding Specs</label>
                                 <textarea name="delivery_returns" id="delivery_returns" class="form-control"></textarea>
                             </div>
 

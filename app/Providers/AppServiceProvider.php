@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Models\Cart;
 use Illuminate\Support\Facades\View;
 use App\Models\DynamicPage;
+use App\Models\Announcement;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -27,13 +28,19 @@ class AppServiceProvider extends ServiceProvider
 
             $sessionId = session()->getId();
 
-            $cart = Cart::with('items')
+            $cart = Cart::with([
+                'items.product.images',
+                'items.customization'
+            ])
                 ->where('session_id', $sessionId)
                 ->first();
 
-            $count = $cart ? $cart->items()->count() : 0;
+            $count = $cart ? $cart->items->count() : 0;
 
-            $view->with('globalCartCount', $count);
+            $view->with([
+                'globalCartCount' => $count,
+                'miniCart' => $cart,
+            ]);
         });
 
 
@@ -42,6 +49,19 @@ class AppServiceProvider extends ServiceProvider
             $pages = DynamicPage::where('status', 1)->get();
 
             $view->with('footerPages', $pages);
+        });
+
+
+        View::composer('*', function ($view) {
+
+            $announcements = Announcement::where('status', 1)
+                ->latest()
+                ->get();
+
+            $view->with(
+                'announcements',
+                $announcements
+            );
         });
 
     }

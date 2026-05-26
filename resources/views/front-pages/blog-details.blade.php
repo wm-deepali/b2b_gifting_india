@@ -2,115 +2,263 @@
 
 @section('content')
 
+    <main class="aq-blog-details-page">
 
-    <section class="pt-8 pb-12 bg-gradient-to-b from-gray-50 to-white">
-        <div class="max-w-4xl mx-auto px-6">
-
-            <!-- Category & Date -->
-            <div class="flex items-center gap-4 text-sm mb-6">
-                <span
-                    class="bg-orange-100 text-[#f4a261] px-5 py-2 rounded-full font-medium">{{ $blog->category ?? 'Blog' }}</span>
-                <span class="text-gray-500">• {{ \Carbon\Carbon::parse($blog->created_at)->format('F d, Y') }}</span>
-                @php
-                    $wordCount = str_word_count(strip_tags($blog->content));
-                    $readTime = max(1, ceil($wordCount / 200));
-                @endphp
-                <span class="text-gray-500">• {{ $readTime }} min read</span>
+        <!-- Hero Section -->
+        <section class="aq-catpage-hero">
+            <div class="aq-hero-glow"></div>
+            <div class="aq-floating-gift-box aq-floating-shape-1">
+                <i class="fa-solid fa-gift"></i>
             </div>
-
-            <!-- Blog Title -->
-            <h1 class="text-4xl md:text-5xl font-bold leading-tight text-gray-900 mb-8">
-                {{ $blog->title }}
-            </h1>
-
-            <!-- Author Info -->
-            <div class="flex items-center gap-4">
-                <div class="w-12 h-12 bg-gray-200 rounded-2xl overflow-hidden">
-                    <img src="https://plus.unsplash.com/premium_photo-1720744786849-a7412d24ffbf?q=80&w=809&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                        alt="Author" class="w-full h-full object-cover">
-                </div>
-                <div>
-                    <p class="font-semibold text-gray-800">B2B Gifts India Team</p>
-                    <p class="text-sm text-gray-500">Marketing & Insights</p>
+            <div class="aq-floating-gift-box aq-floating-shape-2">
+                <i class="fa-solid fa-gem"></i>
+            </div>
+            <div class="aq-catpage-hero-content">
+                <h1 class="aq-catpage-title">{{ $blog->title }}</h1>
+                <div class="aq-catpage-breadcrumbs">
+                    <a href="index.html">Home</a>
+                    <span>/</span>
+                    <span>{{ Str::limit($blog->title, 40) }}</span>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Featured Image -->
-    <div class="max-w-5xl mx-auto px-6 -mt-6 relative z-10">
-        <img src="{{ $blog->image ? asset('storage/' . $blog->image) : asset('default.jpg') }}" alt="{{ $blog->title }}"
-            class="w-full rounded-3xl shadow-2xl object-cover">
-    </div>
+        <div class="aq-blog-details-parent-wrapper pt-120 pb-120">
+            <div class="container">
 
-    <!-- Main Content -->
-    <section class="max-w-4xl mx-auto px-6 py-16">
-        <div class="blog-content prose prose-lg max-w-none">
-            {!! $blog->content !!}
-        </div>
+                <div class="row g-5">
+                    <div class="col-lg-8">
+                        <div class="aq-blog-main-content aq-luxury-card">
+                            <div class="aq-blog-featured-img-wrap position-relative">
+                                <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}"
+                                    class="aq-blog-featured-img">
+                            </div>
+                            <div class="aq-blog-content-inner">
+                                <h2 class="aq-blog-title display-5 fw-bold">{{ $blog->title }}</h2>
+                                <div
+                                    class="aq-blog-meta d-flex align-items-center flex-wrap gap-4 mb-4 pb-4 border-bottom border-light">
+                                    <div class="meta-item"><i class="fa-regular fa-calendar text-gold"></i> <span
+                                            class="ms-2">{{ $blog->created_at->format('M d, Y') }}</span></div>
+                                    <div class="meta-item"><i class="fa-regular fa-user text-gold"></i> <span
+                                            class="ms-2">By Luxury Concierge</span></div>
+                                    @php
+                                        $readTime = max(
+                                            1,
+                                            ceil(str_word_count(strip_tags($blog->content)) / 200)
+                                        );
+                                    @endphp
 
-        <!-- Tags -->
-        <div class="mt-12 flex flex-wrap gap-3">
-            <span
-                class="bg-gray-100 hover:bg-gray-200 transition-colors text-gray-700 px-5 py-2 rounded-3xl text-sm cursor-pointer">#CorporateGifting</span>
-            <span
-                class="bg-gray-100 hover:bg-gray-200 transition-colors text-gray-700 px-5 py-2 rounded-3xl text-sm cursor-pointer">#Sustainability</span>
-            <span
-                class="bg-gray-100 hover:bg-gray-200 transition-colors text-gray-700 px-5 py-2 rounded-3xl text-sm cursor-pointer">#EmployeeEngagement</span>
-            <span
-                class="bg-gray-100 hover:bg-gray-200 transition-colors text-gray-700 px-5 py-2 rounded-3xl text-sm cursor-pointer">#2026Trends</span>
-        </div>
+                                    <div class="meta-item"><i class="fa-regular fa-clock text-gold"></i> <span
+                                            class="ms-2">{{ $readTime }} Min Read</span></div>
+                                </div>
 
-        <!-- Share Buttons -->
-        <div class="mt-10 border-t border-gray-200 pt-8">
-            <p class="text-gray-600 font-medium mb-4">Share this article</p>
-            <div class="flex gap-5 text-3xl text-gray-400">
-                @php
-                    $url = url()->current();
-                    $title = urlencode($blog->title);
-                @endphp
+                                <div class="aq-blog-body fs-5 text-secondary lh-lg">
 
-                <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ $url }}" target="_blank"><i
-                        class="fa-brands fa-linkedin"></i></a>
-                <a href="https://twitter.com/intent/tweet?url={{ $url }}&text={{ $title }}" target="_blank"><i
-                        class="fa-brands fa-twitter"></i></a>
+                                    {!! $blog->content !!}
 
-                <a href="https://www.facebook.com/sharer/sharer.php?u={{ $url }}" target="_blank"><i
-                        class="fa-brands fa-facebook"></i></a>
-                <a href="https://wa.me/?text={{ $title }}%20{{ $url }}" target="_blank"><i
-                        class="fa-brands fa-whatsapp"></i></a>
-            </div>
-        </div>
-    </section>
+                                </div>
 
-    <!-- Related Articles -->
-    <section class="bg-gray-50 py-16">
-        <div class="max-w-6xl mx-auto px-6">
-            <h3 class="text-2xl font-semibold mb-8">Related Articles</h3>
+                                @php
+                                    $shareUrl = urlencode(request()->url());
+                                    $shareTitle = urlencode($blog->title);
+                                @endphp
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                @foreach($relatedBlogs as $item)
-                    <a href="{{ route('blog.detail', $item->slug) }}">
-                        <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all">
+                                <div
+                                    class="aq-blog-footer mt-5 pt-4 border-top border-light d-flex flex-column flex-md-row justify-content-end align-items-md-center gap-4">
+                                    <div class="aq-blog-share d-flex align-items-center gap-3">
+                                        <span class="fw-bold text-dark">Share:</span>
+                                        <a href="https://wa.me/?text={{ $shareTitle }}%20{{ $shareUrl }}" target="_blank"
+                                            class="aq-share-icon rounded-circle bg-light d-flex align-items-center justify-content-center text-dark transition-all hover-gold"
+                                            style="width: 36px; height: 36px;"><i class="fa-brands fa-whatsapp"></i></a>
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ $shareUrl }}"
+                                            target="_blank"
+                                            class="aq-share-icon rounded-circle bg-light d-flex align-items-center justify-content-center text-dark transition-all hover-gold"
+                                            style="width: 36px; height: 36px;"><i class="fa-brands fa-facebook-f"></i></a>
+                                        <a href="https://www.instagram.com/" target="_blank"
+                                            class="aq-share-icon rounded-circle bg-light d-flex align-items-center justify-content-center text-dark transition-all hover-gold"
+                                            style="width: 36px; height: 36px;"><i class="fa-brands fa-instagram"></i></a>
+                                        <a href="https://twitter.com/intent/tweet?text={{ $shareTitle }}&url={{ $shareUrl }}"
+                                            target="_blank"
+                                            class="aq-share-icon rounded-circle bg-light d-flex align-items-center justify-content-center text-dark transition-all hover-gold"
+                                            style="width: 36px; height: 36px;"><i class="fa-brands fa-x"></i></a>
+                                        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ $shareUrl }}"
+                                            target="_blank"
+                                            class="aq-share-icon rounded-circle bg-light d-flex align-items-center justify-content-center text-dark transition-all hover-gold"
+                                            style="width: 36px; height: 36px;"><i class="fa-brands fa-linkedin-in"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                            <img src="{{ $item->image ? asset('storage/' . $item->image) : asset('default.jpg') }}"
-                                class="w-full h-44 object-cover">
-
-                            <div class="p-5">
-                                <h4 class="font-semibold leading-tight mb-2">
-                                    {{ $item->title }}
+                        <!-- Author Box -->
+                        <div
+                            class="aq-author-box mt-5 p-4 p-md-5 bg-white rounded-4 shadow-sm d-flex flex-column flex-md-row gap-4 align-items-center align-items-md-start transition-all hover-shadow-lg">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=150&h=150"
+                                alt="Author" class="rounded-circle object-fit-cover shadow-sm"
+                                style="width: 120px; height: 120px; border: 4px solid #fdfbf9;">
+                            <div class="aq-author-info text-center text-md-start">
+                                <h4 class="fw-bold text-dark mb-1">Ananya Singh</h4>
+                                <span
+                                    class="text-gold fw-medium small text-uppercase letter-spacing-1 d-block mb-3">Creative
+                                    Director</span>
+                                <p class="text-secondary mb-0">Ananya brings over a decade of luxury brand experience,
+                                    specializing in curating unforgettable gifting experiences that perfectly align with
+                                    corporate prestige and modern aesthetics.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="aq-blog-sidebar "> <!-- Search Widget -->
+                            <div
+                                class="aq-sidebar-widget bg-white p-4 rounded-4 shadow-sm mb-4 transition-all hover-shadow">
+                                <h4 class="aq-sidebar-title fw-bold text-dark mb-4 position-relative pb-2">Search
+                                    Articles
+                                    <span
+                                        class="position-absolute bottom-0 start-0 w-25 border-bottom border-2 border-gold"></span>
                                 </h4>
-                                <p class="text-sm text-gray-500">
-                                    {{ \Carbon\Carbon::parse($item->created_at)->format('F d, Y') }}
-                                </p>
+                                <form action="{{ route('blog.details', $blog->slug) }}" method="GET"
+                                    class="position-relative">
+                                    <input type="text" name="search" value="{{ request('search') }}"
+                                        class="form-control bg-light border-0 py-3 ps-3 pe-5 rounded-3 shadow-none focus-ring focus-ring-gold"
+                                        placeholder="Search...">
+                                    <button type="submit"
+                                        class="position-absolute top-50 end-0 translate-middle-y border-0 bg-transparent pe-3 text-gold transition-all hover-dark"><i
+                                            class="fa-solid fa-magnifying-glass"></i></button>
+                                </form>
                             </div>
 
+                            @if(request()->filled('search'))
+
+                                <div
+                                    class="aq-sidebar-widget bg-white p-4 rounded-4 shadow-sm mb-4 transition-all hover-shadow">
+
+                                    <h4 class="aq-sidebar-title fw-bold text-dark mb-4 position-relative pb-2">
+
+                                        Search Results
+
+                                        <span
+                                            class="position-absolute bottom-0 start-0 w-25 border-bottom border-2 border-gold">
+                                        </span>
+
+                                    </h4>
+
+                                    <div class="aq-sidebar-blog-cards d-flex flex-column gap-3">
+
+                                        @forelse($searchResults as $result)
+
+                                            <div
+                                                class="aq-sidebar-blog-card d-flex align-items-center gap-3 transition-all cursor-pointer group">
+
+                                                <div class="aq-sidebar-blog-thumb-wrap rounded-3 overflow-hidden shadow-sm"
+                                                    style="width:85px;height:85px;flex-shrink:0;">
+
+                                                    <img src="{{ asset('storage/' . $result->image) }}" alt="{{ $result->title }}"
+                                                        class="w-100 h-100 object-fit-cover">
+
+                                                </div>
+
+                                                <div class="aq-sidebar-blog-info">
+
+                                                    <span class="aq-sidebar-blog-date small text-muted d-block mb-1">
+                                                        <i class="fa-regular fa-calendar text-gold me-1"></i>
+                                                        {{ $result->created_at->format('M d, Y') }}
+                                                    </span>
+
+                                                    <h5 class="aq-sidebar-blog-title fs-6 fw-bold mb-0 lh-sm">
+
+                                                        <a href="{{ route('blog.details', $result->slug) }}"
+                                                            class="text-dark text-decoration-none">
+
+                                                            {{ Str::limit($result->title, 55) }}
+
+                                                        </a>
+
+                                                    </h5>
+
+                                                </div>
+
+                                            </div>
+
+                                        @empty
+
+                                            <div class="text-center py-3">
+                                                No blogs found for "{{ request('search') }}"
+                                            </div>
+
+                                        @endforelse
+
+                                    </div>
+
+                                </div>
+
+                            @endif
+
+                            <!-- Latest Blogs Widget -->
+                            <div
+                                class="aq-sidebar-widget bg-white p-4 rounded-4 shadow-sm mb-4 transition-all hover-shadow">
+                                <h4 class="aq-sidebar-title fw-bold text-dark mb-4 position-relative pb-2">Latest
+                                    Insights
+                                    <span
+                                        class="position-absolute bottom-0 start-0 w-25 border-bottom border-2 border-gold"></span>
+                                </h4>
+                                <div class="aq-sidebar-blog-cards d-flex flex-column gap-3">
+
+                                    @if(isset($latestBlogs) && $latestBlogs->count())
+
+                                        @foreach($latestBlogs as $latest)
+
+                                            <div
+                                                class="aq-sidebar-blog-card d-flex align-items-center gap-3 transition-all cursor-pointer group">
+
+                                                <div class="aq-sidebar-blog-thumb-wrap rounded-3 overflow-hidden shadow-sm"
+                                                    style="width:85px;height:85px;flex-shrink:0;">
+
+                                                    <img src="{{ asset('storage/' . $latest->image) }}" alt="{{ $latest->title }}"
+                                                        class="w-100 h-100 object-fit-cover">
+
+                                                </div>
+
+                                                <div class="aq-sidebar-blog-info">
+
+                                                    <span class="aq-sidebar-blog-date small text-muted d-block mb-1">
+
+                                                        <i class="fa-regular fa-calendar text-gold me-1"></i>
+
+                                                        {{ $latest->created_at->format('M d, Y') }}
+
+                                                    </span>
+
+                                                    <h5 class="aq-sidebar-blog-title fs-6 fw-bold mb-0 lh-sm">
+
+                                                        <a href="{{ route('blog.details', $latest->slug) }}"
+                                                            class="text-dark text-decoration-none">
+
+                                                            {{ Str::limit($latest->title, 55) }}
+
+                                                        </a>
+
+                                                    </h5>
+
+                                                </div>
+
+                                            </div>
+
+                                        @endforeach
+
+                                    @else
+
+                                        {{-- Keep your existing 3 static cards here unchanged --}}
+
+                                    @endif
+
+                                </div>
+                            </div>
                         </div>
-                    </a>
-                @endforeach
+                    </div>
+                </div>
+
             </div>
         </div>
-    </section>
-
+    </main>
 
 @endsection

@@ -3,164 +3,174 @@
 
 @section('content')
 
-
-<section class="about-hero py-20 md:py-20 bg-white">
-    <div class="max-w-6xl mx-auto px-6 text-center">
-        <p class="text-lg text-gray-600 mb-4">Sustainable Gifting • Responsible Choices • Better Impact</p>
-        <h1 class="text-5xl md:text-6xl font-bold leading-tight text-gray-900 mb-6">
-            Eco-Friendly <span class="text-[#f4a261]">Corporate</span><span class="text-[#2ec4b6]"> Gifting</span><span class="text-[#e07a5f]"> Solutions</span>
-        </h1>
-        <p class="max-w-3xl mx-auto text-xl text-gray-700">
-            We help businesses make a positive impact with sustainable corporate gifts crafted from eco-conscious materials — combining thoughtful gifting with environmental responsibility.
-        </p>
-
-        <div class="mt-10">
-           <a href="javascript:void(0)" onclick="openGlobalDrawer('Speak With Our Expert', 'recycling_pledge_page')"
-               class="inline-block bg-gradient-to-r from-[#e07a5f] to-[#f4a261] text-white px-10 py-4 rounded-2xl font-semibold text-lg hover:shadow-xl transition-all">
-                Speak With Our Expert
-            </a>
-        </div>
-    </div>
-</section>
+<main class="aq-about-page">
 
 
-<!-- ==================== ABOUT US SECTION ==================== -->
-<section class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <!-- Hero Section -->
+        <!-- <section class="about-hero text-center">
+            <div class="container">
+                <span class="about-hero-tagline">Empowering Businesses • Creating Memorable Experiences</span>
+                <h1 class="about-hero-title">Discover <span>B2B Gifts India</span></h1>
+                <p class="about-hero-desc">
+                    We create premium corporate gifting solutions that help businesses build stronger relationships,
+                    enhance brand value, and leave lasting impressions on clients, employees, and partners.
+                </p>
+                <a href="#bulk-enquiry" class="aq-about-btn-gold enquiry-btn">Speak With Our Expert</a>
+            </div>
+        </section> -->
 
-            <!-- Left Side - Image -->
-            <div class="relative">
-              
-                <img src="{{ asset('images/recycling-pledge.webp') }}" 
-                     alt="B2B Gifts India Team" 
-                     class="rounded-3xl shadow-2xl w-full">
-                
-                <!-- Overlay Badge -->
-                <div class="absolute -bottom-6 -right-6 bg-white rounded-3xl shadow-xl p-6 max-w-[220px]">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-[#f4a261] text-white rounded-2xl flex items-center justify-center text-3xl">🎁</div>
-                        <div>
-                            <p class="font-semibold text-gray-800">Since 2020</p>
-                            <p class="text-sm text-gray-500">Elevating Corporate Gifting Experiences</p>
+
+                <!-- 1. Luxury Inner Banner / Hero Section -->
+        <section class="aq-catpage-hero">
+            <div class="aq-hero-glow"></div>
+            <div class="aq-floating-gift-box aq-floating-shape-1">
+                <i class="fa-solid fa-leaf"></i>
+            </div>
+            <div class="aq-floating-gift-box aq-floating-shape-2">
+                <i class="fa-solid fa-recycle"></i>
+            </div>
+            <div class="aq-catpage-hero-content">
+                <h1 class="aq-catpage-title">Recycling Pledge</h1>
+                <div class="aq-catpage-breadcrumbs">
+                    <a href="index.html">Home</a>
+                    <span>/</span>
+                    <span>Recycling Pledge</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="aq-recycling-page-wrap">
+            
+            <!-- Hero / Intro Section with overlapping Team card -->
+            <section class="aq-recycling-intro-luxury pt-120 pb-120">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-7">
+                            <div class="aq-recycling-intro-content pr-lg-5">
+                                <span class="aq-section-title-sm aq-recycling-intro-subtitle">Sustainable Gifting • Responsible Choices • Better Impact</span>
+                                <h2 class="aq-section-title aq-recycling-intro-title">Eco-Friendly Corporate Gifting Solutions</h2>
+                                <p class="aq-section-desc aq-recycling-intro-desc">
+                                    We help businesses make a positive impact with sustainable corporate gifts crafted from eco-conscious materials — combining thoughtful gifting with environmental responsibility.
+                                </p>
+                                <button type="button" class="aq-recycling-expert-btn mt-30" data-bs-toggle="modal" data-bs-target="#bulkOrderModal">
+                                    Speak With Our Expert <i class="fa-solid fa-arrow-right-long"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 position-relative mt-50 mt-lg-0">
+                            <!-- Team Card (Floating aesthetic) -->
+                            <div class="aq-recycling-team-card">
+                                <div class="aq-team-card-inner">
+                                    <div class="aq-team-card-icon">🎁</div>
+                                    <span class="aq-team-card-since">Since 2020</span>
+                                    <h3 class="aq-team-card-name">B2B Gifts India Team</h3>
+                                    <p class="aq-team-card-tagline">Elevating Corporate Gifting Experiences</p>
+                                </div>
+                                <!-- Decorative Elements -->
+                                <div class="aq-team-card-decor-1"></div>
+                                <div class="aq-team-card-decor-2"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <!-- Right Side - Content -->
-            <div class="space-y-8">
-                <div>
-    <span class="uppercase tracking-widest text-sm font-medium text-[#f4a261]">Our Pledge</span>
-    <h2 class="text-4xl font-bold text-gray-900 mt-3 leading-tight">
-    Thoughtful Gifting with <span class="text-[#f4a261]">Quality & Precision</span>
-</h2>
-
-</div>
-
-<p class="text-gray-600 text-lg leading-relaxed">
-    We deliver high-quality, customized corporate gifts that reflect your brand, with a focus on reliability and seamless execution.
-</p>
-
-<ul class="list-disc pl-6 space-y-4 text-gray-600 text-lg leading-relaxed">
-    <li>
-        Promoting responsible waste management by encouraging proper segregation of recyclable and non-recyclable materials.
-    </li>
-    <li>
-        Staying aligned with local recycling guidelines and continuously improving our processes to ensure effective sustainability practices.
-    </li>
-    <li>
-        Reducing waste through conscious efforts such as reusing materials, optimizing packaging, and minimizing unnecessary consumption.
-    </li>
-    <li>
-        Prioritizing eco-friendly, sustainable, and recyclable products within our corporate gifting solutions.
-    </li>
-    <li>
-        Encouraging awareness among clients and partners about responsible gifting and environmentally conscious choices.
-    </li>
-    <li>
-        Supporting sustainable initiatives, including recycling programs and community-driven environmental efforts.
-    </li>
-    <li>
-        Continuously evolving by adopting better practices, materials, and innovations that contribute to a greener future.
-    </li>
-</ul>
-
-
-             <!--   <div class="grid grid-cols-2 gap-8">
-                    <div>
-                        <h4 class="font-semibold text-xl text-gray-800 mb-2">Our Mission</h4>
-                        <p class="text-gray-600">
-                            To deliver thoughtful, high-quality and perfectly customized gifts that create lasting impressions and strengthen business relationships.
-                        </p>
+            <!-- Our Pledge Section (Timeline/List Style) -->
+            <section class="aq-pledge-list-section pt-100 pb-100">
+                <div class="container">
+                    <div class="row mb-60">
+                        <div class="col-lg-8">
+                            <span class="aq-section-title-sm aq-recycling-title-sm">OUR PLEDGE</span>
+                            <h2 class="aq-section-title aq-recycling-main-title">Thoughtful Gifting with Quality & Precision</h2>
+                            <p class="aq-section-desc aq-recycling-desc">
+                                We deliver high-quality, customized corporate gifts that reflect your brand, with a focus on reliability and seamless execution.
+                            </p>
+                        </div>
                     </div>
-                    <div>
-                        <h4 class="font-semibold text-xl text-gray-800 mb-2">Our Vision</h4>
-                        <p class="text-gray-600">
-                            To become India’s most preferred corporate gifting partner, known for excellence, innovation and unmatched customer experience.
-                        </p>
-                    </div>
-                </div> -->
 
-                <div class="pt-6">
-                    <a href="#" 
-                       class="inline-flex items-center gap-3 bg-gradient-to-r from-[#f4a261] to-[#e07a5f] text-white px-8 py-4 rounded-2xl font-semibold hover:shadow-lg transition-all">
-                        Know Our Journey
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="aq-pledge-list-container">
+                                <!-- Item 1 -->
+                                <div class="aq-pledge-list-item">
+                                    <div class="aq-pledge-list-num">01</div>
+                                    <div class="aq-pledge-list-content">
+                                        <p>Promoting responsible waste management by encouraging proper segregation of recyclable and non-recyclable materials.</p>
+                                    </div>
+                                </div>
+                                <!-- Item 2 -->
+                                <div class="aq-pledge-list-item">
+                                    <div class="aq-pledge-list-num">02</div>
+                                    <div class="aq-pledge-list-content">
+                                        <p>Staying aligned with local recycling guidelines and continuously improving our processes to ensure effective sustainability practices.</p>
+                                    </div>
+                                </div>
+                                <!-- Item 3 -->
+                                <div class="aq-pledge-list-item">
+                                    <div class="aq-pledge-list-num">03</div>
+                                    <div class="aq-pledge-list-content">
+                                        <p>Reducing waste through conscious efforts such as reusing materials, optimizing packaging, and minimizing unnecessary consumption.</p>
+                                    </div>
+                                </div>
+                                <!-- Item 4 -->
+                                <div class="aq-pledge-list-item">
+                                    <div class="aq-pledge-list-num">04</div>
+                                    <div class="aq-pledge-list-content">
+                                        <p>Prioritizing eco-friendly, sustainable, and recyclable products within our corporate gifting solutions.</p>
+                                    </div>
+                                </div>
+                                <!-- Item 5 -->
+                                <div class="aq-pledge-list-item">
+                                    <div class="aq-pledge-list-num">05</div>
+                                    <div class="aq-pledge-list-content">
+                                        <p>Encouraging awareness among clients and partners about responsible gifting and environmentally conscious choices.</p>
+                                    </div>
+                                </div>
+                                <!-- Item 6 -->
+                                <div class="aq-pledge-list-item">
+                                    <div class="aq-pledge-list-num">06</div>
+                                    <div class="aq-pledge-list-content">
+                                        <p>Supporting sustainable initiatives, including recycling programs and community-driven environmental efforts.</p>
+                                    </div>
+                                </div>
+                                <!-- Item 7 -->
+                                <div class="aq-pledge-list-item">
+                                    <div class="aq-pledge-list-num">07</div>
+                                    <div class="aq-pledge-list-content">
+                                        <p>Continuously evolving by adopting better practices, materials, and innovations that contribute to a greener future.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </section>
 
-                <!-- Trust Signals -->
-              <!--  <div class="flex items-center gap-10 pt-8 border-t">
-                    <div>
-                        <p class="text-3xl font-bold text-gray-800">5000+</p>
-                        <p class="text-sm text-gray-500">Happy Clients</p>
+            <!-- Sustainability Commitment Section -->
+            <section class="aq-sustainability-section pt-100 pb-100">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 mb-50 mb-lg-0">
+                            <div class="aq-sustainability-content">
+                                <span class="aq-section-title-sm aq-sus-title-sm">Our Sustainability Commitment</span>
+                                <h2 class="aq-section-title aq-sus-main-title">A Greener Future Starts Here</h2>
+                                <p class="aq-section-desc aq-sus-desc">
+                                    We believe corporate gifting should not only create meaningful impressions but also contribute responsibly to the environment. At B2B Gifts India, we are committed to promoting sustainable practices by offering eco-friendly solutions and encouraging conscious gifting choices that support a greener future.
+                                </p>
+                                <a href="about.html" class="aq-sus-btn">Know Our Journey</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="aq-sustainability-img-wrap">
+                                <img src="assets/img/corporate/hero_gift_box_1778667986732.webp" alt="Sustainability Commitment" class="aq-sus-img">
+                                <div class="aq-sus-overlay-glow"></div>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <p class="text-3xl font-bold text-gray-800">1.25 Lakh+</p>
-                        <p class="text-sm text-gray-500">Gifts Delivered</p>
-                    </div>
-                    <div>
-                        <p class="text-3xl font-bold text-gray-800">18</p>
-                        <p class="text-sm text-gray-500">Cities Served</p>
-                    </div>
-                </div> -->
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<!-- ==================== BRAND PROMISE SECTION ==================== -->
-<section class="relative py-24 md:py-32 bg-cover bg-center bg-no-repeat" 
-         style="background-image: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622');">
-    
-    <!-- Dark Overlay -->
-    <div class="absolute inset-0 bg-black/60"></div>
-
-    <div class="relative max-w-7xl mx-auto px-6">
-        
-        <!-- Centered Card -->
-        <div class="max-w-3xl mx-auto bg-white rounded-3xl shadow-2xl p-12 md:p-16 text-center">
-            
-            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-8">
-    Our Sustainability Commitment
-</h2>
-
-<p class="text-lg md:text-xl text-gray-700 leading-relaxed">
-    We believe corporate gifting should not only create meaningful impressions but also contribute responsibly to the environment. 
-    At <span class="font-semibold text-[#f4a261]">B2B Gifts India</span>, we are committed to promoting sustainable practices by 
-    offering eco-friendly solutions and encouraging conscious gifting choices that support a greener future.
-</p>
-
-
-            <!-- Decorative Line -->
-            <div class="w-24 h-1 bg-gradient-to-r from-[#f4a261] to-[#e07a5f] mx-auto mt-10 rounded-full"></div>
+                </div>
+            </section>
         </div>
 
-    </div>
-</section>
-
-
+    </main>
 
 @endsection

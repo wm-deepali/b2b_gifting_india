@@ -38,8 +38,7 @@
 
                 <div class="card-body">
 
-                    <form id="form" method="POST"
-                          action="{{ route('admin.customizations.store') }}">
+                    <form id="form" method="POST" action="{{ route('admin.customizations.store') }}">
 
                         @csrf
 
@@ -53,6 +52,23 @@
                         <div class="form-group mt-3">
                             <label>Short Description</label>
                             <textarea name="short_description" class="form-control"></textarea>
+                        </div>
+
+                        <!-- Font Awesome Icon -->
+                        <div class="form-group mt-3">
+                            <label>Font Awesome Icon</label>
+
+                            <input type="text" name="icon" id="iconInput" class="form-control"
+                                placeholder="fa-solid fa-palette">
+
+                            <small class="text-muted d-block mt-1">
+                                Example: fa-solid fa-palette, fa-solid fa-image, fa-solid fa-pen, fa-solid fa-brush
+                            </small>
+
+                            <div class="mt-2">
+                                Preview:
+                                <i id="iconPreview" class="fa-solid fa-palette" style="font-size:30px;"></i>
+                            </div>
                         </div>
 
                         <!-- Status -->
@@ -71,8 +87,7 @@
                                 <i class="fa-solid fa-save"></i> Save Customization
                             </button>
 
-                            <a href="{{ route('admin.customizations.index') }}"
-                               class="btn btn-secondary">
+                            <a href="{{ route('admin.customizations.index') }}" class="btn btn-secondary">
                                 Cancel
                             </a>
 
@@ -93,12 +108,12 @@
 @include('admin.footer')
 
 <script>
-document.getElementById('form').addEventListener('submit', function () {
+    document.getElementById('form').addEventListener('submit', function () {
 
-    let btn = document.getElementById('saveBtn');
+        let btn = document.getElementById('saveBtn');
 
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Saving...';
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Saving...';
 
-});
+    });
 </script>

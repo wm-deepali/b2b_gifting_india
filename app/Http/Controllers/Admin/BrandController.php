@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Brand;
 use Illuminate\Support\Facades\Storage;
@@ -11,19 +12,29 @@ class BrandController extends Controller
 {
     public function index()
     {
-        $brands = Brand::latest()->paginate(10);
+        $brands = Brand::with('categories')
+            ->latest()
+            ->paginate(10);
         return view('admin.brands.index', compact('brands'));
     }
 
     public function create()
     {
-        return view('admin.brands.create');
+        $categories = Category::active()
+            ->orderBy('name')
+            ->get();
+
+        return view(
+            'admin.brands.create',
+            compact('categories')
+        );
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required'
+            'name' => 'required',
+            'categories' => 'required|array'
         ]);
 
         $logo = null;
@@ -32,24 +43,46 @@ class BrandController extends Controller
             $logo = $request->file('logo')->store('brands', 'public');
         }
 
-        Brand::create([
+        $brand = Brand::create([
             'name' => $request->name,
             'logo' => $logo,
             'status' => $request->status ?? 1
         ]);
 
-        return redirect()->route('admin.brands.index')
+        // Save brand categories
+        $brand->categories()->sync($request->categories);
+
+        return redirect()
+            ->route('admin.brands.index')
             ->with('success', 'Brand Created');
     }
 
     public function edit($id)
     {
         $brand = Brand::findOrFail($id);
-        return view('admin.brands.edit', compact('brand'));
+        $categories = Category::active()->orderBy('name')->get();
+
+        $selectedCategories = $brand->categories
+            ->pluck('id')
+            ->toArray();
+
+        return view(
+            'admin.brands.edit',
+            compact(
+                'brand',
+                'categories',
+                'selectedCategories'
+            )
+        );
     }
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required',
+            'categories' => 'required|array'
+        ]);
+
         $brand = Brand::findOrFail($id);
 
         $logo = $brand->logo;
@@ -61,7 +94,7 @@ class BrandController extends Controller
                 Storage::disk('public')->delete($brand->logo);
             }
 
-            // store new
+            // store new image
             $logo = $request->file('logo')->store('brands', 'public');
         }
 
@@ -71,7 +104,11 @@ class BrandController extends Controller
             'status' => $request->status ?? 1
         ]);
 
-        return redirect()->route('admin.brands.index')
+        // Update category mapping
+        $brand->categories()->sync($request->categories);
+
+        return redirect()
+            ->route('admin.brands.index')
             ->with('success', 'Brand Updated');
     }
 

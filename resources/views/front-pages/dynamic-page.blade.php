@@ -6,39 +6,52 @@
 
 @section('content')
 
-<style>
-    .terms-container{
-        max-width:100% !important;
-    }
-</style>
-<!-- Breadcrumb -->
-<div class="bg-gray-50 py-4 border-b">
-    <div class="max-w-7xl mx-auto px-6">
-        <nav class="text-sm text-gray-500 flex items-center gap-2">
-            <a href="{{ url('/') }}" class="hover:text-[#f4a261]">Home</a>
-            <span>›</span>
-            <span class="text-gray-800 font-medium">
-                {{ $page->heading ?? $page->page_name }}
-            </span>
-        </nav>
-    </div>
-</div>
+<main>
 
-<!-- Page Content -->
-<section class="py-16 bg-white">
-    <div class="max-w-7xl mx-auto px-6">
+    <!-- Hero Section -->
+    <section class="aq-catpage-hero">
+        <div class="aq-hero-glow"></div>
 
-        <!-- Title -->
-        <h1 class="text-4xl text-center font-bold text-gray-900 mb-6">
-            {{ $page->heading ?? $page->page_name }}
-        </h1>
-
-        <!-- Content -->
-        <div class="prose max-w-none text-gray-700">
-            {!! $page->content !!}
+        <div class="aq-floating-gift-box aq-floating-shape-1">
+            <i class="fa-solid fa-gift"></i>
         </div>
 
+        <div class="aq-floating-gift-box aq-floating-shape-2">
+            <i class="fa-solid fa-gem"></i>
+        </div>
+
+        <div class="aq-catpage-hero-content">
+            <h1 class="aq-catpage-title">{{ $page->heading }}</h1>
+
+            <div class="aq-catpage-breadcrumbs">
+                <a href="{{ route('home') }}">Home</a>
+                <span>/</span>
+                <span>{{ $page->heading }}</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="aq-terms-parent-wrapper pt-120 pb-120">
+        <div class="container">
+
+            <div class="aq-terms-content-wrapper">
+
+                <h2 class="aq-terms-title">
+                    {{ $page->heading }}
+                </h2>
+
+                <p class="aq-terms-update-date">
+                    Last Updated:
+                    {{ $page->updated_at ? $page->updated_at->format('F d, Y') : now()->format('F d, Y') }}
+                </p>
+
+                {!! $page->content !!}
+
+            </div>
+
+        </div>
     </div>
-</section>
+
+</main>
 
 @endsection

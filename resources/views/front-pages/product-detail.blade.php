@@ -1,619 +1,962 @@
 @extends('layouts.app')
 
-@section('meta_title', $product->meta_title ?? $product->name)
-
-@section('meta_description', $product->meta_description ?? $product->sub_title)
-
-
-<style>
-    .action-btn {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    font-weight: 600;
-    letter-spacing: 0.3px;
-}
-
-.action-btn:hover {
-    transform: translateY(-2px);
-}
-
-.action-btn:active {
-    transform: scale(0.97);
-}
-
-/* Responsive Grid Adjustment */
-@media (max-width: 640px) {
-    .action-btn {
-        padding: 18px 20px;
-        font-size: 1.05rem;
-    }
-}
-</style>
-
 @section('content')
+    <main>
 
-
-    <div class="max-w-7xl mx-auto px-6 py-12">
-
-        <div class="text-sm text-gray-500 mb-6 flex flex-wrap gap-1 items-center">
-
-            <a href="/" class="hover:text-black">Home</a>
-
-            @if($product->categories && $product->categories->count())
-                @php $cat = $product->categories->first(); @endphp
-                <span>/</span>
-                <a href="#" class="hover:text-black">{{ $cat->name }}</a>
-            @endif
-
-            @if($product->subcategories && $product->subcategories->count())
-                @php $sub = $product->subcategories->first(); @endphp
-                <span>/</span>
-                <a href="#" class="hover:text-black">{{ $sub->name }}</a>
-            @endif
-
-            <span>/</span>
-            <span class="text-gray-800 font-medium">{{ $product->name }}</span>
-
-        </div>
-
-        <div class="grid lg:grid-cols-2 gap-12">
-
-            <!-- ==================== LEFT: IMAGE SLIDER ==================== -->
-            <div>
-            <div>
-
-                    <!-- MAIN SLIDER -->
-                    <div class="product-slider h-[300px] lg:h-[520px] bg-gray-100 relative" id="mainSlider">
-
-                        @php
-                            // ✅ ONLY NEW IMAGE SYSTEM
-                            $images = $product->images->sortByDesc('is_default')->pluck('image')->toArray();
-                        @endphp
-
-                        {{-- IMAGES --}}
-                        @if(count($images))
-                            @foreach($images as $key => $img)
-                                <img src="{{ asset('storage/' . $img) }}"
-                                    class="slide {{ $key == 0 ? 'active' : '' }} w-full h-full object-cover"
-                                    alt="{{ $product->name }}">
-                            @endforeach
-                        @else
-                            <img src="{{ asset('no-image.jpg') }}" class="w-full h-full object-cover">
-                        @endif
-
-                        {{-- VIDEO (LAST) --}}
-                        @if($product->video_url)
-                            @php
-                                $videoUrl = str_replace('watch?v=', 'embed/', $product->video_url);
-                            @endphp
-
-                            <iframe class="slide w-full h-full {{ count($images) == 0 ? 'active' : '' }}" src="{{ $videoUrl }}"
-                                frameborder="0" allowfullscreen>
-                            </iframe>
-                        @endif
-
-                    </div>
-
-                    <!-- THUMBNAILS -->
-                    <div class="flex gap-4 mt-6 flex-wrap">
-
-                        {{-- IMAGE THUMBNAILS --}}
-                        @foreach($images as $key => $img)
-                            <img onclick="changeSlide({{ $key }})" src="{{ asset('storage/' . $img) }}" class="thumb w-20 h-20 object-cover rounded-2xl cursor-pointer border 
-                                                    {{ $key == 0 ? 'border-black' : 'border-transparent' }}">
-                        @endforeach
-
-                        {{-- VIDEO THUMBNAIL --}}
-                        @if($product->video_url)
-                            @php
-                                preg_match('/[\\?\\&]v=([^\\?\\&]+)/', $product->video_url, $matches);
-                                $videoId = $matches[1] ?? null;
-                            @endphp
-
-                            @if($videoId)
-                                <img onclick="changeSlide({{ count($images) }})"
-                                    src="https://img.youtube.com/vi/{{ $videoId }}/0.jpg"
-                                    class="thumb w-20 h-20 object-cover rounded-2xl cursor-pointer border border-red-500">
-                            @endif
-                        @endif
-
-                    </div>
-
-                </div>
-
+        <!-- 1. Luxury Inner Banner / Hero Section -->
+        <section class="aq-catpage-hero">
+            <div class="aq-hero-glow"></div>
+            <div class="aq-floating-gift-box aq-floating-shape-1">
+                <i class="fa-solid fa-gift"></i>
             </div>
-
-            <!-- ==================== RIGHT: PRODUCT INFO ==================== -->
-            <div>
-
-                <h1 class="text-4xl font-bold leading-tight text-gray-900 mb-2">
-                    {{ $product->name }} 
-                </h1>
-                <div class="flex gap-2 flex-wrap mt-2">
-
-
-                    @if($product->new_arrival)
-                        <span class="bg-green-100 text-green-700 text-xs px-2 py-1 rounded">New Arrivals</span>
-                    @endif
-
-                   
-
-                    @if($product->sale)
-                        <span class="bg-red-100 text-red-700 text-xs px-2 py-1 rounded">On Sale</span>
-                    @endif
-
-                   
-                </div>
-                <hr class="mt-3 mb-3">
-                <p class="text-gray-500 text-lg">{{ $product->sub_title }}</p>
-                <div class=" text-sm text-gray-600 mt-3  gap-4" style="display:flex; align-items:center;">
-
-                    @if($product->brand)
-                        <p class="m-0"><span class="font-medium text-gray-800">Brand:</span> {{ $product->brand->name }}</p>
-                    @endif
-
-                    @if($product->sku)
-                        <p class="m-0"><span class="font-medium text-gray-800">SKU:</span> {{ $product->sku }}</p>
-                    @endif
-
-                    @if($product->product_code)
-                        <p class="m-0"><span class="font-medium text-gray-800">Product Code:</span> {{ $product->product_code }}</p>
-                    @endif
-
-                </div>
-
-               @php
-    $price = (float) $product->price;
-    $mrp = (float) $product->mrp;
-
-    $hasDiscount = $mrp > $price && $price > 0;
-
-    $discountAmount = $mrp - $price;
-    $discountPercent = $mrp > 0 ? round(($discountAmount / $mrp) * 100) : 0;
-@endphp
-
-<div class="mt-6">
-
-    @if($price > 0)
-
-        <!-- NORMAL PRICE -->
-        <div class="flex items-center gap-3">
-            <span class="text-4xl font-bold text-gray-800">₹{{ $price }}</span>
-
-            @if($hasDiscount)
-                <span class="text-gray-400 line-through text-lg">₹{{ $mrp }}</span>
-            @endif
-        </div>
-
-        @if($hasDiscount)
-            <div class="mt-2 text-green-600 font-medium text-sm">
-                @if($product->discount_type == 'percentage')
-                    You Save {{ $discountPercent }}%
-                @else
-                    You Save ₹{{ $discountAmount }}
-                @endif
+            <div class="aq-floating-gift-box aq-floating-shape-2">
+                <i class="fa-solid fa-gem"></i>
             </div>
-        @endif
+            <div class="aq-catpage-hero-content">
+                <h1 class="aq-catpage-title">{{ $product->name }}</h1>
 
-    @else
+                <div class="aq-catpage-breadcrumbs">
+                    <a href="{{ route('home') }}">Home</a>
 
-        <!-- ✅ PRICE HIDDEN -->
-        <p class="text-sm text-gray-500 font-medium">
-            For Price Contact Us
-        </p>
+                    @if($product->categories->count())
+                        <span>/</span>
+                        <a href="#">
+                            {{ $product->categories->first()->name }}
+                        </a>
+                    @endif
 
-    @endif
+                    @if($product->subcategories->count())
+                        <span>/</span>
+                        <a href="#">
+                            {{ $product->subcategories->first()->name }}
+                        </a>
+                    @endif
 
-</div>
+                    <span>/</span>
+                    <span>{{ $product->name }}</span>
+                </div>
+            </div>
+        </section> <!-- collection area start -->
+        <!-- Centralized Styles moved to custom-luxury.css -->
 
-                @if($product->customizations && $product->customizations->count())
-                    <div class="mt-8">
-                        <h3 class="font-semibold mb-3">Customization Options</h3>
-                        <div class="flex gap-3">
-                            @foreach($product->customizations as $custom)
-                                <button class="px-6 py-3 border-2 border-[#f4a261] text-[#f4a261] rounded-2xl font-medium">
-                                    {{ $custom->name }}
-                                </button>
-                            @endforeach
+        <!-- 1. Luxury Product Details Container -->
+        <section class="aq-product-details-area pt-50 pb-60">
+            <div class="container">
+                <!-- Elegant Breadcrumbs -->
+                <div class="aq-details-breadcrumbs mb-40">
+                    <a href="{{ route('home') }}">Home</a>
+
+                    @if($product->categories->count())
+                        <span class="divider">/</span>
+                        <a href="#">
+                            {{ $product->categories->first()->name }}
+                        </a>
+                    @endif
+
+                    @if($product->subcategories->count())
+                        <span class="divider">/</span>
+                        <a href="#">
+                            {{ $product->subcategories->first()->name }}
+                        </a>
+                    @endif
+
+                    <span class="divider">/</span>
+
+                    <span class="current">
+                        {{ $product->name }}
+                    </span>
+                </div>
+
+                <div class="row g-5 justify-content-between">
+
+                    <!-- Left Column: Image Gallery -->
+                    <div class="col-lg-6 col-md-12">
+                        <div class="aq-product-gallery">
+                            <div class="aq-gallery-badge-wrap">
+
+                                @if($product->new_arrival)
+                                    <span class="aq-gallery-badge bestseller">
+                                        New Arrival
+                                    </span>
+                                @endif
+
+                                @if($product->sale)
+                                    <span class="aq-gallery-badge logo-branding">
+                                        For Sale
+                                    </span>
+                                @endif
+
+
+                            </div>
+                            <div class="aq-gallery-main-img-wrap">
+                                <img id="aqMainProductImg" src="{{ asset('storage/' . $product->display_image) }}"
+                                    alt="Elite Executive Gift Set" class="aq-gallery-main-img" />
+                                <div class="aq-gallery-zoom-hint"><i class="fa-solid fa-magnifying-glass-plus"></i> Roll
+                                    over image to zoom</div>
+                            </div>
+                            <!-- Gallery Thumbnails -->
+                            <div class="aq-gallery-thumbs mt-25">
+                                @foreach($product->images as $key => $image)
+
+                                    <div class="aq-gallery-thumb-item {{ $key == 0 ? 'active' : '' }}"
+                                        onclick="updateMainImage(this,'{{ asset('storage/' . $image->image) }}')">
+
+                                        <img src="{{ asset('storage/' . $image->image) }}">
+
+                                    </div>
+
+                                @endforeach
+                            </div>
                         </div>
+
+                        <!-- SUITABLE FOR SELECTIONS -->
+                        <div class="aq-suitable-for-extra mt-30 p-4">
+                            <h5>
+                                <i class="fa-solid fa-circle-check"></i>
+                                Suitable For
+                            </h5>
+
+                            <!-- Occasions Grid -->
+                            <div class="row g-3 text-center">
+
+                                @foreach($product->occasions as $occasion)
+
+                                    <div class="col-4">
+                                        <div class="aq-occasion-card p-3">
+
+                                            <div class="aq-occasion-icon-wrap">
+                                                <i class="{{ $occasion->icon ?: 'fa-solid fa-gift' }}"></i>
+                                            </div>
+
+                                            <span>{{ $occasion->title }}</span>
+
+                                        </div>
+                                    </div>
+
+                                @endforeach
+
+                            </div>
+                        </div>
+                        <!-- Trust Badges Section -->
+                        <div class="aq-luxury-trust-badges">
+                            <!-- Badge 1: PAN India Delivery -->
+                            @if($product->pan_india)
+                                <div class="aq-trust-badge-item">
+                                    <span class="aq-trust-badge-icon"><i class="fa-solid fa-truck-fast"></i></span>
+                                    <div class="aq-trust-badge-content">
+                                        <span class="aq-trust-badge-text">PAN India Delivery</span>
+                                        <span class="aq-trust-badge-sub">Express Shipping (7-10 Days)</span>
+                                    </div>
+                                </div>
+                            @endif
+                            @if($product->quality)
+                                <!-- Badge 2: Quality assurance check -->
+                                <div class="aq-trust-badge-item">
+                                    <span class="aq-trust-badge-icon"><i class="fa-solid fa-circle-check"></i></span>
+                                    <div class="aq-trust-badge-content">
+                                        <span class="aq-trust-badge-text">100% Quality Audited</span>
+                                        <span class="aq-trust-badge-sub">Strict Assurance Audit</span>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+
                     </div>
-                @endif
 
+                    <!-- Right Column: Product Specs & Ordering Drawer Trigger -->
+                    <div class="col-lg-6 col-md-12">
+                        <div class="aq-product-details-summary">
+                            <span class="aq-details-brand">
+                                @if($product->subcategories->count())
+                                    {{ $product->subcategories->first()->name }}
+                                @elseif($product->categories->count())
+                                    {{ $product->categories->first()->name }}
+                                @endif
+                            </span>
+                            <h2 class="aq-details-title">
+                                {{ $product->name }}
+                            </h2>
 
+                            <!-- Star reviews rating -->
+                            <div class="aq-details-rating-wrap d-flex align-items-center gap-2 mt-10 mb-15">
+                                <div class="aq-details-stars">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                                <span class="aq-details-rating-text">(4.9 / 5 from 18 verified corporate client
+                                    orders)</span>
+                            </div>
 
-                @if($product->summary)
-    <div class="mt-10">
-        <h3 class="font-semibold mb-4 text-gray-800">Product Summary</h3>
-        
-        <div id="summary-text" class="text-gray-600 leading-relaxed">
-            {{ $product->summary }} 
-        </div>
+                            <!-- Pricing box -->
+                            @php
+                                $price = (float) ($product->price ?? 0);
+                                $mrp = (float) ($product->mrp ?? 0);
 
-        @if(strlen($product->summary) > 50)
-            <button onclick="toggleReadMore(this)" 
-                    id="read-more-btn"
-                    class=" text-[#f4a261] font-medium flex items-center gap-2 hover:text-[#e07a5f] transition-colors">
-                Read More 
-                <i class="fas fa-chevron-down text-sm transition-transform"></i>
-            </button>
-        @endif
-    </div>
-@endif
- @if($product->occasions && $product->occasions->count())
-                <div class="mt-5">
-        <h3 class="font-semibold mb-4 text-gray-800">Suitable For</h3>
-        
-        <div class="flex flex-wrap gap-2">
-                                    @foreach($product->occasions as $o)
-                                        <span class="px-3 py-2 bg-gray-100 rounded-full text-sm">
-                                            {{ $o->title }}
+                                $hasDiscount = $mrp > $price && $price > 0;
+
+                                $discountAmount = $mrp - $price;
+
+                                $discountPercent = $mrp > 0
+                                    ? round(($discountAmount / $mrp) * 100)
+                                    : 0;
+                            @endphp
+
+                            <div class="aq-details-price-box p-3 mb-25">
+                                <div class="d-flex flex-column gap-1">
+
+                                    @if($mrp > 0)
+
+                                        <div class="aq-price-mrp-row d-flex align-items-center gap-2">
+
+                                            <span class="mrp-label">
+                                                MRP:
+                                                <span class="mrp-value">
+                                                    ₹{{ number_format($mrp) }}
+                                                </span>
+                                            </span>
+
+                                            @if($hasDiscount)
+                                                <span class="discount-badge">
+                                                    Discount: {{ $discountPercent }}% OFF
+                                                </span>
+                                            @endif
+
+                                        </div>
+
+                                    @endif
+
+                                    <div class="aq-price-offered-row d-flex align-items-baseline gap-2 mt-1">
+
+                                        <span class="offered-label">
+                                            Offered Price:
                                         </span>
-                                    @endforeach
+
+                                        <span class="aq-details-price">
+                                            @if($price > 0)
+                                                ₹{{ number_format($price) }}
+                                            @else
+                                                Contact For Price
+                                            @endif
+                                        </span>
+
+                                        @if($price > 0)
+                                            <span class="aq-details-price-unit">
+                                                / unit (exclusive of GST)
+                                            </span>
+                                        @endif
+
+                                    </div>
+
                                 </div>
 
-
-    </div>
-                
-              
-                        
-                    @endif
-
-                <div class="mt-10 grid grid-cols-2 gap-4">
-                    @if($product->min_qty)
-                        <div>
-                            <p class="text-sm text-gray-500">Minimum Order Quantity</p>
-                            <p class="font-semibold text-xl">{{ $product->min_qty }} Pieces</p>
-                        </div>
-                    @endif
-                    @if($product->delivery_time)
-                        <div>
-                            <p class="text-sm text-gray-500">Delivery Time</p>
-                            <p class="font-semibold text-xl">{{ $product->delivery_time }}</p>
-                        </div>
-                    @endif
-                </div>
-               
-                
-                <hr class="mt-3 mb-3">
-                <div class="flex gap-2 flex-wrap mt-2">
-
-                    @if($product->featured)
-                        <span class="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded">Featured Products</span>
-                    @endif
-
-                    
-
-                    @if($product->best_seller)
-                        <span class="bg-yellow-100 text-yellow-700 text-xs px-2 py-1 rounded">Best Seller</span>
-                    @endif
-
-                   
-
-                    @if($product->is_premium)
-                        <span class="bg-purple-100 text-purple-700 text-xs px-2 py-1 rounded">Premium Gifting</span>
-                    @endif
-
-                  
-
-                    @if($product->gift_hamper)
-                        <span class="bg-pink-100 text-pink-700 text-xs px-2 py-1 rounded">Gifting</span>
-                    @endif
-
-                    @if($product->is_engraving)
-                        <span class="bg-indigo-100 text-indigo-700 text-xs px-2 py-1 rounded">Engraving Available</span>
-                    @endif
-
-
-                </div>
-
-                <!-- Action Buttons -->
-<!-- ===================== PRODUCT ACTION BUTTONS ===================== -->
-<div class="mt-12">
-    <div class="grid grid-cols-1 sm:grid-cols-{{ $product->cart && $product->whatsapp && $product->call ? '3' : ($product->cart && $product->whatsapp || $product->cart && $product->call || $product->whatsapp && $product->call ? '2' : '1') }} gap-4">
-        
-        <!-- Add to Cart Button -->
-        @if($product->cart)
-        <button data-id="{{ $product->id }}"
-                class="action-btn add-to-cart flex items-center justify-center gap-3 py-5 rounded-3xl text-lg font-semibold bg-gradient-to-r from-[#f4a261] to-[#e07a5f] text-white shadow-lg hover:shadow-xl transition-all active:scale-[0.98]">
-            <i class="fa-solid fa-cart-plus"></i>
-            Add to Cart
-        </button>
-        @endif
-
-        <!-- WhatsApp Button -->
-        @if($product->whatsapp)
-        <a href="https://wa.me/919876543210" target="_blank"
-           class="action-btn whatsapp-btn flex items-center justify-center gap-3 py-5 rounded-3xl text-lg font-semibold bg-[#25D366] hover:bg-[#20ba5a] text-white shadow-lg hover:shadow-xl transition-all active:scale-[0.98]">
-            <i class="fa-brands fa-whatsapp text-2xl"></i>
-             WhatsApp
-        </a>
-        @endif
-
-        <!-- Call Now Button -->
-        @if($product->call)
-        <a href="tel:919876543210"
-           class="action-btn call-btn flex items-center justify-center gap-3 py-5 rounded-3xl text-lg font-semibold border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition-all active:scale-[0.98]">
-            <i class="fa-solid fa-phone text-xl"></i>
-            Call Now
-        </a>
-        @endif
-
-    </div>
-</div>
-                <div class="flex gap-6 mt-8 text-sm">
-                    <div class="flex items-center gap-2 text-gray-600">
-                        @if($product->pan_india)
-                            <i class="fa-solid fa-truck"></i>
-                            <span>Pan India Delivery</span>
-                        @endif
-                    </div>
-                    <div class="flex items-center gap-2 text-gray-600">
-                        @if($product->quality)
-                            <i class="fa-solid fa-shield-halved"></i>
-                            <span>Quality Guaranteed</span>
-                        @endif
-                    </div>
-                    <div class="flex items-center gap-2 text-gray-600">
-                        @if($product->bulk_available)
-                            <i class="fa-solid fa-dolly"></i>
-                            <span>Bulk Orders</span>
-                        @endif
-                    </div>
-                    <div class="flex items-center gap-2 text-gray-600">
-                        @if($product->ready_to_ship)
-                            <i class="fa-solid fa-truck-fast"></i>
-                            <span>Ready to Ship</span>
-                        @endif
-                    </div>
-                    
-                    
-                </div>
-
-                
-
-            </div>
-
-        </div>
-
-    </div>
-    <section class="max-w-7xl mx-auto px-6 py-12">
-        <div class="mt-10 pt-6">
-
-                    <!-- ITEM 2 -->
-                    @if($product->details)
-                        <div class="border-b py-4">
-                            <button onclick="toggleAccordion(this)"
-                                class="w-full flex justify-between items-center font-semibold text-lg">
-                                Product Details
-                                <span class="text-xl">+</span>
-                            </button>
-
-                            <div class="hidden mt-3 text-gray-600 leading-relaxed">
-                                {!! $product->details !!}
+                                @if($product->min_qty)
+                                    <p class="aq-moq-info mb-0 mt-2">
+                                        <i class="fa-solid fa-circle-info mr-5"></i>
+                                        Minimum Order Quantity (MOQ):
+                                        <strong>{{ $product->min_qty }} Units</strong>
+                                    </p>
+                                @endif
+                                @if($product->delivery_time)
+                                    <p class="aq-moq-info mb-0 mt-2">
+                                        <i class="fa-solid fa-truck-fast mr-5"></i>
+                                        Delivery Time:
+                                        <strong>{{ $product->delivery_time }}</strong>
+                                    </p>
+                                @endif
                             </div>
-                        </div>
-                    @endif
+                            <p class="aq-details-short-desc">
+                                {{ $product->sub_title }}
+                            </p>
 
-                    <!-- ITEM 3 -->
-                    @if($product->delivery_returns)
-                        <div class="border-b py-4">
-                            <button onclick="toggleAccordion(this)"
-                                class="w-full flex justify-between items-center font-semibold text-lg">
-                                Delivery & Returns
-                                <span class="text-xl">+</span>
-                            </button>
+                            <!-- Kit Contents Summary List -->
+                            <div class="aq-details-highlights mt-20 mb-25">
+                                <h5 class="highlights-title">Gift Box Curated Contents:</h5>
 
-                            <div class="hidden mt-3 text-gray-600 leading-relaxed">
-                                {!! $product->delivery_returns !!}
-                            </div>
-                        </div>
-                    @endif
+                                <ul class="highlights-list">
 
-                    @if($product->inclusions && $product->inclusions->count())
-                        <div class="border-b py-4">
-                            <button onclick="toggleAccordion(this)"
-                                class="w-full flex justify-between items-center font-semibold text-lg">
-                                What's Included
-                                <span class="text-xl">+</span>
-                            </button>
+                                    @forelse($product->inclusions as $inclusion)
 
-                            <div class="hidden mt-3 text-gray-600">
-                                <ul class="list-disc pl-5 space-y-1">
-                                    @foreach($product->inclusions as $inc)
-                                        <li>{{ $inc->title ?? $inc->name }}</li>
-                                    @endforeach
+                                        <li>
+                                            <i class="fa-regular fa-circle-check"></i>
+                                            {{ $inclusion->title }}
+                                        </li>
+
+                                    @empty
+
+                                        <li>
+                                            <i class="fa-regular fa-circle-check"></i>
+                                            No inclusions available
+                                        </li>
+
+                                    @endforelse
+
                                 </ul>
                             </div>
-                        </div>
-                    @endif
 
-                {{--    @if($product->occasions && $product->occasions->count())
-                        <div class="border-b py-4">
-                            <button onclick="toggleAccordion(this)"
-                                class="w-full flex justify-between items-center font-semibold text-lg">
-                                Suitable For
-                                <span class="text-xl">+</span>
-                            </button>
+                            <!-- Co-Branding Customizer -->
+                            <div class="aq-branding-panel p-3 mb-25">
+                                <h5 class="aq-branding-title">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                    Customize & Co-brand Your Kit
+                                </h5>
 
-                            <div class="hidden mt-3 text-gray-600">
-                                <div class="flex flex-wrap gap-2">
-                                    @foreach($product->occasions as $o)
-                                        <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">
-                                            {{ $o->title }}
-                                        </span>
+                                <div class="row g-3">
+
+                                    @foreach($product->customizations as $index => $customization)
+
+                                        <div class="col-sm-6">
+                                            <button type="button" data-customization="{{ $customization->id }}"
+                                                class="aq-branding-btn {{ $index == 0 ? 'active' : '' }} w-100 d-flex align-items-center justify-content-center gap-2"
+                                                onclick="selectBrandingOption(this)">
+                                                <i class="{{ $customization->icon ?: 'fa-solid fa-check' }}"></i>
+                                                {{ $customization->title ?? $customization->name }}
+
+                                            </button>
+                                        </div>
+
                                     @endforeach
+
+                                </div>
+                                <input type="hidden" id="selectedCustomization"
+                                    value="{{ $product->customizations->first()?->id }}">
+                            </div>
+                            <!-- Interactive Quantity Calculator -->
+                            <div class="aq-calculator-panel p-3 mb-30">
+                                <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+
+                                    <div class="d-flex align-items-center gap-3">
+                                        <label class="aq-qty-label">Order Qty:</label>
+
+                                        <div class="aq-qty-selector">
+                                            <button type="button" class="qty-btn"
+                                                onclick="adjustQty(-{{ $product->min_qty ?? 1 }})">
+                                                -
+                                            </button>
+
+                                            <input type="number" id="aqDetailQty" value="{{ $product->min_qty ?? 1 }}"
+                                                min="{{ $product->min_qty ?? 1 }}" step="{{ $product->min_qty ?? 1 }}"
+                                                oninput="calculateTotalEstimate()" />
+
+                                            <button type="button" class="qty-btn"
+                                                onclick="adjustQty({{ $product->min_qty ?? 1 }})">
+                                                +
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-end">
+                                        <span class="aq-estimate-label">Estimated Budget:</span>
+
+                                        <span id="aqTotalEstimateDisplay" class="aq-estimate-value">
+                                            ₹{{ number_format(($product->price ?? 0) * ($product->min_qty ?? 1)) }}
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!-- Call to Action Buttons -->
+                            <div class="d-flex flex-column flex-sm-row gap-3">
+                                <button class="aq-btn-black btn-red-bg flex-grow-1 aq-custom-quote-btn"
+                                    data-bs-toggle="modal" data-bs-target="#bulkOrderModal">
+                                    <i class="fa-regular fa-envelope"></i> Get Customized Bulk Quote
+                                </button>
+                                <a href="#" class="aq-btn-black flex-grow-1 aq-download-pdf-btn"
+                                    onclick="alert('Digital Proposal & Catalog Brochure started downloading!')">
+                                    <i class="fa-solid fa-file-pdf"></i> Download Catalog PDF
+                                </a>
+                            </div>
+                            <div class="d-flex flex-column flex-sm-row gap-3">
+                                @if($product->cart)
+                                    <button data-id="{{ $product->id }}" class="add-to-cart">
+                                        <i class="fa-solid fa-cart-plus"></i>
+                                        Add to Cart
+                                    </button>
+                                @endif
+
+                                <!-- WhatsApp Button -->
+                                @if($product->whatsapp)
+                                    <a href="https://wa.me/919876543210" target="_blank" class="whatsapp-btn">
+                                        <i class="fa-brands fa-whatsapp text-2xl"></i>
+                                        WhatsApp
+                                    </a>
+                                @endif
+
+                                <!-- Call Now Button -->
+                                @if($product->call)
+                                    <a href="tel:919876543210" class="call-btn">
+                                        <i class="fa-solid fa-phone text-xl"></i>
+                                        Call Now
+                                    </a>
+                                @endif
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <!-- 2. Product Specification Tabs -->
+                <div class="aq-details-tabs-wrapper mt-60">
+                    <ul class="nav nav-tabs justify-content-center aq-details-nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <button class="nav-link active" id="desc-tab" data-bs-toggle="tab" data-bs-target="#tab-desc"
+                                type="button" role="tab">Full Description</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" id="brand-tab" data-bs-toggle="tab" data-bs-target="#tab-brand"
+                                type="button" role="tab">Branding Specs</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" id="shipping-tab" data-bs-toggle="tab" data-bs-target="#tab-shipping"
+                                type="button" role="tab">Bulk Logistics & Direct
+                                Dispatch</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" id="faqs-tab" data-bs-toggle="tab" data-bs-target="#tab-faqs"
+                                type="button" role="tab">Curation FAQs</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content aq-details-tab-content p-4 mt-3">
+
+                        <!-- Description Tab -->
+                        <div class="tab-pane fade show active" id="tab-desc" role="tabpanel">
+                            {!! $product->details !!}
+                        </div>
+
+                        <!-- Branding Specs Tab -->
+                        <div class="tab-pane fade" id="tab-brand" role="tabpanel">
+                            {!! $product->delivery_returns !!}
+                        </div>
+
+                        <!-- Logistics Tab -->
+                        <div class="tab-pane fade" id="tab-shipping" role="tabpanel">
+                            <h4 class="aq-tab-heading">Direct-to-Employee Shipping Logistics</h4>
+                            <p class="aq-tab-text">
+                                Managing onboarding logistics for distributed or remote teams is challenging. Thatâ€™s why
+                                B2B Gifts India offers end-to-end direct-to-employee dispatch logistics.
+                            </p>
+                            <div class="row g-4 mt-3">
+                                <div class="col-md-4">
+                                    <div class="shipping-card p-3">
+                                        <h5><i class="fa-solid fa-warehouse mr-5"></i> Free Warehousing</h5>
+                                        <p>Buy welcome kits in volume discounts and store them in our secure cleanrooms. We
+                                            ship them individually as your new employees join.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="shipping-card p-3">
+                                        <h5><i class="fa-solid fa-truck-ramp-box mr-5"></i> Bulk Freight Dispatch</h5>
+                                        <p>Freight shipping of assembled kits directly to your headquarters or regional
+                                            office locations. Palletized and fully insured transit.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="shipping-card p-3">
+                                        <h5><i class="fa-solid fa-globe mr-5"></i> PAN India Delivery</h5>
+                                        <p>Express tracked shipments across 19,000+ PIN codes inside India with
+                                            dashboard tracking and instant delivery confirmation.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    @endif
-                    --}}
 
-                </div>
-    </section>
+                        <!-- FAQs Tab -->
+                        <div class="tab-pane fade" id="tab-faqs" role="tabpanel">
 
-    @if($newArrivals->count())
-        <section class="py-16 bg-gray-50">
-            <div class="max-w-7xl mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-10">New Arrivals</h2>
+                            <h4 class="aq-tab-heading">
+                                Frequently Asked Questions
+                            </h4>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    @foreach($newArrivals as $item)
-                        @php $price = (float) $item->price; @endphp
+                            <div class="accordion" id="aqDetailFaqAccordion">
 
-                        <a href="{{ route('product.detail', $item->slug) }}" class="block">
+                                @forelse($faqs as $faq)
 
-                            <div class="product-card bg-white rounded-3xl overflow-hidden">
-                                <img src="{{ $item->display_image 
-        ? asset('storage/' . $item->display_image) 
-        : asset('no-image.jpg') }}" class="w-full h-56 object-cover">
+                                    <div class="accordion-item aq-faq-item">
 
-                                <div class="p-5">
-                                    <h3 class="font-semibold">{{ \Illuminate\Support\Str::words($item->name, 7, '...') }}</h3>
-                                    <p class="text-gray-500 text-sm">{{ $item->sub_title }}</p>
+                                        <h2 class="accordion-header">
 
-                                    @if($price > 0)
-                                        <p class="font-bold mt-2">₹{{ $price }}</p>
-                                    @endif
-                                </div>
+                                            <button class="accordion-button collapsed aq-faq-btn" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#faq{{ $faq->id }}">
+
+                                                {{ $faq->question }}
+
+                                            </button>
+
+                                        </h2>
+
+                                        <div id="faq{{ $faq->id }}" class="accordion-collapse collapse"
+                                            data-bs-parent="#aqDetailFaqAccordion">
+
+                                            <div class="accordion-body aq-faq-body">
+
+                                                {!! $faq->answer !!}
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                @empty
+
+                                    <div class="alert alert-light border">
+                                        No FAQs available for this product.
+                                    </div>
+
+                                @endforelse
+
                             </div>
-                        </a>
-                    @endforeach
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 2. New Arrivals Section -->
+        <section class="aq-new-arrivals-section pt-60 pb-60">
+            <div class="container">
+                <div class="row align-items-center mb-40">
+                    <div class="col-12 text-center">
+                        <div class="aq-creative-title-box">
+                            <span class="aq-creative-subtitle">Latest Additions</span>
+                            <h2 class="aq-creative-title">New Arrival Treasures</h2>
+                            <div class="aq-creative-title-line"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-sm-2 row-cols-1 g-4 justify-content-center">
+
+                    @forelse($newArrivals as $arrival)
+
+                                @php
+                                    $badge = '';
+                                    $badgeClass = '';
+
+                                    if ($arrival->best_seller) {
+                                        $badge = 'Best Seller';
+                                        $badgeClass = 'bestseller';
+                                    } elseif ($arrival->new_arrival) {
+                                        $badge = 'New';
+                                        $badgeClass = 'new';
+                                    } elseif ($arrival->sale) {
+                                        $badge = 'Sale';
+                                        $badgeClass = 'sale';
+                                    }
+                                @endphp
+
+                                <div class="col">
+
+                                    <div class="aq-product-card">
+
+                                        <div class="aq-product-card-top">
+
+                                            <img src="{{ $arrival->display_image
+                        ? asset('storage/' . $arrival->display_image)
+                        : asset('assets/img/no-image.webp') }}" class="aq-product-card-img"
+                                                alt="{{ $arrival->name }}" />
+
+                                            @if($badge)
+                                                <div class="aq-product-badges">
+                                                    <span class="aq-product-badge {{ $badgeClass }}">
+                                                        {{ $badge }}
+                                                    </span>
+                                                </div>
+                                            @endif
+
+                                            <div class="aq-product-brand-badge">
+                                                @if(optional($arrival->brand)->logo)
+                                                    <img src="{{ asset('storage/' . $arrival->brand->logo) }}"
+                                                        alt="{{ $arrival->brand->name }}">
+                                                @endif
+                                            </div>
+
+                                            <div class="aq-product-actions">
+                                                <button class="aq-product-action-btn" title="Quick Consultation"
+                                                    onclick="openEnquiryDrawer()">
+                                                    <i class="fa-regular fa-envelope"></i>
+                                                </button>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="aq-product-card-info">
+
+                                            <span class="aq-product-card-brand-name">
+                                                {{ optional($arrival->brand)->name }}
+                                            </span>
+
+                                            <h4 class="aq-product-card-title">
+                                                <a href="{{ route('product.details', $arrival->slug) }}">
+                                                    {{ $arrival->name }}
+                                                </a>
+                                            </h4>
+
+                                            <p>
+                                                {{ Str::limit(strip_tags($arrival->sub_title), 80) }}
+                                            </p>
+
+                                            <div class="aq-product-card-bottom">
+
+                                                <div class="aq-product-card-price">
+                                                    ₹{{ number_format($arrival->price) }}
+                                                    <span>/ unit</span>
+                                                </div>
+
+                                                <button class="aq-product-card-cta" onclick="openEnquiryDrawer()">
+                                                    Enquire
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                    @empty
+
+                        <div class="col-12 text-center">
+                            <p>No new arrivals available.</p>
+                        </div>
+
+                    @endforelse
+
                 </div>
             </div>
         </section>
-    @endif
 
-    <!-- ==================== RELATED PRODUCTS SECTION ==================== -->
-    @if($relatedProducts->count())
-        <section class="py-16 bg-white">
-            <div class="max-w-7xl mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-10">Related Products</h2>
+        <!-- 3. Related Products Section -->
+        <section class="aq-related-products-section pt-60 pb-60">
+            <div class="container">
+                <div class="row align-items-center mb-40">
+                    <div class="col-12 text-center">
+                        <div class="aq-creative-title-box">
+                            <span class="aq-creative-subtitle">Bespoke Collection Drawer</span>
+                            <h2 class="aq-creative-title">Related Products</h2>
+                            <div class="aq-creative-title-line"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-sm-2 row-cols-1 g-4 justify-content-center">
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    @foreach($relatedProducts as $item)
-                        @php $price = (float) $item->price; @endphp
-                        <a href="{{ route('product.detail', $item->slug) }}" class="block">
-                            <div class="product-card bg-white rounded-3xl overflow-hidden">
-                                <img src="{{ $item->display_image 
-        ? asset('storage/' . $item->display_image) 
-        : asset('no-image.jpg') }}" class="w-full h-56 object-cover">
+                    @forelse($relatedProducts as $related)
 
-                                <div class="p-5">
-                                    <h3 class="font-semibold">{{ \Illuminate\Support\Str::words($item->name, 7, '...') }}</h3>
-                                    <p class="text-gray-500 text-sm">{{ $item->sub_title }}</p>
-                                    @if($price > 0)
-                                        <p class="font-bold mt-2">₹{{ $price }}</p>
-                                    @endif
+                                @php
+                                    $badge = '';
+                                    $badgeClass = '';
+
+                                    if ($related->best_seller) {
+                                        $badge = 'Best Seller';
+                                        $badgeClass = 'bestseller';
+                                    } elseif ($related->new_arrival) {
+                                        $badge = 'New';
+                                        $badgeClass = 'new';
+                                    } elseif ($related->sale) {
+                                        $badge = 'Sale';
+                                        $badgeClass = 'sale';
+                                    }
+                                @endphp
+
+                                <div class="col">
+
+                                    <div class="aq-product-card">
+
+                                        <div class="aq-product-card-top">
+
+                                            <img src="{{ $related->display_image
+                        ? asset('storage/' . $related->display_image)
+                        : asset('assets/img/no-image.webp') }}" class="aq-product-card-img"
+                                                alt="{{ $related->name }}" />
+
+                                            @if($badge)
+                                                <div class="aq-product-badges">
+                                                    <span class="aq-product-badge {{ $badgeClass }}">
+                                                        {{ $badge }}
+                                                    </span>
+                                                </div>
+                                            @endif
+
+                                            <div class="aq-product-brand-badge">
+                                                @if(optional($related->brand)->logo)
+                                                    <img src="{{ asset('storage/' . $related->brand->logo) }}"
+                                                        alt="{{ $related->brand->name }}">
+                                                @endif
+                                            </div>
+
+                                            <div class="aq-product-actions">
+                                                <button class="aq-product-action-btn" onclick="openEnquiryDrawer()">
+                                                    <i class="fa-regular fa-envelope"></i>
+                                                </button>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="aq-product-card-info">
+
+                                            <span class="aq-product-card-brand-name">
+                                                {{ optional($related->brand)->name }}
+                                            </span>
+
+                                            <h4 class="aq-product-card-title">
+                                                <a href="{{ route('product.details', $related->slug) }}">
+                                                    {{ $related->name }}
+                                                </a>
+                                            </h4>
+
+                                            <p>
+                                                {{ Str::limit(strip_tags($related->sub_title), 80) }}
+                                            </p>
+
+                                            <div class="aq-product-card-bottom">
+
+                                                <div class="aq-product-card-price">
+                                                    ₹{{ number_format($related->price) }}
+                                                    <span>/ unit</span>
+                                                </div>
+
+                                                <button class="aq-product-card-cta" onclick="openEnquiryDrawer()">
+                                                    Enquire
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
                                 </div>
-                            </div>
-                        </a>
-                    @endforeach
+
+                    @empty
+
+                        <div class="col-12 text-center">
+                            <p>No related products found.</p>
+                        </div>
+
+                    @endforelse
+
                 </div>
             </div>
         </section>
-    @endif
 
-    <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
+        <!-- 4. Complete Product Listing Catalog (Bottom Showcase) -->
+        <section class="aq-bottom-catalog-section pt-60 pb-80">
+            <div class="container">
+                <div class="row align-items-center mb-40">
+                    <div class="col-12 text-center">
+                        <div class="aq-creative-title-box">
+                            <span class="aq-creative-subtitle">Premium Corporate Catalog</span>
+                            <h2 class="aq-creative-title">
+                                Explore Other Categories
+                            </h2>
+                            <div class="aq-creative-title-line"></div>
+                        </div>
+                    </div>
+                </div>
 
-        function changeSlide(n) {
-            slides.forEach(slide => slide.classList.remove('active'));
-            slides[n].classList.add('active');
+                <div class="row justify-content-center">
+                    <div class="col-xl-12">
 
-            // Update active thumbnail
-            document.querySelectorAll('.thumb').forEach((thumb, i) => {
-                thumb.classList.toggle('active', i === n);
+                        <div class="aq-product-grid">
+
+                            @foreach($otherCategories as $category)
+
+                                                <div class="aq-product-card">
+
+                                                    <div class="aq-product-card-top">
+
+                                                        <img src="{{ $category->image
+                                ? asset('storage/' . $category->image)
+                                : asset('assets/img/no-image.webp') }}" class="aq-product-card-img"
+                                                            alt="{{ $category->name }}">
+
+                                                    </div>
+
+                                                    <div class="aq-product-card-info">
+
+                                                        <h4 class="aq-product-card-title">
+                                                            <a href="{{ route('category.products', $category->slug) }}">
+                                                                {{ $category->name }}
+                                                            </a>
+                                                        </h4>
+
+                                                        <p>
+                                                            {{ Str::limit(strip_tags($category->short_description), 80) }}
+                                                        </p>
+
+                                                        <div class="aq-product-card-bottom">
+
+                                                            <a href="{{ route('category.products', $category->slug) }}"
+                                                                class="aq-product-card-cta">
+                                                                Explore
+                                                            </a>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                            @endforeach
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Details Custom Interactive Logic Scripts -->
+        <script>
+            function updateMainImage(thumb, imgSrc) {
+                const mainImg = document.getElementById('aqMainProductImg');
+
+                if (mainImg) {
+                    mainImg.src = imgSrc;
+                }
+
+                const thumbs = document.querySelectorAll('.aq-gallery-thumb-item');
+
+                thumbs.forEach(t => t.classList.remove('active'));
+
+                thumb.classList.add('active');
+            }
+
+            function adjustQty(amount) {
+
+                const qtyInput = document.getElementById('aqDetailQty');
+
+                if (qtyInput) {
+
+                    const minQty = {{ $product->min_qty ?? 1 }};
+
+                    let newVal = parseInt(qtyInput.value) + amount;
+
+                    if (newVal < minQty) {
+                        newVal = minQty;
+                    }
+
+                    qtyInput.value = newVal;
+
+                    calculateTotalEstimate();
+                }
+            }
+
+            function calculateTotalEstimate() {
+
+                const qtyInput = document.getElementById('aqDetailQty');
+                const totalDisplay = document.getElementById('aqTotalEstimateDisplay');
+
+                if (qtyInput && totalDisplay) {
+
+                    const minQty = {{ $product->min_qty ?? 1 }};
+                    const qty = parseInt(qtyInput.value) || minQty;
+
+                    const pricePerUnit = {{ $product->price ?? 0 }};
+
+                    const total = qty * pricePerUnit;
+
+                    totalDisplay.innerText =
+                        '₹' + total.toLocaleString('en-IN');
+                }
+            }
+
+            function handleLogoUpload(input) {
+                const label = document.getElementById('logoUploadLabel');
+
+                if (input.files && input.files.length > 0) {
+
+                    const fileName = input.files[0].name;
+
+                    label.innerText = fileName;
+
+                    label.parentElement.style.borderColor = '#28a745';
+                    label.parentElement.style.color = '#28a745';
+                    label.parentElement.style.background = '#f4fbf6';
+                }
+            }
+
+            function selectBrandingOption(button) {
+
+                const buttons = document.querySelectorAll('.aq-branding-btn');
+
+                buttons.forEach(btn => {
+
+                    btn.style.border = '1.5px solid rgba(0, 49, 8, 0.15)';
+                    btn.style.background = '#ffffff';
+                    btn.style.color = '#003108';
+                    btn.style.boxShadow = 'none';
+
+                    btn.classList.remove('active');
+                });
+
+                button.style.border = '2px solid #003108';
+                button.style.background = '#003108';
+                button.style.color = '#ffffff';
+                button.style.boxShadow = '0 4px 10px rgba(0, 49, 8, 0.1)';
+
+                button.classList.add('active');
+                document.getElementById('selectedCustomization').value =
+                    button.dataset.customization;
+            }
+
+            // Initial estimate on page load
+            document.addEventListener('DOMContentLoaded', function () {
+                calculateTotalEstimate();
             });
 
-            currentSlide = n;
-        }
+            document.querySelectorAll('.add-to-cart').forEach(btn => {
+                btn.addEventListener('click', function () {
 
-        // Auto slide every 5 seconds
-        setInterval(() => {
-            currentSlide = (currentSlide + 1) % slides.length;
-            changeSlide(currentSlide);
-        }, 5000);
+                    let productId = this.getAttribute('data-id');
 
-        function addToQuote() {
-            alert("Product added to your quote request! Our team will contact you shortly.");
-        }
-
-        function toggleAccordion(el) {
-            const content = el.nextElementSibling;
-            const icon = el.querySelector('span');
-
-            content.classList.toggle('hidden');
-
-            if (content.classList.contains('hidden')) {
-                icon.innerText = '+';
-            } else {
-                icon.innerText = '−';
-            }
-        }
-
-        document.querySelectorAll('.add-to-cart').forEach(btn => {
-            btn.addEventListener('click', function () {
-
-                let productId = this.getAttribute('data-id');
-
-                fetch("{{ route('cart.add') }}", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                    },
-                    body: JSON.stringify({
-                        product_id: productId
+                    fetch("{{ route('cart.add') }}", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                        },
+                        body: JSON.stringify({
+                            product_id: productId,
+                            customization_id: document.getElementById('selectedCustomization').value
+                        })
                     })
-                })
-                    .then(res => res.json())
-                    .then(data => {
+                        .then(res => res.json())
+                        .then(data => {
 
-                        // ✅ Update Cart Count
-                        document.getElementById('cart-count').innerText = data.cart_count;
+                            // ✅ Update Cart Count
+                            // document.getElementById('cart-count').innerText = data.cart_count;
 
-                        // ✅ Swal
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Added!',
-                            text: data.message,
-                            showCancelButton: true,
-                            confirmButtonText: 'Go to Cart',
-                            cancelButtonText: 'Continue Shopping'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                window.location.href = "{{ route('shopping-cart') }}";
-                            }
+                            // ✅ Swal
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Added!',
+                                text: data.message,
+                                showCancelButton: true,
+                                confirmButtonText: 'Go to Cart',
+                                cancelButtonText: 'Continue Shopping'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = "{{ route('shopping-cart') }}";
+                                }
+                            });
+
                         });
 
-                    });
-
+                });
             });
-        });
-    </script>
-<script>
-function toggleReadMore(btn) {
-    const textDiv = document.getElementById('summary-text');
-    const icon = btn.querySelector('i');
-    
-    if (textDiv.classList.contains('line-clamp-3')) {
-        // Show full text
-        textDiv.classList.remove('line-clamp-3');
-        btn.innerHTML = `Read Less <i class="fas fa-chevron-up text-sm transition-transform"></i>`;
-    } else {
-        // Collapse back
-        textDiv.classList.add('line-clamp-3');
-        btn.innerHTML = `Read More <i class="fas fa-chevron-down text-sm transition-transform"></i>`;
-    }
-}
 
-// Initial setup - limit to 3 lines if long text
-document.addEventListener('DOMContentLoaded', function() {
-    const summaryText = document.getElementById('summary-text');
-    if (summaryText && summaryText.textContent.length > 50) {
-        summaryText.classList.add('line-clamp-3');
-    }
-});
-</script>
+        </script>
+        <!-- collection area end -->
+
+
 
 @endsection

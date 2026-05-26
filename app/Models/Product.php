@@ -17,7 +17,7 @@ class Product extends Model
         // BASIC
         'name',
         'slug',
-          'image',
+        'image',
         'video_url',
         'sub_title',
         'summary',
@@ -112,7 +112,7 @@ class Product extends Model
         return $this->hasMany(ProductInclusion::class);
     }
 
-    
+
     public function images()
     {
         return $this->hasMany(ProductImage::class);
@@ -131,15 +131,19 @@ class Product extends Model
 
     public function getDisplayImageAttribute()
     {
-        // relation loaded ho to query nahi chalegi
-        $default = $this->images->where('is_default', 1)->first();
+        $default = $this->images()
+            ->where('is_default', 1)
+            ->first();
 
-        if ($default && $default->image) {
+        if ($default) {
             return $default->image;
         }
 
-        $first = $this->images->first();
-
-        return $first->image ?? null;
+        return $this->images()
+            ->value('image');
+    }
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
     }
 }

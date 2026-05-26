@@ -2,282 +2,370 @@
 
 @section('content')
 
-    <section class="about-hero py-8 md:py-20">
-        <div class="max-w-6xl mx-auto px-6 text-center">
-            <p class="text-lg text-gray-600 mb-4">Empowering Businesses • Creating Memorable Experiences</p>
-            <h1 class="text-5xl md:text-6xl font-bold leading-tight text-gray-900 mb-6">
-                About <span class="text-[#f4a261]">B2B</span><span class="text-[#2ec4b6]"> Gifts</span><span
-                    class="text-[#e07a5f]"> India</span>
-            </h1>
-            <p class="max-w-3xl mx-auto text-xl text-gray-700">
-    We create premium corporate gifting solutions that help businesses build stronger relationships, 
-    enhance brand value, and leave lasting impressions on clients, employees, and partners.
-</p>
+    <main class="aq-about-page">
 
 
-            <div class="mt-10">
-                <a href="javascript:void(0)" onclick="openGlobalDrawer('Speak With Our Expert', 'about_page')"
-                    class="inline-block bg-gradient-to-r from-[#e07a5f] to-[#f4a261] text-white px-10 py-4 rounded-2xl font-semibold text-lg hover:shadow-xl transition-all">
-                    Speak With Our Expert
-                </a>
+        <!-- Hero Section -->
+        <!-- <section class="about-hero text-center">
+                <div class="container">
+                    <span class="about-hero-tagline">Empowering Businesses • Creating Memorable Experiences</span>
+                    <h1 class="about-hero-title">Discover <span>B2B Gifts India</span></h1>
+                    <p class="about-hero-desc">
+                        We create premium corporate gifting solutions that help businesses build stronger relationships,
+                        enhance brand value, and leave lasting impressions on clients, employees, and partners.
+                    </p>
+                    <a href="#bulk-enquiry" class="aq-about-btn-gold enquiry-btn">Speak With Our Expert</a>
+                </div>
+            </section> -->
+
+
+        <!-- 1. Luxury Inner Banner / Hero Section -->
+        <section class="aq-catpage-hero">
+            <div class="aq-hero-glow"></div>
+            <div class="aq-floating-gift-box aq-floating-shape-1">
+                <i class="fa-solid fa-gift"></i>
             </div>
-        </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="py-8 md:py-24 bg-white border-t border-b">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-10 text-center">
-
-                <div class="stats-card bg-white p-8 rounded-3xl shadow-sm">
-                    <h3 class="text-2xl md:text-4xl font-bold text-[#f4a261] mb-2">500+</h3>
-                    <p class="text-gray-600 font-medium">Happy Corporate Clients</p>
-                </div>
-
-                <div class="stats-card bg-white p-8 rounded-3xl shadow-sm">
-                    <h3 class="text-2xl md:text-4xl font-bold text-[#2ec4b6] mb-2">1,25,000+</h3>
-                    <p class="text-gray-600 font-medium">Gifts Delivered</p>
-                </div>
-
-                <div class="stats-card bg-white p-8 rounded-3xl shadow-sm">
-                    <h3 class="text-2xl md:text-4xl font-bold text-[#e07a5f] mb-2">700+</h3>
-                    <p class="text-gray-600 font-medium">Premium Products</p>
-                </div>
-
-                <div class="stats-card bg-white p-8 rounded-3xl shadow-sm">
-                    <h3 class="text-2xl md:text-4xl font-bold text-gray-800 mb-2">100</h3>
-                    <p class="text-gray-600 font-medium">Partners / Vendors</p>
-                </div>
-
+            <div class="aq-floating-gift-box aq-floating-shape-2">
+                <i class="fa-solid fa-gem"></i>
             </div>
-        </div>
-    </section>
-    
-   
+            <div class="aq-catpage-hero-content">
+                <h1 class="aq-catpage-title">About </h1>
+                <div class="aq-catpage-breadcrumbs">
+                    <a href="index.html">Home</a>
+                    <span>/</span>
+                    <span>About</span>
+                </div>
+            </div>
+        </section> <!-- collection area start -->
+
+        <!-- Breadcrumb Bar -->
+        <!-- <div class="aq-about-breadcrumb-wrap">
+                <div class="container">
+                    <div class="aq-details-breadcrumbs">
+                        <a href="index.html">Home</a>
+                        <span class="divider">/</span>
+                        <span class="current">About Us</span>
+                    </div>
+                </div>
+            </div> -->
 
 
-    <section class="py-16 md:py-24 bg-gray-50">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <!-- Left Image -->
-               <div class="relative">
-    <div class="absolute -inset-4 bg-gradient-to-br from-[#f4a261]/10 to-[#2ec4b6]/10 rounded-3xl"></div>
-    <img 
-        src="{{ asset('images/aboutus-intro.webp') }}" 
-        alt="B2b Gift India About Us"
-        class="relative rounded-3xl shadow-2xl w-full h-full object-cover">
-</div>
-
-                <!-- Right Content -->
-                <div>
-                    <h2 class="text-4xl font-bold text-gray-900 mb-6">Discover B2B Gifts India</h2>
-                    <div class="space-y-6 text-lg text-gray-700 leading-relaxed">
-                       
-                       <p>
-                            Our Giftech platform provides access to the next level corporate gifting, Sharing successful journey of over 5 years, 
-                            we've been spreading joy and fostering connections through thoughtfully chosen Gifts.
-                        </p>
-                        <p>
-                            Our goal is to offer you the finest selection of options that cater to your specific corporate needs for any occasion. 
-We will closely collaborate with you to gain a comprehensive understanding of your choices, budget and timelines.
-                        </p>
-                        
+        <!-- Luxury Stats Overlap Wrap -->
+        <section class="aq-stats-wrap">
+            <div class="container">
+                <div class="row g-4">
+                    <!-- Stat Item 1 -->
+                    <div class="col-xl-3 col-md-6">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-handshake"></i>
+                            </div>
+                            <h3 class="stat-number">500+</h3>
+                            <span class="stat-label">Happy Corporate Clients</span>
+                        </div>
+                    </div>
+                    <!-- Stat Item 2 -->
+                    <div class="col-xl-3 col-md-6">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-gift"></i>
+                            </div>
+                            <h3 class="stat-number">1,25,000+</h3>
+                            <span class="stat-label">Gifts Delivered</span>
+                        </div>
+                    </div>
+                    <!-- Stat Item 3 -->
+                    <div class="col-xl-3 col-md-6">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-crown"></i>
+                            </div>
+                            <h3 class="stat-number">700+</h3>
+                            <span class="stat-label">Premium Products</span>
+                        </div>
+                    </div>
+                    <!-- Stat Item 4 -->
+                    <div class="col-xl-3 col-md-6">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-network-wired"></i>
+                            </div>
+                            <h3 class="stat-number">100</h3>
+                            <span class="stat-label">Partners / Vendors</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-     <section class="w-full bg-[#f8f5f0] py-12 md:py-20 px-4 md:px-6">
-  <div class="max-w-7xl mx-auto">
+        </section>
 
-    <!-- Card -->
-    <div class="bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 p-8 md:p-14 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-8">
-
-      <!-- Left Content -->
-      <div class="">
-        <h2 class="text-2xl md:text-4xl font-semibold text-gray-900 leading-tight">
-          Elevate Your Corporate Gifting Experience
-        </h2>
-
-      
-        <p class="mt-4 md:mt-6 text-gray-600 text-sm md:text-lg leading-relaxed">
-          We, as a Gift-Tech company, distinguish ourselves from others through our cutting-edge technological tools, 
-including an E-commerce website, CRM system, and well-defined processes and policies. These elements shape our unique 
-approach, vision, and mission, ensuring customer satisfaction, exceptional service, and a strong brand value..
-        </p>
-        <p>We efficiently handle a wide range of over 5000+ products & Serving a client base of over 400 plus corporate 
-        and established corporate partnerships with more than 150 national and international brands across 18 major categories and 100 subcategories.
-</p>
-<p>To promote local trade, support local artisans, and contribute to the growth of the Indian economy, 
-the majority of our products are manufactured in India. We are delighted to offer an exciting opportunity for brand partnerships.
-</p>
-<p>Reach us for extraordinary gifting experience. </p>        
-      </div>
-
-      <!-- Optional Button -->
-      
-
-    </div>
-
-  </div>
-</section>
-
-    <!-- ==================== BRAND PROMISE SECTION ==================== -->
-    <section class="py-16 md:py-24 bg-white">
-    <div class="max-w-6xl mx-auto px-6">
-        <div class="text-center mb-12">
-            <h2 class="text-4xl font-bold text-gray-900 mb-4">Our Brand Promise</h2>
-            <p class="text-gray-600 max-w-2xl mx-auto">
-                We go beyond gifting — we deliver experiences that strengthen relationships, elevate your brand, and create lasting impressions.
-            </p>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-8">
-            <div
-                class="brand-promise-card p-8 bg-white border border-gray-100 rounded-3xl hover:border-[#f4a261] transition-all group">
-                <div
-                    class="w-14 h-14 bg-[#f4a261]/10 text-[#f4a261] rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
-                    ✨
-                </div>
-                <h3 class="font-semibold text-2xl mb-3">Premium Quality</h3>
-                <p class="text-gray-600">
-                    Carefully curated, high-quality products that reflect your brand standards and leave a lasting impression.
-                </p>
-            </div>
-
-            <div
-                class="brand-promise-card p-8 bg-white border border-gray-100 rounded-3xl hover:border-[#2ec4b6] transition-all group">
-                <div
-                    class="w-14 h-14 bg-[#2ec4b6]/10 text-[#2ec4b6] rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
-                    🎨
-                </div>
-                <h3 class="font-semibold text-2xl mb-3">Creative Customization</h3>
-                <p class="text-gray-600">
-                    Tailored branding solutions including logo printing, engraving, and premium packaging to make every gift uniquely yours.
-                </p>
-            </div>
-
-            <div
-                class="brand-promise-card p-8 bg-white border border-gray-100 rounded-3xl hover:border-[#e07a5f] transition-all group">
-                <div
-                    class="w-14 h-14 bg-[#e07a5f]/10 text-[#e07a5f] rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
-                    🤝
-                </div>
-                <h3 class="font-semibold text-2xl mb-3">Exceptional Service</h3>
-                <p class="text-gray-600">
-                    End-to-end support from consultation to delivery, ensuring a smooth, reliable, and hassle-free gifting experience.
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-    <!-- Vision & Mission -->
-    <section class="py-8 md:py-24 bg-gray-50">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-10">
-
-                <!-- Vision -->
-<div class="bg-white p-4 md:p-10 rounded-3xl shadow-sm">
-    <h2 class="text-3xl font-semibold mb-6 text-gray-800">Our Vision</h2>
-    <p class="text-gray-700 leading-relaxed text-lg">
-        To redefine corporate gifting by making it more meaningful, personalized, and result-driven — helping businesses create real impact through every gift they share.
-    </p>
-</div>
-
-<!-- Mission -->
-<div class="bg-white p-4 md:p-10 rounded-3xl shadow-sm">
-    <h2 class="text-3xl font-semibold mb-6 text-gray-800">Our Mission</h2>
-    <p class="text-gray-700 leading-relaxed text-lg">
-        To provide reliable, high-quality, and customized gifting solutions with seamless execution — ensuring every order reflects our client’s brand and delivers a smooth, hassle-free experience from start to finish.
-    </p>
-</div>
-
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Leadership / Team -->
-    <section class="py-20 bg-white">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-gray-900">Meet Our Leadership</h2>
-                <p class="text-gray-600 mt-3 text-lg">Passionate professionals dedicated to redefining corporate gifting in
-                    India</p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-4 md:gap-10">
-
-
-                @foreach($teams as $team)
-                    <div class="leadership-card bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm">
-
-                        <div class="h-80 bg-gray-200">
-                            <img src="{{ $team->image ? asset('storage/' . $team->image) : 'https://via.placeholder.com/600x600' }}"
-                                alt="{{ $team->name }}" class="w-full h-full object-cover">
+        <!-- Journey & Goal (Discover Segment) -->
+        <section class="aq-discover-section">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6">
+                        <span class="aq-section-title-sm">Spreading Joy Since 5+ Years</span>
+                        <h2 class="aq-section-title">Discover B2B Gifts India &amp; Our Giftech Platform</h2>
+                        <p class="aq-section-desc">
+                            Our Giftech platform provides access to the next level of corporate gifting. Sharing a
+                            successful journey of over 5 years, we've been spreading joy and fostering connections
+                            through thoughtfully chosen Gifts.
+                        </p>
+                        <p class="aq-section-desc">
+                            Our goal is to offer you the finest selection of options that cater to your specific
+                            corporate needs for any occasion. We will closely collaborate with you to gain a
+                            comprehensive understanding of your choices, budget, and timelines.
+                        </p>
+                        <a href="#bulk-enquiry" class="aq-about-btn-gold mt-10 enquiry-btn">Get Started</a>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="aq-image-box-premium">
+                            <img src="assets/img/corporate/welcome_kit_1778668006890.webp"
+                                alt="Corporate Welcome Gifting Kits Showcase" />
+                            <div class="aq-image-box-overlay"></div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                        <div class="p-8">
-                            <h3 class="font-semibold text-2xl">
-                                {{ $team->name }}
-                            </h3>
-
-                            <p class="text-[#f4a261] font-medium">
-                                {{ $team->designation }}
-                            </p>
-
-                            <p class="mt-4 text-gray-600">
-                                {{ $team->description }}
+        <!-- Philosophy / Tech section -->
+        <section class="aq-tech-section">
+            <div class="container">
+                <div class="row justify-content-center text-center mb-50">
+                    <div class="col-lg-8">
+                        <span class="aq-section-title-sm">Innovative Gifting Ecosystem</span>
+                        <h2 class="aq-section-title">Elevate Your Corporate Gifting Experience</h2>
+                        <p class="aq-section-desc" style="max-width: 700px; margin: 0 auto;">
+                            We bridge premium luxury craftsmanship with cutting-edge digital curation. Discover our
+                            tech-forward corporate gifting philosophy.
+                        </p>
+                    </div>
+                </div>
+                <div class="row g-4">
+                    <!-- Feature 1 -->
+                    <div class="col-lg-4">
+                        <div class="tech-feature-card">
+                            <span class="tech-feature-icon"><i class="fa-solid fa-microchip"></i></span>
+                            <h4 class="tech-feature-title">Cutting-Edge Gifting Tech</h4>
+                            <p class="tech-feature-desc">
+                                We, as a Gift-Tech company, distinguish ourselves from others through our cutting-edge
+                                technological tools, including an E-commerce website, CRM system, and well-defined
+                                processes and policies. These elements shape our unique approach, vision, and mission,
+                                ensuring customer satisfaction, exceptional service, and a strong brand value.
                             </p>
                         </div>
-
                     </div>
-                @endforeach
+                    <!-- Feature 2 -->
+                    <div class="col-lg-4">
+                        <div class="tech-feature-card">
+                            <span class="tech-feature-icon"><i class="fa-solid fa-tags"></i></span>
+                            <h4 class="tech-feature-title">Vast Catalog & Brand Network</h4>
+                            <p class="tech-feature-desc">
+                                We efficiently handle a wide range of over 5000+ products & serving a client base of
+                                over 400 plus corporate and established corporate partnerships with more than 150
+                                national and international brands across 18 major categories and 100 subcategories.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div class="col-lg-4">
+                        <div class="tech-feature-card">
+                            <span class="tech-feature-icon"><i class="fa-solid fa-heart-pulse"></i></span>
+                            <h4 class="tech-feature-title">Empowering Local Artisans</h4>
+                            <p class="tech-feature-desc">
+                                To promote local trade, support local artisans, and contribute to the growth of the
+                                Indian economy, the majority of our products are manufactured in India. We are delighted
+                                to offer an exciting opportunity for brand partnerships.
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
-
-
+                <!-- CTA banner inside -->
+                <div class="aq-reach-cta-banner d-flex align-items-center justify-content-between flex-wrap gap-4">
+                    <div>
+                        <h3 class="aq-reach-title">Reach us for extraordinary gifting experience.</h3>
+                        <p class="aq-reach-desc">Our design curators are ready to help you launch your next campaign.
+                        </p>
+                    </div>
+                    <a href="#bulk-enquiry" class="aq-about-btn-gold enquiry-btn"
+                        style="background:#ffffff; color:#003108 !important; border-color:#ffffff; box-shadow:0 10px 20px rgba(0,0,0,0.1);">Get
+                        a Custom Proposal</a>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Connecting Section -->
-    <section class="py-8 md:py-24 bg-gradient-to-b from-gray-50 to-white">
-        <div class="max-w-5xl mx-auto px-6">
-            <div class="bg-white rounded-3xl shadow-xl overflow-hidden">
-                <div class="grid md:grid-cols-2">
-                    <!-- Left Image -->
-                    <div class="bg-gray-900 p-12 flex items-center justify-center">
-    <img 
-        src="{{ asset('images/aboutus-corporates.webp') }}" 
-        alt="B2B Gifts India"
-        class="max-w-full rounded-2xl shadow-2xl"
-    >
-</div>
-
-                    <!-- Right Content -->
-                    <div class="p-4 md:p-16 flex flex-col justify-center">
-                        <h2 class="text-3xl font-semibold mb-6">Turn Every Gift into a Powerful Business Impression</h2>
-<p class="text-gray-700 leading-relaxed text-lg">
-    From employee appreciation to client engagement, we help you deliver thoughtful, 
-    customized corporate gifts that truly stand out. Let’s create gifting experiences that strengthen relationships and elevate your brand.
-</p>
-
-
-                        <div class="mt-10 flex flex-col sm:flex-col gap-4">
-                            <a href="#" class="px-8 py-4 bg-[#f4a261] text-white text-center rounded-2xl font-semibold">For
-                                Corporates</a>
-                            <a href="{{ route('products') }}"
-                                class="px-8 py-4 border border-gray-300 text-center hover:border-[#f4a261] rounded-2xl font-semibold transition-colors">Explore
-                                Our Collection</a>
+        <!-- Brand Promise -->
+        <section class="aq-promise-section">
+            <div class="container">
+                <div class="row justify-content-center text-center mb-50">
+                    <div class="col-lg-8">
+                        <span class="aq-section-title-sm">Commitment to Distinction</span>
+                        <h2 class="aq-section-title">Our Brand Promise</h2>
+                        <p class="aq-section-desc" style="max-width: 700px; margin: 0 auto;">
+                            We go beyond gifting — we deliver experiences that strengthen relationships, elevate your
+                            brand, and create lasting impressions.
+                        </p>
+                    </div>
+                </div>
+                <div class="row g-4">
+                    <!-- Card 1 -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="promise-card">
+                            <div class="promise-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                            <h3 class="promise-title">Premium Quality</h3>
+                            <p class="promise-desc">
+                                Carefully curated, high-quality products that reflect your brand standards and leave a
+                                lasting impression.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="promise-card">
+                            <div class="promise-icon"><i class="fa-solid fa-palette"></i></div>
+                            <h3 class="promise-title">Creative Customization</h3>
+                            <p class="promise-desc">
+                                Tailored branding solutions including logo printing, engraving, and premium packaging to
+                                make every gift uniquely yours.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="promise-card">
+                            <div class="promise-icon"><i class="fa-solid fa-handshake-angle"></i></div>
+                            <h3 class="promise-title">Exceptional Service</h3>
+                            <p class="promise-desc">
+                                End-to-end support from consultation to delivery, ensuring a smooth, reliable, and
+                                hassle-free gifting experience.
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- Vision Mission Splits -->
+        <section class="aq-vision-mission-section">
+            <div class="container">
+                <div class="row g-5">
+                    <!-- Vision Card -->
+                    <div class="col-lg-6">
+                        <div class="vision-mission-card">
+                            <span class="vm-badge">Our Vision</span>
+                            <h3 class="vm-title">To Redefine Corporate Gifting</h3>
+                            <p class="vm-desc">
+                                To redefine corporate gifting by making it more meaningful, personalized, and
+                                result-driven — helping businesses create real impact through every gift they share.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Mission Card -->
+                    <div class="col-lg-6">
+                        <div class="vision-mission-card">
+                            <span class="vm-badge mission-badge">Our Mission</span>
+                            <h3 class="vm-title">Delivering High-Quality Customization</h3>
+                            <p class="vm-desc">
+                                To provide reliable, high-quality, and customized gifting solutions with seamless
+                                execution — ensuring every order reflects our client’s brand and delivers a smooth,
+                                hassle-free experience from start to finish.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
 
+        <!-- Meet Our Leadership Section -->
+        <section class="aq-leadership-section">
+            <div class="container">
+                <div class="aq-section-title-wrapper text-center mb-50">
+                    <h2 class="aq-section-title">Meet Our Leadership</h2>
+                    <p class="aq-section-subtitle">
+                        Passionate professionals dedicated to redefining corporate gifting in India
+                    </p>
+                </div>
+
+                <div class="row g-4 justify-content-center">
+
+                    @forelse($teams as $team)
+                        <div class="col-lg-4 col-md-6">
+                            <div class="aq-leader-card">
+                                <div class="aq-leader-img-wrapper">
+
+                                    <img src="{{ asset('storage/' . $team->image) }}" alt="{{ $team->name }}"
+                                        class="aq-leader-img" loading="lazy">
+
+                                    <div class="aq-leader-socials">
+                                        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                                        <a href="#"><i class="fa-regular fa-envelope"></i></a>
+                                    </div>
+
+                                </div>
+
+                                <div class="aq-leader-info">
+                                    <h4 class="aq-leader-name">
+                                        {{ $team->name }}
+                                    </h4>
+
+                                    <span class="aq-leader-designation">
+                                        {{ $team->designation }}
+                                    </span>
+
+                                    <p class="aq-leader-bio">
+                                        {{ $team->description }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="col-12 text-center">
+                            <p>No team members found.</p>
+                        </div>
+                    @endforelse
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 6. Bottom Sticky Category Link Area (For SEO/Footer Links) -->
+        <section class="aq-footer-categories-section">
+            <div class="container">
+                <div class="aq-footer-cat-container">
+                    <div class="aq-footer-cat-group">
+                        <span class="aq-footer-cat-label">Shop by Recipient</span>
+                        <div class="aq-footer-cat-links">
+                            <a href="#" class="aq-footer-cat-link">Gifts for Employees</a>
+                            <a href="#" class="aq-footer-cat-link">Gifts for Clients</a>
+                            <a href="#" class="aq-footer-cat-link">Gifts for Executives</a>
+                            <a href="#" class="aq-footer-cat-link">Gifts for Managers</a>
+                            <a href="#" class="aq-footer-cat-link">Gifts for Vendors</a>
+                            <a href="#" class="aq-footer-cat-link">Gifts for New Joinees</a>
+                            <a href="#" class="aq-footer-cat-link">Gifts for Leadership</a>
+                            <a href="#" class="aq-footer-cat-link">Corporate Bundles</a>
+                            <a href="#" class="aq-footer-cat-link">Team Kits</a>
+                        </div>
+                    </div>
+                    <div class="aq-footer-cat-group">
+                        <span class="aq-footer-cat-label">Shop by Occasion</span>
+                        <div class="aq-footer-cat-links">
+                            <a href="#" class="aq-footer-cat-link">Employee Appreciation</a>
+                            <a href="#" class="aq-footer-cat-link">Company Milestones</a>
+                            <a href="#" class="aq-footer-cat-link">Product Launches</a>
+                            <a href="#" class="aq-footer-cat-link">Conferences & Events</a>
+                            <a href="#" class="aq-footer-cat-link">Retirement Gifts</a>
+                            <a href="#" class="aq-footer-cat-link">Festive Corporate Hampers</a>
+                            <a href="#" class="aq-footer-cat-link">Joining Kits</a>
+                            <a href="#" class="aq-footer-cat-link">Reward & Recognition</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
 @endsection

@@ -9,6 +9,7 @@ class EnquiryItem extends Model
     protected $fillable = [
         'enquiry_id',
         'product_id',
+        'customization_id',
         'quantity',
         'price',
         'total',
@@ -23,5 +24,10 @@ class EnquiryItem extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function customization()
+    {
+        return $this->belongsTo(Customization::class);
     }
 }

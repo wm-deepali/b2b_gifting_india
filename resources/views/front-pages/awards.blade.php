@@ -2,66 +2,70 @@
 
 @section('content')
 
-    <section class="py-20 md:py-28 bg-gradient-to-br from-[#f8f4f0] to-white">
-        <div class="max-w-6xl mx-auto px-6 text-center">
-            <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-                Awards &amp; Recognition
-            </h1>
-            <p class="max-w-2xl mx-auto text-xl text-gray-600">
-                Celebrating excellence in corporate gifting. Our commitment to quality, innovation, and customer
-                satisfaction has been recognized by industry leaders.
-            </p>
-        </div>
-    </section>
+       <main>
 
-    <!-- Awards Grid -->
-    <section class="py-20 bg-white">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-
-                <!-- Award 1 -->
-                @foreach($awards as $award)
-                    <div class="award-card bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm">
-
-                        <div class="h-64 bg-gray-100 flex items-center justify-center p-8">
-                            <img src="{{ $award->image ? asset('storage/' . $award->image) : 'https://via.placeholder.com/400x300' }}"
-                                alt="{{ $award->title }}" class="max-h-full object-contain">
-                        </div>
-
-                        <div class="p-8">
-                            <div class="award-year inline-block px-5 py-2 rounded-full text-sm mb-4">
-                                {{ $award->year }}
-                            </div>
-
-                            <h3 class="text-2xl font-semibold mb-3">
-                                {{ $award->title }}
-                            </h3>
-
-                            <p class="text-gray-600 leading-relaxed">
-                                {{ $award->description }}
-                            </p>
-                        </div>
-
-                    </div>
-                @endforeach
-
+        <!-- 1. Luxury Inner Banner / Hero Section -->
+        <section class="aq-catpage-hero">
+            <div class="aq-hero-glow"></div>
+            <div class="aq-floating-gift-box aq-floating-shape-1">
+                <i class="fa-solid fa-trophy"></i>
             </div>
-        </div>
-    </section>
+            <div class="aq-floating-gift-box aq-floating-shape-2">
+                <i class="fa-solid fa-medal"></i>
+            </div>
+            <div class="aq-catpage-hero-content">
+                <h1 class="aq-catpage-title">Awards</h1>
+                <div class="aq-catpage-breadcrumbs">
+                    <a href="index.html">Home</a>
+                    <span>/</span>
+                    <span>Awards</span>
+                </div>
+            </div>
+        </section>
 
-    <!-- Bottom Message -->
-    <section class="py-16 bg-gray-50">
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="text-3xl font-semibold mb-6 text-gray-800">
-                Every Award Reflects Our Promise
-            </h2>
-            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                These recognitions motivate us to continue delivering excellence in quality, creativity, and customer
-                experience.
-                Thank you to all our clients and partners for trusting B2B Gifts India.
-            </p>
+        <div class="aq-awards-page-wrap">
+            <section class="aq-awards-section pt-100 pb-100">
+                <div class="container">
+                    <div class="row align-items-center g-5">
+                        <div class="col-lg-6">
+                            <div class="aq-awards-content">
+                                <span class="aq-section-title-sm aq-awards-title-sm">Our Achievements</span>
+                                <h2 class="aq-section-title aq-awards-main-title">Awards & Recognition</h2>
+                                <p class="aq-section-desc aq-awards-desc">
+                                    Celebrating excellence in corporate gifting. Our commitment to quality, innovation, and customer satisfaction has been recognized by industry leaders.
+                                </p>
+                                
+                                <div class="aq-awards-promise-box">
+                                    <h3 class="aq-section-title aq-awards-promise-title">Every Award Reflects Our Promise</h3>
+                                    <p class="aq-section-desc aq-awards-promise-desc">
+                                        These recognitions motivate us to continue delivering excellence in quality, creativity, and customer experience. Thank you to all our clients and partners for trusting B2B Gifts India.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="aq-awards-image-wrap">
+                                <div class="aq-image-box-premium">
+                                    <img src="assets/img/corporate/welcome_kit_1778668006890.webp" alt="Awards & Recognition" class="aq-awards-img" />
+                                    <div class="aq-image-box-overlay"></div>
+                                </div>
+                                <div class="aq-floating-badge aq-awards-badge">
+                                    <div class="d-flex align-items-center gap-4">
+                                        <div class="aq-awards-icon"><i class="fa-solid fa-award"></i></div>
+                                        <div>
+                                            <h4 class="aq-awards-rank">Top 10</h4>
+                                            <p class="aq-awards-label">Corporate Gifting<br>Partner 2025</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="aq-floating-shape aq-awards-shape"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
-    </section>
 
+    </main>
 
 @endsection

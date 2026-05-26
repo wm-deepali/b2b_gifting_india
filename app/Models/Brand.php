@@ -11,4 +11,12 @@ class Brand extends Model
         'logo',
         'status'
     ];
+
+    public function categories()
+    {
+        return $this->belongsToMany(
+            Category::class,
+            'brand_category'
+        );
+    }
 }

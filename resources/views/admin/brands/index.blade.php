@@ -44,6 +44,7 @@
                                     <th>ID</th>
                                     <th>Logo</th>
                                     <th>Brand Name</th>
+                                    <th>Categories</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -58,13 +59,29 @@
 
                                         <td>
                                             @if($brand->logo)
-                                                <img src="{{ asset('storage/'.$brand->logo) }}" width="60">
+                                                <img src="{{ asset('storage/' . $brand->logo) }}" width="60">
                                             @else
                                                 <span class="text-muted">No Logo</span>
                                             @endif
                                         </td>
 
                                         <td>{{ $brand->name }}</td>
+
+                                        <td>
+                                            @forelse($brand->categories as $category)
+
+                                                <span class="badge badge-primary mr-1">
+                                                    {{ $category->name }}
+                                                </span>
+
+                                            @empty
+
+                                                <span class="text-muted">
+                                                    No Category
+                                                </span>
+
+                                            @endforelse
+                                        </td>
 
                                         <td>
                                             @if($brand->status)
@@ -76,12 +93,12 @@
 
                                         <td>
 
-                                              <a href="{{ route('admin.brands.edit', $brand->id) }}"
+                                            <a href="{{ route('admin.brands.edit', $brand->id) }}"
                                                 class="btn btn-sm btn-outline-dark">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
 
-                                             <button class="btn btn-sm btn-outline-danger"
+                                            <button class="btn btn-sm btn-outline-danger"
                                                 onclick="deleteBrand({{ $brand->id }})">
 
                                                 <i class="fa fa-trash"></i>

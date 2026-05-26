@@ -41,6 +41,7 @@ class GiftingOccasionController extends Controller
             'meta_title' => $request->meta_title,
             'meta_description' => $request->meta_description,
             'image' => $image,
+            'icon' => $request->icon,
             'status' => $request->status ?? 1,
         ]);
 
@@ -82,6 +83,7 @@ class GiftingOccasionController extends Controller
             'meta_title' => $request->meta_title,
             'meta_description' => $request->meta_description,
             'status' => $request->status ?? 1,
+            'icon' => $request->icon,
             'image' => $image,
         ]);
 

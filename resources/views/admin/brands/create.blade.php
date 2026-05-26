@@ -43,14 +43,36 @@
 
 						<div class="form-body">
 
-							<div class="form-group row">
+							<div class="row">
 
-								<div class="col-sm-4">
+								<div class="col-sm-12 form-group">
 									<label>Brand Name *</label>
 									<input type="text" name="name" class="form-control">
 								</div>
 
-								<div class="col-sm-4">
+								<div class="col-sm-12 form-group">
+									<label class="d-block mb-2">Categories *</label>
+
+									<div class="border rounded p-3" style="max-height: 220px; overflow-y:auto;">
+
+										@foreach($categories as $category)
+
+											<div class="form-check mb-3" style="display:flex;align-items:center;">
+												<input type="checkbox" class="form-check-input"
+													id="category_{{ $category->id }}" name="categories[]"
+													value="{{ $category->id }}">
+
+												<label class="form-check-label" for="category_{{ $category->id }}">
+													{{ $category->name }}
+												</label>
+											</div>
+
+										@endforeach
+
+									</div>
+								</div>
+
+								<div class="col-sm-12 form-group">
 									<label>Status</label>
 									<select name="status" class="form-control">
 										<option value="1">Active</option>
@@ -58,7 +80,7 @@
 									</select>
 								</div>
 
-								<div class="col-sm-4">
+								<div class="col-sm-12 form-group">
 									<label>Brand Logo</label>
 									<input type="file" name="logo" class="form-control">
 								</div>
@@ -71,9 +93,9 @@
 								</button>
 								<a href="{{ route('admin.brands.index') }}" class="btn btn-secondary">
 
-                                    Cancel
+									Cancel
 
-                                </a>
+								</a>
 							</div>
 
 						</div>

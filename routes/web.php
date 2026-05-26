@@ -18,6 +18,8 @@ use App\Http\Controllers\Admin\HomeEnquiryController;
 use App\Http\Controllers\Admin\HomeFeatureController;
 use App\Http\Controllers\Admin\HomeHeroController;
 use App\Http\Controllers\Admin\HomePageController;
+use App\Http\Controllers\Admin\HomeSliderController;
+use App\Http\Controllers\Admin\HomeTextSliderController;
 use App\Http\Controllers\Admin\HomeWhyController;
 use App\Http\Controllers\Admin\LogoutController;
 use App\Http\Controllers\Admin\PackageController;
@@ -41,17 +43,18 @@ Route::controller(FrontController::class)->group(function () {
     Route::get('/', 'home')->name('home');
     Route::get('/search-suggestions', 'searchSuggestions')->name('search.suggestions');
     Route::get('/products/filter', 'getProductsByType');
-    Route::get('/categories', 'category')->name('category');
-    Route::get('/category/{slug}', 'subcategory');
-    Route::get('/products', 'products')->name('products');
-    Route::get('/product/{slug}', 'productDetail')->name('product.detail');
+    Route::get('/categories', 'categories')->name('categories');
+    Route::get('/category/{slug}', 'categoryListing')->name('category.products');
+    Route::get('/category/{slug}/filter', 'filterProducts')->name('category.filter.products');
+    Route::get('/product/{slug}', 'productDetail')->name('product.details');
     Route::post('/cart/add', 'addToCart')->name('cart.add');
     Route::get('/shopping-cart', 'shoppingCart')->name('shopping-cart');
     Route::post('/cart/remove', 'removeFromCart')->name('cart.remove');
-    Route::get('/thank-you', 'thankYou')->name('thank-you');
+    Route::post('/cart/update-quantity', 'updateQuantity')->name('cart.update.quantity');
+    Route::get('/thank-you/{id}', 'thankYou')->name('thank-you');
     Route::get('/faqs', 'faqs')->name('faqs');
     Route::get('/blogs', 'blogs')->name('blogs');
-    Route::get('/blog/{slug}', 'blogDetails')->name('blog.detail');
+    Route::get('/blog/{slug}', 'blogDetails')->name('blog.details');
     Route::get('/contact-us', 'contactUs')->name('contact-us');
     Route::get('/page/{slug}', 'dynamicPage')->name('dynamic.page');
     Route::get('/why-us', 'whyUs')->name('why-us');
@@ -75,6 +78,7 @@ Route::controller(FrontController::class)->group(function () {
     Route::post('/vendor-enquiry', 'submitVendorEnquiry')->name('vendor.enquiry');
     Route::post('/supplier-enquiry', 'submitSupplierEnquiry')->name('supplier.enquiry');
 
+    Route::get('occasions', 'occasions')->name('occasions');
 });
 
 
@@ -145,6 +149,36 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/home-page', [HomePageController::class, 'index'])
             ->name('home-page.index');
 
+        Route::prefix('home/sliders')->name('home.sliders.')->group(function () {
+
+            Route::get('/', [HomeSliderController::class, 'index'])->name('index');
+
+            Route::get('/create', [HomeSliderController::class, 'create'])->name('create');
+
+            Route::post('/store', [HomeSliderController::class, 'store'])->name('store');
+
+            Route::get('/edit/{id}', [HomeSliderController::class, 'edit'])->name('edit');
+
+            Route::put('/update/{id}', [HomeSliderController::class, 'update'])->name('update');
+
+            Route::delete('/delete/{id}', [HomeSliderController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('home/text-sliders')->name('home.text-sliders.')->group(function () {
+
+            Route::get('/', [HomeTextSliderController::class, 'index'])->name('index');
+
+            Route::get('/create', [HomeTextSliderController::class, 'create'])->name('create');
+
+            Route::post('/store', [HomeTextSliderController::class, 'store'])->name('store');
+
+            Route::get('/edit/{id}', [HomeTextSliderController::class, 'edit'])->name('edit');
+
+            Route::put('/update/{id}', [HomeTextSliderController::class, 'update'])->name('update');
+
+            Route::delete('/delete/{id}', [HomeTextSliderController::class, 'destroy'])->name('destroy');
+        });
+
         // ================= HERO =================
         Route::get('/home-hero', [HomeHeroController::class, 'edit'])
             ->name('home.hero.edit');
@@ -200,7 +234,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('/seo', [SeoController::class, 'index'])->name('seo.index');
         Route::put('/seo/{id}', [SeoController::class, 'update'])->name('seo.update');
-            Route::resource('announcements', AnnouncementController::class);
+        Route::resource('announcements', AnnouncementController::class);
 
 
     });

@@ -1,147 +1,223 @@
 @extends('layouts.app')
 
-
-<style>
-    .trusted-brand::-webkit-scrollbar{
-        display:none;
-    }
-</style>
 @section('content')
 
-<section class="py-8 md:py-28 bg-gradient-to-br from-[#f8f4f0] to-white">
-    <div class="max-w-6xl mx-auto px-6 text-center">
-    <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-        Why Choose <span class="text-[#f4a261]">B2B</span><span class="text-[#2ec4b6]"> Gifts</span><span class="text-[#e07a5f]"> India</span>
-    </h1>
-    <p class="max-w-3xl mx-auto text-xl text-gray-600">
-        From premium product selection to seamless customization and reliable delivery, we provide end-to-end 
-        corporate gifting solutions designed to save your time and elevate your brand.
-    </p>
-</div>
+    <main class="aq-why-choose-page">
+        <!-- 1. Luxury Inner Banner / Hero Section -->
+        <section class="aq-catpage-hero">
+            <div class="aq-hero-glow"></div>
+            <div class="aq-floating-gift-box aq-floating-shape-1">
+                <i class="fa-solid fa-gift"></i>
+            </div>
+            <div class="aq-floating-gift-box aq-floating-shape-2">
+                <i class="fa-solid fa-gem"></i>
+            </div>
+            <div class="aq-catpage-hero-content">
+                <h1 class="aq-catpage-title">Why Choose Us</h1>
+                <div class="aq-catpage-breadcrumbs">
+                    <a href="index.html">Home</a>
+                    <span>/</span>
+                    <span>Why Choose Us</span>
+                </div>
+            </div>
+        </section>
 
-</section>
-
-<!-- Key Benefits Grid -->
-<section class="py-8 md:py-20 bg-white">
-    <div class="max-w-6xl mx-auto px-6">
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-            <!-- Benefit 1 -->
-<div class="why-card bg-white border border-gray-100 rounded-3xl p-4 md:p-10">
-    <div class="benefit-icon mb-6 text-4xl">🎨</div>
-    <h3 class="text-2xl font-semibold mb-4">Premium Quality & Customization</h3>
-    <p class="text-gray-600 leading-relaxed">
-        We offer meticulously curated products that meet high-quality standards, complemented by advanced customization options such as laser engraving, precision printing, and bespoke branding solutions.
-    </p>
-</div>
-
-<!-- Benefit 2 -->
-<div class="why-card bg-white border border-gray-100 rounded-3xl p-4 md:p-10">
-    <div class="benefit-icon mb-6 text-4xl">🚚</div>
-    <h3 class="text-2xl font-semibold mb-4">Efficient & Reliable Delivery</h3>
-    <p class="text-gray-600 leading-relaxed">
-        Our streamlined logistics ensure timely and dependable delivery across India, with the flexibility to accommodate urgent requirements through expedited processing.
-    </p>
-</div>
-
-<!-- Benefit 3 -->
-<div class="why-card bg-white border border-gray-100 rounded-3xl p-4 md:p-10">
-    <div class="benefit-icon mb-6 text-4xl">🌱</div>
-    <h3 class="text-2xl font-semibold mb-4">Sustainable Gifting Solutions</h3>
-    <p class="text-gray-600 leading-relaxed">
-        We offer a thoughtfully curated range of eco-conscious products crafted from sustainable materials, enabling your brand to align with responsible and environmentally mindful practices.
-    </p>
-</div>
-
-<!-- Benefit 4 -->
-<div class="why-card bg-white border border-gray-100 rounded-3xl p-4 md:p-10">
-    <div class="benefit-icon mb-6 text-4xl">💰</div>
-    <h3 class="text-2xl font-semibold mb-4">Cost-Effective Value</h3>
-    <p class="text-gray-600 leading-relaxed">
-        We deliver optimal value through competitive pricing structures, ensuring high-quality gifting solutions without compromising on standards, especially for bulk and recurring requirements.
-    </p>
-</div>
-
-<!-- Benefit 5 -->
-<div class="why-card bg-white border border-gray-100 rounded-3xl p-4 md:p-10">
-    <div class="benefit-icon mb-6 text-4xl">🛡️</div>
-    <h3 class="text-2xl font-semibold mb-4">Quality Assurance & Support</h3>
-    <p class="text-gray-600 leading-relaxed">
-        Every order undergoes strict quality checks, supported by a responsive team committed to addressing concerns promptly and ensuring a smooth client experience.
-    </p>
-</div>
-
-<!-- Benefit 6 -->
-<div class="why-card bg-white border border-gray-100 rounded-3xl p-4 md:p-10">
-    <div class="benefit-icon mb-6 text-4xl">🤝</div>
-    <h3 class="text-2xl font-semibold mb-4">Dedicated Corporate Assistance</h3>
-    <p class="text-gray-600 leading-relaxed">
-        We provide end-to-end support with structured coordination, including requirement consultation, artwork approvals, and seamless execution from product selection to final delivery.
-    </p>
-</div>
+        <!-- Breadcrumb Bar -->
 
 
-        </div>
-    </div>
-</section>
 
-  @if (count($brands) > 0)
+        <!-- Features Section -->
+        <section class="aq-why-features-creative pb-100 pt-100 p-relative">
+            <!-- Ambient Backgrounds -->
+            <div class="aq-ambient-glow-1"></div>
+            <div class="aq-ambient-glow-2"></div>
 
-    <!-- Our Partners / Trusted Brands Section -->
-    <section class="bg-white py-8 md:py-24 border-t border-gray-100">
-      <div class="max-w-7xl mx-auto px-6 text-center">
-        <!-- Heading & Description -->
-        <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-          Our Trusted Brand Partners
-        </h2>
-        <p class="text-lg text-gray-600 max-w-3xl mx-auto mb-12">
-    Backed by a strong vendor network, we ensure access to quality products, 
-    efficient sourcing, and consistent delivery for all your corporate gifting requirements.
-</p>
+            <div class="container p-relative z-index-1">
+                <div class="row justify-content-center text-center mb-70">
+                    <div class="col-lg-8">
+                        <span class="aq-section-title-sm">Our Value Proposition</span>
+                        <h2 class="aq-section-title">Why Choose B2B Gifts India</h2>
+                        <p class="aq-section-desc" style="max-width: 700px; margin: 0 auto;">
+                            From premium product selection to seamless customization and reliable delivery, we provide
+                            end-to-end corporate gifting solutions designed to save your time and elevate your brand.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row g-4 aq-staggered-grid">
+                    <div class="col-lg-4 col-md-6 aq-stagger-item">
+                        <div class="aq-creative-card">
+                            <div class="aq-creative-icon">
+                                <i class="fa-solid fa-palette"></i>
+                            </div>
+                            <h4 class="aq-creative-title">Premium Quality & Customization</h4>
+                            <p class="aq-creative-desc">We offer meticulously curated products that meet high-quality
+                                standards, complemented by advanced customization options such as laser engraving,
+                                precision printing, and bespoke branding solutions.</p>
+                            <div class="aq-creative-card-glow"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 aq-stagger-item delay-1">
+                        <div class="aq-creative-card">
+                            <div class="aq-creative-icon">
+                                <i class="fa-solid fa-truck-fast"></i>
+                            </div>
+                            <h4 class="aq-creative-title">Efficient & Reliable Delivery</h4>
+                            <p class="aq-creative-desc">Our streamlined logistics ensure timely and dependable delivery
+                                across India, with the flexibility to accommodate urgent requirements through expedited
+                                processing.</p>
+                            <div class="aq-creative-card-glow"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 aq-stagger-item delay-2">
+                        <div class="aq-creative-card">
+                            <div class="aq-creative-icon">
+                                <i class="fa-solid fa-leaf"></i>
+                            </div>
+                            <h4 class="aq-creative-title">Sustainable Gifting Solutions</h4>
+                            <p class="aq-creative-desc">We offer a thoughtfully curated range of eco-conscious products
+                                crafted from sustainable materials, enabling your brand to align with responsible and
+                                environmentally mindful practices.</p>
+                            <div class="aq-creative-card-glow"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 aq-stagger-item">
+                        <div class="aq-creative-card">
+                            <div class="aq-creative-icon">
+                                <i class="fa-solid fa-tags"></i>
+                            </div>
+                            <h4 class="aq-creative-title">Cost-Effective Value</h4>
+                            <p class="aq-creative-desc">We deliver optimal value through competitive pricing structures,
+                                ensuring high-quality gifting solutions without compromising on standards, especially
+                                for bulk and recurring requirements.</p>
+                            <div class="aq-creative-card-glow"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 aq-stagger-item delay-1">
+                        <div class="aq-creative-card">
+                            <div class="aq-creative-icon">
+                                <i class="fa-solid fa-certificate"></i>
+                            </div>
+                            <h4 class="aq-creative-title">Quality Assurance & Support</h4>
+                            <p class="aq-creative-desc">Every order undergoes strict quality checks, supported by a
+                                responsive team committed to addressing concerns promptly and ensuring a smooth client
+                                experience.</p>
+                            <div class="aq-creative-card-glow"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 aq-stagger-item delay-2">
+                        <div class="aq-creative-card">
+                            <div class="aq-creative-icon">
+                                <i class="fa-solid fa-handshake-angle"></i>
+                            </div>
+                            <h4 class="aq-creative-title">Dedicated Corporate Assistance</h4>
+                            <p class="aq-creative-desc">We provide end-to-end support with structured coordination,
+                                including requirement consultation, artwork approvals, and seamless execution from
+                                product selection to final delivery.</p>
+                            <div class="aq-creative-card-glow"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="aq-luxury-cta-section pt-100 pb-100 p-relative mt-60">
+            <!-- Ambient Glows -->
+            <div
+                style="position: absolute; width: 400px; height: 400px; background: rgba(212, 175, 55, 0.12); filter: blur(120px); border-radius: 50%; top: -100px; left: -100px; pointer-events: none;">
+            </div>
+            <div
+                style="position: absolute; width: 400px; height: 400px; background: rgba(0, 255, 68, 0.08); filter: blur(120px); border-radius: 50%; bottom: -100px; right: -100px; pointer-events: none;">
+            </div>
+
+            <div class="container p-relative" style="z-index: 2;">
+                <div class="row justify-content-center">
+                    <div class="col-xl-8 col-lg-10 text-center">
+                        <span class="aq-section-title-sm mb-15 d-inline-block"
+                            style="color: #d4af37; letter-spacing: 2px; font-weight: 600; text-transform: uppercase;">Next
+                            Steps</span>
+                        <h2 class="font-family-heading mb-25"
+                            style="color: #ffffff; font-size: 48px; font-weight: 700; line-height: 1.2;">
+                            Ready to Gift <span style="color: #d4af37; font-style: italic;">Smarter?</span>
+                        </h2>
+                        <p class="mb-45"
+                            style="color: rgba(255, 255, 255, 0.8); font-size: 18px; line-height: 1.8; max-width: 600px; margin-left: auto; margin-right: auto;">
+                            Let us help you choose the perfect corporate gifts that reflect your brand values and
+                            strengthen your relationships.
+                        </p>
+
+                        <div class="d-flex justify-content-center align-items-center flex-wrap gap-3">
+                            <a href="product_details.html"
+                                class="aq-cta-btn-primary d-inline-flex align-items-center justify-content-center">
+                                Browse Our Collection
+                            </a>
+                            <a href="#bulk-enquiry"
+                                class="aq-cta-btn-outline d-inline-flex align-items-center justify-content-center">
+                                Get a Custom Quote <i class="fa-solid fa-arrow-right-long ml-10"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trusted Partners Section -->
+        <section>
+            <div class="aqf-brand-area pt-20 pb-20">
+                <div class="container">
+                    <div class="aq-creative-title-box mb-60 pt-30">
+                        <span class="aq-creative-subtitle">Trusted Partners</span>
+                        <h2 class="aq-creative-title">
+                            Trusted by 500+ Leading Companies
+                        </h2>
+                        <div class="aq-creative-title-line"></div>
+                    </div>
+
+                    <div class="swiper aq-brand-active">
+                        <div class="swiper-wrapper align-items-center">
+                            <div class="swiper-slide">
+                                <div class="aq-brand-item">
+                                    <img src="assets/img/corporate/amazon_logo.webp" alt="Amazon" />
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="aq-brand-item">
+                                    <img src="assets/img/corporate/google_logo.webp" alt="Google" />
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="aq-brand-item">
+                                    <img src="assets/img/corporate/ibm_logo.webp" alt="IBM" />
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="aq-brand-item">
+                                    <img src="assets/img/corporate/netflix_logo.webp" alt="Netflix" />
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="aq-brand-item">
+                                    <img src="assets/img/corporate/microsoft_logo.webp" alt="Microsoft" />
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="aq-brand-item">
+                                    <img src="assets/img/corporate/apple_logo.webp" alt="Apple" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- CTA Section -->
 
 
-        <!-- Logo Trail -->
-        <div class="overflow-x-auto scrollbar-hide trusted-brand">
-          <div class="flex items-center justify-center gap-12 md:gap-16 lg:gap-20 min-w-max py-6 px-4">
-
-            @foreach($brands as $brand)
-              <div class="flex flex-col items-center min-w-[100px]">
-                <img src="{{ asset('storage/' . $brand->logo) }}" alt="{{ $brand->name }}"
-                  class="h-10 md:h-12 grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
-              </div>
-            @endforeach
-
-          </div>
-        </div>
-
-        <!-- Optional subtle scroll hint for mobile -->
-        <div class="text-center text-sm text-gray-400 mt-4 md:hidden">
-          ← Scroll to see more partners →
-        </div>
-      </div>
-    </section>
-
-  @endif
-
-<!-- Final CTA -->
-<section class="py-20 bg-gradient-to-r from-[#f4a261] to-[#e07a5f] text-white">
-    <div class="max-w-4xl mx-auto px-6 text-center">
-        <h2 class="text-4xl font-bold mb-6">Ready to Gift Smarter?</h2>
-        <p class="text-xl mb-10 opacity-90">
-            Let us help you choose the perfect corporate gifts that reflect your brand values and strengthen your relationships.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-5 justify-center">
-            <a href="{{ route('products') }}" 
-               class="px-10 py-5 bg-white text-[#e07a5f] font-semibold rounded-2xl text-lg hover:bg-gray-100 transition-all">
-                Browse Our Collection
-            </a>
-            <a href="javascript:void(0)" onclick="openGlobalDrawer('Get a Custom Quote', 'why_us_page')"
-               class="px-10 py-5 border-2 border-white font-semibold rounded-2xl text-lg hover:bg-white hover:text-[#e07a5f] transition-all">
-                Get a Custom Quote
-            </a>
-        </div>
-    </div>
-</section>
-
+    </main>
 
 @endsection

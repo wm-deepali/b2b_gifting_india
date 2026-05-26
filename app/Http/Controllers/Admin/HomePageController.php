@@ -10,6 +10,13 @@ class HomePageController extends Controller
     {
         $sections = [
 
+
+            [
+                'title' => 'Home Sliders',
+                'route' => route('admin.home.sliders.index'),
+                'type' => 'multiple'
+            ],
+
             [
                 'title' => 'Hero Section',
                 'route' => route('admin.home.hero.edit'),
@@ -27,7 +34,7 @@ class HomePageController extends Controller
                 'route' => route('admin.home.banners.index'),
                 'type' => 'multiple'
             ],
-            
+
             // ✅ NEW (Feature Cards Section)
             [
                 'title' => 'Feature Cards Section',

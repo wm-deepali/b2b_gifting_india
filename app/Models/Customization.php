@@ -12,6 +12,7 @@ class Customization extends Model
     protected $fillable = [
         'name',
         'short_description',
+        'icon',
         'status'
     ];
 

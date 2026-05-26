@@ -57,7 +57,8 @@ class Category extends Model
     // PRODUCTS (SUBCATEGORY)
     public function subcategoryProducts()
     {
-        return $this->belongsToMany(Product::class, 'product_subcategories', 'subcategory_id', 'product_id');
+        return $this->belongsToMany(Product::class, 'product_subcategories', 'subcategory_id', 'product_id')->where('status', 1)
+            ->where('show_on_website', 1);
     }
 
 
@@ -124,5 +125,13 @@ class Category extends Model
                 });
 
         })->distinct()->count();
+    }
+
+    public function brands()
+    {
+        return $this->belongsToMany(
+            Brand::class,
+            'brand_category'
+        );
     }
 }

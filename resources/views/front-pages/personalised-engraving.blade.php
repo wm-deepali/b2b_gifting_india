@@ -1,181 +1,182 @@
 @extends('layouts.app')
 
-<style>
-    .process-step {
-        position: relative;
-    }
-
-    .process-line {
-        position: absolute;
-        left: 23px;
-        top: 48px;
-        bottom: -40px;
-        width: 3px;
-        background: linear-gradient(to bottom, #f4a261, #e07a5f);
-    }
-</style>
 
 @section('content')
+    <main>
 
-    <section class="about-hero py-20 md:py-20 bg-white">
-        <div class="max-w-5xl mx-auto px-6 text-center">
-            <p class="uppercase tracking-widest text-sm font-medium text-gray-500 mb-4">
-                Personalised Craftsmanship
-            </p>
-            <h1 class="text-5xl md:text-6xl font-bold leading-tight text-gray-900 mb-6">
-                Personalised Engraving
-            </h1>
-            <p class="max-w-3xl mx-auto text-xl text-gray-600">
-                Turn meaningful moments into lasting memories with precision engraving. From names and messages to special
-                dates,
-                create unique gifts that feel truly personal and timeless.
-            </p>
 
-            <div class="mt-12">
-                <a href="javascript:void(0)"
-                    onclick="openGlobalDrawer('Start Your Custom Project', 'personalised_engraving')"
-                    class="inline-block bg-gradient-to-r from-[#e07a5f] to-[#f4a261] text-white px-10 py-4 rounded-2xl font-semibold text-lg hover:shadow-xl transition-all">
-                    Start Your Custom Project
-                </a>
+        <!-- Hero Section -->
+        <!-- <section class="about-hero text-center">
+                <div class="container">
+                    <span class="about-hero-tagline">Empowering Businesses • Creating Memorable Experiences</span>
+                    <h1 class="about-hero-title">Discover <span>B2B Gifts India</span></h1>
+                    <p class="about-hero-desc">
+                        We create premium corporate gifting solutions that help businesses build stronger relationships,
+                        enhance brand value, and leave lasting impressions on clients, employees, and partners.
+                    </p>
+                    <a href="#bulk-enquiry" class="aq-about-btn-gold enquiry-btn">Speak With Our Expert</a>
+                </div>
+            </section> -->
+
+
+        <!-- 1. Luxury Inner Banner / Hero Section -->
+        <section class="aq-catpage-hero">
+            <div class="aq-hero-glow"></div>
+            <div class="aq-floating-gift-box aq-floating-shape-1">
+                <i class="fa-solid fa-gem"></i>
             </div>
-        </div>
-    </section>
+            <div class="aq-floating-gift-box aq-floating-shape-2">
+                <i class="fa-solid fa-gift"></i>
+            </div>
+            <div class="aq-catpage-hero-content">
+                <h1 class="aq-catpage-title">Personalised Engraving</h1>
+                <div class="aq-catpage-breadcrumbs">
+                    <a href="index.html">Home</a>
+                    <span>/</span>
+                    <span>Personalised Engraving</span>
+                </div>
+            </div>
+        </section>
 
+        <div class="aq-personalised-page-wrap">
 
-    <!-- ==================== DETAIL CONTENT ==================== -->
-    <section class="py-20 bg-gray-50">
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="text-4xl font-bold text-gray-900 mb-6">Why Choose Our Personal Engraving?</h2>
-            <p class="text-lg text-gray-600 leading-relaxed">
-                From elegant diaries to premium drinkware and lifestyle products, we craft personalised engravings with
-                precision and care — turning your names, messages, and special moments into timeless keepsakes.
-            </p>
-        </div>
-    </section>
-
-
-    <!-- ==================== PRODUCT SAMPLES ==================== -->
-    <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-3xl font-semibold text-center mb-12">Our Personal Engraving Works</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                @if($products->count() > 0)
-
-                    @foreach($products as $product)
-
-                        <div class="rounded-3xl overflow-hidden shadow-sm">
-
-                            <img src="{{ $product->display_image
-                        ? asset('storage/' . $product->display_image)
-                        : asset('no-image.jpg') }}" alt="{{ $product->name }}" class="w-full h-80 object-cover">
-
-                            <div class="p-5 bg-white">
-                                <h3 class="font-semibold">
-                                    {{ $product->name }}
-                                </h3>
-
-                                <p class="text-sm text-gray-500">
-                                    {{ $product->sub_title }}
+            <!-- Intro Section -->
+            <section class="aq-personalised-intro-section">
+                <div class="container">
+                    <div class="row align-items-center g-5">
+                        <div class="col-lg-6">
+                            <div class="aq-personalised-content-box">
+                                <span class="aq-section-title-sm aq-personalised-title-sm">PERSONALISED CRAFTSMANSHIP</span>
+                                <h2 class="aq-section-title aq-personalised-main-title">Personalised Engraving</h2>
+                                <p class="aq-section-desc aq-personalised-desc">
+                                    Turn meaningful moments into lasting memories with precision engraving. From names and
+                                    messages to special dates, create unique gifts that feel truly personal and timeless.
+                                </p>
+                                <button type="button" class="aq-personalised-btn" data-bs-toggle="modal"
+                                    data-bs-target="#bulkOrderModal">
+                                    Start Your Custom Project <i class="fa-solid fa-arrow-right-long"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="aq-personalised-why-box">
+                                <h3 class="aq-personalised-why-title">Why Choose Our Personal Engraving?</h3>
+                                <p class="aq-personalised-why-desc">
+                                    From elegant diaries to premium drinkware and lifestyle products, we craft personalised
+                                    engravings with precision and care — turning your names, messages, and special moments
+                                    into timeless keepsakes.
                                 </p>
                             </div>
-
-                        </div>
-
-                    @endforeach
-
-                @else
-
-                    {{-- 🔥 EMPTY STATE FOR ENGRAVING --}}
-                    <div class="col-span-3">
-                        <div class="text-center p-10 border-2 border-dashed rounded-xl bg-gray-50">
-
-                            <h3 class="text-lg font-semibold text-gray-700">
-                                No Products found
-                            </h3>
-
-                            <p class="text-gray-500 mt-2">
-                                Please explore our product section
-                            </p>
-
-                            <a href="{{ route('products') }}"
-                                class="inline-block mt-4 px-6 py-2 bg-[#f4a261] text-white rounded-lg hover:bg-[#e76f51]">
-                                Explore Collection
-                            </a>
-
                         </div>
                     </div>
+                </div>
+            </section>
 
-                @endif
+            <!-- Works / Empty State Section -->
+            <section class="aq-personalised-works-section">
+                <div class="container">
+                    <div class="row justify-content-center text-center">
+                        <div class="col-lg-8">
+                            <h2 class="aq-section-title aq-personalised-main-title text-center">Our Personal Engraving Works
+                            </h2>
 
-            </div>
+                            <div class="aq-personalised-empty-state">
+                                <div class="aq-personalised-empty-icon">
+                                    <i class="fa-solid fa-box-open"></i>
+                                </div>
+                                <h4 class="aq-personalised-empty-title">No Products found</h4>
+                                <p class="aq-personalised-empty-desc">Please explore our product section to find items
+                                    available for personalization.</p>
+                                <a href="index.html" class="aq-personalised-btn-outline mt-30">Explore Collection</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Process Section -->
+            <section class="aq-personalised-process-section">
+                <div class="container">
+                    <div class="row justify-content-center text-center mb-60">
+                        <div class="col-lg-8">
+                            <span class="aq-section-title-sm aq-personalised-title-sm">PROCESS</span>
+                            <h2 class="aq-section-title aq-personalised-main-title text-center">Step-by-Step Guide</h2>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <div class="aq-timeline-wrapper">
+                                <!-- Step 1 -->
+                                <div class="aq-timeline-item">
+                                    <div class="aq-timeline-icon" style="background-color: #f4a261;">1</div>
+                                    <div class="aq-timeline-content">
+                                        <h4 class="aq-timeline-title">Share Your Requirement</h4>
+                                        <p class="aq-timeline-desc">Tell us about your brand, logo, message, and the
+                                            products you want to engrave.</p>
+                                    </div>
+                                </div>
+
+                                <!-- Step 2 -->
+                                <div class="aq-timeline-item">
+                                    <div class="aq-timeline-icon" style="background-color: #2a9d8f;">2</div>
+                                    <div class="aq-timeline-content">
+                                        <h4 class="aq-timeline-title">Design Approval</h4>
+                                        <p class="aq-timeline-desc">We create a digital mockup of the engraving and get your
+                                            approval before production.</p>
+                                    </div>
+                                </div>
+
+                                <!-- Step 3 -->
+                                <div class="aq-timeline-item">
+                                    <div class="aq-timeline-icon" style="background-color: #e76f51;">3</div>
+                                    <div class="aq-timeline-content">
+                                        <h4 class="aq-timeline-title">Precision Engraving</h4>
+                                        <p class="aq-timeline-desc">Our expert team performs high-precision laser engraving
+                                            on your selected products.</p>
+                                    </div>
+                                </div>
+
+                                <!-- Step 4 -->
+                                <div class="aq-timeline-item">
+                                    <div class="aq-timeline-icon" style="background-color: #264653;">4</div>
+                                    <div class="aq-timeline-content">
+                                        <h4 class="aq-timeline-title">Quality Check & Delivery</h4>
+                                        <p class="aq-timeline-desc">Every piece is inspected for perfection before secure
+                                            packaging and timely delivery.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Works / Empty State Section -->
+            <section class="aq-personalised-works-section">
+                <div class="container">
+                    <div class="row justify-content-center text-center">
+                        <div class="col-lg-8">
+                            <h2 class="aq-section-title aq-personalised-main-title text-center">Our Personal Engraving Works
+                            </h2>
+
+                            <div class="aq-personalised-empty-state">
+                                <div class="aq-personalised-empty-icon">
+                                    <i class="fa-solid fa-box-open"></i>
+                                </div>
+                                <h4 class="aq-personalised-empty-title">No Products found</h4>
+                                <p class="aq-personalised-empty-desc">Please explore our product section to find items
+                                    available for personalization.</p>
+                                <a href="index.html" class="aq-personalised-btn-outline mt-30">Explore Collection</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
         </div>
-    </section>
 
-    <!-- ==================== STEP-BY-STEP GUIDE ==================== -->
-    <section class="py-20 bg-gray-50">
-        <div class="max-w-5xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <span class="uppercase text-sm font-medium text-gray-500">PROCESS</span>
-                <h2 class="text-4xl font-bold text-gray-900 mt-3">Step-by-Step Guide</h2>
-            </div>
-
-            <div
-                class="max-w-3xl mx-auto space-y-16 relative before:absolute before:left-6 before:top-8 before:bottom-8 before:w-0.5 before:bg-gradient-to-b before:from-[#f4a261] before:to-[#e07a5f]">
-
-                <!-- Step 1 -->
-                <div class="process-step flex gap-5 md:gap-10">
-                    <div
-                        class="w-12 h-12 bg-[#f4a261] text-white rounded-2xl flex items-center justify-center text-2xl font-bold flex-shrink-0">
-                        1</div>
-                    <div class="flex-1 bg-white rounded-3xl p-8 shadow-sm">
-                        <h3 class="text-2xl font-semibold mb-2">Share Your Requirement</h3>
-                        <p class="text-gray-600">Tell us about your brand, logo, message, and the products you want to
-                            engrave.</p>
-                    </div>
-                </div>
-
-                <!-- Step 2 -->
-                <div class="process-step flex gap-5 md:gap-10">
-                    <div
-                        class="w-12 h-12 bg-[#2ec4b6] text-white rounded-2xl flex items-center justify-center text-2xl font-bold flex-shrink-0">
-                        2</div>
-                    <div class="flex-1 bg-white rounded-3xl p-8 shadow-sm">
-                        <h3 class="text-2xl font-semibold mb-2">Design Approval</h3>
-                        <p class="text-gray-600">We create a digital mockup of the engraving and get your approval before
-                            production.</p>
-                    </div>
-                </div>
-
-                <!-- Step 3 -->
-                <div class="process-step flex gap-5 md:gap-10">
-                    <div
-                        class="w-12 h-12 bg-[#e07a5f] text-white rounded-2xl flex items-center justify-center text-2xl font-bold flex-shrink-0">
-                        3</div>
-                    <div class="flex-1 bg-white rounded-3xl p-8 shadow-sm">
-                        <h3 class="text-2xl font-semibold mb-2">Precision Engraving</h3>
-                        <p class="text-gray-600">Our expert team performs high-precision laser engraving on your selected
-                            products.</p>
-                    </div>
-                </div>
-
-                <!-- Step 4 -->
-                <div class="process-step flex gap-5 md:gap-10">
-                    <div
-                        class="w-12 h-12 bg-gray-700 text-white rounded-2xl flex items-center justify-center text-2xl font-bold flex-shrink-0">
-                        4</div>
-                    <div class="flex-1 bg-white rounded-3xl p-8 shadow-sm">
-                        <h3 class="text-2xl font-semibold mb-2">Quality Check & Delivery</h3>
-                        <p class="text-gray-600">Every piece is inspected for perfection before secure packaging and timely
-                            delivery.</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-
+    </main>
 
 @endsection

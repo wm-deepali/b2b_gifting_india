@@ -39,7 +39,7 @@
                 <div class="card-body">
 
                     <form id="form" method="POST"
-                          action="{{ route('admin.customizations.update', $customization->id) }}">
+                        action="{{ route('admin.customizations.update', $customization->id) }}">
 
                         @csrf
                         @method('PUT')
@@ -47,18 +47,34 @@
                         <!-- Name -->
                         <div class="form-group">
                             <label>Customization Name *</label>
-                            <input type="text"
-                                   name="name"
-                                   value="{{ $customization->name }}"
-                                   class="form-control"
-                                   required>
+                            <input type="text" name="name" value="{{ $customization->name }}" class="form-control"
+                                required>
                         </div>
 
                         <!-- Short Description -->
                         <div class="form-group mt-3">
                             <label>Short Description</label>
                             <textarea name="short_description"
-                                      class="form-control">{{ $customization->short_description }}</textarea>
+                                class="form-control">{{ $customization->short_description }}</textarea>
+                        </div>
+
+
+                        <!-- Font Awesome Icon -->
+                        <div class="form-group mt-3">
+                            <label>Font Awesome Icon</label>
+
+                            <input type="text" name="icon" id="iconInput" value="{{ $customization->icon }}"
+                                class="form-control" placeholder="fa-solid fa-palette">
+
+                            <small class="text-muted d-block mt-1">
+                                Example: fa-solid fa-palette, fa-solid fa-image, fa-solid fa-brush
+                            </small>
+
+                            <div class="mt-2">
+                                Preview:
+                                <i id="iconPreview" class="{{ $customization->icon ?: 'fa-solid fa-palette' }}"
+                                    style="font-size:30px;"></i>
+                            </div>
                         </div>
 
                         <!-- Status -->
@@ -77,8 +93,7 @@
                                 <i class="fa-solid fa-save"></i> Update Customization
                             </button>
 
-                            <a href="{{ route('admin.customizations.index') }}"
-                               class="btn btn-secondary">
+                            <a href="{{ route('admin.customizations.index') }}" class="btn btn-secondary">
                                 Cancel
                             </a>
 
@@ -99,12 +114,12 @@
 @include('admin.footer')
 
 <script>
-document.getElementById('form').addEventListener('submit', function () {
+    document.getElementById('form').addEventListener('submit', function () {
 
-    let btn = document.getElementById('saveBtn');
+        let btn = document.getElementById('saveBtn');
 
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Updating...';
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Updating...';
 
-});
+    });
 </script>

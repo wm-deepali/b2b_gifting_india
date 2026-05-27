@@ -46,7 +46,7 @@
                         <div class="col-lg-6">
                             <div class="aq-awards-image-wrap">
                                 <div class="aq-image-box-premium">
-                                    <img src="assets/img/corporate/welcome_kit_1778668006890.webp" alt="Awards & Recognition" class="aq-awards-img" />
+                                    <img src="public/assets/img/corporate/welcome_kit_1778668006890.webp" alt="Awards & Recognition" class="aq-awards-img" />
                                     <div class="aq-image-box-overlay"></div>
                                 </div>
                                 <div class="aq-floating-badge aq-awards-badge">

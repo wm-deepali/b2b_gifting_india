@@ -72,7 +72,7 @@
 
                             @if($testimonial->photo)
                                 <div class="mt-2">
-                                    <img src="{{ asset('uploads/testimonials/' . $testimonial->photo) }}" width="80"
+                                    <img src="{{ asset('storage/' . $testimonial->photo) }}" width="80"
                                         style="border-radius:6px;">
                                 </div>
                             @endif
@@ -92,7 +92,7 @@
                                 @if($testimonial->reel_file)
                                     <div class="mt-2">
                                         <video width="150" controls>
-                                            <source src="{{ asset('uploads/testimonials/' . $testimonial->reel_file) }}">
+                                            <source src="{{ asset('storage/' . $testimonial->reel_file) }}">
                                         </video>
                                     </div>
                                 @endif

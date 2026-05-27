@@ -38,7 +38,7 @@
 
     .form-control:focus {
         background: #fff;
-        border-color: #f97316;
+        border-color: #003108;
         box-shadow: none;
     }
 
@@ -53,12 +53,33 @@
     }
 
     /* CATEGORY SCROLL */
-    .category-scroll {
-        max-height: 300px;
-        overflow-y: auto;
-        padding-right: 10px;
-    }
+   .category-scroll {
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 10px;
 
+    /* Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: #999 transparent;
+}
+
+/* Chrome, Edge, Safari */
+.category-scroll::-webkit-scrollbar {
+    width: 5px;
+}
+
+.category-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.category-scroll::-webkit-scrollbar-thumb {
+    background: #999;
+    border-radius: 10px;
+}
+
+.category-scroll::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}
     /* SUBCATEGORY */
     .subcategory-box {
         padding-left: 20px;
@@ -109,8 +130,8 @@
     }
 
     .custom-box:hover {
-        border-color: #f97316;
-        background: #fff7ed;
+        border-color: #003108;
+        background: linear-gradient(180deg, rgba(0, 49, 8, 0) 40%, rgba(0, 49, 8, 0.03) 100%);
     }
 
     /* TEXTAREA */
@@ -150,34 +171,34 @@
     }
 
     .flag-item:hover {
-        background: #fff7ed;
+        background: linear-gradient(180deg, rgba(0, 49, 8, 0) 40%, rgba(0, 49, 8, 0.03) 100%);
     }
 
     .flag-item input[type="checkbox"] {
-        accent-color: #f97316;
+        accent-color: #003108;
         transform: scale(1);
     }
 
-    .occasion-box {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 2px 12px;
-        border: 1px solid #e5e7eb;
-        border-radius: 12px;
-        background: #f9fafb;
-        cursor: pointer;
-        transition: 0.2s;
-        font-size: 14px;
-    }
+  .occasion-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #ffffff;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 14px;
+}
 
     .occasion-box:hover {
-        background: #fff7ed;
-        border-color: #f97316;
+            background: linear-gradient(180deg, rgba(0, 49, 8, 0) 40%, rgba(0, 49, 8, 0.03) 100%);
+        border-color: #003108;
     }
 
     .occasion-box input[type="checkbox"] {
-        accent-color: #f97316;
+        accent-color: #003108;
         transform: scale(1.1);
         cursor: pointer;
     }
@@ -185,18 +206,19 @@
     /* Optional: active feel when checked */
     .occasion-box input[type="checkbox"]:checked+span {
         font-weight: 500;
-        color: #f97316;
+        color: #003108;
     }
 
     /* tumhara existing CSS */
 
     select.form-control {
-        height: 45px;
-        padding: 10px 12px;
+        /*height: 45px;*/
+        /*padding: 10px 12px;*/
+        padding: 0px 8px;
     }
 
     .flag-item input[type="checkbox"] {
-        accent-color: #f97316;
+        accent-color: #003108;
         cursor: pointer;
     }
 
@@ -216,8 +238,8 @@
     }
 
     .category-card:hover {
-        border-color: #f97316;
-        background: #fff7ed;
+        border-color: #003108;
+        background: linear-gradient(180deg, rgba(0, 49, 8, 0) 40%, rgba(0, 49, 8, 0.03) 100%);
     }
 
     /* CATEGORY ITEM */
@@ -242,46 +264,77 @@
     }
 
     /* SUBCATEGORY ITEM */
+    /*.subcategory-item {*/
+    /*    display: flex;*/
+    /*    align-items: center;*/
+    /*    gap: 6px;*/
+    /*    font-size: 13px;*/
+    /*    margin-bottom: 4px;*/
+    /*    cursor: pointer;*/
+    /*}*/
+    
     .subcategory-item {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        font-size: 13px;
-        margin-bottom: 4px;
-        cursor: pointer;
-    }
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    border: 1px solid #80808038;
+    /*padding-bottom: 5px;*/
+    background: #ffffff38;
+    padding: 10px 15px;
+    border-radius: 10px;
+}
 
     /* CHECKBOX COLOR */
     .category-item input,
     .subcategory-item input {
-        accent-color: #f97316;
+        accent-color: #003108;
     }
 
     .thumb-box {
-    position: relative;
-    margin: 5px;
+        position: relative;
+        margin: 5px;
+    }
+
+    .thumb-box img {
+        width: 80px;
+        height: 80px;
+        border-radius: 8px;
+        object-fit: cover;
+        border: 2px solid #eee;
+    }
+
+    .thumb-actions {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+    }
+
+    .remove-btn {
+        background: red;
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        font-size: 12px;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+    
+       .category-checkbox {
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
 }
 
-.thumb-box img {
-    width: 80px;
-    height: 80px;
-    border-radius: 8px;
-    object-fit: cover;
-}
 
-.thumb-actions {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-}
 
-.remove-btn {
-    background: red;
-    color: #fff;
-    border: none;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
+.category-checkbox {
+    transform: scale(1.4);
+    cursor: pointer;
+    margin-right: 6px;
 }
 </style>
 
@@ -325,7 +378,7 @@
                                                     ->intersect($selectedSubIds)
                                                     ->isNotEmpty();
 
-                                                // ✅ NEW: also check if product linked directly to subcategory
+                                                // âœ… NEW: also check if product linked directly to subcategory
                                                 $showSubcategory = $hasSelectedChild;
                                                 $selectedOccasions = $product->occasions->pluck('id')->toArray();
                                             @endphp
@@ -349,7 +402,7 @@
                                 <h5><b>Basic Info</b></h5>
 
                                 <label>Name</label>
-                                <input type="text" name="name" value="{{ $product->name }}" class="form-control">
+                                <input type="text" name="name" value="{{ $product->name }}" class="form-control" required>
 
                                 <label class="mt-2">Slug</label>
                                 <input type="text" name="slug" value="{{ $product->slug }}" class="form-control">
@@ -406,7 +459,7 @@
 
                     <!-- REMOVE BUTTON -->
                     <div class="thumb-actions">
-                        <button type="button" class="remove-btn" onclick="removeExistingImage({{ $img->id }})">×</button>
+                        <button type="button" class="remove-btn" onclick="removeExistingImage({{ $img->id }})">Ã—</button>
                     </div>
 
                     <!-- DEFAULT -->
@@ -429,7 +482,7 @@
      <label class="mt-3">Video URL (YouTube / MP4)</label>
     <input type="text" name="video_url" value="{{ $product->video_url }}" class="form-control">
      <small class="text-muted">
-                                    👉 Enter full YouTube URL. Example:
+                                    ðŸ‘‰ Enter full YouTube URL. Example:
                                     https://www.youtube.com/watch?v=abc123XYZ
                                 </small>
 </div>
@@ -714,12 +767,12 @@
                                         </label>
                                     </div>
 
-                                    <div class="col-12 mb-2">
+                                 <!--   <div class="col-12 mb-2">
                                         <label class="occasion-box">
                                             <input type="checkbox" name="call" {{ $product->call ? 'checked' : '' }}>
                                             <span>Call</span>
                                         </label>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
 
@@ -735,6 +788,10 @@
 
                     </div>
 
+                    <input type="hidden"
+       name="redirect"
+       value="{{ $redirect ?? url()->previous() }}">
+       
                     <button class="btn btn-success mt-3">Update Product</button>
 
                 </form>
@@ -804,7 +861,7 @@ function renderPreview() {
                 <div class="thumb-box">
                     <img src="${e.target.result}">
                     <div class="thumb-actions">
-                        <button type="button" class="remove-btn" onclick="removeImage(${index})">×</button>
+                        <button type="button" class="remove-btn" onclick="removeImage(${index})">Ã—</button>
                     </div>
                     <div class="text-center mt-1">
                         <input type="radio" name="default_type" value="new_${index}" ${index === 0 ? 'checked' : ''}>

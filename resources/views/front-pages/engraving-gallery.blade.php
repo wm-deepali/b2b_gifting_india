@@ -76,7 +76,7 @@
                         <div class="col-lg-4 col-md-6">
                             <div class="aq-engraving-card">
                                 <div class="aq-engraving-img-wrap">
-                                    <img src="assets/img/corporate/premium_gadgets_1778668027534.webp" alt="Testing product">
+                                    <img src="public/assets/img/corporate/premium_gadgets_1778668027534.webp" alt="Testing product">
                                     <div class="aq-engraving-overlay">
                                         <i class="fa-solid fa-magnifying-glass-plus"></i>
                                     </div>
@@ -96,7 +96,7 @@
                         <div class="col-lg-4 col-md-6">
                             <div class="aq-engraving-card">
                                 <div class="aq-engraving-img-wrap">
-                                    <img src="assets/img/corporate/stationery_gifts_1778668654881.webp" alt="Blue Custom Personalised Mug Gift">
+                                    <img src="public/assets/img/corporate/stationery_gifts_1778668654881.webp" alt="Blue Custom Personalised Mug Gift">
                                     <div class="aq-engraving-overlay">
                                         <i class="fa-solid fa-magnifying-glass-plus"></i>
                                     </div>
@@ -116,7 +116,7 @@
                         <div class="col-lg-4 col-md-6">
                             <div class="aq-engraving-card">
                                 <div class="aq-engraving-img-wrap">
-                                    <img src="assets/img/corporate/welcome_kit_1778668006890.webp" alt="Larah by Borosil Lavender Cup n Saucer Set">
+                                    <img src="public/assets/img/corporate/welcome_kit_1778668006890.webp" alt="Larah by Borosil Lavender Cup n Saucer Set">
                                     <div class="aq-engraving-overlay">
                                         <i class="fa-solid fa-magnifying-glass-plus"></i>
                                     </div>
@@ -136,7 +136,7 @@
                         <div class="col-lg-4 col-md-6">
                             <div class="aq-engraving-card">
                                 <div class="aq-engraving-img-wrap">
-                                    <img src="assets/img/corporate/apparel_gifts_1778668621245.webp" alt="2 in 1 Dual Ten and Brown Colour Dairy">
+                                    <img src="public/assets/img/corporate/apparel_gifts_1778668621245.webp" alt="2 in 1 Dual Ten and Brown Colour Dairy">
                                     <div class="aq-engraving-overlay">
                                         <i class="fa-solid fa-magnifying-glass-plus"></i>
                                     </div>
@@ -156,7 +156,7 @@
                         <div class="col-lg-4 col-md-6">
                             <div class="aq-engraving-card">
                                 <div class="aq-engraving-img-wrap">
-                                    <img src="assets/img/corporate/backpack_gifts_1778668040094.webp" alt="Premium Metal Keychain">
+                                    <img src="public/assets/img/corporate/backpack_gifts_1778668040094.webp" alt="Premium Metal Keychain">
                                     <div class="aq-engraving-overlay">
                                         <i class="fa-solid fa-magnifying-glass-plus"></i>
                                     </div>
@@ -176,7 +176,7 @@
                         <div class="col-lg-4 col-md-6">
                             <div class="aq-engraving-card">
                                 <div class="aq-engraving-img-wrap">
-                                    <img src="assets/img/corporate/welcome_kit_1778668006890.webp" alt="Stainless Steel Thermal Flask">
+                                    <img src="public/assets/img/corporate/welcome_kit_1778668006890.webp" alt="Stainless Steel Thermal Flask">
                                     <div class="aq-engraving-overlay">
                                         <i class="fa-solid fa-magnifying-glass-plus"></i>
                                     </div>

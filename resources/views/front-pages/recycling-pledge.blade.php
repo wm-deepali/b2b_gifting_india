@@ -162,7 +162,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="aq-sustainability-img-wrap">
-                                <img src="assets/img/corporate/hero_gift_box_1778667986732.webp" alt="Sustainability Commitment" class="aq-sus-img">
+                                <img src="public/assets/img/corporate/hero_gift_box_1778667986732.webp" alt="Sustainability Commitment" class="aq-sus-img">
                                 <div class="aq-sus-overlay-glow"></div>
                             </div>
                         </div>

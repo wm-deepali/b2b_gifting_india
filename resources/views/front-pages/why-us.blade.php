@@ -182,32 +182,32 @@
                         <div class="swiper-wrapper align-items-center">
                             <div class="swiper-slide">
                                 <div class="aq-brand-item">
-                                    <img src="assets/img/corporate/amazon_logo.webp" alt="Amazon" />
+                                    <img src="public/assets/img/corporate/amazon_logo.webp" alt="Amazon" />
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="aq-brand-item">
-                                    <img src="assets/img/corporate/google_logo.webp" alt="Google" />
+                                    <img src="public/assets/img/corporate/google_logo.webp" alt="Google" />
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="aq-brand-item">
-                                    <img src="assets/img/corporate/ibm_logo.webp" alt="IBM" />
+                                    <img src="public/assets/img/corporate/ibm_logo.webp" alt="IBM" />
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="aq-brand-item">
-                                    <img src="assets/img/corporate/netflix_logo.webp" alt="Netflix" />
+                                    <img src="public/assets/img/corporate/netflix_logo.webp" alt="Netflix" />
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="aq-brand-item">
-                                    <img src="assets/img/corporate/microsoft_logo.webp" alt="Microsoft" />
+                                    <img src="public/assets/img/corporate/microsoft_logo.webp" alt="Microsoft" />
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="aq-brand-item">
-                                    <img src="assets/img/corporate/apple_logo.webp" alt="Apple" />
+                                    <img src="public/assets/img/corporate/apple_logo.webp" alt="Apple" />
                                 </div>
                             </div>
                         </div>

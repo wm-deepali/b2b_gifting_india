@@ -125,6 +125,10 @@
 
                         </div>
 
+                        <input type="hidden"
+       name="redirect"
+       value="{{ $redirect ?? url()->previous() }}">
+       
                         {{-- BUTTONS --}}
                         <div class="mt-3">
                             <button type="submit" id="updateBtn" class="btn btn-success">

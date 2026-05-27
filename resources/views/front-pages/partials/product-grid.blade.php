@@ -1,5 +1,6 @@
 @if($products->count())
-    <div class="aq-product-grid" id="aq-product-catalog-grid">
+     <div class="aq-product-grid" >
+ 
 
         @foreach($products as $product)
 

@@ -38,7 +38,7 @@
 
     .form-control:focus {
         background: #fff;
-        border-color: #f97316;
+        border-color: #003108;
         box-shadow: none;
     }
 
@@ -53,12 +53,33 @@
     }
 
     /* CATEGORY SCROLL */
-    .category-scroll {
-        max-height: 300px;
-        overflow-y: auto;
-        padding-right: 10px;
-    }
+   .category-scroll {
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 10px;
 
+    /* Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: #999 transparent;
+}
+
+/* Chrome, Edge, Safari */
+.category-scroll::-webkit-scrollbar {
+    width: 5px;
+}
+
+.category-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.category-scroll::-webkit-scrollbar-thumb {
+    background: #999;
+    border-radius: 10px;
+}
+
+.category-scroll::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}
     /* SUBCATEGORY */
     .subcategory-box {
         padding-left: 20px;
@@ -109,8 +130,8 @@
     }
 
     .custom-box:hover {
-        border-color: #f97316;
-        background: #fff7ed;
+        border-color: #003108;
+        background: linear-gradient(180deg, rgba(0, 49, 8, 0) 40%, rgba(0, 49, 8, 0.03) 100%);
     }
 
     /* TEXTAREA */
@@ -150,34 +171,34 @@
     }
 
     .flag-item:hover {
-        background: #fff7ed;
+        background: linear-gradient(180deg, rgba(0, 49, 8, 0) 40%, rgba(0, 49, 8, 0.03) 100%);
     }
 
     .flag-item input[type="checkbox"] {
-        accent-color: #f97316;
+        accent-color: #003108;
         transform: scale(1);
     }
 
-    .occasion-box {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 2px 12px;
-        border: 1px solid #e5e7eb;
-        border-radius: 12px;
-        background: #f9fafb;
-        cursor: pointer;
-        transition: 0.2s;
-        font-size: 14px;
-    }
+  .occasion-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #ffffff;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 14px;
+}
 
     .occasion-box:hover {
-        background: #fff7ed;
-        border-color: #f97316;
+            background: linear-gradient(180deg, rgba(0, 49, 8, 0) 40%, rgba(0, 49, 8, 0.03) 100%);
+        border-color: #003108;
     }
 
     .occasion-box input[type="checkbox"] {
-        accent-color: #f97316;
+        accent-color: #003108;
         transform: scale(1.1);
         cursor: pointer;
     }
@@ -185,18 +206,19 @@
     /* Optional: active feel when checked */
     .occasion-box input[type="checkbox"]:checked+span {
         font-weight: 500;
-        color: #f97316;
+        color: #003108;
     }
 
     /* tumhara existing CSS */
 
     select.form-control {
-        height: 45px;
-        padding: 10px 12px;
+        /*height: 45px;*/
+        /*padding: 10px 12px;*/
+        padding: 0px 8px;
     }
 
     .flag-item input[type="checkbox"] {
-        accent-color: #f97316;
+        accent-color: #003108;
         cursor: pointer;
     }
 
@@ -216,8 +238,8 @@
     }
 
     .category-card:hover {
-        border-color: #f97316;
-        background: #fff7ed;
+        border-color: #003108;
+        background: linear-gradient(180deg, rgba(0, 49, 8, 0) 40%, rgba(0, 49, 8, 0.03) 100%);
     }
 
     /* CATEGORY ITEM */
@@ -242,19 +264,33 @@
     }
 
     /* SUBCATEGORY ITEM */
+    /*.subcategory-item {*/
+    /*    display: flex;*/
+    /*    align-items: center;*/
+    /*    gap: 6px;*/
+    /*    font-size: 13px;*/
+    /*    margin-bottom: 4px;*/
+    /*    cursor: pointer;*/
+    /*}*/
+    
     .subcategory-item {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        font-size: 13px;
-        margin-bottom: 4px;
-        cursor: pointer;
-    }
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    border: 1px solid #80808038;
+    /*padding-bottom: 5px;*/
+    background: #ffffff38;
+    padding: 10px 15px;
+    border-radius: 10px;
+}
 
     /* CHECKBOX COLOR */
     .category-item input,
     .subcategory-item input {
-        accent-color: #f97316;
+        accent-color: #003108;
     }
 
     .thumb-box {
@@ -286,6 +322,20 @@
         height: 20px;
         cursor: pointer;
     }
+    
+       .category-checkbox {
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+}
+
+
+
+.category-checkbox {
+    transform: scale(1.4);
+    cursor: pointer;
+    margin-right: 6px;
+}
 </style>
 
 <div class="main-section">
@@ -345,7 +395,7 @@
                                 <h5><b>Basic Info</b></h5>
 
                                 <label>Name *</label>
-                                <input type="text" name="name" id="name" class="form-control">
+                                <input type="text" name="name" id="name" class="form-control" required>
 
                                 <label class="mt-2">Slug</label>
                                 <input type="text" name="slug" id="slug" class="form-control">
@@ -392,7 +442,7 @@
                                     placeholder="Enter full YouTube URL (https://youtube.com/watch?v=xxxx) OR direct MP4 link">
 
                                 <small class="text-muted">
-                                    👉 Enter full YouTube URL. Example:
+                                    ðŸ‘‰ Enter full YouTube URL. Example:
                                     https://www.youtube.com/watch?v=abc123XYZ
                                 </small>
                             </div>
@@ -409,7 +459,7 @@
 
                                     <div class="col-md-6">
                                         <label>Min Qty</label>
-                                        <input type="number" name="min_qty" class="form-control">
+                                        <input type="number" name="min_qty" class="form-control" required>
                                     </div>
 
                                     <div class="col-md-6">
@@ -667,12 +717,12 @@
                                         </label>
                                     </div>
 
-                                    <div class="col-12 mb-2">
+                                   <!-- <div class="col-12 mb-2">
                                         <label class="occasion-box">
                                             <input type="checkbox" name="call">
                                             <span>Call</span>
                                         </label>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
 
@@ -766,7 +816,7 @@
                     <img src="${e.target.result}">
 
                     <div class="thumb-actions">
-                        <button type="button" class="remove-btn" onclick="removeImage(${index})">×</button>
+                        <button type="button" class="remove-btn" onclick="removeImage(${index})">Ã—</button>
                     </div>
 
                     <div class="text-center mt-1">

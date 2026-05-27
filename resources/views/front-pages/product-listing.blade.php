@@ -212,14 +212,16 @@
                         </div>
 
                         <!-- Product Cards Grid -->
-                         
+                         <div id="aq-product-catalog-grid">
+                             
+                                     @include(
+                                         'front-pages.partials.product-grid',
+                                         ['products' => $products]
+                                     )
+                             
+                                
 
-        @include(
-            'front-pages.partials.product-grid',
-            ['products' => $products]
-        )
-
-   
+                         </div>
 
     
 </div>

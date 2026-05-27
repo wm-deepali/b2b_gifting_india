@@ -42,78 +42,39 @@
                     <!-- <div class="aq-occasion-grid">
 
 
-                                </div> -->
+                                                </div> -->
 
                     <div class="gifting_occasions">
-                        <div class="aq-occasion-grid">
+                        <div class="aq-occasion-grid" id="occasion-container">
 
-                            @forelse($occasions as $occasion)
-
-                                <div class="aqf-collection-item p-relative" style="cursor: pointer;">
-                                    <div class="aqf-collection-thumb">
-
-                                        <img src="{{ $occasion->image ? asset('storage/' . $occasion->image) : asset('assets/img/no-image.png') }}"
-                                            alt="{{ $occasion->title }}" loading="lazy" />
-
-                                    </div>
-
-                                    <div class="aqf-collection-content-wrap d-flex align-items-center justify-content-between">
-
-                                        <div class="aqf-collection-content">
-
-                                            <h4 class="aqf-collection-title">
-                                                <a href="#" onclick="openEnquiryDrawer(event)">
-                                                    {{ $occasion->title }}
-                                                </a>
-                                            </h4>
-
-                                            <span>{{ $occasion->sub_title }}</span>
-
-                                        </div>
-
-                                        <div class="aqf-collection-link-wrap">
-                                            <a class="aqf-collection-link" href="#" onclick="openEnquiryDrawer(event)">
-                                                <span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
-                                                        viewBox="0 0 12 12" fill="none">
-                                                        <path d="M0.75 5.75H10.75M10.75 5.75L5.75 0.75M10.75 5.75L5.75 10.75"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round">
-                                                        </path>
-                                                    </svg>
-                                                </span>
-                                            </a>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            @empty
-
-                                <div class="col-12 text-center">
-                                    <p>No occasions found.</p>
-                                </div>
-
-                            @endforelse
+                            @include('front-pages.partials.occasion-items', ['occasions' => $occasions])
 
                         </div>
 
                         <div class="readmore-btn">
                             <div class="aq-header-top-bulk-orders d-none d-lg-inline-block">
-                                <a href="occasions.html" class="aq-bulk-orders-btn">
-                                    <i>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
-                                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <path
-                                                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
-                                            </path>
-                                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                                        </svg>
-                                    </i>
-                                    <span>LOAD MORE CATEGORY</span>
-                                </a>
+                                @if($occasions->hasMorePages())
+
+                                    <a href="javascript:void(0)" class="aq-load-more-btn"id="load-more-occasions" data-page="2">
+
+                                        <i>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <path
+                                                    d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                                                </path>
+                                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                                            </svg>
+                                        </i>
+
+                                        <span>LOAD MORE OCCASIONS</span>
+
+                                    </a>
+
+                                @endif
+
                             </div>
                         </div>
 
@@ -123,7 +84,37 @@
         </section>
         <!-- collection area end -->
     </main>
-    
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).on('click', '#load-more-occasions', function () {
+
+            let btn = $(this);
+            let page = btn.data('page');
+
+            btn.find('span').text('Loading...');
+
+            $.ajax({
+                url: "{{ route('occasions') }}",
+                type: "GET",
+                data: {
+                    page: page
+                },
+                success: function (response) {
+
+                    if ($.trim(response) === '') {
+                        btn.remove();
+                        return;
+                    }
+
+                    $('#occasion-container').append(response);
+
+                    btn.data('page', page + 1);
+                    btn.find('span').text('LOAD MORE OCCASIONS');
+                }
+            });
+
+        });
+    </script>
 
 @endsection

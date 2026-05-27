@@ -360,39 +360,61 @@
 
                             <!-- Call to Action Buttons -->
                             <div class="d-flex flex-column flex-sm-row gap-3">
-                                <button class="aq-btn-black btn-red-bg flex-grow-1 aq-custom-quote-btn"
-                                    data-bs-toggle="modal" data-bs-target="#bulkOrderModal">
-                                    <i class="fa-regular fa-envelope"></i> Get Customized Bulk Quote
-                                </button>
-                                <a href="#" class="aq-btn-black flex-grow-1 aq-download-pdf-btn"
-                                    onclick="alert('Digital Proposal & Catalog Brochure started downloading!')">
-                                    <i class="fa-solid fa-file-pdf"></i> Download Catalog PDF
-                                </a>
+                                <!--<button class="aq-btn-black btn-red-bg flex-grow-1 aq-custom-quote-btn"-->
+                                <!--    data-bs-toggle="modal" data-bs-target="#bulkOrderModal">-->
+                                <!--    <i class="fa-regular fa-envelope"></i> Get Customized Bulk Quote-->
+                                <!--</button>-->
+                                <!--<a href="#" class="aq-btn-black flex-grow-1 aq-download-pdf-btn"-->
+                                <!--    onclick="alert('Digital Proposal & Catalog Brochure started downloading!')">-->
+                                <!--    <i class="fa-solid fa-file-pdf"></i> Download Catalog PDF-->
+                                <!--</a>-->
+                                
+                            @if($product->cart)
+                            <button data-id="{{ $product->id }}" class="aq-btn-black btn-red-bg flex-grow-1 aq-custom-quote-btn add-to-cart">
+                                <i class="fa-solid fa-cart-plus"></i>
+                                Add to Cart
+                            </button>
+                        @endif
+                    
+                        @if($product->whatsapp)
+                            <a href="https://wa.me/919876543210" target="_blank" class="aq-btn-black flex-grow-1 aq-download-pdf-btn">
+                                <i class="fa-brands fa-whatsapp"></i>
+                                WhatsApp
+                            </a>
+                        @endif
+                        
+                                                @if($product->call)
+                            <a href="tel:919876543210" class="call-btn">
+                                <i class="fa-solid fa-phone"></i>
+                                Call Now
+                            </a>
+                        @endif
                             </div>
-                            <div class="d-flex flex-column flex-sm-row gap-3">
-                                @if($product->cart)
-                                    <button data-id="{{ $product->id }}" class="add-to-cart">
-                                        <i class="fa-solid fa-cart-plus"></i>
-                                        Add to Cart
-                                    </button>
-                                @endif
+                            <!--product-action-wrapper-->
+                            <div class=" d-flex flex-column flex-sm-row gap-3">
 
-                                <!-- WhatsApp Button -->
-                                @if($product->whatsapp)
-                                    <a href="https://wa.me/919876543210" target="_blank" class="whatsapp-btn">
-                                        <i class="fa-brands fa-whatsapp text-2xl"></i>
-                                        WhatsApp
-                                    </a>
-                                @endif
-
-                                <!-- Call Now Button -->
-                                @if($product->call)
-                                    <a href="tel:919876543210" class="call-btn">
-                                        <i class="fa-solid fa-phone text-xl"></i>
-                                        Call Now
-                                    </a>
-                                @endif
-                            </div>
+                        <!--@if($product->cart)-->
+                        <!--    <button data-id="{{ $product->id }}" class=" btn-red-bg flex-grow-1 aq-custom-quote-btn">-->
+                        <!--        <i class="fa-solid fa-cart-plus"></i>-->
+                        <!--        Add to Cart-->
+                        <!--    </button>-->
+                        <!--@endif-->
+                    
+                        <!--@if($product->whatsapp)-->
+                        <!--    <a href="https://wa.me/919876543210" target="_blank" class=" flex-grow-1 aq-download-pdf-btn">-->
+                        <!--        <i class="fa-brands fa-whatsapp"></i>-->
+                        <!--        WhatsApp-->
+                        <!--    </a>-->
+                        <!--@endif-->
+                    
+                        <!--@if($product->call)-->
+                        <!--    <a href="tel:919876543210" class="call-btn">-->
+                        <!--        <i class="fa-solid fa-phone"></i>-->
+                        <!--        Call Now-->
+                        <!--    </a>-->
+                        <!--@endif-->
+                    
+                    </div>
 
 
                         </div>

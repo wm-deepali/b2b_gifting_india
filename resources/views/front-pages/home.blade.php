@@ -121,7 +121,7 @@
 
                             <div class="aqf-categories-item text-center">
 
-                                <a href="{{ route('category.products',$category->slug) }}">
+                                <a href="{{ route('category.products', $category->slug) }}">
 
                                     <div class="aqf-categories-img">
 
@@ -224,842 +224,356 @@
                         <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
                             tabindex="0">
                             <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 row-cols-1">
-                                <div class="col">
-                                    <div class="aq-product-item aq-product-main mb-20" data-lazy="true">
-                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
-                                            <div class="aq-product-badge">
-                                                <span class="clr-sale">-5%</span>
-                                                <span class="clr-new">new</span>
-                                            </div>
-                                            <div class="aq-product-action">
-                                                <button type="button" class="aq-product-action-btn aq-tooltip"
-                                                    data-bs-toggle="modal" data-bs-target="#producQuickViewModal">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="16"
-                                                        viewBox="0 0 19 16" fill="none">
-                                                        <path
-                                                            d="M12.0557 7.75429C12.0557 9.42922 10.7022 10.7827 9.0273 10.7827C7.35238 10.7827 5.99891 9.42922 5.99891 7.75429C5.99891 6.07937 7.35238 4.72589 9.0273 4.72589C10.7022 4.72589 12.0557 6.07937 12.0557 7.75429Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                        <path
-                                                            d="M9.02734 14.75C12.0134 14.75 14.7965 12.9905 16.7337 9.94517C17.495 8.75242 17.495 6.74758 16.7337 5.55483C14.7965 2.50952 12.0134 0.75 9.02734 0.75C6.04124 0.75 3.25816 2.50952 1.321 5.55483C0.559668 6.74758 0.559668 8.75242 1.321 9.94517C3.25816 12.9905 6.04124 14.75 9.02734 14.75Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Quick View</span>
-                                                </button>
-                                                <button type="button"
-                                                    class="aq-product-action-btn aq-wishlist-btn aq-tooltip">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16"
-                                                        viewBox="0 0 18 16" fill="none">
-                                                        <path
-                                                            d="M14.7197 1.52347C12.5744 0.244089 10.7019 0.759666 9.57712 1.58092C9.11591 1.91766 8.88531 2.08602 8.74963 2.08602C8.61396 2.08602 8.38336 1.91766 7.92215 1.58092C6.79733 0.759666 4.9249 0.244089 2.77958 1.52347C-0.0359114 3.20253 -0.67299 8.7418 5.82126 13.4151C7.05821 14.3052 7.67668 14.7502 8.74963 14.7502C9.82258 14.7502 10.4411 14.3052 11.678 13.4151C18.1723 8.7418 17.5352 3.20253 14.7197 1.52347Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round">
-                                                        </path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Add To Wishlist</span>
-                                                </button>
-                                            </div>
-                                            <a href="product-details-default.html">
-                                                <img class="lazyload aq-product-img" src="assets/img/corporate/bag-3.webp"
-                                                    alt="" loading="lazy" />
-                                                <img class="aq-img-hover lazyload" src="assets/img/corporate/bag-4.webp"
-                                                    alt="" loading="lazy" />
-                                            </a>
-                                        </div>
-                                        <div class="aq-product-content text-center text-md-start">
-                                            <h4 class="aq-product-title mb-10">
-                                                <a href="product-details-default.html">Professional Laptop Bag</a>
-                                            </h4>
-                                            <div class="aq-product-price">
-                                                <ins><span class="aq-product-new-price">$30.00</span></ins>
-                                                <del><span class="aq-product-old-price">$80.00</span></del>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="aq-product-item aq-product-main mb-20" data-lazy="true">
-                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
-                                            <div class="aq-product-action">
-                                                <button type="button" class="aq-product-action-btn aq-tooltip"
-                                                    data-bs-toggle="modal" data-bs-target="#producQuickViewModal">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="16"
-                                                        viewBox="0 0 19 16" fill="none">
-                                                        <path
-                                                            d="M12.0557 7.75429C12.0557 9.42922 10.7022 10.7827 9.0273 10.7827C7.35238 10.7827 5.99891 9.42922 5.99891 7.75429C5.99891 6.07937 7.35238 4.72589 9.0273 4.72589C10.7022 4.72589 12.0557 6.07937 12.0557 7.75429Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                        <path
-                                                            d="M9.02734 14.75C12.0134 14.75 14.7965 12.9905 16.7337 9.94517C17.495 8.75242 17.495 6.74758 16.7337 5.55483C14.7965 2.50952 12.0134 0.75 9.02734 0.75C6.04124 0.75 3.25816 2.50952 1.321 5.55483C0.559668 6.74758 0.559668 8.75242 1.321 9.94517C3.25816 12.9905 6.04124 14.75 9.02734 14.75Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Quick View</span>
-                                                </button>
-                                                <button type="button"
-                                                    class="aq-product-action-btn aq-wishlist-btn aq-tooltip">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16"
-                                                        viewBox="0 0 18 16" fill="none">
-                                                        <path
-                                                            d="M14.7197 1.52347C12.5744 0.244089 10.7019 0.759666 9.57712 1.58092C9.11591 1.91766 8.88531 2.08602 8.74963 2.08602C8.61396 2.08602 8.38336 1.91766 7.92215 1.58092C6.79733 0.759666 4.9249 0.244089 2.77958 1.52347C-0.0359114 3.20253 -0.67299 8.7418 5.82126 13.4151C7.05821 14.3052 7.67668 14.7502 8.74963 14.7502C9.82258 14.7502 10.4411 14.3052 11.678 13.4151C18.1723 8.7418 17.5352 3.20253 14.7197 1.52347Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round">
-                                                        </path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Add To Wishlist</span>
-                                                </button>
-                                            </div>
-                                            <a href="product-details-default.html">
-                                                <img class="lazyload aq-product-img" src="assets/img/corporate/bag-5.webp"
-                                                    alt="" loading="lazy" />
-                                                <img class="aq-img-hover lazyload" src="assets/img/corporate/bag-6.webp"
-                                                    alt="" loading="lazy" />
-                                            </a>
-                                        </div>
-                                        <div class="aq-product-content text-center text-md-start">
-                                            <h4 class="aq-product-title mb-10">
-                                                <a href="product-details-default.html">Corporate Travel Pack</a>
-                                            </h4>
-                                            <div class="aq-product-price">
-                                                <ins><span class="aq-product-new-price">$30.00</span></ins>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="aq-product-item aq-product-main mb-20" data-lazy="true">
-                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
-                                            <div class="aq-product-badge">
-                                                <span class="clr-new">New</span>
-                                            </div>
-                                            <div class="aq-product-action">
-                                                <button type="button" class="aq-product-action-btn aq-tooltip"
-                                                    data-bs-toggle="modal" data-bs-target="#producQuickViewModal">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="16"
-                                                        viewBox="0 0 19 16" fill="none">
-                                                        <path
-                                                            d="M12.0557 7.75429C12.0557 9.42922 10.7022 10.7827 9.0273 10.7827C7.35238 10.7827 5.99891 9.42922 5.99891 7.75429C5.99891 6.07937 7.35238 4.72589 9.0273 4.72589C10.7022 4.72589 12.0557 6.07937 12.0557 7.75429Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                        <path
-                                                            d="M9.02734 14.75C12.0134 14.75 14.7965 12.9905 16.7337 9.94517C17.495 8.75242 17.495 6.74758 16.7337 5.55483C14.7965 2.50952 12.0134 0.75 9.02734 0.75C6.04124 0.75 3.25816 2.50952 1.321 5.55483C0.559668 6.74758 0.559668 8.75242 1.321 9.94517C3.25816 12.9905 6.04124 14.75 9.02734 14.75Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Quick View</span>
-                                                </button>
-                                                <button type="button"
-                                                    class="aq-product-action-btn aq-wishlist-btn aq-tooltip">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16"
-                                                        viewBox="0 0 18 16" fill="none">
-                                                        <path
-                                                            d="M14.7197 1.52347C12.5744 0.244089 10.7019 0.759666 9.57712 1.58092C9.11591 1.91766 8.88531 2.08602 8.74963 2.08602C8.61396 2.08602 8.38336 1.91766 7.92215 1.58092C6.79733 0.759666 4.9249 0.244089 2.77958 1.52347C-0.0359114 3.20253 -0.67299 8.7418 5.82126 13.4151C7.05821 14.3052 7.67668 14.7502 8.74963 14.7502C9.82258 14.7502 10.4411 14.3052 11.678 13.4151C18.1723 8.7418 17.5352 3.20253 14.7197 1.52347Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round">
-                                                        </path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Add To Wishlist</span>
-                                                </button>
-                                            </div>
-                                            <a href="product-details-default.html">
-                                                <img class="lazyload aq-product-img" src="assets/img/corporate/bag-7.webp"
-                                                    alt="" loading="lazy" />
-                                                <img class="aq-img-hover lazyload" src="assets/img/corporate/bag-8.webp"
-                                                    alt="" loading="lazy" />
-                                            </a>
-                                        </div>
-                                        <div class="aq-product-content text-center text-md-start">
-                                            <h4 class="aq-product-title mb-10">
-                                                <a href="product-details-default.html">Premium Business Messenger</a>
-                                            </h4>
-                                            <div class="aq-product-price">
-                                                <ins><span class="aq-product-new-price">$29.00</span></ins>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div class="col">
-                                    <div class="aq-product-item aq-product-main mb-20" data-lazy="true">
-                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
-                                            <div class="aq-product-badge">
-                                                <span class="clr-sale">-18%</span>
+                                @foreach($newArrivals as $product)
+
+                                    <div class="col">
+                                        <div class="aq-product-item aq-product-main mb-20" data-lazy="true">
+
+                                            <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
+
+                                                @if($product->discount > 0 || $product->new_arrival)
+                                                    <div class="aq-product-badge">
+
+                                                        @if($product->discount > 0)
+
+                                                            @if($product->discount_type == 'percentage')
+                                                                <span class="clr-sale">
+                                                                    -{{ rtrim(rtrim(number_format($product->discount, 2), '0'), '.') }}%
+                                                                </span>
+                                                            @else
+                                                                <span class="clr-sale">
+                                                                    ₹{{ number_format($product->discount) }} OFF
+                                                                </span>
+                                                            @endif
+
+                                                        @endif
+
+                                                        @if($product->new_arrival)
+                                                            <span class="clr-new">new</span>
+                                                        @endif
+
+                                                    </div>
+                                                @endif
+
+                                                <div class="aq-product-action">
+                                                    <button type="button" class="aq-product-action-btn aq-tooltip"
+                                                        data-bs-toggle="modal" data-bs-target="#producQuickViewModal">
+
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="16"
+                                                            viewBox="0 0 19 16" fill="none">
+                                                            <path
+                                                                d="M12.0557 7.75429C12.0557 9.42922 10.7022 10.7827 9.0273 10.7827C7.35238 10.7827 5.99891 9.42922 5.99891 7.75429C5.99891 6.07937 7.35238 4.72589 9.0273 4.72589C10.7022 4.72589 12.0557 6.07937 12.0557 7.75429Z"
+                                                                stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
+                                                                stroke-linejoin="round"></path>
+                                                            <path
+                                                                d="M9.02734 14.75C12.0134 14.75 14.7965 12.9905 16.7337 9.94517C17.495 8.75242 17.495 6.74758 16.7337 5.55483C14.7965 2.50952 12.0134 0.75 9.02734 0.75C6.04124 0.75 3.25816 2.50952 1.321 5.55483C0.559668 6.74758 0.559668 8.75242 1.321 9.94517C3.25816 12.9905 6.04124 14.75 9.02734 14.75Z"
+                                                                stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
+                                                                stroke-linejoin="round"></path>
+                                                        </svg>
+                                                        <span class="aq-tooltip-item">Quick View</span>
+                                                    </button>
+
+                                                    <button type="button"
+                                                        class="aq-product-action-btn aq-wishlist-btn aq-tooltip">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16"
+                                                            viewBox="0 0 18 16" fill="none">
+                                                            <path
+                                                                d="M14.7197 1.52347C12.5744 0.244089 10.7019 0.759666 9.57712 1.58092C9.11591 1.91766 8.88531 2.08602 8.74963 2.08602C8.61396 2.08602 8.38336 1.91766 7.92215 1.58092C6.79733 0.759666 4.9249 0.244089 2.77958 1.52347C-0.0359114 3.20253 -0.67299 8.7418 5.82126 13.4151C7.05821 14.3052 7.67668 14.7502 8.74963 14.7502C9.82258 14.7502 10.4411 14.3052 11.678 13.4151C18.1723 8.7418 17.5352 3.20253 14.7197 1.52347Z"
+                                                                stroke="currentcolor" stroke-width="1.5" stroke-linecap="round">
+                                                            </path>
+                                                        </svg>
+                                                        <span class="aq-tooltip-item">Add To Wishlist</span>
+                                                    </button>
+                                                </div>
+
+                                                <a href="{{ route('product.details', $product->slug) }}">
+
+                                                    <img class="lazyload aq-product-img"
+                                                        src="{{ asset('storage/' . $product->display_image) }}"
+                                                        alt="{{ $product->name }}" loading="lazy" />
+
+                                                    <img class="aq-img-hover lazyload"
+                                                        src="{{ asset('storage/' . $product->display_image) }}"
+                                                        alt="{{ $product->name }}" loading="lazy" />
+
+                                                </a>
+
                                             </div>
-                                            <div class="aq-product-action">
-                                                <button type="button" class="aq-product-action-btn aq-tooltip"
-                                                    data-bs-toggle="modal" data-bs-target="#producQuickViewModal">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="16"
-                                                        viewBox="0 0 19 16" fill="none">
-                                                        <path
-                                                            d="M12.0557 7.75429C12.0557 9.42922 10.7022 10.7827 9.0273 10.7827C7.35238 10.7827 5.99891 9.42922 5.99891 7.75429C5.99891 6.07937 7.35238 4.72589 9.0273 4.72589C10.7022 4.72589 12.0557 6.07937 12.0557 7.75429Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                        <path
-                                                            d="M9.02734 14.75C12.0134 14.75 14.7965 12.9905 16.7337 9.94517C17.495 8.75242 17.495 6.74758 16.7337 5.55483C14.7965 2.50952 12.0134 0.75 9.02734 0.75C6.04124 0.75 3.25816 2.50952 1.321 5.55483C0.559668 6.74758 0.559668 8.75242 1.321 9.94517C3.25816 12.9905 6.04124 14.75 9.02734 14.75Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Quick View</span>
-                                                </button>
-                                                <button type="button"
-                                                    class="aq-product-action-btn aq-wishlist-btn aq-tooltip">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16"
-                                                        viewBox="0 0 18 16" fill="none">
-                                                        <path
-                                                            d="M14.7197 1.52347C12.5744 0.244089 10.7019 0.759666 9.57712 1.58092C9.11591 1.91766 8.88531 2.08602 8.74963 2.08602C8.61396 2.08602 8.38336 1.91766 7.92215 1.58092C6.79733 0.759666 4.9249 0.244089 2.77958 1.52347C-0.0359114 3.20253 -0.67299 8.7418 5.82126 13.4151C7.05821 14.3052 7.67668 14.7502 8.74963 14.7502C9.82258 14.7502 10.4411 14.3052 11.678 13.4151C18.1723 8.7418 17.5352 3.20253 14.7197 1.52347Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round">
-                                                        </path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Add To Wishlist</span>
-                                                </button>
+
+                                            <div class="aq-product-content text-center text-md-start">
+
+                                                <h4 class="aq-product-title mb-10">
+                                                    <a href="{{ route('product.details', $product->slug) }}">
+                                                        {{ $product->name }}
+                                                    </a>
+                                                </h4>
+
+                                                <div class="aq-product-price">
+
+                                                    <ins>
+                                                        <span class="aq-product-new-price">
+                                                            ₹{{ number_format($product->price) }}
+                                                        </span>
+                                                    </ins>
+
+                                                    @if($product->mrp > $product->price)
+                                                        <del>
+                                                            <span class="aq-product-old-price">
+                                                                ₹{{ number_format($product->mrp) }}
+                                                            </span>
+                                                        </del>
+                                                    @endif
+
+                                                </div>
+
                                             </div>
-                                            <a href="product-details-default.html">
-                                                <img class="lazyload aq-product-img" src="assets/img/corporate/bag-4.webp"
-                                                    alt="" loading="lazy" />
-                                                <img class="aq-img-hover lazyload" src="assets/img/corporate/bag-5.webp"
-                                                    alt="" loading="lazy" />
-                                            </a>
-                                        </div>
-                                        <div class="aq-product-content text-center text-md-start">
-                                            <h4 class="aq-product-title mb-10">
-                                                <a href="product-details-default.html">Executive Leather Tote</a>
-                                            </h4>
-                                            <div class="aq-product-price">
-                                                <ins><span class="aq-product-new-price">$24.00</span></ins>
-                                                <del><span class="aq-product-old-price">$18.00</span></del>
-                                            </div>
+
                                         </div>
                                     </div>
-                                </div>
+
+                                @endforeach
+
                             </div>
                         </div>
                         <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab"
                             tabindex="0">
                             <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 row-cols-1">
-                                <div class="col">
-                                    <div class="aq-product-item aq-product-main mb-20" data-lazy="true">
-                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
-                                            <div class="aq-product-badge">
-                                                <span class="clr-sale">-10%</span>
+
+                                @foreach($bestSellers as $product)
+
+                                    <div class="col">
+                                        <div class="aq-product-item aq-product-main mb-20" data-lazy="true">
+
+                                            <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
+
+                                                @if($product->discount > 0 || $product->best_seller)
+                                                    <div class="aq-product-badge">
+
+                                                        @if($product->discount > 0)
+
+                                                            @if($product->discount_type == 'percentage')
+                                                                <span class="clr-sale">
+                                                                    -{{ rtrim(rtrim(number_format($product->discount, 2), '0'), '.') }}%
+                                                                </span>
+                                                            @else
+                                                                <span class="clr-sale">
+                                                                    ₹{{ number_format($product->discount) }} OFF
+                                                                </span>
+                                                            @endif
+
+                                                        @endif
+                                                        @if($product->best_seller)
+                                                            <span class="clr-hot">Hot</span>
+                                                        @endif
+
+                                                    </div>
+                                                @endif
+
+                                                <div class="aq-product-action">
+
+                                                    <button type="button" class="aq-product-action-btn aq-tooltip"
+                                                        data-bs-toggle="modal" data-bs-target="#producQuickViewModal">
+
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="16"
+                                                            viewBox="0 0 19 16" fill="none">
+                                                            <path
+                                                                d="M12.0557 7.75429C12.0557 9.42922 10.7022 10.7827 9.0273 10.7827C7.35238 10.7827 5.99891 9.42922 5.99891 7.75429C5.99891 6.07937 7.35238 4.72589 9.0273 4.72589C10.7022 4.72589 12.0557 6.07937 12.0557 7.75429Z"
+                                                                stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
+                                                                stroke-linejoin="round"></path>
+                                                            <path
+                                                                d="M9.02734 14.75C12.0134 14.75 14.7965 12.9905 16.7337 9.94517C17.495 8.75242 17.495 6.74758 16.7337 5.55483C14.7965 2.50952 12.0134 0.75 9.02734 0.75C6.04124 0.75 3.25816 2.50952 1.321 5.55483C0.559668 6.74758 0.559668 8.75242 1.321 9.94517C3.25816 12.9905 6.04124 14.75 9.02734 14.75Z"
+                                                                stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
+                                                                stroke-linejoin="round"></path>
+                                                        </svg>
+                                                        <span class="aq-tooltip-item">Quick View</span>
+
+                                                    </button>
+
+                                                    <button type="button"
+                                                        class="aq-product-action-btn aq-wishlist-btn aq-tooltip">
+
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16"
+                                                            viewBox="0 0 18 16" fill="none">
+                                                            <path
+                                                                d="M14.7197 1.52347C12.5744 0.244089 10.7019 0.759666 9.57712 1.58092C9.11591 1.91766 8.88531 2.08602 8.74963 2.08602C8.61396 2.08602 8.38336 1.91766 7.92215 1.58092C6.79733 0.759666 4.9249 0.244089 2.77958 1.52347C-0.0359114 3.20253 -0.67299 8.7418 5.82126 13.4151C7.05821 14.3052 7.67668 14.7502 8.74963 14.7502C9.82258 14.7502 10.4411 14.3052 11.678 13.4151C18.1723 8.7418 17.5352 3.20253 14.7197 1.52347Z"
+                                                                stroke="currentcolor" stroke-width="1.5" stroke-linecap="round">
+                                                            </path>
+                                                        </svg>
+                                                        <span class="aq-tooltip-item">Add To Wishlist</span>
+
+                                                    </button>
+
+                                                </div>
+
+                                                <a href="{{ route('product.details', $product->slug) }}">
+
+                                                    <img class="lazyload aq-product-img"
+                                                        src="{{ asset('storage/' . $product->display_image) }}"
+                                                        alt="{{ $product->name }}" loading="lazy" />
+
+                                                    <img class="aq-img-hover lazyload"
+                                                        src="{{ asset('storage/' . $product->display_image) }}"
+                                                        alt="{{ $product->name }}" loading="lazy" />
+
+                                                </a>
+
                                             </div>
-                                            <div class="aq-product-action">
-                                                <button type="button" class="aq-product-action-btn aq-tooltip"
-                                                    data-bs-toggle="modal" data-bs-target="#producQuickViewModal">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="16"
-                                                        viewBox="0 0 19 16" fill="none">
-                                                        <path
-                                                            d="M12.0557 7.75429C12.0557 9.42922 10.7022 10.7827 9.0273 10.7827C7.35238 10.7827 5.99891 9.42922 5.99891 7.75429C5.99891 6.07937 7.35238 4.72589 9.0273 4.72589C10.7022 4.72589 12.0557 6.07937 12.0557 7.75429Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                        <path
-                                                            d="M9.02734 14.75C12.0134 14.75 14.7965 12.9905 16.7337 9.94517C17.495 8.75242 17.495 6.74758 16.7337 5.55483C14.7965 2.50952 12.0134 0.75 9.02734 0.75C6.04124 0.75 3.25816 2.50952 1.321 5.55483C0.559668 6.74758 0.559668 8.75242 1.321 9.94517C3.25816 12.9905 6.04124 14.75 9.02734 14.75Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Quick View</span>
-                                                </button>
-                                                <button type="button"
-                                                    class="aq-product-action-btn aq-wishlist-btn aq-tooltip">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16"
-                                                        viewBox="0 0 18 16" fill="none">
-                                                        <path
-                                                            d="M14.7197 1.52347C12.5744 0.244089 10.7019 0.759666 9.57712 1.58092C9.11591 1.91766 8.88531 2.08602 8.74963 2.08602C8.61396 2.08602 8.38336 1.91766 7.92215 1.58092C6.79733 0.759666 4.9249 0.244089 2.77958 1.52347C-0.0359114 3.20253 -0.67299 8.7418 5.82126 13.4151C7.05821 14.3052 7.67668 14.7502 8.74963 14.7502C9.82258 14.7502 10.4411 14.3052 11.678 13.4151C18.1723 8.7418 17.5352 3.20253 14.7197 1.52347Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round">
-                                                        </path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Add To Wishlist</span>
-                                                </button>
+
+                                            <div class="aq-product-content text-center text-md-start">
+
+                                                <h4 class="aq-product-title mb-10">
+                                                    <a href="{{ route('product.details', $product->slug) }}">
+                                                        {{ $product->name }}
+                                                    </a>
+                                                </h4>
+
+                                                <div class="aq-product-price">
+
+                                                    <ins>
+                                                        <span class="aq-product-new-price">
+                                                            ₹{{ number_format($product->price) }}
+                                                        </span>
+                                                    </ins>
+
+                                                    @if($product->mrp > $product->price)
+                                                        <del>
+                                                            <span class="aq-product-old-price">
+                                                                ₹{{ number_format($product->mrp) }}
+                                                            </span>
+                                                        </del>
+                                                    @endif
+
+                                                </div>
+
                                             </div>
-                                            <a href="product-details-default.html">
-                                                <img class="lazyload aq-product-img" src="assets/img/corporate/bag-9.webp"
-                                                    alt="" loading="lazy" />
-                                                <img class="aq-img-hover lazyload" src="assets/img/corporate/bag-10.webp"
-                                                    alt="" loading="lazy" />
-                                            </a>
-                                        </div>
-                                        <div class="aq-product-content">
-                                            <h4 class="aq-product-title mb-10">
-                                                <a href="product-details-default.html">Sleek Tech Backpack</a>
-                                            </h4>
-                                            <div class="aq-product-price">
-                                                <ins><span class="aq-product-new-price">$79.00</span></ins>
-                                                <del><span class="aq-product-old-price">$99.00</span></del>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="aq-product-item aq-product-main mb-20" data-lazy="true">
-                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
-                                            <div class="aq-product-badge">
-                                                <span class="clr-hot">Hot</span>
-                                            </div>
-                                            <div class="aq-product-action">
-                                                <button type="button" class="aq-product-action-btn aq-tooltip"
-                                                    data-bs-toggle="modal" data-bs-target="#producQuickViewModal">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="16"
-                                                        viewBox="0 0 19 16" fill="none">
-                                                        <path
-                                                            d="M12.0557 7.75429C12.0557 9.42922 10.7022 10.7827 9.0273 10.7827C7.35238 10.7827 5.99891 9.42922 5.99891 7.75429C5.99891 6.07937 7.35238 4.72589 9.0273 4.72589C10.7022 4.72589 12.0557 6.07937 12.0557 7.75429Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                        <path
-                                                            d="M9.02734 14.75C12.0134 14.75 14.7965 12.9905 16.7337 9.94517C17.495 8.75242 17.495 6.74758 16.7337 5.55483C14.7965 2.50952 12.0134 0.75 9.02734 0.75C6.04124 0.75 3.25816 2.50952 1.321 5.55483C0.559668 6.74758 0.559668 8.75242 1.321 9.94517C3.25816 12.9905 6.04124 14.75 9.02734 14.75Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Quick View</span>
-                                                </button>
-                                                <button type="button"
-                                                    class="aq-product-action-btn aq-wishlist-btn aq-tooltip">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16"
-                                                        viewBox="0 0 18 16" fill="none">
-                                                        <path
-                                                            d="M14.7197 1.52347C12.5744 0.244089 10.7019 0.759666 9.57712 1.58092C9.11591 1.91766 8.88531 2.08602 8.74963 2.08602C8.61396 2.08602 8.38336 1.91766 7.92215 1.58092C6.79733 0.759666 4.9249 0.244089 2.77958 1.52347C-0.0359114 3.20253 -0.67299 8.7418 5.82126 13.4151C7.05821 14.3052 7.67668 14.7502 8.74963 14.7502C9.82258 14.7502 10.4411 14.3052 11.678 13.4151C18.1723 8.7418 17.5352 3.20253 14.7197 1.52347Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round">
-                                                        </path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Add To Wishlist</span>
-                                                </button>
-                                            </div>
-                                            <a href="product-details-default.html">
-                                                <img class="lazyload aq-product-img"
-                                                    src="assets/img/corporate/card_imges1.webp" alt="" loading="lazy" />
-                                                <img class="aq-img-hover lazyload"
-                                                    src="assets/img/corporate/card_imges2.webp" alt="" loading="lazy" />
-                                            </a>
-                                        </div>
-                                        <div class="aq-product-content text-center text-md-start">
-                                            <h4 class="aq-product-title mb-10">
-                                                <a href="product-details-default.html">Classic Office Satchel</a>
-                                            </h4>
-                                            <div class="aq-product-price">
-                                                <ins><span class="aq-product-new-price">$79.00</span></ins>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="aq-product-item aq-product-main mb-20" data-lazy="true">
-                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
-                                            <div class="aq-product-badge">
-                                                <span class="clr-new">New</span>
-                                            </div>
-                                            <div class="aq-product-action">
-                                                <button type="button" class="aq-product-action-btn aq-tooltip"
-                                                    data-bs-toggle="modal" data-bs-target="#producQuickViewModal">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="16"
-                                                        viewBox="0 0 19 16" fill="none">
-                                                        <path
-                                                            d="M12.0557 7.75429C12.0557 9.42922 10.7022 10.7827 9.0273 10.7827C7.35238 10.7827 5.99891 9.42922 5.99891 7.75429C5.99891 6.07937 7.35238 4.72589 9.0273 4.72589C10.7022 4.72589 12.0557 6.07937 12.0557 7.75429Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                        <path
-                                                            d="M9.02734 14.75C12.0134 14.75 14.7965 12.9905 16.7337 9.94517C17.495 8.75242 17.495 6.74758 16.7337 5.55483C14.7965 2.50952 12.0134 0.75 9.02734 0.75C6.04124 0.75 3.25816 2.50952 1.321 5.55483C0.559668 6.74758 0.559668 8.75242 1.321 9.94517C3.25816 12.9905 6.04124 14.75 9.02734 14.75Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Quick View</span>
-                                                </button>
-                                                <button type="button"
-                                                    class="aq-product-action-btn aq-wishlist-btn aq-tooltip">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16"
-                                                        viewBox="0 0 18 16" fill="none">
-                                                        <path
-                                                            d="M14.7197 1.52347C12.5744 0.244089 10.7019 0.759666 9.57712 1.58092C9.11591 1.91766 8.88531 2.08602 8.74963 2.08602C8.61396 2.08602 8.38336 1.91766 7.92215 1.58092C6.79733 0.759666 4.9249 0.244089 2.77958 1.52347C-0.0359114 3.20253 -0.67299 8.7418 5.82126 13.4151C7.05821 14.3052 7.67668 14.7502 8.74963 14.7502C9.82258 14.7502 10.4411 14.3052 11.678 13.4151C18.1723 8.7418 17.5352 3.20253 14.7197 1.52347Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round">
-                                                        </path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Add To Wishlist</span>
-                                                </button>
-                                            </div>
-                                            <a href="product-details-default.html">
-                                                <img class="lazyload aq-product-img"
-                                                    src="assets/img/corporate/card_imges3.webp" alt="" loading="lazy" />
-                                                <img class="aq-img-hover lazyload"
-                                                    src="assets/img/corporate/card_imges4.webp" alt="" loading="lazy" />
-                                            </a>
-                                        </div>
-                                        <div class="aq-product-content text-center text-md-start">
-                                            <h4 class="aq-product-title mb-10">
-                                                <a href="product-details-default.html">Urban Commuter Bag</a>
-                                            </h4>
-                                            <div class="aq-product-price">
-                                                <ins><span class="aq-product-new-price">$54.00</span></ins>
-                                            </div>
+
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col">
-                                    <div class="aq-product-item aq-product-main mb-20" data-lazy="true">
-                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
-                                            <div class="aq-product-badge">
-                                                <span class="clr-hot">Hot</span>
-                                            </div>
-                                            <div class="aq-product-action">
-                                                <button type="button" class="aq-product-action-btn aq-tooltip"
-                                                    data-bs-toggle="modal" data-bs-target="#producQuickViewModal">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="16"
-                                                        viewBox="0 0 19 16" fill="none">
-                                                        <path
-                                                            d="M12.0557 7.75429C12.0557 9.42922 10.7022 10.7827 9.0273 10.7827C7.35238 10.7827 5.99891 9.42922 5.99891 7.75429C5.99891 6.07937 7.35238 4.72589 9.0273 4.72589C10.7022 4.72589 12.0557 6.07937 12.0557 7.75429Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                        <path
-                                                            d="M9.02734 14.75C12.0134 14.75 14.7965 12.9905 16.7337 9.94517C17.495 8.75242 17.495 6.74758 16.7337 5.55483C14.7965 2.50952 12.0134 0.75 9.02734 0.75C6.04124 0.75 3.25816 2.50952 1.321 5.55483C0.559668 6.74758 0.559668 8.75242 1.321 9.94517C3.25816 12.9905 6.04124 14.75 9.02734 14.75Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Quick View</span>
-                                                </button>
-                                                <button type="button"
-                                                    class="aq-product-action-btn aq-wishlist-btn aq-tooltip">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16"
-                                                        viewBox="0 0 18 16" fill="none">
-                                                        <path
-                                                            d="M14.7197 1.52347C12.5744 0.244089 10.7019 0.759666 9.57712 1.58092C9.11591 1.91766 8.88531 2.08602 8.74963 2.08602C8.61396 2.08602 8.38336 1.91766 7.92215 1.58092C6.79733 0.759666 4.9249 0.244089 2.77958 1.52347C-0.0359114 3.20253 -0.67299 8.7418 5.82126 13.4151C7.05821 14.3052 7.67668 14.7502 8.74963 14.7502C9.82258 14.7502 10.4411 14.3052 11.678 13.4151C18.1723 8.7418 17.5352 3.20253 14.7197 1.52347Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round">
-                                                        </path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Add To Wishlist</span>
-                                                </button>
-                                            </div>
-                                            <a href="product-details-default.html">
-                                                <img class="lazyload aq-product-img"
-                                                    src="assets/img/corporate/card_imges5.webp" alt="" loading="lazy" />
-                                                <img class="aq-img-hover lazyload"
-                                                    src="assets/img/corporate/card_imges6.webp" alt="" loading="lazy" />
-                                            </a>
-                                        </div>
-                                        <div class="aq-product-content text-center text-md-start">
-                                            <h4 class="aq-product-title mb-10">
-                                                <a href="product-details-default.html">Luxury Portfolio Case</a>
-                                            </h4>
-                                            <div class="aq-product-price">
-                                                <ins><span class="aq-product-new-price">$99.00</span></ins>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
+                                @endforeach
+
                             </div>
                         </div>
                         <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab"
                             tabindex="0">
                             <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 row-cols-1">
-                                <div class="col">
-                                    <div class="aq-product-item aq-product-main mb-20" data-lazy="true">
-                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
-                                            <div class="aq-product-badge">
-                                                <span class="clr-hot">Hot</span>
+
+                                @foreach($featuredProducts as $product)
+
+                                    <div class="col">
+                                        <div class="aq-product-item aq-product-main mb-20" data-lazy="true">
+
+                                            <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
+
+                                                @if($product->discount > 0 || $product->featured)
+                                                    <div class="aq-product-badge">
+
+                                                        @if($product->discount > 0)
+
+                                                            @if($product->discount_type == 'percentage')
+                                                                <span class="clr-sale">
+                                                                    -{{ rtrim(rtrim(number_format($product->discount, 2), '0'), '.') }}%
+                                                                </span>
+                                                            @else
+                                                                <span class="clr-sale">
+                                                                    ₹{{ number_format($product->discount) }} OFF
+                                                                </span>
+                                                            @endif
+
+                                                        @endif
+                                                        @if($product->featured)
+                                                            <span class="clr-hot">Hot</span>
+                                                        @endif
+
+                                                    </div>
+                                                @endif
+
+                                                <div class="aq-product-action">
+
+                                                    {{-- KEEP YOUR EXISTING QUICK VIEW BUTTON --}}
+                                                    <button type="button" class="aq-product-action-btn aq-tooltip"
+                                                        data-bs-toggle="modal" data-bs-target="#producQuickViewModal">
+
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="16"
+                                                            viewBox="0 0 19 16" fill="none">
+                                                            <path
+                                                                d="M12.0557 7.75429C12.0557 9.42922 10.7022 10.7827 9.0273 10.7827C7.35238 10.7827 5.99891 9.42922 5.99891 7.75429C5.99891 6.07937 7.35238 4.72589 9.0273 4.72589C10.7022 4.72589 12.0557 6.07937 12.0557 7.75429Z"
+                                                                stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
+                                                                stroke-linejoin="round"></path>
+                                                            <path
+                                                                d="M9.02734 14.75C12.0134 14.75 14.7965 12.9905 16.7337 9.94517C17.495 8.75242 17.495 6.74758 16.7337 5.55483C14.7965 2.50952 12.0134 0.75 9.02734 0.75C6.04124 0.75 3.25816 2.50952 1.321 5.55483C0.559668 6.74758 0.559668 8.75242 1.321 9.94517C3.25816 12.9905 6.04124 14.75 9.02734 14.75Z"
+                                                                stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
+                                                                stroke-linejoin="round"></path>
+                                                        </svg>
+
+                                                        <span class="aq-tooltip-item">Quick View</span>
+                                                    </button>
+
+                                                    {{-- KEEP YOUR EXISTING WISHLIST BUTTON --}}
+                                                    <button type="button"
+                                                        class="aq-product-action-btn aq-wishlist-btn aq-tooltip">
+
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16"
+                                                            viewBox="0 0 18 16" fill="none">
+                                                            <path
+                                                                d="M14.7197 1.52347C12.5744 0.244089 10.7019 0.759666 9.57712 1.58092C9.11591 1.91766 8.88531 2.08602 8.74963 2.08602C8.61396 2.08602 8.38336 1.91766 7.92215 1.58092C6.79733 0.759666 4.9249 0.244089 2.77958 1.52347C-0.0359114 3.20253 -0.67299 8.7418 5.82126 13.4151C7.05821 14.3052 7.67668 14.7502 8.74963 14.7502C9.82258 14.7502 10.4411 14.3052 11.678 13.4151C18.1723 8.7418 17.5352 3.20253 14.7197 1.52347Z"
+                                                                stroke="currentcolor" stroke-width="1.5" stroke-linecap="round">
+                                                            </path>
+                                                        </svg>
+
+                                                        <span class="aq-tooltip-item">Add To Wishlist</span>
+                                                    </button>
+
+                                                </div>
+
+                                                <a href="{{ route('product.details', $product->slug) }}">
+
+                                                    <img class="lazyload aq-product-img"
+                                                        src="{{ asset('storage/' . $product->display_image) }}"
+                                                        alt="{{ $product->name }}" loading="lazy" />
+
+                                                    <img class="aq-img-hover lazyload"
+                                                        src="{{ asset('storage/' . $product->display_image) }}"
+                                                        alt="{{ $product->name }}" loading="lazy" />
+
+                                                </a>
+
                                             </div>
-                                            <div class="aq-product-action">
-                                                <button type="button" class="aq-product-action-btn aq-tooltip"
-                                                    data-bs-toggle="modal" data-bs-target="#producQuickViewModal">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="16"
-                                                        viewBox="0 0 19 16" fill="none">
-                                                        <path
-                                                            d="M12.0557 7.75429C12.0557 9.42922 10.7022 10.7827 9.0273 10.7827C7.35238 10.7827 5.99891 9.42922 5.99891 7.75429C5.99891 6.07937 7.35238 4.72589 9.0273 4.72589C10.7022 4.72589 12.0557 6.07937 12.0557 7.75429Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                        <path
-                                                            d="M9.02734 14.75C12.0134 14.75 14.7965 12.9905 16.7337 9.94517C17.495 8.75242 17.495 6.74758 16.7337 5.55483C14.7965 2.50952 12.0134 0.75 9.02734 0.75C6.04124 0.75 3.25816 2.50952 1.321 5.55483C0.559668 6.74758 0.559668 8.75242 1.321 9.94517C3.25816 12.9905 6.04124 14.75 9.02734 14.75Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Quick View</span>
-                                                </button>
-                                                <button type="button"
-                                                    class="aq-product-action-btn aq-wishlist-btn aq-tooltip">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16"
-                                                        viewBox="0 0 18 16" fill="none">
-                                                        <path
-                                                            d="M14.7197 1.52347C12.5744 0.244089 10.7019 0.759666 9.57712 1.58092C9.11591 1.91766 8.88531 2.08602 8.74963 2.08602C8.61396 2.08602 8.38336 1.91766 7.92215 1.58092C6.79733 0.759666 4.9249 0.244089 2.77958 1.52347C-0.0359114 3.20253 -0.67299 8.7418 5.82126 13.4151C7.05821 14.3052 7.67668 14.7502 8.74963 14.7502C9.82258 14.7502 10.4411 14.3052 11.678 13.4151C18.1723 8.7418 17.5352 3.20253 14.7197 1.52347Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round">
-                                                        </path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Add To Wishlist</span>
-                                                </button>
+
+                                            <div class="aq-product-content text-center text-md-start">
+
+                                                <h4 class="aq-product-title mb-10">
+                                                    <a href="{{ route('product.details', $product->slug) }}">
+                                                        {{ $product->name }}
+                                                    </a>
+                                                </h4>
+
+                                                <div class="aq-product-price">
+
+                                                    <ins>
+                                                        <span class="aq-product-new-price">
+                                                            ₹{{ number_format($product->price) }}
+                                                        </span>
+                                                    </ins>
+
+                                                    @if($product->mrp > $product->price)
+                                                        <del>
+                                                            <span class="aq-product-old-price">
+                                                                ₹{{ number_format($product->mrp) }}
+                                                            </span>
+                                                        </del>
+                                                    @endif
+
+                                                </div>
+
                                             </div>
-                                            <a href="product-details-default.html">
-                                                <img class="lazyload aq-product-img"
-                                                    src="assets/img/corporate/card_imges7.webp" alt="" loading="lazy" />
-                                                <img class="aq-img-hover lazyload"
-                                                    src="assets/img/corporate/card_imges8.webp" alt="" loading="lazy" />
-                                            </a>
-                                        </div>
-                                        <div class="aq-product-content text-center text-md-start">
-                                            <h4 class="aq-product-title mb-10">
-                                                <a href="product-details-default.html">Professional Welcome Kit</a>
-                                            </h4>
-                                            <div class="aq-product-price">
-                                                <ins><span class="aq-product-new-price">$79.00</span></ins>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="aq-product-item aq-product-main mb-20" data-lazy="true">
-                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
-                                            <div class="aq-product-badge">
-                                                <span class="clr-sale">-10%</span>
-                                            </div>
-                                            <div class="aq-product-action">
-                                                <button type="button" class="aq-product-action-btn aq-tooltip"
-                                                    data-bs-toggle="modal" data-bs-target="#producQuickViewModal">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="16"
-                                                        viewBox="0 0 19 16" fill="none">
-                                                        <path
-                                                            d="M12.0557 7.75429C12.0557 9.42922 10.7022 10.7827 9.0273 10.7827C7.35238 10.7827 5.99891 9.42922 5.99891 7.75429C5.99891 6.07937 7.35238 4.72589 9.0273 4.72589C10.7022 4.72589 12.0557 6.07937 12.0557 7.75429Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                        <path
-                                                            d="M9.02734 14.75C12.0134 14.75 14.7965 12.9905 16.7337 9.94517C17.495 8.75242 17.495 6.74758 16.7337 5.55483C14.7965 2.50952 12.0134 0.75 9.02734 0.75C6.04124 0.75 3.25816 2.50952 1.321 5.55483C0.559668 6.74758 0.559668 8.75242 1.321 9.94517C3.25816 12.9905 6.04124 14.75 9.02734 14.75Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Quick View</span>
-                                                </button>
-                                                <button type="button"
-                                                    class="aq-product-action-btn aq-wishlist-btn aq-tooltip">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16"
-                                                        viewBox="0 0 18 16" fill="none">
-                                                        <path
-                                                            d="M14.7197 1.52347C12.5744 0.244089 10.7019 0.759666 9.57712 1.58092C9.11591 1.91766 8.88531 2.08602 8.74963 2.08602C8.61396 2.08602 8.38336 1.91766 7.92215 1.58092C6.79733 0.759666 4.9249 0.244089 2.77958 1.52347C-0.0359114 3.20253 -0.67299 8.7418 5.82126 13.4151C7.05821 14.3052 7.67668 14.7502 8.74963 14.7502C9.82258 14.7502 10.4411 14.3052 11.678 13.4151C18.1723 8.7418 17.5352 3.20253 14.7197 1.52347Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round">
-                                                        </path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Add To Wishlist</span>
-                                                </button>
-                                            </div>
-                                            <a href="product-details-default.html">
-                                                <img class="lazyload aq-product-img"
-                                                    src="assets/img/corporate/occasion_card1.webp" alt="" loading="lazy" />
-                                                <img class="aq-img-hover lazyload"
-                                                    src="assets/img/corporate/occasion_card2.webp" alt="" loading="lazy" />
-                                            </a>
-                                        </div>
-                                        <div class="aq-product-content text-center text-md-start">
-                                            <h4 class="aq-product-title mb-10">
-                                                <a href="product-details-default.html">Celebration Gift Box</a>
-                                            </h4>
-                                            <div class="aq-product-price">
-                                                <ins><span class="aq-product-new-price">$79.00</span></ins>
-                                                <del><span class="aq-product-old-price">$99.00</span></del>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="aq-product-item aq-product-main mb-20" data-lazy="true">
-                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
-                                            <div class="aq-product-badge">
-                                                <span class="clr-new">New</span>
-                                            </div>
-                                            <div class="aq-product-action">
-                                                <button type="button" class="aq-product-action-btn aq-tooltip"
-                                                    data-bs-toggle="modal" data-bs-target="#producQuickViewModal">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="16"
-                                                        viewBox="0 0 19 16" fill="none">
-                                                        <path
-                                                            d="M12.0557 7.75429C12.0557 9.42922 10.7022 10.7827 9.0273 10.7827C7.35238 10.7827 5.99891 9.42922 5.99891 7.75429C5.99891 6.07937 7.35238 4.72589 9.0273 4.72589C10.7022 4.72589 12.0557 6.07937 12.0557 7.75429Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                        <path
-                                                            d="M9.02734 14.75C12.0134 14.75 14.7965 12.9905 16.7337 9.94517C17.495 8.75242 17.495 6.74758 16.7337 5.55483C14.7965 2.50952 12.0134 0.75 9.02734 0.75C6.04124 0.75 3.25816 2.50952 1.321 5.55483C0.559668 6.74758 0.559668 8.75242 1.321 9.94517C3.25816 12.9905 6.04124 14.75 9.02734 14.75Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Quick View</span>
-                                                </button>
-                                                <button type="button"
-                                                    class="aq-product-action-btn aq-wishlist-btn aq-tooltip">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16"
-                                                        viewBox="0 0 18 16" fill="none">
-                                                        <path
-                                                            d="M14.7197 1.52347C12.5744 0.244089 10.7019 0.759666 9.57712 1.58092C9.11591 1.91766 8.88531 2.08602 8.74963 2.08602C8.61396 2.08602 8.38336 1.91766 7.92215 1.58092C6.79733 0.759666 4.9249 0.244089 2.77958 1.52347C-0.0359114 3.20253 -0.67299 8.7418 5.82126 13.4151C7.05821 14.3052 7.67668 14.7502 8.74963 14.7502C9.82258 14.7502 10.4411 14.3052 11.678 13.4151C18.1723 8.7418 17.5352 3.20253 14.7197 1.52347Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round">
-                                                        </path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Add To Wishlist</span>
-                                                </button>
-                                            </div>
-                                            <a href="product-details-default.html">
-                                                <img class="lazyload aq-product-img"
-                                                    src="assets/img/corporate/occasion_card3.webp" alt="" loading="lazy" />
-                                                <img class="aq-img-hover lazyload"
-                                                    src="assets/img/corporate/occasion_card4.webp" alt="" loading="lazy" />
-                                            </a>
-                                        </div>
-                                        <div class="aq-product-content text-center text-md-start">
-                                            <h4 class="aq-product-title mb-10">
-                                                <a href="product-details-default.html">Executive Desk Set</a>
-                                            </h4>
-                                            <div class="aq-product-price">
-                                                <ins><span class="aq-product-new-price">$54.00</span></ins>
-                                            </div>
+
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col">
-                                    <div class="aq-product-item aq-product-main mb-20" data-lazy="true">
-                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
-                                            <div class="aq-product-badge">
-                                                <span class="clr-hot">Hot</span>
-                                            </div>
-                                            <div class="aq-product-action">
-                                                <button type="button" class="aq-product-action-btn aq-tooltip"
-                                                    data-bs-toggle="modal" data-bs-target="#producQuickViewModal">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="16"
-                                                        viewBox="0 0 19 16" fill="none">
-                                                        <path
-                                                            d="M12.0557 7.75429C12.0557 9.42922 10.7022 10.7827 9.0273 10.7827C7.35238 10.7827 5.99891 9.42922 5.99891 7.75429C5.99891 6.07937 7.35238 4.72589 9.0273 4.72589C10.7022 4.72589 12.0557 6.07937 12.0557 7.75429Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                        <path
-                                                            d="M9.02734 14.75C12.0134 14.75 14.7965 12.9905 16.7337 9.94517C17.495 8.75242 17.495 6.74758 16.7337 5.55483C14.7965 2.50952 12.0134 0.75 9.02734 0.75C6.04124 0.75 3.25816 2.50952 1.321 5.55483C0.559668 6.74758 0.559668 8.75242 1.321 9.94517C3.25816 12.9905 6.04124 14.75 9.02734 14.75Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Quick View</span>
-                                                </button>
-                                                <button type="button"
-                                                    class="aq-product-action-btn aq-wishlist-btn aq-tooltip">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16"
-                                                        viewBox="0 0 18 16" fill="none">
-                                                        <path
-                                                            d="M14.7197 1.52347C12.5744 0.244089 10.7019 0.759666 9.57712 1.58092C9.11591 1.91766 8.88531 2.08602 8.74963 2.08602C8.61396 2.08602 8.38336 1.91766 7.92215 1.58092C6.79733 0.759666 4.9249 0.244089 2.77958 1.52347C-0.0359114 3.20253 -0.67299 8.7418 5.82126 13.4151C7.05821 14.3052 7.67668 14.7502 8.74963 14.7502C9.82258 14.7502 10.4411 14.3052 11.678 13.4151C18.1723 8.7418 17.5352 3.20253 14.7197 1.52347Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round">
-                                                        </path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Add To Wishlist</span>
-                                                </button>
-                                            </div>
-                                            <a href="product-details-default.html">
-                                                <img class="lazyload aq-product-img"
-                                                    src="assets/img/corporate/custom_gift_hampers1.webp" alt=""
-                                                    loading="lazy" />
-                                                <img class="aq-img-hover lazyload"
-                                                    src="assets/img/corporate/custom_gift_hampers2.webp" alt=""
-                                                    loading="lazy" />
-                                            </a>
-                                        </div>
-                                        <div class="aq-product-content text-center text-md-start">
-                                            <h4 class="aq-product-title mb-10">
-                                                <a href="product-details-default.html">Gourmet Corporate Hamper</a>
-                                            </h4>
-                                            <div class="aq-product-price">
-                                                <ins><span class="aq-product-new-price">$99.00</span></ins>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="aq-product-item aq-product-main mb-20" data-lazy="true">
-                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
-                                            <div class="aq-product-action">
-                                                <button type="button" class="aq-product-action-btn aq-tooltip"
-                                                    data-bs-toggle="modal" data-bs-target="#producQuickViewModal">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="16"
-                                                        viewBox="0 0 19 16" fill="none">
-                                                        <path
-                                                            d="M12.0557 7.75429C12.0557 9.42922 10.7022 10.7827 9.0273 10.7827C7.35238 10.7827 5.99891 9.42922 5.99891 7.75429C5.99891 6.07937 7.35238 4.72589 9.0273 4.72589C10.7022 4.72589 12.0557 6.07937 12.0557 7.75429Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                        <path
-                                                            d="M9.02734 14.75C12.0134 14.75 14.7965 12.9905 16.7337 9.94517C17.495 8.75242 17.495 6.74758 16.7337 5.55483C14.7965 2.50952 12.0134 0.75 9.02734 0.75C6.04124 0.75 3.25816 2.50952 1.321 5.55483C0.559668 6.74758 0.559668 8.75242 1.321 9.94517C3.25816 12.9905 6.04124 14.75 9.02734 14.75Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Quick View</span>
-                                                </button>
-                                                <button type="button"
-                                                    class="aq-product-action-btn aq-wishlist-btn aq-tooltip">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16"
-                                                        viewBox="0 0 18 16" fill="none">
-                                                        <path
-                                                            d="M14.7197 1.52347C12.5744 0.244089 10.7019 0.759666 9.57712 1.58092C9.11591 1.91766 8.88531 2.08602 8.74963 2.08602C8.61396 2.08602 8.38336 1.91766 7.92215 1.58092C6.79733 0.759666 4.9249 0.244089 2.77958 1.52347C-0.0359114 3.20253 -0.67299 8.7418 5.82126 13.4151C7.05821 14.3052 7.67668 14.7502 8.74963 14.7502C9.82258 14.7502 10.4411 14.3052 11.678 13.4151C18.1723 8.7418 17.5352 3.20253 14.7197 1.52347Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round">
-                                                        </path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Add To Wishlist</span>
-                                                </button>
-                                            </div>
-                                            <a href="product-details-default.html">
-                                                <img class="lazyload aq-product-img"
-                                                    src="assets/img/corporate/custom_gift_hampers3.webp" alt=""
-                                                    loading="lazy" />
-                                                <img class="aq-img-hover lazyload"
-                                                    src="assets/img/corporate/custom_gift_hampers4.webp" alt=""
-                                                    loading="lazy" />
-                                            </a>
-                                        </div>
-                                        <div class="aq-product-content text-center text-md-start">
-                                            <h4 class="aq-product-title mb-10">
-                                                <a href="product-details-default.html">Artisanal Gift Selection</a>
-                                            </h4>
-                                            <div class="aq-product-price">
-                                                <ins><span class="aq-product-new-price">$30.00</span></ins>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="aq-product-item aq-product-main mb-20" data-lazy="true">
-                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
-                                            <div class="aq-product-badge">
-                                                <span class="clr-new">New</span>
-                                            </div>
-                                            <div class="aq-product-action">
-                                                <button type="button" class="aq-product-action-btn aq-tooltip"
-                                                    data-bs-toggle="modal" data-bs-target="#producQuickViewModal">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="16"
-                                                        viewBox="0 0 19 16" fill="none">
-                                                        <path
-                                                            d="M12.0557 7.75429C12.0557 9.42922 10.7022 10.7827 9.0273 10.7827C7.35238 10.7827 5.99891 9.42922 5.99891 7.75429C5.99891 6.07937 7.35238 4.72589 9.0273 4.72589C10.7022 4.72589 12.0557 6.07937 12.0557 7.75429Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                        <path
-                                                            d="M9.02734 14.75C12.0134 14.75 14.7965 12.9905 16.7337 9.94517C17.495 8.75242 17.495 6.74758 16.7337 5.55483C14.7965 2.50952 12.0134 0.75 9.02734 0.75C6.04124 0.75 3.25816 2.50952 1.321 5.55483C0.559668 6.74758 0.559668 8.75242 1.321 9.94517C3.25816 12.9905 6.04124 14.75 9.02734 14.75Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Quick View</span>
-                                                </button>
-                                                <button type="button"
-                                                    class="aq-product-action-btn aq-wishlist-btn aq-tooltip">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16"
-                                                        viewBox="0 0 18 16" fill="none">
-                                                        <path
-                                                            d="M14.7197 1.52347C12.5744 0.244089 10.7019 0.759666 9.57712 1.58092C9.11591 1.91766 8.88531 2.08602 8.74963 2.08602C8.61396 2.08602 8.38336 1.91766 7.92215 1.58092C6.79733 0.759666 4.9249 0.244089 2.77958 1.52347C-0.0359114 3.20253 -0.67299 8.7418 5.82126 13.4151C7.05821 14.3052 7.67668 14.7502 8.74963 14.7502C9.82258 14.7502 10.4411 14.3052 11.678 13.4151C18.1723 8.7418 17.5352 3.20253 14.7197 1.52347Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round">
-                                                        </path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Add To Wishlist</span>
-                                                </button>
-                                            </div>
-                                            <a href="product-details-default.html">
-                                                <img class="lazyload aq-product-img"
-                                                    src="assets/img/corporate/backpack_gifts_1778668040094.webp" alt=""
-                                                    loading="lazy" />
-                                                <img class="aq-img-hover lazyload" src="assets/img/corporate/bag-1.webp"
-                                                    alt="" loading="lazy" />
-                                            </a>
-                                        </div>
-                                        <div class="aq-product-content text-center text-md-start">
-                                            <h4 class="aq-product-title mb-10">
-                                                <a href="product-details-default.html">Premium Business Backpack</a>
-                                            </h4>
-                                            <div class="aq-product-price">
-                                                <ins><span class="aq-product-new-price">$29.00</span></ins>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="aq-product-item aq-product-main mb-20" data-lazy="true">
-                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
-                                            <div class="aq-product-badge">
-                                                <span class="clr-sale">-18%</span>
-                                            </div>
-                                            <div class="aq-product-action">
-                                                <button type="button" class="aq-product-action-btn aq-tooltip"
-                                                    data-bs-toggle="modal" data-bs-target="#producQuickViewModal">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="16"
-                                                        viewBox="0 0 19 16" fill="none">
-                                                        <path
-                                                            d="M12.0557 7.75429C12.0557 9.42922 10.7022 10.7827 9.0273 10.7827C7.35238 10.7827 5.99891 9.42922 5.99891 7.75429C5.99891 6.07937 7.35238 4.72589 9.0273 4.72589C10.7022 4.72589 12.0557 6.07937 12.0557 7.75429Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                        <path
-                                                            d="M9.02734 14.75C12.0134 14.75 14.7965 12.9905 16.7337 9.94517C17.495 8.75242 17.495 6.74758 16.7337 5.55483C14.7965 2.50952 12.0134 0.75 9.02734 0.75C6.04124 0.75 3.25816 2.50952 1.321 5.55483C0.559668 6.74758 0.559668 8.75242 1.321 9.94517C3.25816 12.9905 6.04124 14.75 9.02734 14.75Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Quick View</span>
-                                                </button>
-                                                <button type="button"
-                                                    class="aq-product-action-btn aq-wishlist-btn aq-tooltip">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16"
-                                                        viewBox="0 0 18 16" fill="none">
-                                                        <path
-                                                            d="M14.7197 1.52347C12.5744 0.244089 10.7019 0.759666 9.57712 1.58092C9.11591 1.91766 8.88531 2.08602 8.74963 2.08602C8.61396 2.08602 8.38336 1.91766 7.92215 1.58092C6.79733 0.759666 4.9249 0.244089 2.77958 1.52347C-0.0359114 3.20253 -0.67299 8.7418 5.82126 13.4151C7.05821 14.3052 7.67668 14.7502 8.74963 14.7502C9.82258 14.7502 10.4411 14.3052 11.678 13.4151C18.1723 8.7418 17.5352 3.20253 14.7197 1.52347Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round">
-                                                        </path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Add To Wishlist</span>
-                                                </button>
-                                            </div>
-                                            <a href="product-details-default.html">
-                                                <img class="lazyload aq-product-img"
-                                                    src="assets/img/corporate/apparel_gifts_1778668621245.webp" alt=""
-                                                    loading="lazy" />
-                                                <img class="aq-img-hover lazyload" src="assets/img/corporate/bag-2.webp"
-                                                    alt="" loading="lazy" />
-                                            </a>
-                                        </div>
-                                        <div class="aq-product-content text-center text-md-start">
-                                            <h4 class="aq-product-title mb-10">
-                                                <a href="product-details-default.html">Corporate Apparel Collection</a>
-                                            </h4>
-                                            <div class="aq-product-price">
-                                                <ins><span class="aq-product-new-price">$24.00</span></ins>
-                                                <del><span class="aq-product-old-price">$18.00</span></del>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="aq-product-item aq-product-main mb-20" data-lazy="true">
-                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
-                                            <div class="aq-product-badge">
-                                                <span class="clr-sale">-5%</span>
-                                                <span class="clr-new">new</span>
-                                            </div>
-                                            <div class="aq-product-action">
-                                                <button type="button" class="aq-product-action-btn aq-tooltip"
-                                                    data-bs-toggle="modal" data-bs-target="#producQuickViewModal">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="16"
-                                                        viewBox="0 0 19 16" fill="none">
-                                                        <path
-                                                            d="M12.0557 7.75429C12.0557 9.42922 10.7022 10.7827 9.0273 10.7827C7.35238 10.7827 5.99891 9.42922 5.99891 7.75429C5.99891 6.07937 7.35238 4.72589 9.0273 4.72589C10.7022 4.72589 12.0557 6.07937 12.0557 7.75429Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                        <path
-                                                            d="M9.02734 14.75C12.0134 14.75 14.7965 12.9905 16.7337 9.94517C17.495 8.75242 17.495 6.74758 16.7337 5.55483C14.7965 2.50952 12.0134 0.75 9.02734 0.75C6.04124 0.75 3.25816 2.50952 1.321 5.55483C0.559668 6.74758 0.559668 8.75242 1.321 9.94517C3.25816 12.9905 6.04124 14.75 9.02734 14.75Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Quick View</span>
-                                                </button>
-                                                <button type="button"
-                                                    class="aq-product-action-btn aq-wishlist-btn aq-tooltip">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16"
-                                                        viewBox="0 0 18 16" fill="none">
-                                                        <path
-                                                            d="M14.7197 1.52347C12.5744 0.244089 10.7019 0.759666 9.57712 1.58092C9.11591 1.91766 8.88531 2.08602 8.74963 2.08602C8.61396 2.08602 8.38336 1.91766 7.92215 1.58092C6.79733 0.759666 4.9249 0.244089 2.77958 1.52347C-0.0359114 3.20253 -0.67299 8.7418 5.82126 13.4151C7.05821 14.3052 7.67668 14.7502 8.74963 14.7502C9.82258 14.7502 10.4411 14.3052 11.678 13.4151C18.1723 8.7418 17.5352 3.20253 14.7197 1.52347Z"
-                                                            stroke="currentcolor" stroke-width="1.5" stroke-linecap="round">
-                                                        </path>
-                                                    </svg>
-                                                    <span class="aq-tooltip-item">Add To Wishlist</span>
-                                                </button>
-                                            </div>
-                                            <a href="product-details-default.html">
-                                                <img class="lazyload aq-product-img"
-                                                    src="assets/img/corporate/premium_gadgets_1778668027534.webp" alt=""
-                                                    loading="lazy" />
-                                                <img class="aq-img-hover lazyload" src="assets/img/corporate/bag-3.webp"
-                                                    alt="" loading="lazy" />
-                                            </a>
-                                        </div>
-                                        <div class="aq-product-content text-center text-md-start">
-                                            <h4 class="aq-product-title mb-10">
-                                                <a href="product-details-default.html">Executive Tech Bundle</a>
-                                            </h4>
-                                            <div class="aq-product-price">
-                                                <ins><span class="aq-product-new-price">$30.00</span></ins>
-                                                <del><span class="aq-product-old-price">$80.00</span></del>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
+                                @endforeach
+
                             </div>
                         </div>
                     </div>
@@ -1151,12 +665,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Main Occasions 4x2 Grid -->
-                    <!-- <div class="aq-occasion-grid">
-
-
-                                    </div> -->
 
                     <div class="gifting_occasions">
                         <div class="gifting_wrapper">
@@ -1317,16 +825,16 @@
 
                     <!-- Section Title -->
                     <!-- <div class="aqf-collection-top mb-40 mt-50">
-                                        <div class="row align-items-end">
-                                            <div class="col-md-12">
-                                                <div class="aq-creative-title-box">
-                                                    <span class="aq-creative-subtitle">Premium Selections</span>
-                                                    <h4 class="aq-creative-title">Bespoke Curation Categories</h4>
-                                                    <div class="aq-creative-title-line"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
+                                                                                                                            <div class="row align-items-end">
+                                                                                                                                <div class="col-md-12">
+                                                                                                                                    <div class="aq-creative-title-box">
+                                                                                                                                        <span class="aq-creative-subtitle">Premium Selections</span>
+                                                                                                                                        <h4 class="aq-creative-title">Bespoke Curation Categories</h4>
+                                                                                                                                        <div class="aq-creative-title-line"></div>
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                        </div> -->
 
 
                 </div>
@@ -1334,7 +842,6 @@
         </section>
         <!-- collection area end -->
 
-        <!-- Our Brands section end -->
 
         <!-- deals area start -->
         <section>
@@ -1349,8 +856,8 @@
                                         <div class="aqf-deals-banner-slide active">
                                             <div class="aqf-deals-banner-thumb">
                                                 <img class="w-100"
-                                                    src="assets/img/corporate/premium_gadgets_1778668027534.webp" alt=""
-                                                    loading="lazy" />
+                                                    src="{{ asset('assets/img/corporate/premium_gadgets_1778668027534.webp') }}"
+                                                    alt="" loading="lazy" />
                                             </div>
                                             <div class="aqf-deals-banner-content">
                                                 <h4 class="aq-section-title fs-44 aq-text-white mb-20">
@@ -1371,8 +878,8 @@
                                         <div class="aqf-deals-banner-slide">
                                             <div class="aqf-deals-banner-thumb">
                                                 <img class="w-100"
-                                                    src="assets/img/corporate/backpack_gifts_1778668040094.webp" alt=""
-                                                    loading="lazy" />
+                                                    src="{{ asset('assets/img/corporate/backpack_gifts_1778668040094.webp') }}"
+                                                    alt="" loading="lazy" />
                                             </div>
                                             <div class="aqf-deals-banner-content">
                                                 <h4 class="aq-section-title fs-44 aq-text-white mb-20">
@@ -1393,8 +900,8 @@
                                         <div class="aqf-deals-banner-slide">
                                             <div class="aqf-deals-banner-thumb">
                                                 <img class="w-100"
-                                                    src="assets/img/corporate/apparel_gifts_1778668621245.webp" alt=""
-                                                    loading="lazy" />
+                                                    src="{{ asset('assets/img/corporate/apparel_gifts_1778668621245.webp') }}"
+                                                    alt="" loading="lazy" />
                                             </div>
                                             <div class="aqf-deals-banner-content">
                                                 <h4 class="aq-section-title fs-44 aq-text-white mb-20">
@@ -1465,290 +972,120 @@
                                     <div class="aqf-deals-slider-wrap fix">
                                         <div class="swiper aqf-deals-slider-active">
                                             <div class="swiper-wrapper">
-                                                <div class="swiper-slide">
-                                                    <div class="aq-product-item aq-product-main text-center"
-                                                        data-lazy="true">
-                                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
-                                                            <div class="aq-product-badge">
-                                                                <span class="clr-sale">-10%</span>
+                                                @foreach($saleProducts as $product)
+
+                                                    <div class="swiper-slide">
+                                                        <div class="aq-product-item aq-product-main text-center"
+                                                            data-lazy="true">
+
+                                                            <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
+
+                                                                @if($product->discount > 0)
+                                                                    <div class="aq-product-badge">
+
+                                                                        @if($product->discount_type == 'percentage')
+                                                                            <span class="clr-sale">
+                                                                                -{{ $product->discount }}%
+                                                                            </span>
+                                                                        @else
+                                                                            <span class="clr-sale">
+                                                                                ₹{{ number_format($product->discount) }} OFF
+                                                                            </span>
+                                                                        @endif
+
+                                                                    </div>
+                                                                @endif
+
+                                                                <div class="aq-product-action">
+                                                                    <button type="button"
+                                                                        class="aq-product-action-btn aq-tooltip">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                                                            height="18" viewBox="0 0 18 18" fill="none">
+                                                                            <path
+                                                                                d="M6.19751 0.75L3.30151 3.654M11.3015 0.75L14.1975 3.654M6.95776 10.3501V13.1901M10.6375 10.3501V13.1901M1.94997 7.14993L3.07797 14.0619C3.33397 15.6139 3.94997 16.7499 6.23796 16.7499H11.062C13.55 16.7499 13.918 15.6619 14.206 14.1579L15.55 7.14993M0.75 5.42996C0.75 3.94996 1.542 3.82996 2.526 3.82996H14.974C15.958 3.82996 16.75 3.94996 16.75 5.42996C16.75 7.14996 15.958 7.02996 14.974 7.02996H2.526C1.542 7.02996 0.75 7.14996 0.75 5.42996Z"
+                                                                                stroke="currentcolor" stroke-width="1.5"
+                                                                                stroke-linecap="round"></path>
+                                                                        </svg>
+                                                                        <span class="aq-tooltip-item">Add to Cart</span>
+                                                                    </button>
+                                                                    <button type="button"
+                                                                        class="aq-product-action-btn aq-tooltip"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#producQuickViewModal">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="19"
+                                                                            height="16" viewBox="0 0 19 16" fill="none">
+                                                                            <path
+                                                                                d="M12.0557 7.75429C12.0557 9.42922 10.7022 10.7827 9.0273 10.7827C7.35238 10.7827 5.99891 9.42922 5.99891 7.75429C5.99891 6.07937 7.35238 4.72589 9.0273 4.72589C10.7022 4.72589 12.0557 6.07937 12.0557 7.75429Z"
+                                                                                stroke="currentcolor" stroke-width="1.5"
+                                                                                stroke-linecap="round" stroke-linejoin="round">
+                                                                            </path>
+                                                                            <path
+                                                                                d="M9.02734 14.75C12.0134 14.75 14.7965 12.9905 16.7337 9.94517C17.495 8.75242 17.495 6.74758 16.7337 5.55483C14.7965 2.50952 12.0134 0.75 9.02734 0.75C6.04124 0.75 3.25816 2.50952 1.321 5.55483C0.559668 6.74758 0.559668 8.75242 1.321 9.94517C3.25816 12.9905 6.04124 14.75 9.02734 14.75Z"
+                                                                                stroke="currentcolor" stroke-width="1.5"
+                                                                                stroke-linecap="round" stroke-linejoin="round">
+                                                                            </path>
+                                                                        </svg>
+                                                                        <span class="aq-tooltip-item">Quick View</span>
+                                                                    </button>
+                                                                    <button type="button"
+                                                                        class="aq-product-action-btn aq-wishlist-btn aq-tooltip">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                                                            height="16" viewBox="0 0 18 16" fill="none">
+                                                                            <path
+                                                                                d="M14.7197 1.52347C12.5744 0.244089 10.7019 0.759666 9.57712 1.58092C9.11591 1.91766 8.88531 2.08602 8.74963 2.08602C8.61396 2.08602 8.38336 1.91766 7.92215 1.58092C6.79733 0.759666 4.9249 0.244089 2.77958 1.52347C-0.0359114 3.20253 -0.67299 8.7418 5.82126 13.4151C7.05821 14.3052 7.67668 14.7502 8.74963 14.7502C9.82258 14.7502 10.4411 14.3052 11.678 13.4151C18.1723 8.7418 17.5352 3.20253 14.7197 1.52347Z"
+                                                                                stroke="currentcolor" stroke-width="1.5"
+                                                                                stroke-linecap="round"></path>
+                                                                        </svg>
+                                                                        <span class="aq-tooltip-item">Add To Wishlist</span>
+                                                                    </button>
+                                                                </div>
+
+                                                                <a href="{{ route('product.details', $product->slug) }}">
+
+                                                                    <img class="lazyload aq-product-img"
+                                                                        src="{{ asset('storage/' . $product->display_image) }}"
+                                                                        alt="{{ $product->name }}" loading="lazy" />
+
+                                                                    <img class="aq-img-hover lazyload"
+                                                                        src="{{ asset('storage/' . $product->display_image) }}"
+                                                                        alt="{{ $product->name }}" loading="lazy" />
+
+                                                                </a>
+
                                                             </div>
-                                                            <div class="aq-product-action">
-                                                                <button type="button"
-                                                                    class="aq-product-action-btn aq-tooltip">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18"
-                                                                        height="18" viewBox="0 0 18 18" fill="none">
-                                                                        <path
-                                                                            d="M6.19751 0.75L3.30151 3.654M11.3015 0.75L14.1975 3.654M6.95776 10.3501V13.1901M10.6375 10.3501V13.1901M1.94997 7.14993L3.07797 14.0619C3.33397 15.6139 3.94997 16.7499 6.23796 16.7499H11.062C13.55 16.7499 13.918 15.6619 14.206 14.1579L15.55 7.14993M0.75 5.42996C0.75 3.94996 1.542 3.82996 2.526 3.82996H14.974C15.958 3.82996 16.75 3.94996 16.75 5.42996C16.75 7.14996 15.958 7.02996 14.974 7.02996H2.526C1.542 7.02996 0.75 7.14996 0.75 5.42996Z"
-                                                                            stroke="currentcolor" stroke-width="1.5"
-                                                                            stroke-linecap="round"></path>
-                                                                    </svg>
-                                                                    <span class="aq-tooltip-item">Add to Cart</span>
-                                                                </button>
-                                                                <button type="button"
-                                                                    class="aq-product-action-btn aq-tooltip"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#producQuickViewModal">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="19"
-                                                                        height="16" viewBox="0 0 19 16" fill="none">
-                                                                        <path
-                                                                            d="M12.0557 7.75429C12.0557 9.42922 10.7022 10.7827 9.0273 10.7827C7.35238 10.7827 5.99891 9.42922 5.99891 7.75429C5.99891 6.07937 7.35238 4.72589 9.0273 4.72589C10.7022 4.72589 12.0557 6.07937 12.0557 7.75429Z"
-                                                                            stroke="currentcolor" stroke-width="1.5"
-                                                                            stroke-linecap="round" stroke-linejoin="round">
-                                                                        </path>
-                                                                        <path
-                                                                            d="M9.02734 14.75C12.0134 14.75 14.7965 12.9905 16.7337 9.94517C17.495 8.75242 17.495 6.74758 16.7337 5.55483C14.7965 2.50952 12.0134 0.75 9.02734 0.75C6.04124 0.75 3.25816 2.50952 1.321 5.55483C0.559668 6.74758 0.559668 8.75242 1.321 9.94517C3.25816 12.9905 6.04124 14.75 9.02734 14.75Z"
-                                                                            stroke="currentcolor" stroke-width="1.5"
-                                                                            stroke-linecap="round" stroke-linejoin="round">
-                                                                        </path>
-                                                                    </svg>
-                                                                    <span class="aq-tooltip-item">Quick View</span>
-                                                                </button>
-                                                                <button type="button"
-                                                                    class="aq-product-action-btn aq-wishlist-btn aq-tooltip">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18"
-                                                                        height="16" viewBox="0 0 18 16" fill="none">
-                                                                        <path
-                                                                            d="M14.7197 1.52347C12.5744 0.244089 10.7019 0.759666 9.57712 1.58092C9.11591 1.91766 8.88531 2.08602 8.74963 2.08602C8.61396 2.08602 8.38336 1.91766 7.92215 1.58092C6.79733 0.759666 4.9249 0.244089 2.77958 1.52347C-0.0359114 3.20253 -0.67299 8.7418 5.82126 13.4151C7.05821 14.3052 7.67668 14.7502 8.74963 14.7502C9.82258 14.7502 10.4411 14.3052 11.678 13.4151C18.1723 8.7418 17.5352 3.20253 14.7197 1.52347Z"
-                                                                            stroke="currentcolor" stroke-width="1.5"
-                                                                            stroke-linecap="round"></path>
-                                                                    </svg>
-                                                                    <span class="aq-tooltip-item">Add To Wishlist</span>
-                                                                </button>
+
+                                                            <div class="aq-product-content">
+
+                                                                <h4 class="aq-product-title mb-10">
+                                                                    <a href="{{ route('product.details', $product->slug) }}">
+                                                                        {{ $product->name }}
+                                                                    </a>
+                                                                </h4>
+
+                                                                <div class="aq-product-price">
+
+                                                                    <ins>
+                                                                        <span class="aq-product-new-price">
+                                                                            ₹{{ number_format($product->price, 2) }}
+                                                                        </span>
+                                                                    </ins>
+
+                                                                    @if($product->mrp > $product->price)
+                                                                        <del>
+                                                                            <span class="aq-product-old-price">
+                                                                                ₹{{ number_format($product->mrp, 2) }}
+                                                                            </span>
+                                                                        </del>
+                                                                    @endif
+
+                                                                </div>
+
                                                             </div>
-                                                            <a href="product-details-grid-full.html">
-                                                                <img class="lazyload aq-product-img"
-                                                                    src="assets/img/corporate/card_imges1.webp"
-                                                                    alt="Premium Hamper" loading="lazy" />
-                                                                <img class="aq-img-hover lazyload"
-                                                                    src="assets/img/corporate/card_imges5.webp"
-                                                                    alt="Premium Hamper Hover" loading="lazy" />
-                                                            </a>
-                                                        </div>
-                                                        <div class="aq-product-content">
-                                                            <h4 class="aq-product-title mb-10">
-                                                                <a href="product-details-grid-full.html">Bespoke
-                                                                    Executive Hamper</a>
-                                                            </h4>
-                                                            <div class="aq-product-price">
-                                                                <ins><span class="aq-product-new-price">$120.00</span></ins>
-                                                                <del><span class="aq-product-old-price">$150.00</span></del>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="swiper-slide">
-                                                    <div class="aq-product-item aq-product-main text-center"
-                                                        data-lazy="true">
-                                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
-                                                            <div class="aq-product-badge">
-                                                                <span class="clr-sale">-11%</span>
-                                                            </div>
-                                                            <div class="aq-product-action">
-                                                                <button type="button"
-                                                                    class="aq-product-action-btn aq-tooltip">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18"
-                                                                        height="18" viewBox="0 0 18 18" fill="none">
-                                                                        <path
-                                                                            d="M6.19751 0.75L3.30151 3.654M11.3015 0.75L14.1975 3.654M6.95776 10.3501V13.1901M10.6375 10.3501V13.1901M1.94997 7.14993L3.07797 14.0619C3.33397 15.6139 3.94997 16.7499 6.23796 16.7499H11.062C13.55 16.7499 13.918 15.6619 14.206 14.1579L15.55 7.14993M0.75 5.42996C0.75 3.94996 1.542 3.82996 2.526 3.82996H14.974C15.958 3.82996 16.75 3.94996 16.75 5.42996C16.75 7.14996 15.958 7.02996 14.974 7.02996H2.526C1.542 7.02996 0.75 7.14996 0.75 5.42996Z"
-                                                                            stroke="currentcolor" stroke-width="1.5"
-                                                                            stroke-linecap="round"></path>
-                                                                    </svg>
-                                                                    <span class="aq-tooltip-item">Add to Cart</span>
-                                                                </button>
-                                                                <button type="button"
-                                                                    class="aq-product-action-btn aq-tooltip"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#producQuickViewModal">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="19"
-                                                                        height="16" viewBox="0 0 19 16" fill="none">
-                                                                        <path
-                                                                            d="M12.0557 7.75429C12.0557 9.42922 10.7022 10.7827 9.0273 10.7827C7.35238 10.7827 5.99891 9.42922 5.99891 7.75429C5.99891 6.07937 7.35238 4.72589 9.0273 4.72589C10.7022 4.72589 12.0557 6.07937 12.0557 7.75429Z"
-                                                                            stroke="currentcolor" stroke-width="1.5"
-                                                                            stroke-linecap="round" stroke-linejoin="round">
-                                                                        </path>
-                                                                        <path
-                                                                            d="M9.02734 14.75C12.0134 14.75 14.7965 12.9905 16.7337 9.94517C17.495 8.75242 17.495 6.74758 16.7337 5.55483C14.7965 2.50952 12.0134 0.75 9.02734 0.75C6.04124 0.75 3.25816 2.50952 1.321 5.55483C0.559668 6.74758 0.559668 8.75242 1.321 9.94517C3.25816 12.9905 6.04124 14.75 9.02734 14.75Z"
-                                                                            stroke="currentcolor" stroke-width="1.5"
-                                                                            stroke-linecap="round" stroke-linejoin="round">
-                                                                        </path>
-                                                                    </svg>
-                                                                    <span class="aq-tooltip-item">Quick View</span>
-                                                                </button>
-                                                                <button type="button"
-                                                                    class="aq-product-action-btn aq-wishlist-btn aq-tooltip">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18"
-                                                                        height="16" viewBox="0 0 18 16" fill="none">
-                                                                        <path
-                                                                            d="M14.7197 1.52347C12.5744 0.244089 10.7019 0.759666 9.57712 1.58092C9.11591 1.91766 8.88531 2.08602 8.74963 2.08602C8.61396 2.08602 8.38336 1.91766 7.92215 1.58092C6.79733 0.759666 4.9249 0.244089 2.77958 1.52347C-0.0359114 3.20253 -0.67299 8.7418 5.82126 13.4151C7.05821 14.3052 7.67668 14.7502 8.74963 14.7502C9.82258 14.7502 10.4411 14.3052 11.678 13.4151C18.1723 8.7418 17.5352 3.20253 14.7197 1.52347Z"
-                                                                            stroke="currentcolor" stroke-width="1.5"
-                                                                            stroke-linecap="round"></path>
-                                                                    </svg>
-                                                                    <span class="aq-tooltip-item">Add To Wishlist</span>
-                                                                </button>
-                                                            </div>
-                                                            <a href="product-details-grid-full.html">
-                                                                <img class="lazyload aq-product-img"
-                                                                    src="assets/img/corporate/card_imges2.webp"
-                                                                    alt="Executive Backpack" loading="lazy" />
-                                                                <img class="aq-img-hover lazyload"
-                                                                    src="assets/img/corporate/card_imges6.webp"
-                                                                    alt="Executive Backpack Hover" loading="lazy" />
-                                                            </a>
-                                                        </div>
-                                                        <div class="aq-product-content">
-                                                            <h4 class="aq-product-title mb-10">
-                                                                <a href="product-details-grid-full.html">Executive
-                                                                    Travel Backpack</a>
-                                                            </h4>
-                                                            <div class="aq-product-price">
-                                                                <ins><span class="aq-product-new-price">$95.00</span></ins>
-                                                                <del><span class="aq-product-old-price">$120.00</span></del>
-                                                            </div>
+
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="swiper-slide">
-                                                    <div class="aq-product-item aq-product-main text-center"
-                                                        data-lazy="true">
-                                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
-                                                            <div class="aq-product-badge">
-                                                                <span class="clr-sale">-50%</span>
-                                                            </div>
-                                                            <div class="aq-product-action">
-                                                                <button type="button"
-                                                                    class="aq-product-action-btn aq-tooltip">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18"
-                                                                        height="18" viewBox="0 0 18 18" fill="none">
-                                                                        <path
-                                                                            d="M6.19751 0.75L3.30151 3.654M11.3015 0.75L14.1975 3.654M6.95776 10.3501V13.1901M10.6375 10.3501V13.1901M1.94997 7.14993L3.07797 14.0619C3.33397 15.6139 3.94997 16.7499 6.23796 16.7499H11.062C13.55 16.7499 13.918 15.6619 14.206 14.1579L15.55 7.14993M0.75 5.42996C0.75 3.94996 1.542 3.82996 2.526 3.82996H14.974C15.958 3.82996 16.75 3.94996 16.75 5.42996C16.75 7.14996 15.958 7.02996 14.974 7.02996H2.526C1.542 7.02996 0.75 7.14996 0.75 5.42996Z"
-                                                                            stroke="currentcolor" stroke-width="1.5"
-                                                                            stroke-linecap="round"></path>
-                                                                    </svg>
-                                                                    <span class="aq-tooltip-item">Add to Cart</span>
-                                                                </button>
-                                                                <button type="button"
-                                                                    class="aq-product-action-btn aq-tooltip"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#producQuickViewModal">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="19"
-                                                                        height="16" viewBox="0 0 19 16" fill="none">
-                                                                        <path
-                                                                            d="M12.0557 7.75429C12.0557 9.42922 10.7022 10.7827 9.0273 10.7827C7.35238 10.7827 5.99891 9.42922 5.99891 7.75429C5.99891 6.07937 7.35238 4.72589 9.0273 4.72589C10.7022 4.72589 12.0557 6.07937 12.0557 7.75429Z"
-                                                                            stroke="currentcolor" stroke-width="1.5"
-                                                                            stroke-linecap="round" stroke-linejoin="round">
-                                                                        </path>
-                                                                        <path
-                                                                            d="M9.02734 14.75C12.0134 14.75 14.7965 12.9905 16.7337 9.94517C17.495 8.75242 17.495 6.74758 16.7337 5.55483C14.7965 2.50952 12.0134 0.75 9.02734 0.75C6.04124 0.75 3.25816 2.50952 1.321 5.55483C0.559668 6.74758 0.559668 8.75242 1.321 9.94517C3.25816 12.9905 6.04124 14.75 9.02734 14.75Z"
-                                                                            stroke="currentcolor" stroke-width="1.5"
-                                                                            stroke-linecap="round" stroke-linejoin="round">
-                                                                        </path>
-                                                                    </svg>
-                                                                    <span class="aq-tooltip-item">Quick View</span>
-                                                                </button>
-                                                                <button type="button"
-                                                                    class="aq-product-action-btn aq-wishlist-btn aq-tooltip">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18"
-                                                                        height="16" viewBox="0 0 18 16" fill="none">
-                                                                        <path
-                                                                            d="M14.7197 1.52347C12.5744 0.244089 10.7019 0.759666 9.57712 1.58092C9.11591 1.91766 8.88531 2.08602 8.74963 2.08602C8.61396 2.08602 8.38336 1.91766 7.92215 1.58092C6.79733 0.759666 4.9249 0.244089 2.77958 1.52347C-0.0359114 3.20253 -0.67299 8.7418 5.82126 13.4151C7.05821 14.3052 7.67668 14.7502 8.74963 14.7502C9.82258 14.7502 10.4411 14.3052 11.678 13.4151C18.1723 8.7418 17.5352 3.20253 14.7197 1.52347Z"
-                                                                            stroke="currentcolor" stroke-width="1.5"
-                                                                            stroke-linecap="round"></path>
-                                                                    </svg>
-                                                                    <span class="aq-tooltip-item">Add To Wishlist</span>
-                                                                </button>
-                                                            </div>
-                                                            <a href="product-details-grid-full.html">
-                                                                <img class="lazyload aq-product-img"
-                                                                    src="assets/img/corporate/card_imges3.webp"
-                                                                    alt="Executive Kit" loading="lazy" />
-                                                                <img class="aq-img-hover lazyload"
-                                                                    src="assets/img/corporate/card_imges7.webp"
-                                                                    alt="Executive Kit Hover" loading="lazy" />
-                                                            </a>
-                                                        </div>
-                                                        <div class="aq-product-content">
-                                                            <h4 class="aq-product-title mb-10">
-                                                                <a href="product-details-grid-full.html">Signature
-                                                                    Executive Kit</a>
-                                                            </h4>
-                                                            <div class="aq-product-price">
-                                                                <ins><span class="aq-product-new-price">$85.00</span></ins>
-                                                                <del><span class="aq-product-old-price">$110.00</span></del>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="swiper-slide">
-                                                    <div class="aq-product-item aq-product-main text-center"
-                                                        data-lazy="true">
-                                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
-                                                            <div class="aq-product-badge">
-                                                                <span class="clr-sale">-7%</span>
-                                                            </div>
-                                                            <div class="aq-product-action">
-                                                                <button type="button"
-                                                                    class="aq-product-action-btn aq-tooltip">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18"
-                                                                        height="18" viewBox="0 0 18 18" fill="none">
-                                                                        <path
-                                                                            d="M6.19751 0.75L3.30151 3.654M11.3015 0.75L14.1975 3.654M6.95776 10.3501V13.1901M10.6375 10.3501V13.1901M1.94997 7.14993L3.07797 14.0619C3.33397 15.6139 3.94997 16.7499 6.23796 16.7499H11.062C13.55 16.7499 13.918 15.6619 14.206 14.1579L15.55 7.14993M0.75 5.42996C0.75 3.94996 1.542 3.82996 2.526 3.82996H14.974C15.958 3.82996 16.75 3.94996 16.75 5.42996C16.75 7.14996 15.958 7.02996 14.974 7.02996H2.526C1.542 7.02996 0.75 7.14996 0.75 5.42996Z"
-                                                                            stroke="currentcolor" stroke-width="1.5"
-                                                                            stroke-linecap="round"></path>
-                                                                    </svg>
-                                                                    <span class="aq-tooltip-item">Add to Cart</span>
-                                                                </button>
-                                                                <button type="button"
-                                                                    class="aq-product-action-btn aq-tooltip"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#producQuickViewModal">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="19"
-                                                                        height="16" viewBox="0 0 19 16" fill="none">
-                                                                        <path
-                                                                            d="M12.0557 7.75429C12.0557 9.42922 10.7022 10.7827 9.0273 10.7827C7.35238 10.7827 5.99891 9.42922 5.99891 7.75429C5.99891 6.07937 7.35238 4.72589 9.0273 4.72589C10.7022 4.72589 12.0557 6.07937 12.0557 7.75429Z"
-                                                                            stroke="currentcolor" stroke-width="1.5"
-                                                                            stroke-linecap="round" stroke-linejoin="round">
-                                                                        </path>
-                                                                        <path
-                                                                            d="M9.02734 14.75C12.0134 14.75 14.7965 12.9905 16.7337 9.94517C17.495 8.75242 17.495 6.74758 16.7337 5.55483C14.7965 2.50952 12.0134 0.75 9.02734 0.75C6.04124 0.75 3.25816 2.50952 1.321 5.55483C0.559668 6.74758 0.559668 8.75242 1.321 9.94517C3.25816 12.9905 6.04124 14.75 9.02734 14.75Z"
-                                                                            stroke="currentcolor" stroke-width="1.5"
-                                                                            stroke-linecap="round" stroke-linejoin="round">
-                                                                        </path>
-                                                                    </svg>
-                                                                    <span class="aq-tooltip-item">Quick View</span>
-                                                                </button>
-                                                                <button type="button"
-                                                                    class="aq-product-action-btn aq-wishlist-btn aq-tooltip">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18"
-                                                                        height="16" viewBox="0 0 18 16" fill="none">
-                                                                        <path
-                                                                            d="M14.7197 1.52347C12.5744 0.244089 10.7019 0.759666 9.57712 1.58092C9.11591 1.91766 8.88531 2.08602 8.74963 2.08602C8.61396 2.08602 8.38336 1.91766 7.92215 1.58092C6.79733 0.759666 4.9249 0.244089 2.77958 1.52347C-0.0359114 3.20253 -0.67299 8.7418 5.82126 13.4151C7.05821 14.3052 7.67668 14.7502 8.74963 14.7502C9.82258 14.7502 10.4411 14.3052 11.678 13.4151C18.1723 8.7418 17.5352 3.20253 14.7197 1.52347Z"
-                                                                            stroke="currentcolor" stroke-width="1.5"
-                                                                            stroke-linecap="round"></path>
-                                                                    </svg>
-                                                                    <span class="aq-tooltip-item">Add To Wishlist</span>
-                                                                </button>
-                                                            </div>
-                                                            <a href="product-details-grid-full.html">
-                                                                <img class="lazyload aq-product-img"
-                                                                    src="assets/img/corporate/card_imges4.webp"
-                                                                    alt="Branding Hamper" loading="lazy" />
-                                                                <img class="aq-img-hover lazyload"
-                                                                    src="assets/img/corporate/card_imges8.webp"
-                                                                    alt="Branding Hamper Hover" loading="lazy" />
-                                                            </a>
-                                                        </div>
-                                                        <div class="aq-product-content">
-                                                            <h4 class="aq-product-title mb-10">
-                                                                <a href="product-details-grid-full.html">Premium
-                                                                    Branding Hamper</a>
-                                                            </h4>
-                                                            <div class="aq-product-price">
-                                                                <ins><span class="aq-product-new-price">$135.00</span></ins>
-                                                                <del><span class="aq-product-old-price">$160.00</span></del>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
@@ -1788,532 +1125,102 @@
                             <div class="col-xl-4 col-lg-5">
                                 <div class="aq-luxury-tab-nav nav flex-column nav-pills" id="luxury-tabs" role="tablist"
                                     aria-orientation="vertical">
-                                    <button class="aq-luxury-tab-card active" id="tab-executive-tab" data-bs-toggle="pill"
-                                        data-bs-target="#tab-executive" type="button" role="tab"
-                                        aria-controls="tab-executive" aria-selected="true">
-                                        <span class="aq-luxury-tab-title">The Executive Suite</span>
-                                        <span class="aq-luxury-tab-price">â‚¹2,500 - â‚¹5,000</span>
-                                        <div class="aq-luxury-tab-line"></div>
-                                    </button>
+                                    @foreach($featuredCategories as $index => $category)
 
-                                    <button class="aq-luxury-tab-card" id="tab-gold-tab" data-bs-toggle="pill"
-                                        data-bs-target="#tab-gold" type="button" role="tab" aria-controls="tab-gold"
-                                        aria-selected="false">
-                                        <span class="aq-luxury-tab-title">Gold Edition</span>
-                                        <span class="aq-luxury-tab-price">â‚¹5,000 - â‚¹10,000</span>
-                                        <div class="aq-luxury-tab-line"></div>
-                                    </button>
+                                        <button class="aq-luxury-tab-card {{ $index == 0 ? 'active' : '' }}"
+                                            id="tab-{{ $category->id }}-tab" data-bs-toggle="pill"
+                                            data-bs-target="#tab-{{ $category->id }}" type="button">
 
-                                    <button class="aq-luxury-tab-card" id="tab-heritage-tab" data-bs-toggle="pill"
-                                        data-bs-target="#tab-heritage" type="button" role="tab" aria-controls="tab-heritage"
-                                        aria-selected="false">
-                                        <span class="aq-luxury-tab-title">The Heritage Box</span>
-                                        <span class="aq-luxury-tab-price">â‚¹10,000 - â‚¹25,000</span>
-                                        <div class="aq-luxury-tab-line"></div>
-                                    </button>
+                                            <span class="aq-luxury-tab-title">
+                                                {{ $category->name }}
+                                            </span>
 
-                                    <button class="aq-luxury-tab-card" id="tab-royal-tab" data-bs-toggle="pill"
-                                        data-bs-target="#tab-royal" type="button" role="tab" aria-controls="tab-royal"
-                                        aria-selected="false">
-                                        <span class="aq-luxury-tab-title">Royal Indulgence</span>
-                                        <span class="aq-luxury-tab-price">â‚¹25,000 - â‚¹75,000</span>
-                                        <div class="aq-luxury-tab-line"></div>
-                                    </button>
-                                    <button class="aq-luxury-tab-card" id="tab-platinum-tab" data-bs-toggle="pill"
-                                        data-bs-target="#tab-platinum" type="button" role="tab" aria-controls="tab-platinum"
-                                        aria-selected="false">
-                                        <span class="aq-luxury-tab-title">Signature Platinum</span>
-                                        <span class="aq-luxury-tab-price">Above â‚¹75,000</span>
-                                        <div class="aq-luxury-tab-line"></div>
-                                    </button>
+                                            <span class="aq-luxury-tab-price">
+
+                                                @if($category->min_price && $category->max_price)
+
+                                                    ₹{{ number_format($category->min_price) }}
+
+                                                    @if($category->min_price != $category->max_price)
+                                                        - ₹{{ number_format($category->max_price) }}
+                                                    @endif
+
+                                                @else
+                                                    Price on Request
+                                                @endif
+
+                                            </span>
+
+                                            <div class="aq-luxury-tab-line"></div>
+
+                                        </button>
+
+                                    @endforeach
                                 </div>
                             </div>
 
                             <div class="col-xl-8 col-lg-7">
                                 <div class="tab-content aq-luxury-tab-content" id="luxury-tabsContent">
-                                    <!-- Pane 1 -->
-                                    <div class="tab-pane fade show active" id="tab-executive" role="tabpanel"
-                                        aria-labelledby="tab-executive-tab">
-                                        <div class="aq-luxury-showcase">
-                                            <div class="row g-4">
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-executive.webp"
-                                                                alt="Product" loading="lazy" />
-                                                        </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                Executive Leather Kit
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹2,999</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-gold.webp" alt="Product"
-                                                                loading="lazy" />
-                                                        </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                Signature Blend Box
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹3,499</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-executive.webp"
-                                                                alt="Product" loading="lazy" />
-                                                        </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                Modern Office Hamper
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹4,200</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-gold.webp" alt="Product"
-                                                                loading="lazy" />
-                                                        </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                Premium Stationery Set
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹3,800</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-executive.webp"
-                                                                alt="Product" loading="lazy" />
-                                                        </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                Desktop Wellness Kit
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹4,500</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-gold.webp" alt="Product"
-                                                                loading="lazy" />
-                                                        </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                The CEO Journal
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹2,700</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-40 text-center text-lg-start">
-                                                <a href="#" class="aq-btn-luxury">Explore Executive Suite
-                                                    <i class="fa-solid fa-arrow-right-long ml-10"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @foreach($featuredCategories as $index => $category)
 
-                                    <!-- Pane 2 -->
-                                    <div class="tab-pane fade" id="tab-gold" role="tabpanel" aria-labelledby="tab-gold-tab">
-                                        <div class="aq-luxury-showcase">
-                                            <div class="row g-4">
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-gold.webp" alt="Product"
-                                                                loading="lazy" />
-                                                        </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                Royal Gold Collection
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹5,500</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-executive.webp"
-                                                                alt="Product" loading="lazy" />
-                                                        </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                Champagne & Truffles
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹7,200</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-gold.webp" alt="Product"
-                                                                loading="lazy" />
-                                                        </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                Velvet Season Box
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹9,500</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-executive.webp"
-                                                                alt="Product" loading="lazy" />
-                                                        </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                Golden Delights Box
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹6,800</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-gold.webp" alt="Product"
-                                                                loading="lazy" />
-                                                        </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                Luxe Leather Portfolio
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹8,500</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-executive.webp"
-                                                                alt="Product" loading="lazy" />
-                                                        </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                Midnight Celebration Kit
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹7,999</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-40 text-center text-lg-start">
-                                                <a href="#" class="aq-btn-luxury">Explore Gold Edition
-                                                    <i class="fa-solid fa-arrow-right-long ml-10"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        <div class="tab-pane fade {{ $index == 0 ? 'show active' : '' }}"
+                                            id="tab-{{ $category->id }}" role="tabpanel">
 
-                                    <!-- Pane 3 -->
-                                    <div class="tab-pane fade" id="tab-heritage" role="tabpanel"
-                                        aria-labelledby="tab-heritage-tab">
-                                        <div class="aq-luxury-showcase">
-                                            <div class="row g-4">
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-executive.webp"
-                                                                alt="Product" loading="lazy" />
-                                                        </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                Copper & Tea Set
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹12,500</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-gold.webp" alt="Product"
-                                                                loading="lazy" />
-                                                        </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                Artisanal Spice Chest
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹15,000</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-executive.webp"
-                                                                alt="Product" loading="lazy" />
-                                                        </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                Handcrafted Silk Wrap
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹22,000</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-gold.webp" alt="Product"
-                                                                loading="lazy" />
-                                                        </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                Antique Brassware Set
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹18,500</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-executive.webp"
-                                                                alt="Product" loading="lazy" />
-                                                        </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                Heritage Textile Hamper
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹21,000</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-gold.webp" alt="Product"
-                                                                loading="lazy" />
-                                                        </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                Royal Kesar Chest
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹14,200</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-40 text-center text-lg-start">
-                                                <a href="#" class="aq-btn-luxury">Explore Heritage Box
-                                                    <i class="fa-solid fa-arrow-right-long ml-10"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                            <div class="aq-luxury-showcase">
 
-                                    <!-- Pane 4 -->
-                                    <div class="tab-pane fade" id="tab-royal" role="tabpanel"
-                                        aria-labelledby="tab-royal-tab">
-                                        <div class="aq-luxury-showcase">
-                                            <div class="row g-4">
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-gold.webp" alt="Product"
-                                                                loading="lazy" />
-                                                        </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                The Sultan's Feast
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹28,000</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-executive.webp"
-                                                                alt="Product" loading="lazy" />
-                                                        </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                Elite Tech & Taste
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹35,000</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-gold.webp" alt="Product"
-                                                                loading="lazy" />
-                                                        </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                Bespoke Ultra Luxury
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹50,000</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-executive.webp"
-                                                                alt="Product" loading="lazy" />
-                                                        </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                Maharaja's Selection
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹42,000</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-gold.webp" alt="Product"
-                                                                loading="lazy" />
-                                                        </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                Platinum Jubilee Hamper
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹38,500</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-executive.webp"
-                                                                alt="Product" loading="lazy" />
-                                                        </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                The Imperial Trunk
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹45,000</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-40 text-center text-lg-start">
-                                                <a href="#" class="aq-btn-luxury">Explore Royal Indulgence
-                                                    <i class="fa-solid fa-arrow-right-long ml-10"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                                <div class="row g-4">
 
-                                    <!-- Pane 5 -->
-                                    <div class="tab-pane fade" id="tab-platinum" role="tabpanel"
-                                        aria-labelledby="tab-platinum-tab">
-                                        <div class="aq-luxury-showcase">
-                                            <div class="row g-4">
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-gold.webp" alt="Product"
-                                                                loading="lazy" />
+                                                    @foreach($category->products->take(6) as $product)
+
+                                                        <div class="col-md-4">
+
+                                                            <div class="aq-luxury-item-card">
+
+                                                                <div class="aq-luxury-item-img">
+
+                                                                    <img src="{{ asset('storage/' . $product->display_image) }}"
+                                                                        alt="{{ $product->name }}" loading="lazy">
+
+                                                                </div>
+
+                                                                <div class="aq-luxury-item-info">
+
+                                                                    <h4 class="aq-luxury-item-title">
+                                                                        {{ $product->name }}
+                                                                    </h4>
+
+                                                                    <span class="aq-luxury-item-price">
+                                                                        ₹{{ number_format($product->price) }}
+                                                                    </span>
+
+                                                                </div>
+
+                                                            </div>
+
                                                         </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                Celestial Diamond Box
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹85,000</span>
-                                                        </div>
-                                                    </div>
+
+                                                    @endforeach
+
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-executive.webp"
-                                                                alt="Product" loading="lazy" />
-                                                        </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                Prestige Executive Case
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹1,20,000</span>
-                                                        </div>
-                                                    </div>
+
+                                                <div class="mt-40 text-center text-lg-start">
+
+                                                    <a href="{{ route('category.products', $category->slug) }}"
+                                                        class="aq-btn-luxury">
+
+                                                        Explore {{ $category->name }}
+
+                                                        <i class="fa-solid fa-arrow-right-long ml-10"></i>
+
+                                                    </a>
+
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-gold.webp" alt="Product"
-                                                                loading="lazy" />
-                                                        </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                Legacy Platinum Trunk
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹95,000</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-executive.webp"
-                                                                alt="Product" loading="lazy" />
-                                                        </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                Elysian Gold Collection
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹78,000</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-gold.webp" alt="Product"
-                                                                loading="lazy" />
-                                                        </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                Aura Bespoke Hamper
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹1,50,000</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="aq-luxury-item-card">
-                                                        <div class="aq-luxury-item-img">
-                                                            <img src="assets/img/corporate/hamper-executive.webp"
-                                                                alt="Product" loading="lazy" />
-                                                        </div>
-                                                        <div class="aq-luxury-item-info">
-                                                            <h4 class="aq-luxury-item-title">
-                                                                The Grand Sovereign Case
-                                                            </h4>
-                                                            <span class="aq-luxury-item-price">â‚¹1,10,000</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
+
                                             </div>
-                                            <div class="mt-40 text-center text-lg-start">
-                                                <a href="#" class="aq-btn-luxury">Explore Signature Platinum
-                                                    <i class="fa-solid fa-arrow-right-long ml-10"></i></a>
-                                            </div>
+
                                         </div>
-                                    </div>
+
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -2321,7 +1228,7 @@
                 </div>
             </div>
         </section>
-        <!-- Elegant Sections-->
+
         <section>
             <div class="hero-section2 position-relative">
                 <div class="aqf-floating-shape aqf-floating-shape-1">
@@ -2386,46 +1293,14 @@
                                                     <div class="col-md-12 col-lg-5">
                                                         <div class="hero-right">
                                                             <div class="hero-img">
-                                                                <img src="assets/img/corporate/banner1.webp" alt="Banner 1"
-                                                                    loading="lazy" />
+                                                                <img src="{{ asset('assets/img/corporate/banner1.webp') }}"
+                                                                    alt="Banner 1" loading="lazy" />
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- Slide 2 -->
-                                        <!-- <div class="hero-single swiper-slide">
-                                                            <div class="container">
-                                                                <div class="row align-items-center">
-                                                                    <div class="col-md-12 col-lg-7">
-                                                                        <div class="hero-content">
-                                                                            <h6 class="hero-sub-title">Custom Branded Hampers</h6>
-                                                                            <h1 class="hero-title">
-                                                                                The Art of <br><span>Executive</span> Gifting
-                                                                            </h1>
-                                                                            <p>
-                                                                                From luxury stationery to gourmet hampers, we offer
-                                                                                personalized gifting experiences that celebrate success
-                                                                                and foster long-lasting professional relationships.
-                                                                            </p>
-                                                                            <div class="hero-btn">
-                                                                                <a href="#" class=" aq-btn-black ">Custom Order <i
-                                                                                        class="fas fa-arrow-right"></i></a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-12 col-lg-5">
-                                                                        <div class="hero-right">
-                                                                            <div class="hero-img">
-                                                                                <img src="assets/img/corporate/banner2.webp"
-                                                                                    alt="Banner 2" loading="lazy">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div> -->
                                         <!-- Slide 3 -->
                                         <div class="hero-single swiper-slide">
                                             <div class="container">
@@ -2454,8 +1329,8 @@
                                                     <div class="col-md-12 col-lg-5">
                                                         <div class="hero-right">
                                                             <div class="hero-img">
-                                                                <img src="assets/img/corporate/banner3.webp" alt="Banner 3"
-                                                                    loading="lazy" />
+                                                                <img src="{{ asset('assets/img/corporate/banner3.webp') }}"
+                                                                    alt="Banner 3" loading="lazy" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2490,8 +1365,8 @@
                                                     <div class="col-md-12 col-lg-5">
                                                         <div class="hero-right">
                                                             <div class="hero-img">
-                                                                <img src="assets/img/corporate/banner4.webp" alt="Banner 4"
-                                                                    loading="lazy" />
+                                                                <img src="{{ asset('assets/img/corporate/banner4.webp') }}"
+                                                                    alt="Banner 4" loading="lazy" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2512,8 +1387,8 @@
                                     <div class="row">
                                         <div class="col-md-6 col-lg-12 px-lg-0">
                                             <div class="banner-item">
-                                                <img src="assets/img/corporate/mini-banner-1.webp" alt="Small Banner 1"
-                                                    loading="lazy" />
+                                                <img src="{{ asset('assets/img/corporate/mini-banner-1.webp') }}"
+                                                    alt="Small Banner 1" loading="lazy" />
                                                 <div class="banner-content">
                                                     <p>Luxury Curation</p>
                                                     <h3>
@@ -2526,8 +1401,8 @@
                                         </div>
                                         <div class="col-md-6 col-lg-12 px-lg-0">
                                             <div class="banner-item">
-                                                <img src="assets/img/corporate/mini-banner-2.webp" alt="Small Banner 2"
-                                                    loading="lazy" />
+                                                <img src="{{ asset('assets/img/corporate/mini-banner-2.webp') }}"
+                                                    alt="Small Banner 2" loading="lazy" />
                                                 <div class="banner-content">
                                                     <p>Tech Excellence</p>
                                                     <h3>
@@ -2593,238 +1468,84 @@
                         </div>
                         <div class="swiper aq-product-active">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="aq-product-item aq-product-main mb-20" data-lazy="true">
-                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
-                                            <div class="aq-product-badge">
-                                                <span class="clr-sale">-10%</span>
+                                @foreach($engravingProducts as $product)
+
+                                    <div class="swiper-slide">
+                                        <div class="aq-product-item aq-product-main mb-20" data-lazy="true">
+
+                                            <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
+
+                                                @if($product->discount > 0)
+                                                    <div class="aq-product-badge">
+
+                                                        @if($product->discount_type == 'percentage')
+                                                            <span class="clr-sale">
+                                                                -{{ $product->discount }}%
+                                                            </span>
+                                                        @else
+                                                            <span class="clr-sale">
+                                                                ₹{{ number_format($product->discount) }} OFF
+                                                            </span>
+                                                        @endif
+
+                                                    </div>
+                                                @endif
+
+                                                <div class="aq-product-action">
+                                                    <button type="button" class="aq-product-action-btn aq-tooltip"
+                                                        data-bs-toggle="modal" data-bs-target="#producQuickViewModal">
+                                                        <i class="fa-regular fa-eye"></i>
+                                                        <span class="aq-tooltip-item">Quick View</span>
+                                                    </button>
+                                                </div>
+
+                                                <a href="{{ route('product.details', $product->slug) }}">
+
+                                                    <img class="lazyload aq-product-img"
+                                                        src="{{ asset('storage/' . $product->display_image) }}"
+                                                        alt="{{ $product->name }}" loading="lazy" />
+
+                                                    <img class="aq-img-hover lazyload"
+                                                        src="{{ asset('storage/' . $product->display_image) }}"
+                                                        alt="{{ $product->name }}" loading="lazy" />
+
+                                                </a>
+
                                             </div>
-                                            <div class="aq-product-action">
-                                                <button type="button" class="aq-product-action-btn aq-tooltip"
-                                                    data-bs-toggle="modal" data-bs-target="#producQuickViewModal">
-                                                    <i class="fa-regular fa-eye"></i>
-                                                    <span class="aq-tooltip-item">Quick View</span>
-                                                </button>
-                                                <button type="button"
-                                                    class="aq-product-action-btn aq-wishlist-btn aq-tooltip">
-                                                    <i class="fa-regular fa-heart"></i>
-                                                    <span class="aq-tooltip-item">Add To Wishlist</span>
-                                                </button>
+
+                                            <div class="aq-product-content text-center">
+
+                                                <h4 class="aq-product-title mb-10">
+                                                    <a href="{{ route('product.details', $product->slug) }}">
+                                                        {{ $product->name }}
+                                                    </a>
+                                                </h4>
+
+                                                <div class="aq-product-price">
+
+                                                    <ins>
+                                                        <span class="aq-product-new-price">
+                                                            ₹{{ number_format($product->price) }}
+                                                        </span>
+                                                    </ins>
+
+                                                    @if($product->mrp > $product->price)
+                                                        <del>
+                                                            <span class="aq-product-old-price">
+                                                                ₹{{ number_format($product->mrp) }}
+                                                            </span>
+                                                        </del>
+                                                    @endif
+
+                                                </div>
+
                                             </div>
-                                            <a href="product-details-default.html">
-                                                <img class="lazyload aq-product-img"
-                                                    src="assets/img/corporate/custom_gift_hampers1.webp" alt=""
-                                                    loading="lazy" />
-                                                <img class="aq-img-hover lazyload"
-                                                    src="assets/img/corporate/custom_gift_hampers2.webp" alt=""
-                                                    loading="lazy" />
-                                            </a>
-                                        </div>
-                                        <div class="aq-product-content text-center">
-                                            <h4 class="aq-product-title mb-10">
-                                                <a href="product-details-default.html">Bespoke Corporate Hamper</a>
-                                            </h4>
-                                            <div class="aq-product-price">
-                                                <ins><span class="aq-product-new-price">$120.00</span></ins>
-                                                <del><span class="aq-product-old-price">$150.00</span></del>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="aq-product-item aq-product-main mb-20" data-lazy="true">
-                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
-                                            <div class="aq-product-badge">
-                                                <span class="clr-hot">Hot</span>
-                                            </div>
-                                            <div class="aq-product-action">
-                                                <button type="button" class="aq-product-action-btn aq-tooltip"
-                                                    data-bs-toggle="modal" data-bs-target="#producQuickViewModal">
-                                                    <i class="fa-regular fa-eye"></i>
-                                                    <span class="aq-tooltip-item">Quick View</span>
-                                                </button>
-                                            </div>
-                                            <a href="product-details-default.html">
-                                                <img class="lazyload aq-product-img"
-                                                    src="assets/img/corporate/custom_gift_hampers2.webp" alt=""
-                                                    loading="lazy" />
-                                                <img class="aq-img-hover lazyload"
-                                                    src="assets/img/corporate/custom_gift_hampers3.webp" alt=""
-                                                    loading="lazy" />
-                                            </a>
-                                        </div>
-                                        <div class="aq-product-content text-center">
-                                            <h4 class="aq-product-title mb-10">
-                                                <a href="product-details-default.html">Luxury Branding Box</a>
-                                            </h4>
-                                            <div class="aq-product-price">
-                                                <ins><span class="aq-product-new-price">$150.00</span></ins>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="aq-product-item aq-product-main mb-20" data-lazy="true">
-                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
-                                            <div class="aq-product-badge">
-                                                <span class="clr-new">New</span>
-                                            </div>
-                                            <div class="aq-product-action">
-                                                <button type="button" class="aq-product-action-btn aq-tooltip"
-                                                    data-bs-toggle="modal" data-bs-target="#producQuickViewModal">
-                                                    <i class="fa-regular fa-eye"></i>
-                                                    <span class="aq-tooltip-item">Quick View</span>
-                                                </button>
-                                            </div>
-                                            <a href="product-details-default.html">
-                                                <img class="lazyload aq-product-img"
-                                                    src="assets/img/corporate/custom_gift_hampers3.webp" alt=""
-                                                    loading="lazy" />
-                                                <img class="aq-img-hover lazyload"
-                                                    src="assets/img/corporate/custom_gift_hampers4.webp" alt=""
-                                                    loading="lazy" />
-                                            </a>
-                                        </div>
-                                        <div class="aq-product-content text-center">
-                                            <h4 class="aq-product-title mb-10">
-                                                <a href="product-details-default.html">Curated Welcome Kit</a>
-                                            </h4>
-                                            <div class="aq-product-price">
-                                                <ins><span class="aq-product-new-price">$95.00</span></ins>
-                                            </div>
+
                                         </div>
                                     </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="aq-product-item aq-product-main mb-20" data-lazy="true">
-                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
-                                            <div class="aq-product-badge">
-                                                <span class="clr-hot">Hot</span>
-                                            </div>
-                                            <div class="aq-product-action">
-                                                <button type="button" class="aq-product-action-btn aq-tooltip"
-                                                    data-bs-toggle="modal" data-bs-target="#producQuickViewModal">
-                                                    <i class="fa-regular fa-eye"></i>
-                                                    <span class="aq-tooltip-item">Quick View</span>
-                                                </button>
-                                            </div>
-                                            <a href="product-details-default.html">
-                                                <img class="lazyload aq-product-img"
-                                                    src="assets/img/corporate/custom_gift_hampers4.webp" alt=""
-                                                    loading="lazy" />
-                                                <img class="aq-img-hover lazyload"
-                                                    src="assets/img/corporate/custom_gift_hampers1.webp" alt=""
-                                                    loading="lazy" />
-                                            </a>
-                                        </div>
-                                        <div class="aq-product-content text-center">
-                                            <h4 class="aq-product-title mb-10">
-                                                <a href="product-details-default.html">Artisanal Celebration Box</a>
-                                            </h4>
-                                            <div class="aq-product-price">
-                                                <ins><span class="aq-product-new-price">$110.00</span></ins>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="aq-product-item aq-product-main mb-20" data-lazy="true">
-                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
-                                            <div class="aq-product-action">
-                                                <button type="button" class="aq-product-action-btn aq-tooltip"
-                                                    data-bs-toggle="modal" data-bs-target="#producQuickViewModal">
-                                                    <i class="fa-regular fa-eye"></i>
-                                                    <span class="aq-tooltip-item">Quick View</span>
-                                                </button>
-                                            </div>
-                                            <a href="product-details-default.html">
-                                                <img class="lazyload aq-product-img"
-                                                    src="assets/img/corporate/hero_gift_box_1778667986732.webp" alt=""
-                                                    loading="lazy" />
-                                                <img class="aq-img-hover lazyload"
-                                                    src="assets/img/corporate/custom_gift_hampers2.webp" alt=""
-                                                    loading="lazy" />
-                                            </a>
-                                        </div>
-                                        <div class="aq-product-content text-center">
-                                            <h4 class="aq-product-title mb-10">
-                                                <a href="product-details-default.html">Premium Executive Gift Box</a>
-                                            </h4>
-                                            <div class="aq-product-price">
-                                                <ins><span class="aq-product-new-price">$180.00</span></ins>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="aq-product-item aq-product-main mb-20" data-lazy="true">
-                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
-                                            <div class="aq-product-action">
-                                                <button type="button" class="aq-product-action-btn aq-tooltip"
-                                                    data-bs-toggle="modal" data-bs-target="#producQuickViewModal">
-                                                    <i class="fa-regular fa-eye"></i>
-                                                    <span class="aq-tooltip-item">Quick View</span>
-                                                </button>
-                                            </div>
-                                            <a href="product-details-default.html">
-                                                <img class="lazyload aq-product-img"
-                                                    src="assets/img/corporate/welcome_kit_1778668006890.webp" alt=""
-                                                    loading="lazy" />
-                                                <img class="aq-img-hover lazyload"
-                                                    src="assets/img/corporate/custom_gift_hampers3.webp" alt=""
-                                                    loading="lazy" />
-                                            </a>
-                                        </div>
-                                        <div class="aq-product-content text-center">
-                                            <h4 class="aq-product-title mb-10">
-                                                <a href="product-details-default.html">Corporate Joining Kit</a>
-                                            </h4>
-                                            <div class="aq-product-price">
-                                                <ins><span class="aq-product-new-price">$85.00</span></ins>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="aq-product-item aq-product-main mb-20" data-lazy="true">
-                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
-                                            <a href="product-details-default.html">
-                                                <img class="lazyload aq-product-img"
-                                                    src="assets/img/corporate/card_imges1.webp" alt="" loading="lazy" />
-                                                <img class="aq-img-hover lazyload"
-                                                    src="assets/img/corporate/card_imges2.webp" alt="" loading="lazy" />
-                                            </a>
-                                        </div>
-                                        <div class="aq-product-content text-center">
-                                            <h4 class="aq-product-title mb-10">
-                                                <a href="product-details-default.html">Gourmet Selection Box</a>
-                                            </h4>
-                                            <div class="aq-product-price">
-                                                <ins><span class="aq-product-new-price">$65.00</span></ins>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="aq-product-item aq-product-main mb-20" data-lazy="true">
-                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
-                                            <a href="product-details-default.html">
-                                                <img class="lazyload aq-product-img"
-                                                    src="assets/img/corporate/card_imges3.webp" alt="" loading="lazy" />
-                                                <img class="aq-img-hover lazyload"
-                                                    src="assets/img/corporate/card_imges4.webp" alt="" loading="lazy" />
-                                            </a>
-                                        </div>
-                                        <div class="aq-product-content text-center">
-                                            <h4 class="aq-product-title mb-10">
-                                                <a href="product-details-default.html">Executive Stationery Set</a>
-                                            </h4>
-                                            <div class="aq-product-price">
-                                                <ins><span class="aq-product-new-price">$45.00</span></ins>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
+                                @endforeach
+
                             </div>
                         </div>
                     </div>
@@ -2856,7 +1577,7 @@
                         <div class="row align-items-center">
                             <div class="col-xl-5 col-lg-7 d-none d-lg-block">
                                 <div class="aqf-summer-suit-img">
-                                    <img src="assets/img/corporate/stationery_gifts_1778668654881.webp"
+                                    <img src="{{ asset('assets/img/corporate/stationery_gifts_1778668654881.webp') }}"
                                         alt="Premium Corporate Gift" loading="lazy" />
                                 </div>
                             </div>
@@ -2879,14 +1600,14 @@
                                                         <div class="swiper-slide">
                                                             <div class="aqf-summer-slider-item">
                                                                 <img class="w-100"
-                                                                    src="assets/img/corporate/eco_friendly_gifts_1778668670253.webp"
+                                                                    src="{{ asset('assets/img/corporate/eco_friendly_gifts_1778668670253.webp') }}"
                                                                     alt="Executive Tech Kit" loading="lazy" />
                                                             </div>
                                                         </div>
                                                         <div class="swiper-slide">
                                                             <div class="aqf-summer-slider-item">
                                                                 <img class="w-100"
-                                                                    src="assets/img/corporate/welcome_kit_1778668006890.webp"
+                                                                    src="{{ asset('assets/img/corporate/welcome_kit_1778668006890.webp') }}"
                                                                     alt="Luxury Gourmet Hamper" loading="lazy" />
                                                             </div>
                                                         </div>
@@ -2946,83 +1667,52 @@
                     <div class="aqf-reels-slider-wrap">
                         <div class="swiper aqf-reels-active">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="aqf-reel-item p-relative">
-                                        <div class="aqf-reel-video">
-                                            <video autoplay muted loop playsinline preload="none"
-                                                data-src="assets/img/reals_video.mp4"></video>
-                                        </div>
-                                        <div class="aqf-reel-content-wrap">
-                                            <div class="aqf-reel-profile">
-                                                <img src="assets/img/corporate/card_imges1.webp" alt="Profile"
-                                                    loading="lazy" />
-                                                <h4 class="aqf-reel-title">Executive Welcome Box</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="aqf-reel-item p-relative">
-                                        <div class="aqf-reel-video">
-                                            <video autoplay muted loop playsinline preload="none"
-                                                data-src="assets/img/reals_video2.mp4"></video>
-                                        </div>
-                                        <div class="aqf-reel-content-wrap">
-                                            <div class="aqf-reel-profile">
-                                                <img src="assets/img/corporate/card_imges2.webp" alt="Profile"
-                                                    loading="lazy" />
-                                                <h4 class="aqf-reel-title">Premium Office Sets</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="aqf-reel-item p-relative">
-                                        <div class="aqf-reel-video">
-                                            <video autoplay muted loop playsinline preload="none"
-                                                data-src="assets/img/reals_video3.mp4"></video>
-                                        </div>
-                                        <div class="aqf-reel-content-wrap">
-                                            <div class="aqf-reel-profile">
-                                                <img src="assets/img/corporate/card_imges3.webp" alt="Profile"
-                                                    loading="lazy" />
-                                                <h4 class="aqf-reel-title">Heritage Diwali Hamper</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="aqf-reel-item p-relative">
-                                        <div class="aqf-reel-video">
-                                            <!-- Gift Video Placeholder -->
-                                            <video autoplay muted loop playsinline preload="none"
-                                                data-src="assets/img/reals_video2.mp4"></video>
-                                        </div>
-                                        <div class="aqf-reel-content-wrap">
-                                            <div class="aqf-reel-profile">
-                                                <img src="assets/img/corporate/card_imges4.webp" alt="Profile"
-                                                    loading="lazy" />
-                                                <h4 class="aqf-reel-title">Bespoke Tech Kits</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="aqf-reel-item p-relative">
-                                        <div class="aqf-reel-video">
-                                            <!-- Gift Video Placeholder -->
-                                            <video autoplay muted loop playsinline preload="none"
-                                                data-src="assets/img/reals_video3.mp4"></video>
-                                        </div>
-                                        <div class="aqf-reel-content-wrap">
-                                            <div class="aqf-reel-profile">
-                                                <img src="assets/img/corporate/card_imges5.webp" alt="Profile"
-                                                    loading="lazy" />
-                                                <h4 class="aqf-reel-title">Signature Gifts</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @foreach($reels as $reel)
+
+                                                        <div class="swiper-slide">
+                                                            <div class="aqf-reel-item p-relative">
+
+                                                                <div class="aqf-reel-video">
+
+                                                                    @if($reel->reel_file)
+
+                                                                        <video autoplay muted loop playsinline preload="none">
+                                                                            <source src="{{ asset('storage/' . $reel->reel_file) }}" type="video/mp4">
+                                                                        </video>
+
+
+                                                                    @elseif($reel->reel_url)
+
+                                                                        <video autoplay muted loop playsinline preload="none">
+                                                                            <source src="{{ $reel->reel_url }}" type="video/mp4">
+                                                                        </video>
+
+                                                                    @endif
+
+                                                                </div>
+
+                                                                <div class="aqf-reel-content-wrap">
+
+                                                                    <div class="aqf-reel-profile">
+
+                                                                        <img src="{{ $reel->photo
+                                    ? asset('storage/' . $reel->photo)
+                                    : asset('assets/img/default-user.png') }}" alt="{{ $reel->name }}"
+                                                                            loading="lazy" />
+
+                                                                        <h4 class="aqf-reel-title">
+                                                                            {{ $reel->name }}
+                                                                        </h4>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+                                @endforeach
+
                             </div>
                         </div>
                     </div>
@@ -3077,17 +1767,17 @@
                             <div class="masonry-column">
                                 <div class="masonry-track direction-down">
                                     <div class="masonry-card h-md">
-                                        <img src="assets/img/corporate/apparel_gifts_1778668621245.webp"
+                                        <img src="{{ asset('assets/img/corporate/apparel_gifts_1778668621245.webp') }}"
                                             alt="Corporate Apparel" loading="lazy" />
                                     </div>
 
                                     <div class="masonry-card h-xl">
-                                        <img src="assets/img/corporate/backpack_gifts_1778668040094.webp"
+                                        <img src="{{ asset('assets/img/corporate/backpack_gifts_1778668040094.webp') }}"
                                             alt="Business Backpacks" loading="lazy" />
                                     </div>
 
                                     <div class="masonry-card h-sm">
-                                        <img src="assets/img/corporate/eco_friendly_gifts_1778668670253.webp"
+                                        <img src="{{ asset('assets/img/corporate/eco_friendly_gifts_1778668670253.webp') }}"
                                             alt="Eco Friendly Gifts" loading="lazy" />
                                     </div>
                                 </div>
@@ -3099,17 +1789,17 @@
                             <div class="masonry-column">
                                 <div class="masonry-track direction-up">
                                     <div class="masonry-card h-xl">
-                                        <img src="assets/img/corporate/hero_gift_box_1778667986732.webp"
+                                        <img src="{{ asset('assets/img/corporate/hero_gift_box_1778667986732.webp') }}"
                                             alt="Executive Gift Box" loading="lazy" />
                                     </div>
 
                                     <div class="masonry-card h-md">
-                                        <img src="assets/img/corporate/kitchen_appliances_1778668633577.webp"
+                                        <img src="{{ asset('assets/img/corporate/kitchen_appliances_1778668633577.webp') }}"
                                             alt="Kitchen Appliances" loading="lazy" />
                                     </div>
 
                                     <div class="masonry-card h-lg">
-                                        <img src="assets/img/corporate/premium_gadgets_1778668027534.webp"
+                                        <img src="{{ asset('assets/img/corporate/premium_gadgets_1778668027534.webp') }}"
                                             alt="Premium Tech Gadgets" loading="lazy" />
                                     </div>
                                 </div>
@@ -3121,17 +1811,17 @@
                             <div class="masonry-column">
                                 <div class="masonry-track direction-down">
                                     <div class="masonry-card h-lg">
-                                        <img src="assets/img/corporate/stationery_gifts_1778668654881.webp"
+                                        <img src="{{ asset('assets/img/corporate/stationery_gifts_1778668654881.webp') }}"
                                             alt="Office Stationery" loading="lazy" />
                                     </div>
 
                                     <div class="masonry-card h-sm">
-                                        <img src="assets/img/corporate/vouchers_gifts_retry_1778668716547.webp"
+                                        <img src="{{ asset('assets/img/corporate/vouchers_gifts_retry_1778668716547.webp') }}"
                                             alt="Gift Vouchers" loading="lazy" />
                                     </div>
 
                                     <div class="masonry-card h-xl">
-                                        <img src="assets/img/corporate/welcome_kit_1778668006890.webp"
+                                        <img src="{{ asset('assets/img/corporate/welcome_kit_1778668006890.webp') }}"
                                             alt="Employee Welcome Kit" loading="lazy" />
                                     </div>
                                 </div>
@@ -3144,105 +1834,69 @@
 
 
         <!-- Our Brands section start -->
-      <section class="aq-brands-section-wrap">
-    <div class="container">
+        <section class="aq-brands-section-wrap">
+            <div class="container">
 
-        <!-- Section Title -->
-        <div class="aqf-collection-top mb-40">
-            <div class="row align-items-end">
-                <div class="col-md-12">
-                    <div class="aq-creative-title-box">
-                        <span class="aq-creative-subtitle">
-                            Premium Partnerships
-                        </span>
-
-                        <h4 class="aq-creative-title">
-                            Our Brands
-                        </h4>
-
-                        <div class="aq-creative-title-line"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="aq-brands-main-card">
-
-            <div class="row">
-
-                <div class="aqf-why-us-header">
-
-                    <h2 class="aqf-why-us-title">
-                        Trusted Global
-                    </h2>
-
-                    <div class="aqf-why-us-subtitle-wrap">
-
-                        <div class="aqf-why-us-divider d-none d-lg-block"></div>
-
-                        <p class="aqf-why-us-subtitle">
-                            Discover premium products from world-renowned brands across technology,
-                            lifestyle, home essentials, and wellness.
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <!-- LEFT CATEGORY TABS -->
-                <div class="col-lg-3 col-md-4 mb-4 mb-md-0">
-
-                    <div class="aq-brands-tab-nav" role="tablist">
-
-                        @foreach($brandCategories as $category)
-
-                            <button
-                                class="aq-brands-tab-btn {{ $loop->first ? 'active' : '' }}"
-                                data-tab="category-{{ $category->id }}"
-                                role="tab"
-                                aria-selected="{{ $loop->first ? 'true' : 'false' }}">
-
-                                <span class="aq-brands-tab-bar"></span>
-
-                                <span>
-                                    {{ $category->name }}
+                <!-- Section Title -->
+                <div class="aqf-collection-top mb-40">
+                    <div class="row align-items-end">
+                        <div class="col-md-12">
+                            <div class="aq-creative-title-box">
+                                <span class="aq-creative-subtitle">
+                                    Premium Partnerships
                                 </span>
 
-                            </button>
+                                <h4 class="aq-creative-title">
+                                    Our Brands
+                                </h4>
 
-                        @endforeach
-
+                                <div class="aq-creative-title-line"></div>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
 
-                <!-- RIGHT BRAND LOGOS -->
-                <div class="col-lg-9 col-md-8">
+                <div class="aq-brands-main-card">
 
-                    @foreach($brandCategories as $category)
+                    <div class="row">
 
-                        <div
-                            class="aq-brands-tab-pane {{ $loop->first ? 'active' : '' }}"
-                            id="category-{{ $category->id }}"
-                            role="tabpanel">
+                        <div class="aqf-why-us-header">
 
-                            <div class="aq-brands-logos-grid">
+                            <h2 class="aqf-why-us-title">
+                                Trusted Global
+                            </h2>
 
-                                @foreach($category->brands as $brand)
+                            <div class="aqf-why-us-subtitle-wrap">
 
-                                    <div class="aq-brand-logo-card">
+                                <div class="aqf-why-us-divider d-none d-lg-block"></div>
 
-                                        <div class="aq-brand-logo-inner">
+                                <p class="aqf-why-us-subtitle">
+                                    Discover premium products from world-renowned brands across technology,
+                                    lifestyle, home essentials, and wellness.
+                                </p>
 
-                                            <img
-                                                class="aq-brand-logo-img"
-                                                src="{{ asset('storage/'.$brand->logo) }}"
-                                                alt="{{ $brand->name }}"
-                                                loading="lazy">
+                            </div>
 
-                                        </div>
+                        </div>
 
-                                    </div>
+                        <!-- LEFT CATEGORY TABS -->
+                        <div class="col-lg-3 col-md-4 mb-4 mb-md-0">
+
+                            <div class="aq-brands-tab-nav" role="tablist">
+
+                                @foreach($brandCategories as $category)
+
+                                    <button class="aq-brands-tab-btn {{ $loop->first ? 'active' : '' }}"
+                                        data-tab="category-{{ $category->id }}" role="tab"
+                                        aria-selected="{{ $loop->first ? 'true' : 'false' }}">
+
+                                        <span class="aq-brands-tab-bar"></span>
+
+                                        <span>
+                                            {{ $category->name }}
+                                        </span>
+
+                                    </button>
 
                                 @endforeach
 
@@ -3250,16 +1904,45 @@
 
                         </div>
 
-                    @endforeach
+                        <!-- RIGHT BRAND LOGOS -->
+                        <div class="col-lg-9 col-md-8">
+
+                            @foreach($brandCategories as $category)
+
+                                <div class="aq-brands-tab-pane {{ $loop->first ? 'active' : '' }}"
+                                    id="category-{{ $category->id }}" role="tabpanel">
+
+                                    <div class="aq-brands-logos-grid">
+
+                                        @foreach($category->brands as $brand)
+
+                                            <div class="aq-brand-logo-card">
+
+                                                <div class="aq-brand-logo-inner">
+
+                                                    <img class="aq-brand-logo-img" src="{{ asset('storage/' . $brand->logo) }}"
+                                                        alt="{{ $brand->name }}" loading="lazy">
+
+                                                </div>
+
+                                            </div>
+
+                                        @endforeach
+
+                                    </div>
+
+                                </div>
+
+                            @endforeach
+
+                        </div>
+
+                    </div>
 
                 </div>
 
             </div>
-
-        </div>
-
-    </div>
-</section>
+        </section>
 
         <!-- testimonial area start -->
         <section>
@@ -3285,85 +1968,52 @@
                                 </div>
                                 <div class="swiper aqf-testimonial-active">
                                     <div class="swiper-wrapper">
-                                        <!-- Slide 1 -->
-                                        <div class="swiper-slide">
-                                            <div class="aqf-testimonial-card-creative">
-                                                <div class="aqf-testimonial-image-creative">
-                                                    <img src="assets/img/corporate/welcome_kit_1778668006890.webp"
-                                                        alt="Corporate Partner" loading="lazy" />
-                                                </div>
-                                                <div class="aqf-testimonial-content-creative">
-                                                    <div class="aqf-testimonial-quote-v2">
-                                                        <i class="fa-solid fa-quote-left"></i>
-                                                    </div>
-                                                    <div class="aqf-testimonial-text-v2">
-                                                        <p>
-                                                            "The attention to detail in their corporate
-                                                            hampers is unparalleled. Our executive team was
-                                                            thoroughly impressed by the luxury leather
-                                                            collection. Truly a benchmark for B2B gifting in
-                                                            India."
-                                                        </p>
-                                                    </div>
-                                                    <div class="aqf-testimonial-author-v2">
-                                                        <h4>Arjun Malhotra</h4>
-                                                        <span>Director of Operations, Tech Vision Group</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Slide 2 -->
-                                        <div class="swiper-slide">
-                                            <div class="aqf-testimonial-card-creative">
-                                                <div class="aqf-testimonial-image-creative">
-                                                    <img src="assets/img/corporate/stationery_gifts_1778668654881.webp"
-                                                        alt="Corporate Partner" loading="lazy" />
-                                                </div>
-                                                <div class="aqf-testimonial-content-creative">
-                                                    <div class="aqf-testimonial-quote-v2">
-                                                        <i class="fa-solid fa-quote-left"></i>
-                                                    </div>
-                                                    <div class="aqf-testimonial-text-v2">
-                                                        <p>
-                                                            "Searching for premium client gifts used to be a
-                                                            challenge until we found B2B Gifts. Their
-                                                            bespoke solutions and 'Forest & Gold' aesthetic
-                                                            perfectly align with our luxury brand identity."
-                                                        </p>
-                                                    </div>
-                                                    <div class="aqf-testimonial-author-v2">
-                                                        <h4>Sarah Jenkins</h4>
-                                                        <span>VP Marketing, Global Partners LLC</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Slide 3 -->
-                                        <div class="swiper-slide">
-                                            <div class="aqf-testimonial-card-creative">
-                                                <div class="aqf-testimonial-image-creative">
-                                                    <img src="assets/img/corporate/premium_gadgets_1778668027534.webp"
-                                                        alt="Corporate Partner" loading="lazy" />
-                                                </div>
-                                                <div class="aqf-testimonial-content-creative">
-                                                    <div class="aqf-testimonial-quote-v2">
-                                                        <i class="fa-solid fa-quote-left"></i>
-                                                    </div>
-                                                    <div class="aqf-testimonial-text-v2">
-                                                        <p>
-                                                            "Exceptional service and exquisite product
-                                                            quality. The seamless ordering process for our
-                                                            annual conference was a lifesaver. Highly
-                                                            recommended for high-stakes corporate events."
-                                                        </p>
-                                                    </div>
-                                                    <div class="aqf-testimonial-author-v2">
-                                                        <h4>Vikram Singh</h4>
-                                                        <span>CEO, Heritage Exports</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        @foreach($testimonials as $testimonial)
+
+                                                                        <div class="swiper-slide">
+
+                                                                            <div class="aqf-testimonial-card-creative">
+
+                                                                                <div class="aqf-testimonial-image-creative">
+
+                                                                                    <img src="{{ $testimonial->photo
+                                            ? asset('storage/' . $testimonial->photo)
+                                            : asset('assets/img/no-image.png') }}" alt="{{ $testimonial->name }}"
+                                                                                        loading="lazy" />
+
+                                                                                </div>
+
+                                                                                <div class="aqf-testimonial-content-creative">
+
+                                                                                    <div class="aqf-testimonial-quote-v2">
+                                                                                        <i class="fa-solid fa-quote-left"></i>
+                                                                                    </div>
+
+                                                                                    <div class="aqf-testimonial-text-v2">
+                                                                                        <p>
+                                                                                            "{{ $testimonial->feedback }}"
+                                                                                        </p>
+                                                                                    </div>
+
+                                                                                    <div class="aqf-testimonial-author-v2">
+
+                                                                                        <h4>{{ $testimonial->name }}</h4>
+
+                                                                                        @if($testimonial->rating)
+                                                                                            <span>
+                                                                                                ⭐ {{ $testimonial->rating }}/5
+                                                                                            </span>
+                                                                                        @endif
+
+                                                                                    </div>
+
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                        </div>
+
+                                        @endforeach
                                     </div>
                                     <!-- Pagination -->
                                     <div class="aqf-testimonial-dot text-center"></div>
@@ -3389,41 +2039,26 @@
 
                     <div class="swiper aq-brand-active">
                         <div class="swiper-wrapper align-items-center">
-                            <div class="swiper-slide">
-                                <div class="aq-brand-item">
-                                    <img src="assets/img/corporate/amazon_logo.webp" alt="Amazon" />
+
+                            @foreach($clients as $client)
+
+                                <div class="swiper-slide">
+                                    <div class="aq-brand-item">
+
+                                        <img src="{{ asset('storage/' . $client->logo) }}" alt="{{ $client->name }}"
+                                            loading="lazy" />
+
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="aq-brand-item">
-                                    <img src="assets/img/corporate/google_logo.webp" alt="Google" />
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="aq-brand-item">
-                                    <img src="assets/img/corporate/ibm_logo.webp" alt="IBM" />
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="aq-brand-item">
-                                    <img src="assets/img/corporate/netflix_logo.webp" alt="Netflix" />
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="aq-brand-item">
-                                    <img src="assets/img/corporate/microsoft_logo.webp" alt="Microsoft" />
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="aq-brand-item">
-                                    <img src="assets/img/corporate/apple_logo.webp" alt="Apple" />
-                                </div>
-                            </div>
+
+                            @endforeach
+
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+
         <!-- customer experience area start -->
         <section class="aqf-why-us-section">
             <div class="aqf-why-us-accent-bar"></div>
@@ -3507,7 +2142,8 @@
         <section>
             <div class="aq-cta-offer-section">
                 <div class="aq-cta-offer-img-box">
-                    <img src="assets/img/corporate/hero_gift_box_1778667986732.webp" alt="Limited Offer" loading="lazy" />
+                    <img src="{{ asset('assets/img/corporate/hero_gift_box_1778667986732.webp') }}" alt="Limited Offer"
+                        loading="lazy" />
                 </div>
                 <div class="aq-cta-offer-content">
                     <span class="aq-cta-offer-tag">Get a Quote</span>

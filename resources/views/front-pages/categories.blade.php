@@ -47,63 +47,70 @@
                         </div>
                     </div>
                 </div>
-                <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4 pb-30">
-
-                    @forelse($categories as $category)
-                        <div class="col">
-                            <div class="aqf-categories-item text-center">
-                                <a href="{{ route('category.products', $category->slug) }}">
-                                    <div class="aqf-categories-img">
-                                        <img src="{{ $category->image ? asset('storage/' . $category->image) : asset('assets/img/no-image.png') }}"
-                                            alt="{{ $category->name }}" loading="lazy" />
-                                    </div>
-
-                                    <span>{{ $category->name }}</span>
-                                </a>
-                            </div>
-                        </div>
-                    @empty
-                        <div class="col-12 text-center">
-                            <p>No categories found.</p>
-                        </div>
-                    @endforelse
-
+                <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4 pb-30" id="category-container">
+                    @include('front-pages.partials.category-items', ['categories' => $categories])
                 </div>
-                @if ($categories->hasPages())
-                    <div class="d-flex justify-content-center align-items-center gap-3" style="margin-bottom: 20px;">
 
-                        {{-- Previous --}}
-                        @if ($categories->onFirstPage())
-                            <span class="aq-pagination-btn disabled">
-                                <i class="fa fa-angle-left"></i>
-                            </span>
-                        @else
-                            <a href="{{ $categories->previousPageUrl() }}" class="aq-pagination-btn">
-                                <i class="fa fa-angle-left"></i>
+                <div class="readmore-btn">
+                    <div class="aq-header-top-bulk-orders d-none d-lg-inline-block">
+                        @if($categories->hasMorePages())
+
+                            <a href="javascript:void(0)" class="aq-load-more-btn" id="load-more-categories" data-page="2">
+
+                                <i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path
+                                            d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                                        </path>
+                                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                                    </svg>
+                                </i>
+
+                                <span>LOAD MORE CATEGORIES</span>
+
                             </a>
-                        @endif
 
-                        {{-- Page Info --}}
-                        <span class="aq-pagination-current">
-                            {{ $categories->currentPage() }} / {{ $categories->lastPage() }}
-                        </span>
-
-                        {{-- Next --}}
-                        @if ($categories->hasMorePages())
-                            <a href="{{ $categories->nextPageUrl() }}" class="aq-pagination-btn">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        @else
-                            <span class="aq-pagination-btn disabled">
-                                <i class="fa fa-angle-right"></i>
-                            </span>
                         @endif
 
                     </div>
-                @endif
+                </div>
 
             </div>
         </section>
         <!-- categories area end -->
     </main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+       $(document).on('click', '#load-more-categories', function () {
+
+            let btn = $(this);
+            let page = btn.data('page');
+
+            btn.find('span').text('Loading...');
+
+            $.ajax({
+                url: "{{ route('categories') }}",
+                type: "GET",
+                data: {
+                    page: page
+                },
+                success: function (response) {
+
+                    if ($.trim(response) === '') {
+                        btn.remove();
+                        return;
+                    }
+
+                    $('#category-container').append(response);
+
+                    btn.data('page', page + 1);
+                    btn.find('span').text('LOAD MORE CATEGORIES');
+                }
+            });
+
+        });
+    </script>
 @endsection

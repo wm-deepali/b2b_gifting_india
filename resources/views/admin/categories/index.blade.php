@@ -4,6 +4,21 @@
 
     @include('admin.header')
 
+    <style>
+        .sorting-link {
+            color: #212529;
+            text-decoration: none !important;
+            font-weight: 600;
+        }
+
+        .sorting-link:hover {
+            color: #007bff;
+        }
+
+        .sorting-link i {
+            margin-left: 4px;
+        }
+    </style>
     <div class="app-content content container-fluid">
 
         <div class="breadcrumbs-top d-flex align-items-center bg-light mb-3">
@@ -32,33 +47,128 @@
             <div class="card shadow-sm">
                 <div class="card-body">
 
-                 <form method="GET" class="mb-3">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <input type="text" name="search" value="{{ request('search') }}"
-                                       class="form-control" placeholder="Search Product...">
+                    <form method="GET" class="mb-4">
+                        <div class="row align-items-end">
+
+                            {{-- Type --}}
+                            <div class="col-md-2">
+                                <label class="font-weight-bold mb-1">Type</label>
+                                <select name="type" id="typeFilter" class="form-control">
+                                    <option value="">All</option>
+                                    <option value="category" {{ request('type') == 'category' ? 'selected' : '' }}>
+                                        Categories
+                                    </option>
+                                    <option value="subcategory" {{ request('type') == 'subcategory' ? 'selected' : '' }}>
+                                        Sub Categories
+                                    </option>
+                                </select>
                             </div>
 
-                            <div class="col-md-2">
-                                <button class="btn btn-primary">Search</button>
+                            {{-- Parent Category --}}
+                            <div class="col-md-3" id="categoryFilterDiv"
+                                style="{{ request('type') == 'subcategory' ? '' : 'display:none;' }}">
+                                <label class="font-weight-bold mb-1">Category</label>
+                                <select name="category_id" class="form-control">
+                                    <option value="">All Categories</option>
+
+                                    @foreach($parentCategories as $parent)
+                                        <option value="{{ $parent->id }}" {{ request('category_id') == $parent->id ? 'selected' : '' }}>
+                                            {{ $parent->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
+
+                            {{-- Search --}}
+                            <div class="col-md-4">
+                                <label class="font-weight-bold mb-1">Search</label>
+                                <input type="text" name="search" value="{{ request('search') }}" class="form-control"
+                                    placeholder="Search category name...">
+                            </div>
+
+                            {{-- Buttons --}}
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa fa-search"></i> Search
+                                </button>
+
+                                <a href="{{ route('admin.categories.index') }}" class="btn btn-outline-secondary ml-1">
+                                    <i class="fa fa-refresh"></i> Reset
+                                </a>
+                            </div>
+
                         </div>
                     </form>
-                    
+
                     <div class="table-responsive">
 
                         <table class="table table-hover align-middle">
 
+                            @php
+                                function sortUrl($column)
+                                {
+                                    $direction = request('sort_by') == $column &&
+                                        request('sort_order') == 'asc'
+                                        ? 'desc'
+                                        : 'asc';
+
+                                    return request()->fullUrlWithQuery([
+                                        'sort_by' => $column,
+                                        'sort_order' => $direction
+                                    ]);
+                                }
+
+                                function sortIcon($column)
+                                {
+                                    if (request('sort_by') != $column) {
+                                        return '<i class="fa fa-sort text-muted"></i>';
+                                    }
+
+                                    return request('sort_order') == 'asc'
+                                        ? '<i class="fa fa-sort-up text-primary"></i>'
+                                        : '<i class="fa fa-sort-down text-primary"></i>';
+                                }
+                            @endphp
+
                             <thead class="thead-light">
                                 <tr>
-                                    <th>ID</th>
+
+                                    <th>
+                                        <a href="{{ sortUrl('id') }}" class="sorting-link">
+                                            ID {!! sortIcon('id') !!}
+                                        </a>
+                                    </th>
+
                                     <th>Image</th>
-                                    <th>Name</th>
+
+                                    <th>
+                                        <a href="{{ sortUrl('name') }}" class="sorting-link">
+                                            Name {!! sortIcon('name') !!}
+                                        </a>
+                                    </th>
+
                                     <th>Parent</th>
-                                    <th>Popular</th>
-                                    <th>Sort</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
+
+                                    <th>
+                                        <a href="{{ sortUrl('is_popular') }}" class="sorting-link">
+                                            Popular {!! sortIcon('is_popular') !!}
+                                        </a>
+                                    </th>
+
+                                    <th>
+                                        <a href="{{ sortUrl('sort_order') }}" class="sorting-link">
+                                            Sort {!! sortIcon('sort_order') !!}
+                                        </a>
+                                    </th>
+
+                                    <th>
+                                        <a href="{{ sortUrl('status') }}" class="sorting-link">
+                                            Status {!! sortIcon('status') !!}
+                                        </a>
+                                    </th>
+
+                                    <th width="120">Action</th>
+
                                 </tr>
                             </thead>
 
@@ -106,10 +216,14 @@
                                                                 </td>
 
                                                                 <td>
-                                                                    <a href="{{ route('admin.categories.edit', $cat->id) }}"
-                                                                        class="btn btn-sm btn-outline-dark">
-                                                                        <i class="fa fa-pencil"></i>
-                                                                    </a>
+
+                                                                  <a href="{{ route('admin.categories.edit', [
+    'category' => $cat->id,
+     'redirect' => request()->fullUrl()
+]) }}"
+class="btn btn-sm btn-outline-dark">
+    <i class="fa fa-pencil"></i>
+</a>
 
                                                                     <button class="btn btn-sm btn-outline-danger"
                                                                         onclick="deleteCategory({{ $cat->id }})">
@@ -140,7 +254,7 @@
 
                     {{-- 🔥 PAGINATION --}}
                     <div class="mt-3 d-flex justify-content-center">
-                       {{ $categories->links('pagination::bootstrap-4') }}
+                        {{ $categories->links('pagination::bootstrap-4') }}
                     </div>
 
                 </div>

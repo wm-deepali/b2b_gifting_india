@@ -119,7 +119,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="aq-image-box-premium">
-                            <img src="assets/img/corporate/welcome_kit_1778668006890.webp"
+                            <img src="public/assets/img/corporate/welcome_kit_1778668006890.webp"
                                 alt="Corporate Welcome Gifting Kits Showcase" />
                             <div class="aq-image-box-overlay"></div>
                         </div>

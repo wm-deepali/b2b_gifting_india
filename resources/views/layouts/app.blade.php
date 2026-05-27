@@ -21,7 +21,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Place favicon.ico in the root directory -->
-    <!-- <link rel="shortcut icon" type="image/x-icon" href="assets/img/corporate/favicon.webp"> -->
+    <!-- <link rel="shortcut icon" type="image/x-icon" href="public/assets/img/corporate/favicon.webp"> -->
 
     <!-- Critical CSS (Synchronous for immediate above-the-fold paint) -->
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css')}}" />
@@ -59,7 +59,7 @@
                                 </circle>
                             </svg>
                         </div>
-                        <img src="assets/img/corporate/favicon.webp" alt="" loading="lazy" />
+                        <img src="public/assets/img/corporate/favicon.webp" alt="" loading="lazy" />
                     </div>
                     <!-- <h3 class="aq-preloader-title">B2B Gifts</h3> -->
                     <!-- <p class="aq-preloader-subtitle">Loading..</p> -->
@@ -125,10 +125,10 @@
                                         <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
                                             <a href="product-details-default.html">
                                                 <img class="lazyload aq-product-img"
-                                                    src="assets/img/corporate/custom_gift_hampers1.webp"
+                                                    src="public/assets/img/corporate/custom_gift_hampers1.webp"
                                                     alt="Corporate Hamper" loading="lazy" />
                                                 <img class="aq-img-hover lazyload"
-                                                    src="assets/img/corporate/custom_gift_hampers2.webp"
+                                                    src="public/assets/img/corporate/custom_gift_hampers2.webp"
                                                     alt="Corporate Hamper Hover" loading="lazy" />
                                             </a>
                                         </div>
@@ -151,10 +151,10 @@
                                             </div>
                                             <a href="product-details-default.html">
                                                 <img class="lazyload aq-product-img"
-                                                    src="assets/img/corporate/premium_gadgets_1778668027534.webp"
+                                                    src="public/assets/img/corporate/premium_gadgets_1778668027534.webp"
                                                     alt="Tech Gadgets" loading="lazy" />
                                                 <img class="aq-img-hover lazyload"
-                                                    src="assets/img/corporate/media__1778668953904.webp"
+                                                    src="public/assets/img/corporate/media__1778668953904.webp"
                                                     alt="Tech Gadgets Hover" loading="lazy" />
                                             </a>
                                         </div>
@@ -174,10 +174,10 @@
                                         <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
                                             <a href="product-details-default.html">
                                                 <img class="lazyload aq-product-img"
-                                                    src="assets/img/corporate/apparel_gifts_1778668621245.webp"
+                                                    src="public/assets/img/corporate/apparel_gifts_1778668621245.webp"
                                                     alt="Corporate Apparel" loading="lazy" />
                                                 <img class="aq-img-hover lazyload"
-                                                    src="assets/img/corporate/media__1778668979144.png"
+                                                    src="public/assets/img/corporate/media__1778668979144.png"
                                                     alt="Corporate Apparel Hover" loading="lazy" />
                                             </a>
                                         </div>
@@ -200,10 +200,10 @@
                                             </div>
                                             <a href="product-details-default.html">
                                                 <img class="lazyload aq-product-img"
-                                                    src="assets/img/corporate/backpack_gifts_1778668040094.webp"
+                                                    src="public/assets/img/corporate/backpack_gifts_1778668040094.webp"
                                                     alt="Business Bag" loading="lazy" />
                                                 <img class="aq-img-hover lazyload"
-                                                    src="assets/img/corporate/media__1778668962634.png"
+                                                    src="public/assets/img/corporate/media__1778668962634.png"
                                                     alt="Business Bag Hover" loading="lazy" />
                                             </a>
                                         </div>
@@ -492,7 +492,7 @@
                     <span class="aq-wishlist-popup-remove"><i class="fa-regular fa-xmark"></i></span>
                     <div class="aq-wishlist-popup-thumb d-flex align-items-center">
                         <a href="product-details-default.html">
-                            <img src="assets/img/corporate/backpack_gifts_1778668040094.webp" alt="Business Bag"
+                            <img src="public/assets/img/corporate/backpack_gifts_1778668040094.webp" alt="Business Bag"
                                 loading="lazy" />
                         </a>
                         <div class="aq-wishlist-popup-thumb-info">
@@ -513,7 +513,7 @@
                     <span class="aq-wishlist-popup-remove"><i class="fa-regular fa-xmark"></i></span>
                     <div class="aq-wishlist-popup-thumb d-flex align-items-center">
                         <a href="product-details-default.html">
-                            <img src="assets/img/corporate/welcome_kit_1778668006890.webp" alt="Joining Kit"
+                            <img src="public/assets/img/corporate/welcome_kit_1778668006890.webp" alt="Joining Kit"
                                 loading="lazy" />
                         </a>
                         <div class="aq-wishlist-popup-thumb-info">
@@ -534,7 +534,7 @@
                     <span class="aq-wishlist-popup-remove"><i class="fa-regular fa-xmark"></i></span>
                     <div class="aq-wishlist-popup-thumb d-flex align-items-center">
                         <a href="product-details-default.html">
-                            <img src="assets/img/corporate/hero_gift_box_1778667986732.webp" alt="Gift Box"
+                            <img src="public/assets/img/corporate/hero_gift_box_1778667986732.webp" alt="Gift Box"
                                 loading="lazy" />
                         </a>
                         <div class="aq-wishlist-popup-thumb-info">
@@ -580,26 +580,30 @@
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
                                         <div class="aq-modal-slider">
-                                            <img class="w-100" src="assets/img/corporate/product_1_front_img_1.webp"
-                                                alt="" loading="lazy" />
+                                            <img class="w-100"
+                                                src="public/assets/img/corporate/product_1_front_img_1.webp" alt=""
+                                                loading="lazy" />
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="aq-modal-slider">
-                                            <img class="w-100" src="assets/img/corporate/product_2_front_img_1.webp"
-                                                alt="" loading="lazy" />
+                                            <img class="w-100"
+                                                src="public/assets/img/corporate/product_2_front_img_1.webp" alt=""
+                                                loading="lazy" />
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="aq-modal-slider">
-                                            <img class="w-100" src="assets/img/corporate/product_3_front_img_1.webp"
-                                                alt="" loading="lazy" />
+                                            <img class="w-100"
+                                                src="public/assets/img/corporate/product_3_front_img_1.webp" alt=""
+                                                loading="lazy" />
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="aq-modal-slider">
-                                            <img class="w-100" src="assets/img/corporate/product_4_front_img_1.webp"
-                                                alt="" loading="lazy" />
+                                            <img class="w-100"
+                                                src="public/assets/img/corporate/product_4_front_img_1.webp" alt=""
+                                                loading="lazy" />
                                         </div>
                                     </div>
                                 </div>
@@ -719,15 +723,15 @@
                                 </h4>
                                 <div class="aq-product-details-variation-wrap d-flex align-items-center">
                                     <div class="aq-product-details-variation-item active">
-                                        <img src="assets/img/corporate/product_1_front_img_1.webp" alt=""
+                                        <img src="public/assets/img/corporate/product_1_front_img_1.webp" alt=""
                                             loading="lazy" />
                                     </div>
                                     <div class="aq-product-details-variation-item">
-                                        <img src="assets/img/corporate/product_1_front_img_2.webp" alt=""
+                                        <img src="public/assets/img/corporate/product_1_front_img_2.webp" alt=""
                                             loading="lazy" />
                                     </div>
                                     <div class="aq-product-details-variation-item">
-                                        <img src="assets/img/corporate/product_1_front_img_3.webp" alt=""
+                                        <img src="public/assets/img/corporate/product_1_front_img_3.webp" alt=""
                                             loading="lazy" />
                                     </div>
                                 </div>
@@ -815,7 +819,7 @@
     <div class="aq-offcanvas-wrap">
         <div class="aq-offcanvas-top d-flex align-items-center justify-content-between">
             <div class="aq-offcanvas-logo">
-                <a href="#"><img width="115" src="assets/img/corporate/logo.webp" alt="" /></a>
+                <a href="#"><img width="115" src="public/assets/img/corporate/logo.webp" alt="" /></a>
             </div>
             <div class="aq-offcanvas-close">
                 <span>
@@ -1013,8 +1017,9 @@
             <div class="container container-1830">
                 <div class="row align-items-center">
                     <div class="col-2">
-                        <div class="aq-header-logo text-center pt-10 pb-10">
-                            <a href="#"><img data-width="100" src="assets/img/corporate/logo.webp" alt="" /></a>
+                        <div class="aq-header-logo text-center pt-10 pb-10" style="height:100px">
+                            <a href="#"><img data-width="100" src="{{ asset('assets/img/corporate/logo.webp') }}"
+                                    alt="" /></a>
                         </div>
                     </div>
 
@@ -1089,6 +1094,18 @@
                 </div>
             </div>
         </div>
+        @php
+            $menuOccasions = \App\Models\GiftingOccasion::where('status', 1)
+                ->orderBy('title')
+                ->get();
+
+            $menuCategories = \App\Models\Category::whereNull('parent_id')
+                ->where('status', 1)
+                ->where('show_on_website', 1)
+                ->orderBy('sort_order')
+                ->get();
+        @endphp
+
         <div class="aq-header-bottom-area d-none d-xl-block p-relative" data-bg-color="rgba(0, 49, 8, 0.08)">
             <div class="container">
                 <div class="row justify-content-center">
@@ -1105,202 +1122,138 @@
                                                 <div class="aq-corp-megamenu-inner">
                                                     <div class="aq-corp-megamenu-col">
                                                         <h6 class="aq-corp-megamenu-heading">
-                                                            BY SOLUTION
+                                                            MARKETING OPTIONS
                                                         </h6>
+
                                                         <ul>
-                                                            <li><a href="#">Employee Onboarding</a></li>
-                                                            <li><a href="#">Client Gifting</a></li>
-                                                            <li><a href="#">Festive Gifting</a></li>
-                                                            <li>
-                                                                <a href="#">Rewards &amp; Recognition</a>
-                                                            </li>
-                                                            <li><a href="#">Sales Incentives</a></li>
-                                                            <li><a href="#">Trade Schemes</a></li>
+                                                            <li><a href="#">Featured Products</a></li>
+                                                            <li><a href="#">New Arrivals</a></li>
+                                                            <li><a href="#">Exclusive on Sale</a></li>
+                                                            <li><a href="#">Best Sellers</a></li>
                                                         </ul>
                                                     </div>
+
                                                     <div class="aq-corp-megamenu-col">
                                                         <h6 class="aq-corp-megamenu-heading">
                                                             BY OCCASION
                                                         </h6>
+
                                                         <ul>
-                                                            <li><a href="#">Diwali Gifts</a></li>
-                                                            <li>
-                                                                <a href="#">Christmas &amp; New Year</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">Events &amp; Conferences</a>
-                                                            </li>
-                                                            <li><a href="#">Product Launch</a></li>
-                                                            <li><a href="#">Company Milestone</a></li>
-                                                            <li><a href="#">B'day &amp; Anniversary</a></li>
+                                                            @forelse($menuOccasions as $occasion)
+                                                                <li>
+                                                                    <a href="#">
+                                                                        {{ $occasion->title }}
+                                                                    </a>
+                                                                </li>
+                                                            @empty
+                                                                <li>
+                                                                    <a href="#">No Occasions Found</a>
+                                                                </li>
+                                                            @endforelse
                                                         </ul>
                                                     </div>
                                                     <div class="aq-corp-megamenu-col">
                                                         <h6 class="aq-corp-megamenu-heading">
                                                             BY BUDGET
                                                         </h6>
+
                                                         <ul>
-                                                            <li><a href="#">Under â‚¹500</a></li>
-                                                            <li><a href="#">â‚¹500 â€“ â‚¹1000</a></li>
-                                                            <li><a href="#">â‚¹1000 â€“ â‚¹2000</a></li>
-                                                            <li><a href="#">â‚¹2000 â€“ â‚¹5000</a></li>
-                                                            <li><a href="#">Above â‚¹5000</a></li>
+                                                            <li><a href="#">Under &#8377;500</a></li>
+                                                            <li><a href="#">&#8377;500 – &#8377;1,000</a></li>
+                                                            <li><a href="#">&#8377;1,000 – &#8377;2,000</a></li>
+                                                            <li><a href="#">&#8377;2,000 – &#8377;5,000</a></li>
+                                                            <li><a href="#">Above &#8377;5,000</a></li>
                                                         </ul>
                                                     </div>
 
                                                     <div class="aq-corp-megamenu-col">
-                                                        <h6 class="aq-corp-megamenu-heading">
-                                                            SHOP BY RECIPIENT
-                                                        </h6>
-                                                        <ul>
-                                                            <li><a href="#">Gifts for Women</a></li>
-                                                            <li><a href="#">Gifts for Men</a></li>
-                                                            <li><a href="#">Gifts for Wife</a></li>
-                                                            <li><a href="#">Gifts for Husband</a></li>
-                                                            <li><a href="#">Above â‚¹5000</a></li>
-                                                        </ul>
+                                                        <div class="aq-corp-megamenu-col">
+                                                            <h6 class="aq-corp-megamenu-heading">
+                                                                BY COLLECTIONS
+                                                            </h6>
+
+                                                            <ul>
+                                                                <li><a href="#">Premium Products</a></li>
+                                                                <li><a href="#">Engravings</a></li>
+                                                                <li><a href="#">Personalized Engraving</a></li>
+                                                            </ul>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </li>
+
                                     <li class="has-dropdown p-static">
                                         <a href="#">Categories</a>
+
                                         <div class="aq-megamenu-wrap aq-megamenu-img-wrap mega-menu">
                                             <div class="container">
+
                                                 <div
                                                     class="row row-cols-xl-6 row-cols-lg-3 row-cols-md-2 row-cols-1 gx-20">
-                                                    <div class="col">
-                                                        <div class="aq-megamenu-img-item mb-20">
-                                                            <a href="product_listing.html">
-                                                                <div class="aq-megamenu-img">
-                                                                    <img src="assets/img/corporate/welcome_kit_1778668006890.webp"
-                                                                        alt="Welcome Kits" loading="lazy" />
-                                                                </div>
-                                                                <span class="aq-megamenu-img-title">Welcome Kits</span>
-                                                            </a>
+
+                                                    @foreach($menuCategories as $category)
+
+                                                        <div class="col">
+                                                            <div class="aq-megamenu-img-item mb-20">
+
+                                                                <a href="{{ url('category/' . $category->slug) }}">
+
+                                                                    <div class="aq-megamenu-img">
+
+                                                                        @if($category->image)
+                                                                            <img src="{{ asset('storage/' . $category->image) }}"
+                                                                                alt="{{ $category->name }}" loading="lazy">
+                                                                        @else
+                                                                            <img src="{{ asset('assets/images/no-image.png') }}"
+                                                                                alt="{{ $category->name }}" loading="lazy">
+                                                                        @endif
+
+                                                                    </div>
+
+                                                                    <span class="aq-megamenu-img-title">
+                                                                        {{ $category->name }}
+                                                                    </span>
+
+                                                                </a>
+
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="aq-megamenu-img-item mb-20">
-                                                            <a href="product_listing.html">
-                                                                <div class="aq-megamenu-img">
-                                                                    <img src="assets/img/corporate/premium_gadgets_1778668027534.webp"
-                                                                        alt="Electronics" loading="lazy" />
-                                                                </div>
-                                                                <span class="aq-megamenu-img-title">Electronics</span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="aq-megamenu-img-item mb-20">
-                                                            <a href="product_listing.html">
-                                                                <div class="aq-megamenu-img">
-                                                                    <img src="assets/img/corporate/premium_gadgets_1778668027534.webp"
-                                                                        alt="Premium Gadgets" loading="lazy" />
-                                                                </div>
-                                                                <span class="aq-megamenu-img-title">Premium
-                                                                    Gadgets</span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="aq-megamenu-img-item mb-20">
-                                                            <a href="product_listing.html">
-                                                                <div class="aq-megamenu-img">
-                                                                    <img src="assets/img/corporate/apparel_gifts_1778668621245.webp"
-                                                                        alt="Apparel" loading="lazy" />
-                                                                </div>
-                                                                <span class="aq-megamenu-img-title">Apparel</span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="aq-megamenu-img-item mb-20">
-                                                            <a href="product_listing.html">
-                                                                <div class="aq-megamenu-img">
-                                                                    <img src="assets/img/corporate/stationery_gifts_1778668654881.webp"
-                                                                        alt="Drink-wares" loading="lazy" />
-                                                                </div>
-                                                                <span class="aq-megamenu-img-title">Drink-wares</span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="aq-megamenu-img-item mb-20">
-                                                            <a href="product_listing.html">
-                                                                <div class="aq-megamenu-img">
-                                                                    <img src="assets/img/corporate/backpack_gifts_1778668040094.webp"
-                                                                        alt="Backpacks" loading="lazy" />
-                                                                </div>
-                                                                <span class="aq-megamenu-img-title">Backpacks</span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="aq-megamenu-img-item mb-20">
-                                                            <a href="product_listing.html">
-                                                                <div class="aq-megamenu-img">
-                                                                    <img src="assets/img/corporate/kitchen_appliances_1778668633577.webp"
-                                                                        alt="Kitchen Appliances" loading="lazy" />
-                                                                </div>
-                                                                <span class="aq-megamenu-img-title">Kitchen
-                                                                    Appliances</span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="aq-megamenu-img-item mb-20">
-                                                            <a href="product_listing.html">
-                                                                <div class="aq-megamenu-img">
-                                                                    <img src="assets/img/corporate/vouchers_gifts_retry_1778668716547.webp"
-                                                                        alt="Vouchers & Rewards" loading="lazy" />
-                                                                </div>
-                                                                <span class="aq-megamenu-img-title">Vouchers &
-                                                                    Rewards</span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="aq-megamenu-img-item mb-20">
-                                                            <a href="product_listing.html">
-                                                                <div class="aq-megamenu-img">
-                                                                    <img src="assets/img/corporate/eco_friendly_gifts_1778668670253.webp"
-                                                                        alt="Eco Friendly" loading="lazy" />
-                                                                </div>
-                                                                <span class="aq-megamenu-img-title">Eco Friendly</span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="aq-megamenu-img-item mb-20">
-                                                            <a href="product_listing.html">
-                                                                <div class="aq-megamenu-img">
-                                                                    <img src="assets/img/corporate/custom_gift_hampers1.webp"
-                                                                        alt="Gift Hampers" loading="lazy" />
-                                                                </div>
-                                                                <span class="aq-megamenu-img-title">Gift Hampers</span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
+
+                                                    @endforeach
+
                                                 </div>
+
                                             </div>
                                         </div>
                                     </li>
+
+
                                     <li class="has-dropdown">
                                         <a href="#">Occasions</a>
+
                                         <ul class="submenu">
-                                            <li><a href="#">Diwali Gifts</a></li>
-                                            <li><a href="#">Christmas & New Year</a></li>
-                                            <li><a href="#">Events & Conferences</a></li>
-                                            <li><a href="#">B'day & Anniversary</a></li>
-                                            <li><a href="#">Product Launch</a></li>
-                                            <li><a href="#">Company Milestone</a></li>
-                                            <li><a href="#">Employee Onboarding</a></li>
-                                            <li><a href="#">Trade Schemes</a></li>
+
+                                            @forelse($menuOccasions as $occasion)
+
+                                                <li>
+                                                    <a href="#">
+                                                        {{ $occasion->title }}
+                                                    </a>
+                                                </li>
+
+                                            @empty
+
+                                                <li>
+                                                    <a href="#">No Occasions Found</a>
+                                                </li>
+
+                                            @endforelse
+
                                         </ul>
                                     </li>
-                                    <li><a href="#">Custom Gifting</a></li>
+                                    <li><a href="{{ route('personalised-engraving') }}">Custom Gifting</a></li>
                                     <li><a href="{{ route('bulk-order') }}">Bulk Orders</a></li>
                                     <li><a href="{{ route('blogs') }}">Blogs</a></li>
                                     <li><a href="{{ route('contact-us') }}">Contact</a></li>
@@ -1329,7 +1282,7 @@
                             <div class="aq-footer-widget footer-col-brand mb-50">
                                 <div class="aq-footer-logo-luxury mb-35">
                                     <a href="index.html">
-                                        <img src="assets/img/corporate/logo.webp" alt="B2B Gifts India"
+                                        <img src="public/assets/img/corporate/logo.webp" alt="B2B Gifts India"
                                             style="filter: brightness(0) invert(1); width: 180px" />
                                     </a>
                                 </div>
@@ -1418,7 +1371,8 @@
                                             Arrivals</a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('membership') }}"><i class="fa-solid fa-chevron-right"></i> B2B Club
+                                        <a href="{{ route('membership') }}"><i class="fa-solid fa-chevron-right"></i>
+                                            B2B Club
                                             Membership</a>
                                     </li>
                                     <li>
@@ -1611,6 +1565,44 @@
 
     <style>
         /* Header Bulk Orders Button Styles */
+        .aq-load-more-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--aq-color-#003108, #003108);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-family: var(--aq-ff-heading), sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 12px rgba(104, 71, 66, 0.2);
+            text-decoration: none;
+            margin-right: 15px;
+            border: 1px solid var(--aq-color-#003108, #003108);
+        }
+
+        .aq-load-more-btn:hover {
+            background-color: #000000;
+            border-color: #000000;
+            color: #ffffff !important;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+        }
+
+        .aq-load-more-btn i {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .aq-load-more-btn:hover i {
+            transform: scale(1.1) rotate(5deg);
+        }
+
         .aq-bulk-orders-btn {
             display: inline-flex;
             align-items: center;
@@ -2125,7 +2117,7 @@
               ">
                         <div>
                             <div class="mb-4">
-                                <img src="assets/img/corporate/logo.webp" alt="B2B Gifts Logo"
+                                <img src="public/assets/img/corporate/logo.webp" alt="B2B Gifts Logo"
                                     style="max-width: 120px; filter: brightness(0) invert(1)" />
                             </div>
                             <h3 class="font-family-heading mb-3" style="font-weight: 700; color: #fff; font-size: 26px">

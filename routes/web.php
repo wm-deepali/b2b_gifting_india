@@ -42,7 +42,6 @@ Route::controller(FrontController::class)->group(function () {
 
     Route::get('/', 'home')->name('home');
     Route::get('/search-suggestions', 'searchSuggestions')->name('search.suggestions');
-    Route::get('/products/filter', 'getProductsByType');
     Route::get('/categories', 'categories')->name('categories');
     Route::get('/category/{slug}', 'categoryListing')->name('category.products');
     Route::get('/category/{slug}/filter', 'filterProducts')->name('category.filter.products');

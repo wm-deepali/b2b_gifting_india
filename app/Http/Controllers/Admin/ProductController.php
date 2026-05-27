@@ -18,13 +18,63 @@ class ProductController extends Controller
     {
         $query = Product::with(['categories', 'images']);
 
-        if ($request->search) {
+        // Categories dropdown
+        $categories = Category::whereNull('parent_id')
+            ->orderBy('name')
+            ->get();
+
+        // Subcategories dropdown
+        $subCategories = collect();
+
+        if ($request->filled('category_id')) {
+            $subCategories = Category::where('parent_id', $request->category_id)
+                ->orderBy('name')
+                ->get();
+        }
+
+        // Search
+        if ($request->filled('search')) {
             $query->where('name', 'like', '%' . $request->search . '%');
         }
 
-        $products = $query->latest()->paginate(10);
+        // Category Filter
+        if ($request->filled('category_id')) {
+            $query->whereHas('categories', function ($q) use ($request) {
+                $q->where('categories.id', $request->category_id);
+            });
+        }
 
-        return view('admin.products.index', compact('products'));
+        // Sub Category Filter
+        if ($request->filled('subcategory_id')) {
+            $query->whereHas('categories', function ($q) use ($request) {
+                $q->where('categories.id', $request->subcategory_id);
+            });
+        }
+
+        // Sorting
+        $sortBy = $request->get('sort_by', 'id');
+        $sortOrder = $request->get('sort_order', 'desc');
+
+        $allowedSorts = [
+            'id',
+            'name',
+            'price',
+            'status'
+        ];
+
+        if (in_array($sortBy, $allowedSorts)) {
+            $query->orderBy($sortBy, $sortOrder);
+        }
+
+        $products = $query
+            ->paginate(10)
+            ->appends($request->all());
+
+        return view('admin.products.index', compact(
+            'products',
+            'categories',
+            'subCategories'
+        ));
     }
 
     public function create()
@@ -48,6 +98,7 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
             'video_url' => 'nullable|string',
+            'min_qty' => 'required|integer|min:1',
         ]);
 
         // CREATE PRODUCT
@@ -141,17 +192,22 @@ class ProductController extends Controller
             ->with('success', 'Product Created Successfully');
     }
 
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
+        $product = Product::with([
+            'categories',
+            'subcategories',
+            'occasions',
+            'customizations',
+            'inclusions',
+            'images'
+        ])->findOrFail($id);
+
+        $redirect = $request->redirect;
+
         return view('admin.products.edit', [
-            'product' => Product::with([
-                'categories',
-                'subcategories',
-                'occasions',
-                'customizations',
-                'inclusions',
-                'images' // ✅ IMPORTANT
-            ])->findOrFail($id),
+            'product' => $product,
+            'redirect' => $redirect,
 
             'categories' => Category::whereNull('parent_id')
                 ->where('status', 1)
@@ -169,6 +225,7 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
             'video_url' => 'nullable|string',
+            'min_qty' => 'required|integer|min:1',
         ]);
 
         $product = Product::findOrFail($id);
@@ -296,9 +353,9 @@ class ProductController extends Controller
                 }
             }
         }
-
-        return redirect()->route('admin.products.index')
-            ->with('success', 'Product Updated Successfully');
+        return redirect(
+            $request->redirect ?? route('admin.products.index')
+        )->with('success', 'Product Updated Successfully');
     }
 
     public function destroy($id)

@@ -15,13 +15,54 @@ class CategoryController extends Controller
     {
         $query = Category::with('parent', 'children');
 
-        if ($request->search) {
+        // Parent categories dropdown
+        $parentCategories = Category::whereNull('parent_id')
+            ->orderBy('name')
+            ->get();
+
+        // Search
+        if ($request->filled('search')) {
             $query->where('name', 'like', '%' . $request->search . '%');
         }
 
-        $categories = $query->latest()->paginate(10);
+        // Type filter
+        if ($request->type == 'category') {
 
-        return view('admin.categories.index', compact('categories'));
+            $query->whereNull('parent_id');
+
+        } elseif ($request->type == 'subcategory') {
+
+            $query->whereNotNull('parent_id');
+
+            if ($request->filled('category_id')) {
+                $query->where('parent_id', $request->category_id);
+            }
+        }
+
+        // Sorting
+        $sortBy = $request->get('sort_by', 'id');
+        $sortOrder = $request->get('sort_order', 'desc');
+
+        $allowedColumns = [
+            'id',
+            'name',
+            'sort_order',
+            'status',
+            'is_popular'
+        ];
+
+        if (in_array($sortBy, $allowedColumns)) {
+            $query->orderBy($sortBy, $sortOrder);
+        }
+
+        $categories = $query
+            ->paginate(10)
+            ->appends($request->all());
+
+        return view('admin.categories.index', compact(
+            'categories',
+            'parentCategories'
+        ));
     }
 
     // ✅ Create
@@ -79,7 +120,7 @@ class CategoryController extends Controller
     }
 
     // ✅ Edit
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $category = Category::findOrFail($id);
 
@@ -87,7 +128,13 @@ class CategoryController extends Controller
             ->where('id', '!=', $id)
             ->get();
 
-        return view('admin.categories.edit', compact('category', 'parents'));
+        $redirect = $request->redirect;
+
+        return view('admin.categories.edit', compact(
+            'category',
+            'parents',
+            'redirect'
+        ));
     }
 
     // ✅ Update
@@ -136,7 +183,7 @@ class CategoryController extends Controller
             'sort_order' => $request->sort_order ?? 0,
         ]);
 
-        return redirect()->route('admin.categories.index')
+        return redirect($request->redirect ?? route('admin.categories.index'))
             ->with('success', 'Category Updated Successfully');
     }
 

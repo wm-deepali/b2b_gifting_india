@@ -232,7 +232,7 @@
         <div class="aq-cartmini-header">
             <i class="aq-cartmini-close aq-cartmini-close-icon fa-regular fa-xmark"></i>
             <h4 class="aq-cartmini-title">Shopping Cart</h4>
-            
+
         </div>
         <div class="aq-cartmini-body">
 
@@ -630,8 +630,7 @@
                                         <button class="aq-product-details-add-to-cart-btn aq-btn-black radius-30 w-100">
                                             Add To Cart
                                         </button>
-                                        <button type="button"
-                                            class="aq-product-action-btn aq-tooltip-top">
+                                        <button type="button" class="aq-product-action-btn aq-tooltip-top">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16"
                                                 viewBox="0 0 18 16" fill="none">
                                                 <path
@@ -706,7 +705,7 @@
                 <a class="aq-offcanvas-btn" href="#">Login</a>
                 <a class="aq-offcanvas-btn btn-black-bg" href="#">Wishlist</a>
             </div>
-           
+
         </div>
     </div>
     <!-- offcanvas area end -->
@@ -849,24 +848,25 @@
             <div class="container container-1830">
                 <div class="row align-items-center">
                     <div class="col-2">
-                       <div class="aq-header-logo text-center pt-10 pb-10">
-    <a href="{{ url('/') }}">
-        <img data-width="100"
-             src="{{ asset('assets/img/corporate/logo.webp') }}"
-             alt="Logo" />
-    </a>
-</div>
+                        <div class="aq-header-logo text-center pt-10 pb-10">
+                            <a href="{{ url('/') }}">
+                                <img data-width="100" src="{{ asset('assets/img/corporate/logo.webp') }}" alt="Logo" />
+                            </a>
+                        </div>
                     </div>
 
                     <div class="col-md-6 col-7">
                         <div class="aq-header-search-box">
-                            <form action="#">
+                            <form action="{{ route('search.suggestions') }}" method="GET" autocomplete="off">
                                 <div class="aq-search-input-wrap">
-                                    <input type="text"
+                                    <input type="text" id="searchInput" name="q"
                                         placeholder="Search premium gifts, corporate hampers, brands..." />
-                                    <button type="submit" class="aq-search-btn" aria-label="Submit Search">
+
+                                    <button type="submit" class="aq-search-btn">
                                         <i class="fa-solid fa-magnifying-glass"></i>
                                     </button>
+
+                                    <div id="searchSuggestions" class="search-suggestions"></div>
                                 </div>
                             </form>
                         </div>
@@ -892,31 +892,26 @@
                                         <span>Bulk Orders</span>
                                     </a>
                                 </li>
-                                  <li class="aq-header-top-wishlist d-none d-md-inline-block">
-    <a href="{{ route('wishlist') }}">
+                                <li class="aq-header-top-wishlist d-none d-md-inline-block">
+                                    <a href="{{ route('wishlist') }}">
 
-        <span class="count-box">
-            {{ $wishlistCount ?? 0 }}
-        </span>
+                                        <span class="count-box">
+                                            {{ $wishlistCount ?? 0 }}
+                                        </span>
 
-        <i>
-            <svg xmlns="http://www.w3.org/2000/svg"
-                 width="21"
-                 height="20"
-                 viewBox="0 0 21 20"
-                 fill="none">
-                <path
-                    d="M6.50726 4.80303C5.44195 5.14334 4.68503 6.09974 4.59044 7.22502M10.4856 18.6038C12.6562 17.2679 14.6755 15.6957 16.5073 13.9152C17.7951 12.633 18.7756 11.0698 19.3735 9.3454C20.4494 6.00032 19.1927 2.17084 15.6755 1.03753C13.827 0.442448 11.8081 0.782566 10.2505 1.95149C8.69225 0.783989 6.67412 0.443991 4.82552 1.03753C1.30833 2.17084 0.0425004 6.00032 1.11845 9.3454C1.71636 11.0698 2.69679 12.633 3.98465 13.9152C5.81647 15.6957 7.83575 17.2679 10.0064 18.6038L10.2414 18.75L10.4856 18.6038Z"
-                    stroke="currentcolor"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round">
-                </path>
-            </svg>
-        </i>
+                                        <i>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20"
+                                                viewBox="0 0 21 20" fill="none">
+                                                <path
+                                                    d="M6.50726 4.80303C5.44195 5.14334 4.68503 6.09974 4.59044 7.22502M10.4856 18.6038C12.6562 17.2679 14.6755 15.6957 16.5073 13.9152C17.7951 12.633 18.7756 11.0698 19.3735 9.3454C20.4494 6.00032 19.1927 2.17084 15.6755 1.03753C13.827 0.442448 11.8081 0.782566 10.2505 1.95149C8.69225 0.783989 6.67412 0.443991 4.82552 1.03753C1.30833 2.17084 0.0425004 6.00032 1.11845 9.3454C1.71636 11.0698 2.69679 12.633 3.98465 13.9152C5.81647 15.6957 7.83575 17.2679 10.0064 18.6038L10.2414 18.75L10.4856 18.6038Z"
+                                                    stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round">
+                                                </path>
+                                            </svg>
+                                        </i>
 
-    </a>
-</li>
+                                    </a>
+                                </li>
                                 <li class="aq-header-top-cart aq-cart-btn">
                                     <button>
                                         <span class="count-box">
@@ -957,7 +952,9 @@
                 <!-- Mobile Menu Toggle -->
                 <div class="row align-items-center d-xl-none py-2">
                     <div class="col-12 text-center">
-                        <button class="aq-offcanvas-toggle d-flex align-items-center justify-content-center gap-2 m-auto" style="background: transparent; border: none; font-size: 16px; font-weight: 600; cursor: pointer; color: #000;">
+                        <button
+                            class="aq-offcanvas-toggle d-flex align-items-center justify-content-center gap-2 m-auto"
+                            style="background: transparent; border: none; font-size: 16px; font-weight: 600; cursor: pointer; color: #000;">
                             <i class="fa-solid fa-bars"></i> Menu
                         </button>
                     </div>
@@ -1014,7 +1011,7 @@
 
                                                         <ul>
                                                             @forelse($menuOccasions as $occasion)
-                                                               <li>
+                                                                <li>
                                                                     <a
                                                                         href="{{ route('products', ['occasion' => $occasion->slug]) }}">
                                                                         {{ $occasion->title }}
@@ -1076,28 +1073,28 @@
                                                                 BY COLLECTIONS
                                                             </h6>
 
-                                                           <ul>
-                                                            <li>
-                                                                <a
-                                                                    href="{{ route('products', ['collection' => 'premium']) }}">
-                                                                    Premium Products
-                                                                </a>
-                                                            </li>
+                                                            <ul>
+                                                                <li>
+                                                                    <a
+                                                                        href="{{ route('products', ['collection' => 'premium']) }}">
+                                                                        Premium Products
+                                                                    </a>
+                                                                </li>
 
-                                                            <li>
-                                                                <a
-                                                                    href="{{ route('products', ['collection' => 'engravings']) }}">
-                                                                    Engravings
-                                                                </a>
-                                                            </li>
+                                                                <li>
+                                                                    <a
+                                                                        href="{{ route('products', ['collection' => 'engravings']) }}">
+                                                                        Engravings
+                                                                    </a>
+                                                                </li>
 
-                                                            <li>
-                                                                <a
-                                                                    href="{{ route('products', ['collection' => 'personalized-engraving']) }}">
-                                                                    Personalized Engraving
-                                                                </a>
-                                                            </li>
-                                                        </ul>
+                                                                <li>
+                                                                    <a
+                                                                        href="{{ route('products', ['collection' => 'personalized-engraving']) }}">
+                                                                        Personalized Engraving
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1158,7 +1155,7 @@
 
                                             @forelse($menuOccasions as $occasion)
 
-                                               <li>
+                                                <li>
                                                     <a href="{{ route('products', ['occasion' => $occasion->slug]) }}">
                                                         {{ $occasion->title }}
                                                     </a>
@@ -1288,7 +1285,8 @@
                                             Categories</a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('products', ['filter' => 'new_arrivals']) }}"><i class="fa-solid fa-chevron-right"></i> New
+                                        <a href="{{ route('products', ['filter' => 'new_arrivals']) }}"><i
+                                                class="fa-solid fa-chevron-right"></i> New
                                             Arrivals</a>
                                     </li>
                                     <li>
@@ -2801,6 +2799,187 @@
 
 
     </script>
+    <script>
+        $(document).ready(function () {
+
+            const storagePath = "{{ asset('storage') }}";
+            const noImage = "{{ asset('assets/images/no-image.png') }}";
+
+            $('#searchInput').on('keyup', function () {
+
+                let query = $(this).val().trim();
+
+                if (query.length < 2) {
+                    $('#searchSuggestions').hide().html('');
+                    return;
+                }
+
+                $.ajax({
+                    url: "{{ route('search.suggestions') }}",
+                    type: "GET",
+                    data: {
+                        q: query
+                    },
+                    success: function (response) {
+
+                        let html = '';
+
+                        // Products
+                        if (response.products && response.products.length) {
+
+                            html += '<div class="section-title">Products</div>';
+
+                            response.products.forEach(item => {
+
+                                let image = item.image
+                                    ? `${storagePath}/${item.image}`
+                                    : noImage;
+
+                                html += `
+                                <a href="/product/${item.slug}" class="d-flex align-items-center gap-2">
+                                    <img src="${image}"
+                                         width="40"
+                                         height="40"
+                                         style="object-fit:cover;border-radius:6px;">
+                                    <span>${item.name}</span>
+                                </a>
+                            `;
+                            });
+                        }
+
+                        // Categories
+                        if (response.categories && response.categories.length) {
+
+                            html += '<div class="section-title">Categories</div>';
+
+                            response.categories.forEach(item => {
+
+                                let image = item.image
+                                    ? `${storagePath}/${item.image}`
+                                    : noImage;
+
+                                html += `
+                                <a href="/category/${item.slug}" class="d-flex align-items-center gap-2">
+                                    <img src="${image}"
+                                         width="40"
+                                         height="40"
+                                         style="object-fit:cover;border-radius:6px;">
+                                    <span>${item.name}</span>
+                                </a>
+                            `;
+                            });
+                        }
+
+                        // Sub Categories
+                        if (response.subcategories && response.subcategories.length) {
+
+                            html += '<div class="section-title">Sub Categories</div>';
+
+                            response.subcategories.forEach(item => {
+
+                                let image = item.image
+                                    ? `${storagePath}/${item.image}`
+                                    : noImage;
+
+                                html += `
+                               <a href="/category/${item.parent_slug}?subcategory=${item.slug}"
+   class="d-flex align-items-center gap-2">
+                                    <img src="${image}"
+                                         width="40"
+                                         height="40"
+                                         style="object-fit:cover;border-radius:6px;">
+                                    <span>${item.name}</span>
+                                </a>
+                            `;
+                            });
+                        }
+
+                        // Occasions
+                        if (response.occasions && response.occasions.length) {
+
+                            html += '<div class="section-title">Occasions</div>';
+
+                            response.occasions.forEach(item => {
+
+                                let image = item.image
+                                    ? `${storagePath}/${item.image}`
+                                    : noImage;
+
+                                let url = `/products?occasion=${item.slug}`;
+
+                                html += `
+            <a href="${url}" class="d-flex align-items-center gap-2">
+                <img src="${image}"
+                     width="40"
+                     height="40"
+                     style="object-fit:cover;border-radius:6px;">
+                <span>${item.title}</span>
+            </a>
+        `;
+                            });
+                        }
+
+                        if (html !== '') {
+                            $('#searchSuggestions').html(html).show();
+                        } else {
+                            $('#searchSuggestions').html(`
+                            <div class="p-3 text-center">
+                                No results found
+                            </div>
+                        `).show();
+                        }
+                    },
+                    error: function () {
+                        $('#searchSuggestions').hide().html('');
+                    }
+                });
+            });
+
+            $(document).on('click', function (e) {
+                if (!$(e.target).closest('.aq-search-input-wrap').length) {
+                    $('#searchSuggestions').hide();
+                }
+            });
+
+        });
+    </script>
+    <style>
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 9999;
+            display: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, .08);
+        }
+
+        .search-suggestions a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 15px;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .search-suggestions a:hover {
+            background: #f8f8f8;
+        }
+
+        .search-suggestions .section-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #999;
+            padding: 10px 15px 5px;
+            text-transform: uppercase;
+        }
+    </style>
 </body>
 
 </html>

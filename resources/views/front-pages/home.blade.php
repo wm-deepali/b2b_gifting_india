@@ -930,16 +930,16 @@
 
                     <!-- Section Title -->
                     <!-- <div class="aqf-collection-top mb-40 mt-50">
-                                                                                                                                                                    <div class="row align-items-end">
-                                                                                                                                                                        <div class="col-md-12">
-                                                                                                                                                                            <div class="aq-creative-title-box">
-                                                                                                                                                                                <span class="aq-creative-subtitle">Premium Selections</span>
-                                                                                                                                                                                <h4 class="aq-creative-title">Bespoke Curation Categories</h4>
-                                                                                                                                                                                <div class="aq-creative-title-line"></div>
-                                                                                                                                                                            </div>
-                                                                                                                                                                        </div>
-                                                                                                                                                                    </div>
-                                                                                                                                                                </div> -->
+                                                                                                                                                                                                        <div class="row align-items-end">
+                                                                                                                                                                                                            <div class="col-md-12">
+                                                                                                                                                                                                                <div class="aq-creative-title-box">
+                                                                                                                                                                                                                    <span class="aq-creative-subtitle">Premium Selections</span>
+                                                                                                                                                                                                                    <h4 class="aq-creative-title">Bespoke Curation Categories</h4>
+                                                                                                                                                                                                                    <div class="aq-creative-title-line"></div>
+                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                    </div> -->
 
 
                 </div>
@@ -957,71 +957,51 @@
                             <div class="col-xl-5 col-lg-6">
                                 <div class="aqf-deals-banner-wrap p-relative mr-30">
                                     <div class="aqf-deals-banner-slides">
-                                        <!-- Slide 1: Premium Corporate Gifts & Gadgets -->
-                                        <div class="aqf-deals-banner-slide active">
-                                            <div class="aqf-deals-banner-thumb">
-                                                <img class="w-100"
-                                                    src="{{ asset('assets/img/corporate/premium_gadgets_1778668027534.webp') }}"
-                                                    alt="" loading="lazy" />
-                                            </div>
-                                            <div class="aqf-deals-banner-content">
-                                                <h4 class="aq-section-title fs-44 aq-text-white mb-20">
-                                                    Corporate <br />
-                                                    Gifts
-                                                    <span>That Leave <br />
-                                                        A Lasting Impression</span>
-                                                </h4>
-                                                <span class="aqf-deals-discount-tag">Up to 25% Off</span>
-                                            </div>
-                                            <div class="aqf-deals-banner-btn">
-                                                <a class="aq-btn-black blur-bg w-100 text-center"
-                                                    href="product-full-width.html">Shop Collection</a>
-                                            </div>
-                                        </div>
 
-                                        <!-- Slide 2: Welcome Kits & Backpacks -->
-                                        <div class="aqf-deals-banner-slide">
-                                            <div class="aqf-deals-banner-thumb">
-                                                <img class="w-100"
-                                                    src="{{ asset('assets/img/corporate/backpack_gifts_1778668040094.webp') }}"
-                                                    alt="" loading="lazy" />
-                                            </div>
-                                            <div class="aqf-deals-banner-content">
-                                                <h4 class="aq-section-title fs-44 aq-text-white mb-20">
-                                                    Welcome <br />
-                                                    Kits
-                                                    <span>Premium Quality <br />
-                                                        Gear & Backpacks</span>
-                                                </h4>
-                                                <span class="aqf-deals-discount-tag">New Onboarding Packs</span>
-                                            </div>
-                                            <div class="aqf-deals-banner-btn">
-                                                <a class="aq-btn-black blur-bg w-100 text-center"
-                                                    href="product-full-width.html">Explore Bags</a>
-                                            </div>
-                                        </div>
+                                        @foreach($dealBanners as $index => $banner)
 
-                                        <!-- Slide 3: Executive Custom Apparel -->
-                                        <div class="aqf-deals-banner-slide">
-                                            <div class="aqf-deals-banner-thumb">
-                                                <img class="w-100"
-                                                    src="{{ asset('assets/img/corporate/apparel_gifts_1778668621245.webp') }}"
-                                                    alt="" loading="lazy" />
+                                            <div class="aqf-deals-banner-slide {{ $index == 0 ? 'active' : '' }}">
+
+                                                <div class="aqf-deals-banner-thumb">
+
+                                                    <img class="w-100" src="{{ asset('storage/' . $banner->image) }}"
+                                                        alt="{{ $banner->title }}" loading="lazy" />
+
+                                                </div>
+
+                                                <div class="aqf-deals-banner-content">
+
+                                                    <h4 class="aq-section-title fs-44 aq-text-white mb-20">
+
+                                                        {{ $banner->title }}
+
+                                                        <span>
+                                                            {{ $banner->highlight_text }}
+                                                        </span>
+
+                                                    </h4>
+
+                                                    <span class="aqf-deals-discount-tag">
+                                                        {{ $banner->offer_text }}
+                                                    </span>
+
+                                                </div>
+
+                                                <div class="aqf-deals-banner-btn">
+
+                                                    <a class="aq-btn-black blur-bg w-100 text-center"
+                                                        href="{{ $banner->button_link }}">
+
+                                                        {{ $banner->button_text }}
+
+                                                    </a>
+
+                                                </div>
+
                                             </div>
-                                            <div class="aqf-deals-banner-content">
-                                                <h4 class="aq-section-title fs-44 aq-text-white mb-20">
-                                                    Premium <br />
-                                                    Apparel
-                                                    <span>Custom Branded <br />
-                                                        Corporate Outfits</span>
-                                                </h4>
-                                                <span class="aqf-deals-discount-tag">Exclusive Apparel</span>
-                                            </div>
-                                            <div class="aqf-deals-banner-btn">
-                                                <a class="aq-btn-black blur-bg w-100 text-center"
-                                                    href="product-full-width.html">Explore Apparel</a>
-                                            </div>
-                                        </div>
+
+                                        @endforeach
+
                                     </div>
 
                                     <!-- Slide Dots Navigation for Card Slider -->
@@ -1380,114 +1360,74 @@
                             <div class="hero-slider-wrap">
                                 <div class="hero-slider swiper hero-slider-active">
                                     <div class="swiper-wrapper">
-                                        <!-- Slide 1 -->
-                                        <div class="hero-single swiper-slide">
-                                            <div class="container">
-                                                <div class="row align-items-center">
-                                                    <div class="col-md-12 col-lg-7">
-                                                        <div class="hero-content">
-                                                            <h6 class="hero-sub-title">
-                                                                Bespoke Corporate Solutions
-                                                            </h6>
-                                                            <h1 class="hero-title">
-                                                                Exquisite Gifts for <br /><span>Professional</span>
-                                                                Excellence
-                                                            </h1>
-                                                            <p>
-                                                                Strengthen your business bonds with our
-                                                                meticulously curated gift collections,
-                                                                designed to reflect your brand's commitment to
-                                                                quality and prestige.
-                                                            </p>
-                                                            <div class="hero-btn">
-                                                                <a href="#" class="aq-btn-black">Explore Collection
-                                                                    <i class="fas fa-arrow-right"></i></a>
+
+                                        @foreach($heroSlides as $slide)
+
+                                            <div class="hero-single swiper-slide">
+
+                                                <div class="container">
+
+                                                    <div class="row align-items-center">
+
+                                                        <div class="col-md-12 col-lg-7">
+
+                                                            <div class="hero-content">
+
+                                                                <h6 class="hero-sub-title">
+                                                                    {{ $slide->subtitle }}
+                                                                </h6>
+
+                                                                <h1 class="hero-title">
+                                                                    {!! nl2br(e($slide->title)) !!}
+                                                                </h1>
+
+                                                                <p>
+                                                                    {{ $slide->description }}
+                                                                </p>
+
+                                                                @if($slide->button_text)
+
+                                                                    <div class="hero-btn">
+
+                                                                        <a href="{{ $slide->button_link }}" class="aq-btn-black">
+
+                                                                            {{ $slide->button_text }}
+
+                                                                            <i class="fas fa-arrow-right"></i>
+
+                                                                        </a>
+
+                                                                    </div>
+
+                                                                @endif
+
                                                             </div>
+
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-12 col-lg-5">
-                                                        <div class="hero-right">
-                                                            <div class="hero-img">
-                                                                <img src="{{ asset('assets/img/corporate/banner1.webp') }}"
-                                                                    alt="Banner 1" loading="lazy" />
+
+                                                        <div class="col-md-12 col-lg-5">
+
+                                                            <div class="hero-right">
+
+                                                                <div class="hero-img">
+
+                                                                    <img src="{{ asset('storage/' . $slide->image) }}"
+                                                                        alt="{{ $slide->title }}" loading="lazy" />
+
+                                                                </div>
+
                                                             </div>
+
                                                         </div>
+
                                                     </div>
+
                                                 </div>
+
                                             </div>
-                                        </div>
-                                        <!-- Slide 3 -->
-                                        <div class="hero-single swiper-slide">
-                                            <div class="container">
-                                                <div class="row align-items-center">
-                                                    <div class="col-md-12 col-lg-7">
-                                                        <div class="hero-content">
-                                                            <h6 class="hero-sub-title">
-                                                                Employee Appreciation
-                                                            </h6>
-                                                            <h1 class="hero-title">
-                                                                Celebrate Your <br /><span>Success</span>
-                                                                Together
-                                                            </h1>
-                                                            <p>
-                                                                Recognize your team's hard work with premium
-                                                                welcome kits and milestone gifts that inspire
-                                                                loyalty and drive excellence within your
-                                                                organization.
-                                                            </p>
-                                                            <div class="hero-btn">
-                                                                <a href="#" class="aq-btn-black">View Kits <i
-                                                                        class="fas fa-arrow-right"></i></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 col-lg-5">
-                                                        <div class="hero-right">
-                                                            <div class="hero-img">
-                                                                <img src="{{ asset('assets/img/corporate/banner3.webp') }}"
-                                                                    alt="Banner 3" loading="lazy" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Slide 4 -->
-                                        <div class="hero-single swiper-slide">
-                                            <div class="container">
-                                                <div class="row align-items-center">
-                                                    <div class="col-md-12 col-lg-7">
-                                                        <div class="hero-content">
-                                                            <h6 class="hero-sub-title">
-                                                                Global Shipping Available
-                                                            </h6>
-                                                            <h1 class="hero-title">
-                                                                Premium Gifts <br /><span>Delivered</span>
-                                                                Worldwide
-                                                            </h1>
-                                                            <p>
-                                                                Our seamless international delivery ensures
-                                                                your tokens of appreciation reach clients and
-                                                                partners across the globe, maintaining your
-                                                                global presence.
-                                                            </p>
-                                                            <div class="hero-btn">
-                                                                <a href="#" class="aq-btn-black">Get Started
-                                                                    <i class="fas fa-arrow-right"></i></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 col-lg-5">
-                                                        <div class="hero-right">
-                                                            <div class="hero-img">
-                                                                <img src="{{ asset('assets/img/corporate/banner4.webp') }}"
-                                                                    alt="Banner 4" loading="lazy" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+
+                                        @endforeach
+
                                     </div>
                                     <!-- Swiper Pagination/Navigation -->
                                     <div class="swiper-pagination"></div>
@@ -1498,38 +1438,46 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="small-banner">
+
                                 <div class="container">
+
                                     <div class="row">
-                                        <div class="col-md-6 col-lg-12 px-lg-0">
-                                            <div class="banner-item">
-                                                <img src="{{ asset('assets/img/corporate/mini-banner-1.webp') }}"
-                                                    alt="Small Banner 1" loading="lazy" />
-                                                <div class="banner-content">
-                                                    <p>Luxury Curation</p>
-                                                    <h3>
-                                                        Curated Executive <br />
-                                                        Hampers
-                                                    </h3>
-                                                    <a href="#">Discover Now</a>
+
+                                        @foreach($heroBanners as $banner)
+
+                                            <div class="col-md-6 col-lg-12 px-lg-0">
+
+                                                <div class="banner-item">
+
+                                                    <img src="{{ asset('storage/' . $banner->image) }}" alt="{{ $banner->title }}"
+                                                        loading="lazy" />
+
+                                                    <div class="banner-content">
+
+                                                        <p>
+                                                            {{ $banner->small_text }}
+                                                        </p>
+
+                                                        <h3>
+                                                            {!!  $banner->title !!}
+                                                        </h3>
+
+                                                        <a href="{{ $banner->button_link }}">
+                                                            {{ $banner->button_text }}
+                                                        </a>
+
+                                                    </div>
+
                                                 </div>
+
                                             </div>
-                                        </div>
-                                        <div class="col-md-6 col-lg-12 px-lg-0">
-                                            <div class="banner-item">
-                                                <img src="{{ asset('assets/img/corporate/mini-banner-2.webp') }}"
-                                                    alt="Small Banner 2" loading="lazy" />
-                                                <div class="banner-content">
-                                                    <p>Tech Excellence</p>
-                                                    <h3>
-                                                        Premium Tech <br />
-                                                        Gift Sets
-                                                    </h3>
-                                                    <a href="#">Shop Now</a>
-                                                </div>
-                                            </div>
-                                        </div>
+
+                                        @endforeach
+
                                     </div>
+
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -1723,8 +1671,14 @@
                         <div class="row align-items-center">
                             <div class="col-xl-5 col-lg-7 d-none d-lg-block">
                                 <div class="aqf-summer-suit-img">
-                                    <img src="{{ asset('assets/img/corporate/stationery_gifts_1778668654881.webp') }}"
-                                        alt="Premium Corporate Gift" loading="lazy" />
+
+                                    @if($brandSection && $brandSection->main_image)
+
+                                        <img src="{{ asset('storage/' . $brandSection->main_image) }}"
+                                            alt="{{ $brandSection->title }}" loading="lazy" />
+
+                                    @endif
+
                                 </div>
                             </div>
                             <div class="col-xl-7 col-lg-5">
@@ -1732,57 +1686,86 @@
                                     <div class="row align-items-center">
                                         <div class="col-xl-7">
                                             <div class="aqf-summer-title-wrap">
-                                                <span class="aq-section-subtitle mb-15">Curated Excellence</span>
+
+                                                <span class="aq-section-subtitle mb-15">
+                                                    {{ $brandSection->subtitle }}
+                                                </span>
+
                                                 <h3 class="aq-section-title ff-satoshi-med fs-60">
-                                                    Gifts that <br />
-                                                    Empower Brands
+                                                    {!! nl2br(e($brandSection->title)) !!}
                                                 </h3>
+
                                             </div>
                                         </div>
                                         <div class="col-xl-5">
                                             <div class="aqf-summer-slider text-center mb-50">
                                                 <div class="swiper aqf-summer-active">
+
                                                     <div class="swiper-wrapper">
-                                                        <div class="swiper-slide">
-                                                            <div class="aqf-summer-slider-item">
-                                                                <img class="w-100"
-                                                                    src="{{ asset('assets/img/corporate/eco_friendly_gifts_1778668670253.webp') }}"
-                                                                    alt="Executive Tech Kit" loading="lazy" />
+
+                                                        @foreach($brandSection->images as $image)
+
+                                                            <div class="swiper-slide">
+
+                                                                <div class="aqf-summer-slider-item">
+
+                                                                    <img class="w-100"
+                                                                        src="{{ asset('storage/' . $image->image) }}" alt=""
+                                                                        loading="lazy" />
+
+                                                                </div>
+
                                                             </div>
-                                                        </div>
-                                                        <div class="swiper-slide">
-                                                            <div class="aqf-summer-slider-item">
-                                                                <img class="w-100"
-                                                                    src="{{ asset('assets/img/corporate/welcome_kit_1778668006890.webp') }}"
-                                                                    alt="Luxury Gourmet Hamper" loading="lazy" />
-                                                            </div>
-                                                        </div>
+
+                                                        @endforeach
+
                                                     </div>
+
                                                     <div
                                                         class="aqf-summer-slider-arrow d-flex justify-content-center align-items-center mt-20">
+
                                                         <button class="aqf-summer-prev" aria-label="Previous deal">
+
                                                             <i class="fa-solid fa-arrow-left"></i>
+
                                                         </button>
+
                                                         <span class="aqf-arrow-border"></span>
+
                                                         <button class="aqf-summer-next" aria-label="Next deal">
+
                                                             <i class="fa-solid fa-arrow-right"></i>
+
                                                         </button>
+
                                                     </div>
+
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-xl-12">
                                             <div class="aqf-summer-slider-content mb-60">
+
                                                 <p>
-                                                    Elevate your brand presence with our curated luxury
-                                                    hampers. <br />
-                                                    Hand-crafted excellence delivered across India for
-                                                    your most valued partners.
+                                                    {!! nl2br(e($brandSection->description)) !!}
                                                 </p>
-                                                <div class="aqf-summer-btn">
-                                                    <a href="#" class="aq-btn-black">Explore Collection
-                                                        <i class="fa-solid fa-arrow-right-long ml-10"></i></a>
-                                                </div>
+
+                                                @if($brandSection->button_text)
+
+                                                    <div class="aqf-summer-btn">
+
+                                                        <a href="{{ $brandSection->button_link }}" class="aq-btn-black">
+
+                                                            {{ $brandSection->button_text }}
+
+                                                            <i class="fa-solid fa-arrow-right-long ml-10"></i>
+
+                                                        </a>
+
+                                                    </div>
+
+                                                @endif
+
                                             </div>
                                         </div>
                                     </div>
@@ -1912,20 +1895,16 @@
                         <div class="col-lg-4 col-md-6">
                             <div class="masonry-column">
                                 <div class="masonry-track direction-down">
-                                    <div class="masonry-card h-md">
-                                        <img src="{{ asset('assets/img/corporate/apparel_gifts_1778668621245.webp') }}"
-                                            alt="Corporate Apparel" loading="lazy" />
-                                    </div>
 
-                                    <div class="masonry-card h-xl">
-                                        <img src="{{ asset('assets/img/corporate/backpack_gifts_1778668040094.webp') }}"
-                                            alt="Business Backpacks" loading="lazy" />
-                                    </div>
+                                    @foreach($galleryColumn1 as $image)
 
-                                    <div class="masonry-card h-sm">
-                                        <img src="{{ asset('assets/img/corporate/eco_friendly_gifts_1778668670253.webp') }}"
-                                            alt="Eco Friendly Gifts" loading="lazy" />
-                                    </div>
+                                        <div class="masonry-card {{ $image->height_class }}">
+                                            <img src="{{ asset('storage/' . $image->image) }}" alt="{{ $image->title }}"
+                                                loading="lazy" />
+                                        </div>
+
+                                    @endforeach
+
                                 </div>
                             </div>
                         </div>
@@ -1934,20 +1913,16 @@
                         <div class="col-lg-4 col-md-6">
                             <div class="masonry-column">
                                 <div class="masonry-track direction-up">
-                                    <div class="masonry-card h-xl">
-                                        <img src="{{ asset('assets/img/corporate/hero_gift_box_1778667986732.webp') }}"
-                                            alt="Executive Gift Box" loading="lazy" />
-                                    </div>
 
-                                    <div class="masonry-card h-md">
-                                        <img src="{{ asset('assets/img/corporate/kitchen_appliances_1778668633577.webp') }}"
-                                            alt="Kitchen Appliances" loading="lazy" />
-                                    </div>
+                                    @foreach($galleryColumn2 as $image)
 
-                                    <div class="masonry-card h-lg">
-                                        <img src="{{ asset('assets/img/corporate/premium_gadgets_1778668027534.webp') }}"
-                                            alt="Premium Tech Gadgets" loading="lazy" />
-                                    </div>
+                                        <div class="masonry-card {{ $image->height_class }}">
+                                            <img src="{{ asset('storage/' . $image->image) }}" alt="{{ $image->title }}"
+                                                loading="lazy" />
+                                        </div>
+
+                                    @endforeach
+
                                 </div>
                             </div>
                         </div>
@@ -1956,20 +1931,16 @@
                         <div class="col-lg-4 col-md-12">
                             <div class="masonry-column">
                                 <div class="masonry-track direction-down">
-                                    <div class="masonry-card h-lg">
-                                        <img src="{{ asset('assets/img/corporate/stationery_gifts_1778668654881.webp') }}"
-                                            alt="Office Stationery" loading="lazy" />
-                                    </div>
 
-                                    <div class="masonry-card h-sm">
-                                        <img src="{{ asset('assets/img/corporate/vouchers_gifts_retry_1778668716547.webp') }}"
-                                            alt="Gift Vouchers" loading="lazy" />
-                                    </div>
+                                    @foreach($galleryColumn3 as $image)
 
-                                    <div class="masonry-card h-xl">
-                                        <img src="{{ asset('assets/img/corporate/welcome_kit_1778668006890.webp') }}"
-                                            alt="Employee Welcome Kit" loading="lazy" />
-                                    </div>
+                                        <div class="masonry-card {{ $image->height_class }}">
+                                            <img src="{{ asset('storage/' . $image->image) }}" alt="{{ $image->title }}"
+                                                loading="lazy" />
+                                        </div>
+
+                                    @endforeach
+
                                 </div>
                             </div>
                         </div>

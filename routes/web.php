@@ -36,6 +36,12 @@ use App\Http\Controllers\Admin\VendorTypeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\AnnouncementController;
+use App\Http\Controllers\Admin\GalleryImageController;
+use App\Http\Controllers\Admin\HomeBrandSectionController;
+use App\Http\Controllers\Admin\HomeBrandSectionImageController;
+use App\Http\Controllers\Admin\HomeDealBannerController;
+use App\Http\Controllers\Admin\HomeHeroSlideController;
+Use App\Http\Controllers\Admin\HomeHeroBannerController;
 use App\Http\Controllers\FrontController;
 
 Route::controller(FrontController::class)->group(function () {
@@ -187,6 +193,18 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
             Route::delete('/delete/{id}', [HomeTextSliderController::class, 'destroy'])->name('destroy');
         });
+
+        Route::resource('gallery-images', GalleryImageController::class)->names('gallery-images');
+
+        Route::get('home/brand-section', [HomeBrandSectionController::class, 'edit'])->name('home.brand-section.edit');
+        Route::post('home/brand-section', [HomeBrandSectionController::class, 'update'])->name('home.brand-section.update');
+        Route::resource('home-brand-section-images', HomeBrandSectionImageController::class);
+
+        Route::resource('home-deal-banners', HomeDealBannerController::class)->names('home-deal-banners');
+        Route::delete('home-deal-banners/delete/{id}', [HomeDealBannerController::class, 'destroy'])->name('home-deal-banners.delete');
+
+        Route::resource('home-hero-slides',HomeHeroSlideController::class)->names('home-hero-slides');
+        Route::resource('home-hero-banners',HomeHeroBannerController::class)->names('home-hero-banners');
 
         // ================= HERO =================
         Route::get('/home-hero', [HomeHeroController::class, 'edit'])

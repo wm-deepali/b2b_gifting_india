@@ -35,7 +35,12 @@ use App\Models\SupplierEnquiry;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\Wishlist;
+use App\Models\HomeBrandSection;
 use Carbon\Carbon;
+use App\Models\GalleryImage;
+use App\Models\HomeDealBanner;
+use App\Models\HomeHeroSlide;
+use App\Models\HomeHeroBanner;
 
 class FrontController extends Controller
 {
@@ -154,6 +159,42 @@ class FrontController extends Controller
             ->pluck('product_id')
             ->toArray();
 
+        $galleryColumn1 = GalleryImage::where('status', 1)
+            ->where('column_no', 1)
+            ->orderBy('sort_order')
+            ->get();
+
+        $galleryColumn2 = GalleryImage::where('status', 1)
+            ->where('column_no', 2)
+            ->orderBy('sort_order')
+            ->get();
+
+        $galleryColumn3 = GalleryImage::where('status', 1)
+            ->where('column_no', 3)
+            ->orderBy('sort_order')
+            ->get();
+
+        $brandSection = HomeBrandSection::with([
+            'images' => function ($q) {
+                $q->where('status', 1)
+                    ->orderBy('sort_order');
+            }
+        ])
+            ->where('status', 1)
+            ->first();
+
+        $dealBanners = HomeDealBanner::where('status', 1)
+            ->orderBy('sort_order')
+            ->get();
+
+        $heroSlides = HomeHeroSlide::where('status', 1)
+            ->orderBy('sort_order')
+            ->get();
+
+        $heroBanners = HomeHeroBanner::where('status', 1)
+            ->orderBy('sort_order')
+            ->get();
+
         return view('front-pages.home', compact(
             'sliders',
             'textSliders',
@@ -169,34 +210,91 @@ class FrontController extends Controller
             'brandCategories',
             'testimonials',
             'clients',
-            'wishlistIds'
+            'wishlistIds',
+            'galleryColumn1',
+            'galleryColumn2',
+            'galleryColumn3',
+            'brandSection',
+            'dealBanners',
+            'heroSlides',
+            'heroBanners',
         ));
     }
 
     public function searchSuggestions(Request $request)
     {
-        $query = $request->q;
+        $query = trim($request->q);
 
         if (!$query) {
             return response()->json([]);
         }
 
-        $products = Product::where('name', 'LIKE', "%$query%")
-            ->where('show_on_website', 1)
+        $products = Product::with('images')
             ->where('status', 1)
+            ->where('show_on_website', 1)
+            ->where('name', 'LIKE', "%{$query}%")
             ->take(5)
-            ->get(['id', 'name', 'image', 'slug']);
+            ->get([
+                'id',
+                'name',
+                'slug'
+            ])
+            ->map(function ($product) {
+                return [
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'slug' => $product->slug,
+                    'image' => $product->display_image, // accessor
+                ];
+            });
 
-        $categories = Category::withCount('children')
-            ->where('show_on_website', 1)
+        // Parent Categories
+        $categories = Category::whereNull('parent_id')
             ->where('status', 1)
-            ->where('name', 'LIKE', "%$query%")
+            ->where('show_on_website', 1)
+            ->where('name', 'LIKE', "%{$query}%")
             ->take(5)
-            ->get(['id', 'name', 'slug']);
+            ->get([
+                'id',
+                'name',
+                'slug',
+                'image'
+            ]);
+
+        // Sub Categories
+        $subCategories = Category::with('parent')
+            ->whereNotNull('parent_id')
+            ->where('status', 1)
+            ->where('show_on_website', 1)
+            ->where('name', 'LIKE', "%{$query}%")
+            ->take(5)
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'id' => $item->id,
+                    'name' => $item->name,
+                    'slug' => $item->slug,
+                    'image' => $item->image,
+                    'parent_slug' => $item->parent?->slug,
+                ];
+            });
+
+        // Occasions
+        $occasions = GiftingOccasion::where('status', 1)
+            ->where('title', 'LIKE', "%{$query}%")
+            ->take(5)
+            ->get([
+                'id',
+                'title',
+                'slug',
+                'image'
+            ]);
 
         return response()->json([
             'products' => $products,
-            'categories' => $categories
+            'categories' => $categories,
+            'subcategories' => $subCategories,
+            'occasions' => $occasions,
         ]);
     }
 

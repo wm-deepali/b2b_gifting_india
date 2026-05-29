@@ -74,8 +74,83 @@
                                     </td>
                                 </tr>
 
-                                {{-- HERO --}}
                                 <tr>
+                                    <td>3</td>
+                                    <td><strong>Premium Gifting Gallery</strong></td>
+                                    <td>
+                                        <span class="badge badge-info">Multiple</span>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('admin.gallery-images.index') }}"
+                                            class="btn btn-sm btn-outline-dark">
+                                            <i class="fa fa-pencil"></i> Manage
+                                        </a>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>4</td>
+                                    <td><strong>Brand Promotion Section</strong></td>
+                                    <td>
+                                        <span class="badge badge-primary">Fixed + Slider</span>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('admin.home.brand-section.edit') }}"
+                                            class="btn btn-sm btn-outline-dark">
+                                            <i class="fa fa-pencil"></i> Edit
+                                        </a>
+
+                                        <a href="{{ route('admin.home-brand-section-images.index') }}"
+                                            class="btn btn-sm btn-outline-primary">
+                                            <i class="fa fa-images"></i> Slider Images
+                                        </a>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>5</td>
+                                    <td><strong>Corporate Deal Banners</strong></td>
+                                    <td>
+                                        <span class="badge badge-info">Multiple</span>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('admin.home-deal-banners.index') }}"
+                                            class="btn btn-sm btn-outline-dark">
+                                            <i class="fa fa-pencil"></i> Manage
+                                        </a>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>6</td>
+                                    <td><strong>Hero Slides</strong></td>
+                                    <td>
+                                        <span class="badge badge-info">Multiple</span>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('admin.home-hero-slides.index') }}"
+                                            class="btn btn-sm btn-outline-dark">
+                                            <i class="fa fa-pencil"></i> Manage
+                                        </a>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>7</td>
+                                    <td><strong>Hero Side Banners</strong></td>
+                                    <td>
+                                        <span class="badge badge-info">Multiple</span>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('admin.home-hero-banners.index') }}"
+                                            class="btn btn-sm btn-outline-dark">
+                                            <i class="fa fa-pencil"></i> Manage
+                                        </a>
+                                    </td>
+                                </tr>
+
+                                {{-- HERO --}}
+                                <!-- <tr>
                                     <td>3</td>
                                     <td><strong>Hero Section</strong></td>
                                     <td>
@@ -87,10 +162,10 @@
                                             <i class="fa fa-pencil"></i> Edit
                                         </a>
                                     </td>
-                                </tr>
+                                </tr> -->
 
                                 {{-- WHY --}}
-                                <tr>
+                                <!-- <tr>
                                     <td>4</td>
                                     <td><strong>Why Choose Us</strong></td>
                                     <td>
@@ -102,10 +177,10 @@
                                             <i class="fa fa-pencil"></i> Manage
                                         </a>
                                     </td>
-                                </tr>
+                                </tr> -->
 
                                 {{-- BANNERS --}}
-                                <tr>
+                                <!-- <tr>
                                     <td>5</td>
                                     <td><strong>Offer & Product Banners</strong></td>
                                     <td>
@@ -117,9 +192,9 @@
                                             <i class="fa fa-pencil"></i> Manage
                                         </a>
                                     </td>
-                                </tr>
+                                </tr> -->
 
-                                <tr>
+                                <!-- <tr>
                                     <td>6</td>
                                     <td><strong>Feature Cards Section</strong></td>
                                     <td><span class="badge badge-info">Multiple</span></td>
@@ -129,7 +204,7 @@
                                             <i class="fa fa-pencil"></i> Manage
                                         </a>
                                     </td>
-                                </tr>
+                                </tr> -->
 
                             </tbody>
 

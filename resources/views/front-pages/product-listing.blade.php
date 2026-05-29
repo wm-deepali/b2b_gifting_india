@@ -644,16 +644,53 @@ if (clearBtn) {
 
             // Parse URL parameters for categories deep link
             const urlParams = new URLSearchParams(window.location.search);
-            const catParam = urlParams.get('category');
-            if (catParam) {
-                const targetCard = document.querySelector(`.aq-category-card[data-category-filter="${catParam}"]`);
-                if (targetCard) {
-                    targetCard.click();
-                }
-            } else {
-                // Initialize default view
-                // renderProducts(activeCategory);
+const subcategoryParam = urlParams.get('subcategory');
+
+if (subcategoryParam) {
+
+    const targetCard = document.querySelector(
+        `.aq-category-card[data-category-filter="${subcategoryParam}"]`
+    );
+
+    if (targetCard) {
+
+        targetCard.classList.add('active');
+
+        activeCategory = subcategoryParam;
+
+        const activeCategoryTitle =
+            document.getElementById('aq-active-category-title');
+
+        const catName =
+            targetCard.querySelector('.aq-category-card-title').innerText;
+
+        if (activeCategoryTitle) {
+            activeCategoryTitle.innerText =
+                catName + ' Collection';
+        }
+
+        loadProducts(1);
+
+        setTimeout(() => {
+
+            const section =
+                document.getElementById('aq-catalog-section');
+
+            if (section) {
+                const topOffset =
+                    section.getBoundingClientRect().top +
+                    window.pageYOffset - 120;
+
+                window.scrollTo({
+                    top: topOffset,
+                    behavior: 'smooth'
+                });
             }
+
+        }, 300);
+    }
+}
+
         });
     </script>
     <div class="aq-mobile-filter-trigger-bar">

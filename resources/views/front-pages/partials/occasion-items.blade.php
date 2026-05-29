@@ -13,7 +13,7 @@
                                         <div class="aqf-collection-content">
 
                                             <h4 class="aqf-collection-title">
-                                                <a href="#" onclick="openEnquiryDrawer(event)">
+                                                <a href="{{ route('products', ['occasion' => $occasion->slug]) }}">
                                                     {{ $occasion->title }}
                                                 </a>
                                             </h4>
@@ -23,7 +23,7 @@
                                         </div>
 
                                         <div class="aqf-collection-link-wrap">
-                                            <a class="aqf-collection-link" href="#" onclick="openEnquiryDrawer(event)">
+                                            <a class="aqf-collection-link" href="{{ route('products', ['occasion' => $occasion->slug]) }}">
                                                 <span>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
                                                         viewBox="0 0 12 12" fill="none">

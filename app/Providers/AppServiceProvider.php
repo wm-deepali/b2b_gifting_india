@@ -64,5 +64,17 @@ class AppServiceProvider extends ServiceProvider
             );
         });
 
+         View::composer('*', function ($view) {
+
+            $wishlistCount = \App\Models\Wishlist::where(
+    'session_id',
+    session()->getId()
+)->count();
+            $view->with(
+                'wishlistCount',
+                $wishlistCount
+            );
+        });
+
     }
 }

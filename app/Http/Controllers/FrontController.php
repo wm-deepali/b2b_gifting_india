@@ -34,6 +34,8 @@ use App\Models\VendorEnquiry;
 use App\Models\SupplierEnquiry;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use App\Models\Wishlist;
+use Carbon\Carbon;
 
 class FrontController extends Controller
 {
@@ -147,6 +149,11 @@ class FrontController extends Controller
             ->latest()
             ->get();
 
+        $wishlistIds = Wishlist::where('session_id', session()->getId())
+            ->where('expires_at', '>', now())
+            ->pluck('product_id')
+            ->toArray();
+
         return view('front-pages.home', compact(
             'sliders',
             'textSliders',
@@ -162,6 +169,7 @@ class FrontController extends Controller
             'brandCategories',
             'testimonials',
             'clients',
+            'wishlistIds'
         ));
     }
 
@@ -398,6 +406,76 @@ class FrontController extends Controller
         }
 
         /*
+|--------------------------------------------------------------------------
+| Marketing Filter
+|--------------------------------------------------------------------------
+*/
+
+        if (!empty($request->marketing)) {
+
+            foreach ((array) $request->marketing as $flag) {
+
+                if (
+                    in_array($flag, [
+                        'featured',
+                        'new_arrival',
+                        'sale',
+                        'best_seller'
+                    ])
+                ) {
+
+                    $products->where($flag, 1);
+                }
+            }
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Collection Filter
+        |--------------------------------------------------------------------------
+        */
+
+        if (!empty($request->collections)) {
+
+            foreach ((array) $request->collections as $flag) {
+
+                if (
+                    in_array($flag, [
+                        'is_premium',
+                        'is_engraving',
+                        'is_personalized_engraving'
+                    ])
+                ) {
+
+                    $products->where($flag, 1);
+                }
+            }
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Availability Filter
+        |--------------------------------------------------------------------------
+        */
+
+        if (!empty($request->availability)) {
+
+            foreach ((array) $request->availability as $flag) {
+
+                if (
+                    in_array($flag, [
+                        'ready_to_ship',
+                        'bulk_available',
+                        'gift_hamper'
+                    ])
+                ) {
+
+                    $products->where($flag, 1);
+                }
+            }
+        }
+
+        /*
         |--------------------------------------------------------------------------
         | Subcategory Filter
         |--------------------------------------------------------------------------
@@ -473,6 +551,128 @@ class FrontController extends Controller
         ]);
     }
 
+
+    public function products(Request $request)
+    {
+        $query = Product::with(['images', 'categories', 'subcategories'])
+            ->where('status', 1)
+            ->where('show_on_website', 1);
+
+        $title = 'Products Collection';
+
+        switch ($request->filter) {
+
+            case 'featured':
+                $query->where('is_featured', 1);
+                $title = 'Featured Products';
+                break;
+
+            case 'new_arrivals':
+                $query->latest();
+                $title = 'New Arrivals';
+                break;
+
+            case 'sale':
+                $query->where('is_sale', 1);
+                $title = 'Exclusive on Sale';
+                break;
+
+            case 'best_sellers':
+                $query->orderByDesc('sales_count');
+                $title = 'Best Sellers';
+                break;
+        }
+        if ($request->filled('occasion')) {
+
+            $query->whereHas('occasions', function ($q) use ($request) {
+                $q->where('slug', $request->occasion);
+            });
+
+            $occasion = GiftingOccasion::where('slug', $request->occasion)->first();
+
+            if ($occasion) {
+                $title = $occasion->title;
+            }
+        }
+
+        // Budget Filter
+        if ($request->filled('budget')) {
+
+            switch ($request->budget) {
+
+                case 'under-500':
+                    $query->where('sale_price', '<', 500);
+                    $title = 'Products Under ₹500';
+                    break;
+
+                case '500-1000':
+                    $query->whereBetween('sale_price', [500, 1000]);
+                    $title = 'Products ₹500 – ₹1,000';
+                    break;
+
+                case '1000-2000':
+                    $query->whereBetween('sale_price', [1000, 2000]);
+                    $title = 'Products ₹1,000 – ₹2,000';
+                    break;
+
+                case '2000-5000':
+                    $query->whereBetween('sale_price', [2000, 5000]);
+                    $title = 'Products ₹2,000 – ₹5,000';
+                    break;
+
+                case 'above-5000':
+                    $query->where('sale_price', '>', 5000);
+                    $title = 'Products Above ₹5,000';
+                    break;
+            }
+        }
+
+
+        // Collection Filter
+        if ($request->filled('collection')) {
+
+            switch ($request->collection) {
+
+                case 'premium':
+                    $query->where('is_premium', 1);
+                    $title = 'Premium Products';
+                    break;
+
+                case 'engravings':
+                    $query->where('is_engraving', 1);
+                    $title = 'Engravings';
+                    break;
+
+                case 'personalized-engraving':
+                    $query->where('is_personalized_engraving', 1);
+                    $title = 'Personalized Engraving';
+                    break;
+            }
+        }
+
+
+        $products = $query->paginate(12)->withQueryString();
+
+        $footerCategories = Category::where('status', 1)
+            ->whereNull('parent_id')
+            ->orderBy('sort_order')
+            ->take(10)
+            ->get();
+
+        $footerOccasions = GiftingOccasion::where('status', 1)
+            ->orderBy('title')
+            ->get();
+
+        return view(
+            'front-pages.products',
+            compact(
+                'products',
+                'footerCategories',
+                'footerOccasions',
+                'title'
+            )
+        );
+    }
 
     public function productDetail($slug)
     {
@@ -1279,5 +1479,55 @@ class FrontController extends Controller
 
         return view('front-pages.occasions', compact('occasions'));
     }
-    
+
+    public function addToWishlist(Request $request)
+    {
+        $request->validate([
+            'product_id' => 'required|exists:products,id'
+        ]);
+
+        Wishlist::firstOrCreate(
+            [
+                'session_id' => session()->getId(),
+                'product_id' => $request->product_id,
+            ],
+            [
+                'expires_at' => Carbon::now()->addDay()
+            ]
+        );
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Product added to wishlist'
+        ]);
+    }
+
+    public function wishlist()
+    {
+        Wishlist::where('expires_at', '<', now())->delete();
+
+        $products = Product::with(['images'])
+            ->whereIn(
+                'id',
+                Wishlist::where('session_id', session()->getId())
+                    ->pluck('product_id')
+            )
+            ->paginate(12);
+
+        return view('front-pages.wishlist', compact('products'));
+    }
+
+
+    public function removeWishlist($id)
+    {
+        Wishlist::where('session_id', session()->getId())
+            ->where('product_id', $id)
+            ->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Removed from wishlist'
+        ]);
+    }
+
 }

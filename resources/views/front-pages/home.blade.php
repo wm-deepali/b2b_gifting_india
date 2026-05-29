@@ -1,6 +1,18 @@
 @extends('layouts.app')
 @section('content')
 
+    <style>
+        .wishlist-active {
+            background: #ff4d94 !important;
+            color: #fff !important;
+        }
+
+        .wishlist-active svg path {
+            stroke: #fff !important;
+        }
+    </style>
+
+
     <main>
         <!-- slider area start -->
         <div class="aqf-slider-area">
@@ -273,16 +285,18 @@
                                                         </svg>
                                                         <span class="aq-tooltip-item">Quick View</span>
                                                     </button>
-
                                                     <button type="button"
-                                                        class="aq-product-action-btn aq-wishlist-btn aq-tooltip">
+                                                        class="aq-product-action-btn aq-tooltip add-to-wishlist {{ in_array($product->id, $wishlistIds ?? []) ? 'wishlist-active' : '' }}"
+                                                        data-id="{{ $product->id }}">
+
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16"
                                                             viewBox="0 0 18 16" fill="none">
                                                             <path
                                                                 d="M14.7197 1.52347C12.5744 0.244089 10.7019 0.759666 9.57712 1.58092C9.11591 1.91766 8.88531 2.08602 8.74963 2.08602C8.61396 2.08602 8.38336 1.91766 7.92215 1.58092C6.79733 0.759666 4.9249 0.244089 2.77958 1.52347C-0.0359114 3.20253 -0.67299 8.7418 5.82126 13.4151C7.05821 14.3052 7.67668 14.7502 8.74963 14.7502C9.82258 14.7502 10.4411 14.3052 11.678 13.4151C18.1723 8.7418 17.5352 3.20253 14.7197 1.52347Z"
-                                                                stroke="currentcolor" stroke-width="1.5" stroke-linecap="round">
+                                                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
                                                             </path>
                                                         </svg>
+
                                                         <span class="aq-tooltip-item">Add To Wishlist</span>
                                                     </button>
                                                 </div>
@@ -333,6 +347,35 @@
                                     </div>
 
                                 @endforeach
+
+                            </div>
+                            <div class="readmore-btn">
+
+                                <div class="aq-header-top-bulk-orders d-none d-lg-inline-block">
+
+                                    <a href="{{ route('products', ['filter' => 'new_arrivals']) }}" class="aq-loadmore-btn">
+
+                                        <i>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round">
+
+                                                <path
+                                                    d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                                                </path>
+
+                                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+
+                                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+
+                                            </svg>
+                                        </i>
+
+                                        <span>LOAD MORE New Arrivals</span>
+
+                                    </a>
+
+                                </div>
 
                             </div>
                         </div>
@@ -391,17 +434,18 @@
                                                     </button>
 
                                                     <button type="button"
-                                                        class="aq-product-action-btn aq-wishlist-btn aq-tooltip">
+                                                        class="aq-product-action-btn aq-tooltip add-to-wishlist {{ in_array($product->id, $wishlistIds ?? []) ? 'wishlist-active' : '' }}"
+                                                        data-id="{{ $product->id }}">
 
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16"
                                                             viewBox="0 0 18 16" fill="none">
                                                             <path
                                                                 d="M14.7197 1.52347C12.5744 0.244089 10.7019 0.759666 9.57712 1.58092C9.11591 1.91766 8.88531 2.08602 8.74963 2.08602C8.61396 2.08602 8.38336 1.91766 7.92215 1.58092C6.79733 0.759666 4.9249 0.244089 2.77958 1.52347C-0.0359114 3.20253 -0.67299 8.7418 5.82126 13.4151C7.05821 14.3052 7.67668 14.7502 8.74963 14.7502C9.82258 14.7502 10.4411 14.3052 11.678 13.4151C18.1723 8.7418 17.5352 3.20253 14.7197 1.52347Z"
-                                                                stroke="currentcolor" stroke-width="1.5" stroke-linecap="round">
+                                                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
                                                             </path>
                                                         </svg>
-                                                        <span class="aq-tooltip-item">Add To Wishlist</span>
 
+                                                        <span class="aq-tooltip-item">Add To Wishlist</span>
                                                     </button>
 
                                                 </div>
@@ -452,6 +496,35 @@
                                     </div>
 
                                 @endforeach
+
+                            </div>
+                            <div class="readmore-btn">
+
+                                <div class="aq-header-top-bulk-orders d-none d-lg-inline-block">
+
+                                    <a href="{{ route('products', ['filter' => 'best_sellers']) }}" class="aq-loadmore-btn">
+
+                                        <i>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round">
+
+                                                <path
+                                                    d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                                                </path>
+
+                                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+
+                                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+
+                                            </svg>
+                                        </i>
+
+                                        <span>LOAD MORE Best Sellers</span>
+
+                                    </a>
+
+                                </div>
 
                             </div>
                         </div>
@@ -512,13 +585,14 @@
 
                                                     {{-- KEEP YOUR EXISTING WISHLIST BUTTON --}}
                                                     <button type="button"
-                                                        class="aq-product-action-btn aq-wishlist-btn aq-tooltip">
+                                                        class="aq-product-action-btn aq-tooltip add-to-wishlist {{ in_array($product->id, $wishlistIds ?? []) ? 'wishlist-active' : '' }}"
+                                                        data-id="{{ $product->id }}">
 
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16"
                                                             viewBox="0 0 18 16" fill="none">
                                                             <path
                                                                 d="M14.7197 1.52347C12.5744 0.244089 10.7019 0.759666 9.57712 1.58092C9.11591 1.91766 8.88531 2.08602 8.74963 2.08602C8.61396 2.08602 8.38336 1.91766 7.92215 1.58092C6.79733 0.759666 4.9249 0.244089 2.77958 1.52347C-0.0359114 3.20253 -0.67299 8.7418 5.82126 13.4151C7.05821 14.3052 7.67668 14.7502 8.74963 14.7502C9.82258 14.7502 10.4411 14.3052 11.678 13.4151C18.1723 8.7418 17.5352 3.20253 14.7197 1.52347Z"
-                                                                stroke="currentcolor" stroke-width="1.5" stroke-linecap="round">
+                                                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
                                                             </path>
                                                         </svg>
 
@@ -573,6 +647,35 @@
                                     </div>
 
                                 @endforeach
+
+                            </div>
+                            <div class="readmore-btn">
+
+                                <div class="aq-header-top-bulk-orders d-none d-lg-inline-block">
+
+                                    <a href="{{ route('products', ['filter' => 'featured']) }}" class="aq-loadmore-btn">
+
+                                        <i>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round">
+
+                                                <path
+                                                    d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                                                </path>
+
+                                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+
+                                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+
+                                            </svg>
+                                        </i>
+
+                                        <span>LOAD MORE Featured Products</span>
+
+                                    </a>
+
+                                </div>
 
                             </div>
                         </div>
@@ -686,7 +789,8 @@
 
                                             </h2>
 
-                                            <a href="#" class="gifting_btn">
+                                            <a href="{{ route('products', ['occasion' => $featuredOccasion->slug]) }}"
+                                                class="gifting_btn">
 
                                                 Explore Now
 
@@ -753,7 +857,7 @@
 
                                                 <h4 class="aqf-collection-title">
 
-                                                    <a href="#">
+                                                    <a href="{{ route('products', ['occasion' => $occasion->slug]) }}">
 
                                                         {{ $occasion->title }}
 
@@ -771,7 +875,8 @@
 
                                             <div class="aqf-collection-link-wrap">
 
-                                                <a class="aqf-collection-link" href="#">
+                                                <a class="aqf-collection-link"
+                                                    href="{{ route('products', ['occasion' => $occasion->slug]) }}">
 
                                                     <span>
 
@@ -825,16 +930,16 @@
 
                     <!-- Section Title -->
                     <!-- <div class="aqf-collection-top mb-40 mt-50">
-                                                                                                                            <div class="row align-items-end">
-                                                                                                                                <div class="col-md-12">
-                                                                                                                                    <div class="aq-creative-title-box">
-                                                                                                                                        <span class="aq-creative-subtitle">Premium Selections</span>
-                                                                                                                                        <h4 class="aq-creative-title">Bespoke Curation Categories</h4>
-                                                                                                                                        <div class="aq-creative-title-line"></div>
-                                                                                                                                    </div>
-                                                                                                                                </div>
-                                                                                                                            </div>
-                                                                                                                        </div> -->
+                                                                                                                                                                    <div class="row align-items-end">
+                                                                                                                                                                        <div class="col-md-12">
+                                                                                                                                                                            <div class="aq-creative-title-box">
+                                                                                                                                                                                <span class="aq-creative-subtitle">Premium Selections</span>
+                                                                                                                                                                                <h4 class="aq-creative-title">Bespoke Curation Categories</h4>
+                                                                                                                                                                                <div class="aq-creative-title-line"></div>
+                                                                                                                                                                            </div>
+                                                                                                                                                                        </div>
+                                                                                                                                                                    </div>
+                                                                                                                                                                </div> -->
 
 
                 </div>
@@ -998,7 +1103,8 @@
 
                                                                 <div class="aq-product-action">
                                                                     <button type="button"
-                                                                        class="aq-product-action-btn aq-tooltip">
+                                                                        class="aq-product-action-btn aq-tooltip add-to-cart"
+                                                                        data-id="{{ $product->id }}">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="18"
                                                                             height="18" viewBox="0 0 18 18" fill="none">
                                                                             <path
@@ -1028,14 +1134,18 @@
                                                                         <span class="aq-tooltip-item">Quick View</span>
                                                                     </button>
                                                                     <button type="button"
-                                                                        class="aq-product-action-btn aq-wishlist-btn aq-tooltip">
+                                                                        class="aq-product-action-btn aq-tooltip add-to-wishlist {{ in_array($product->id, $wishlistIds ?? []) ? 'wishlist-active' : '' }}"
+                                                                        data-id="{{ $product->id }}">
+
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="18"
                                                                             height="16" viewBox="0 0 18 16" fill="none">
                                                                             <path
                                                                                 d="M14.7197 1.52347C12.5744 0.244089 10.7019 0.759666 9.57712 1.58092C9.11591 1.91766 8.88531 2.08602 8.74963 2.08602C8.61396 2.08602 8.38336 1.91766 7.92215 1.58092C6.79733 0.759666 4.9249 0.244089 2.77958 1.52347C-0.0359114 3.20253 -0.67299 8.7418 5.82126 13.4151C7.05821 14.3052 7.67668 14.7502 8.74963 14.7502C9.82258 14.7502 10.4411 14.3052 11.678 13.4151C18.1723 8.7418 17.5352 3.20253 14.7197 1.52347Z"
-                                                                                stroke="currentcolor" stroke-width="1.5"
-                                                                                stroke-linecap="round"></path>
+                                                                                stroke="currentColor" stroke-width="1.5"
+                                                                                stroke-linecap="round">
+                                                                            </path>
                                                                         </svg>
+
                                                                         <span class="aq-tooltip-item">Add To Wishlist</span>
                                                                     </button>
                                                                 </div>
@@ -1174,28 +1284,33 @@
 
                                                         <div class="col-md-4">
 
-                                                            <div class="aq-luxury-item-card">
+                                                            <a href="{{ route('product.details', $product->slug) }}"
+                                                                class="text-decoration-none">
 
-                                                                <div class="aq-luxury-item-img">
+                                                                <div class="aq-luxury-item-card">
 
-                                                                    <img src="{{ asset('storage/' . $product->display_image) }}"
-                                                                        alt="{{ $product->name }}" loading="lazy">
+                                                                    <div class="aq-luxury-item-img">
+
+                                                                        <img src="{{ asset('storage/' . $product->display_image) }}"
+                                                                            alt="{{ $product->name }}" loading="lazy">
+
+                                                                    </div>
+
+                                                                    <div class="aq-luxury-item-info">
+
+                                                                        <h4 class="aq-luxury-item-title">
+                                                                            {{ $product->name }}
+                                                                        </h4>
+
+                                                                        <span class="aq-luxury-item-price">
+                                                                            ₹{{ number_format($product->price) }}
+                                                                        </span>
+
+                                                                    </div>
 
                                                                 </div>
 
-                                                                <div class="aq-luxury-item-info">
-
-                                                                    <h4 class="aq-luxury-item-title">
-                                                                        {{ $product->name }}
-                                                                    </h4>
-
-                                                                    <span class="aq-luxury-item-price">
-                                                                        ₹{{ number_format($product->price) }}
-                                                                    </span>
-
-                                                                </div>
-
-                                                            </div>
+                                                            </a>
 
                                                         </div>
 
@@ -1545,6 +1660,37 @@
                                     </div>
 
                                 @endforeach
+
+                            </div>
+
+                            <div class="readmore-btn">
+
+                                <div class="aq-header-top-bulk-orders d-none d-lg-inline-block">
+
+                                    <a href="{{ route('products', ['filter' => 'personalized-engraving']) }}"
+                                        class="aq-loadmore-btn">
+
+                                        <i>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round">
+
+                                                <path
+                                                    d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                                                </path>
+
+                                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+
+                                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+
+                                            </svg>
+                                        </i>
+
+                                        <span>LOAD MORE</span>
+
+                                    </a>
+
+                                </div>
 
                             </div>
                         </div>
@@ -2261,4 +2407,85 @@
         <!-- footer categories area end -->
     </main>
 
+    <script>
+        document.querySelectorAll('.add-to-wishlist').forEach(btn => {
+
+            btn.addEventListener('click', function () {
+
+                let productId = this.getAttribute('data-id');
+
+                fetch("{{ route('wishlist.add') }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    },
+                    body: JSON.stringify({
+                        product_id: productId
+                    })
+                })
+                    .then(res => res.json())
+                    .then(data => {
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Added!',
+                            text: data.message,
+                            confirmButtonText: 'OK'
+                        });
+
+                    })
+                    .catch(error => {
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops!',
+                            text: 'Something went wrong.'
+                        });
+
+                    });
+
+            });
+
+        });
+
+        document.querySelectorAll('.add-to-cart').forEach(btn => {
+            btn.addEventListener('click', function () {
+
+                let productId = this.getAttribute('data-id');
+
+                fetch("{{ route('cart.add') }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    },
+                    body: JSON.stringify({
+                        product_id: productId,
+                    })
+                })
+                    .then(res => res.json())
+                    .then(data => {
+
+                        // ✅ Swal
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Added!',
+                            text: data.message,
+                            showCancelButton: true,
+                            confirmButtonText: 'Go to Cart',
+                            cancelButtonText: 'Continue Shopping'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = "{{ route('shopping-cart') }}";
+                            }
+                        });
+
+                    });
+
+            });
+        });
+
+
+    </script>
 @endsection

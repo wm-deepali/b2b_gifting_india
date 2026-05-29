@@ -45,12 +45,22 @@ Route::controller(FrontController::class)->group(function () {
     Route::get('/categories', 'categories')->name('categories');
     Route::get('/category/{slug}', 'categoryListing')->name('category.products');
     Route::get('/category/{slug}/filter', 'filterProducts')->name('category.filter.products');
+    Route::get('/products', 'products')->name('products');
     Route::get('/product/{slug}', 'productDetail')->name('product.details');
+    Route::get('/occasions', 'occasions')->name('occasions');
+
+    // cart routes
     Route::post('/cart/add', 'addToCart')->name('cart.add');
     Route::get('/shopping-cart', 'shoppingCart')->name('shopping-cart');
     Route::post('/cart/remove', 'removeFromCart')->name('cart.remove');
     Route::post('/cart/update-quantity', 'updateQuantity')->name('cart.update.quantity');
     Route::get('/thank-you/{id}', 'thankYou')->name('thank-you');
+
+    // wishlist routes
+    Route::post('/wishlist/add', 'addToWishlist')->name('wishlist.add');
+    Route::get('/wishlist', 'wishlist')->name('wishlist');
+    Route::delete('/wishlist/{id}', 'removeWishlist')->name('wishlist.remove');
+
     Route::get('/faqs', 'faqs')->name('faqs');
     Route::get('/blogs', 'blogs')->name('blogs');
     Route::get('/blog/{slug}', 'blogDetails')->name('blog.details');
@@ -69,6 +79,7 @@ Route::controller(FrontController::class)->group(function () {
     Route::get('/recycling-pledge', 'recyclingPledge')->name('recycling-pledge');
     Route::get('/engraving-gallery', 'engravingGallery')->name('engraving-gallery');
 
+    // enquiry routes
     Route::post('/home-enquiry', 'submitHomeEnquiry')->name('home.enquiry');
     Route::post('/enquiry/store', 'storeEnquiry')->name('enquiry.store');
     Route::post('/contact-submit', 'submitContact')->name('contact.submit');
@@ -77,7 +88,6 @@ Route::controller(FrontController::class)->group(function () {
     Route::post('/vendor-enquiry', 'submitVendorEnquiry')->name('vendor.enquiry');
     Route::post('/supplier-enquiry', 'submitSupplierEnquiry')->name('supplier.enquiry');
 
-    Route::get('occasions', 'occasions')->name('occasions');
 });
 
 

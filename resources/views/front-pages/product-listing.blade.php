@@ -96,32 +96,132 @@
                             </div>
 
                             <!-- Widget: Co-Branding Options -->
-                            <div class="aq-filter-widget">
-                                <button class="aq-filter-header" type="button">
-                                    <span>Co-Branding Method</span>
-                                    <i class="fa-solid fa-chevron-down"></i>
-                                </button>
-                                <div class="aq-filter-content">
-                                    <ul class="aq-filter-list">
-                                        <li class="aq-filter-item active" data-filter-type="branding">
-                                            <div class="aq-filter-checkbox"><i class="fa-solid fa-check"></i></div>
-                                            <span class="aq-filter-label">Laser Engraving</span>
-                                        </li>
-                                        <li class="aq-filter-item" data-filter-type="branding">
-                                            <div class="aq-filter-checkbox"><i class="fa-solid fa-check"></i></div>
-                                            <span class="aq-filter-label">Leather Debossing</span>
-                                        </li>
-                                        <li class="aq-filter-item" data-filter-type="branding">
-                                            <div class="aq-filter-checkbox"><i class="fa-solid fa-check"></i></div>
-                                            <span class="aq-filter-label">Screen Silk Printing</span>
-                                        </li>
-                                        <li class="aq-filter-item" data-filter-type="branding">
-                                            <div class="aq-filter-checkbox"><i class="fa-solid fa-check"></i></div>
-                                            <span class="aq-filter-label">Premium UV Emboss</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                          <div class="aq-filter-widget">
+    <button class="aq-filter-header" type="button">
+        <span>Featured Collections</span>
+        <i class="fa-solid fa-chevron-down"></i>
+    </button>
+
+    <div class="aq-filter-content">
+        <ul class="aq-filter-list">
+
+            <li class="aq-filter-item" data-filter-type="marketing" data-marketing="featured">
+                <div class="aq-filter-checkbox">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <span class="aq-filter-label">
+                    Featured Products
+                </span>
+            </li>
+
+            <li class="aq-filter-item" data-filter-type="marketing" data-marketing="new_arrival">
+                <div class="aq-filter-checkbox">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <span class="aq-filter-label">
+                    New Arrivals
+                </span>
+            </li>
+
+            <li class="aq-filter-item" data-filter-type="marketing" data-marketing="sale">
+                <div class="aq-filter-checkbox">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <span class="aq-filter-label">
+                    Exclusive on Sale
+                </span>
+            </li>
+
+            <li class="aq-filter-item" data-filter-type="marketing" data-marketing="best_seller">
+                <div class="aq-filter-checkbox">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <span class="aq-filter-label">
+                    Best Sellers
+                </span>
+            </li>
+ <li class="aq-filter-item" data-filter-type="collection" data-collection="is_premium">
+                <div class="aq-filter-checkbox">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <span class="aq-filter-label">
+                    Premium Products
+                </span>
+            </li>
+
+            <li class="aq-filter-item" data-filter-type="collection" data-collection="is_engraving">
+                <div class="aq-filter-checkbox">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <span class="aq-filter-label">
+                    Engravings
+                </span>
+            </li>
+
+            <li class="aq-filter-item" data-filter-type="collection" data-collection="is_personalized_engraving">
+                <div class="aq-filter-checkbox">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <span class="aq-filter-label">
+                    Personalized Engraving
+                </span>
+            </li>
+
+        </ul>
+    </div>
+</div>
+
+<div class="aq-filter-widget">
+    <button class="aq-filter-header" type="button">
+        <span>Availability</span>
+        <i class="fa-solid fa-chevron-down"></i>
+    </button>
+
+    <div class="aq-filter-content">
+        <ul class="aq-filter-list">
+
+            <li class="aq-filter-item"
+                data-filter-type="availability"
+                data-availability="ready_to_ship">
+
+                <div class="aq-filter-checkbox">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+
+                <span class="aq-filter-label">
+                    Ready to Ship
+                </span>
+            </li>
+
+            <li class="aq-filter-item"
+                data-filter-type="availability"
+                data-availability="bulk_available">
+
+                <div class="aq-filter-checkbox">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+
+                <span class="aq-filter-label">
+                    For Bulk Orders
+                </span>
+            </li>
+
+            <li class="aq-filter-item"
+                data-filter-type="availability"
+                data-availability="gift_hamper">
+
+                <div class="aq-filter-checkbox">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+
+                <span class="aq-filter-label">
+                    Gift Hampers
+                </span>
+            </li>
+
+        </ul>
+    </div>
+</div>
 
                             <!-- Widget: Premium Brands -->
                             <div class="aq-filter-widget">
@@ -221,10 +321,7 @@
                              
                                 
 
-                         </div>
-
-    
-</div>
+                         </div></div>
                 </div>
             </div>
         </section>
@@ -267,7 +364,10 @@ let activeCategory = '';
      function loadProducts(page = 1)
 {
     let brands = [];
-    let occasions = [];
+let occasions = [];
+let marketing = [];
+let collections = [];
+let availability = [];
 
     document.querySelectorAll(
         '[data-filter-type="brand"].active'
@@ -281,6 +381,24 @@ let activeCategory = '';
         occasions.push(item.dataset.occasion);
     });
 
+    document.querySelectorAll(
+    '[data-filter-type="marketing"].active'
+).forEach(item => {
+    marketing.push(item.dataset.marketing);
+});
+
+document.querySelectorAll(
+    '[data-filter-type="collection"].active'
+).forEach(item => {
+    collections.push(item.dataset.collection);
+});
+
+document.querySelectorAll(
+    '[data-filter-type="availability"].active'
+).forEach(item => {
+    availability.push(item.dataset.availability);
+});
+
     $.ajax({
 
         url: filterUrl,
@@ -289,29 +407,32 @@ let activeCategory = '';
 
         data: {
 
-            page: page,
+    page: page,
 
-            search:
-                document.getElementById(
-                    'aq-sidebar-search-input'
-                ).value,
+    search: document.getElementById(
+        'aq-sidebar-search-input'
+    ).value,
 
-            max_price:
-                document.getElementById(
-                    'priceRange'
-                ).value,
+    max_price: document.getElementById(
+        'priceRange'
+    ).value,
 
-            brands: brands,
+    brands: brands,
 
-            occasions: occasions,
+    occasions: occasions,
 
-            subcategory: activeCategory,
+    marketing: marketing,
 
-            sort:
-                document.querySelector(
-                    '.aq-sort-select'
-                ).value
-        },
+    collections: collections,
+
+    availability: availability,
+
+    subcategory: activeCategory,
+
+    sort: document.querySelector(
+        '.aq-sort-select'
+    ).value
+},
 
         success: function(response)
         {

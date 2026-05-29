@@ -1,4 +1,70 @@
-@if($products->count())
+@extends('layouts.app')
+
+@section('content')
+
+<style>
+    .aq-product-nav-btn{
+    display:inline-block;
+    padding:12px 30px;
+    margin:0 8px;
+    border-radius:50px;
+    background:#000;
+    color:#fff;
+    text-decoration:none;
+    font-weight:600;
+    transition:.3s;
+}
+
+.aq-product-nav-btn:hover{
+    color:#fff;
+    transform:translateY(-2px);
+}
+</style>
+    <main>
+        <!-- 1. Luxury Inner Banner / Hero Section -->
+        <section class="aq-catpage-hero">
+            <div class="aq-hero-glow"></div>
+            <div class="aq-floating-gift-box aq-floating-shape-1">
+                <i class="fa-solid fa-gift"></i>
+            </div>
+            <div class="aq-floating-gift-box aq-floating-shape-2">
+                <i class="fa-solid fa-gem"></i>
+            </div>
+            <div class="aq-catpage-hero-content">
+               <h1 class="aq-catpage-title">
+    My Wishlist
+</h1>
+                <div class="aq-catpage-breadcrumbs">
+                    <a href="{{ route('home') }}">Home</a>
+                    <span>/</span>
+                    <span>My Wishlist</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Interactive Catalog Viewport (Sidebar + Product Catalog) -->
+        <section class="aq-catpage-main-layout" id="aq-catalog-section">
+            <div class="container">
+                <div class="row">
+
+                    <!-- Right Product Grid -->
+                    <div class="col-lg-12">
+                        <!-- Header filter summary bar -->
+                        <div class="aq-layout-header">
+                      <span class="aq-layout-header-title">
+    Wishlist Products
+</span>
+                            <div class="aq-layout-header-options">
+                                <span class="d-none d-sm-inline"
+                                    style="font-family: Inter, sans-serif; font-size: 13px; color: #666;"
+                                    id="aq-product-results-count">Showing {{ $products->total() }} Wishlist Items</span>
+                            </div>
+                        </div>
+
+                        <!-- Product Cards Grid -->
+                         <div id="aq-product-catalog-grid">
+                             
+                                  @if($products->count())
      <div class="aq-product-grid" >
  
 
@@ -43,12 +109,15 @@
                         @endif
                     </div>
 
-                    <div class="aq-product-actions">
-                        <button class="aq-product-action-btn aq-consultation-trigger" title="Quick Consultation"
-                            onclick="openEnquiryDrawer()">
-                            <i class="fa-regular fa-envelope"></i>
-                        </button>
-                    </div>
+                  <div class="aq-product-actions">
+    <button class="aq-product-action-btn remove-wishlist"
+            data-id="{{ $product->id }}"
+            title="Remove Wishlist">
+
+        <i class="fa-solid fa-trash"></i>
+
+    </button>
+</div>
 
                 </div>
 
@@ -75,9 +144,10 @@
                             <span>/ unit</span>
                         </div>
 
-                        <button class="aq-product-card-cta aq-consultation-trigger" onclick="openEnquiryDrawer()">
-                            Enquire
-                        </button>
+                       <button class="aq-product-card-cta remove-wishlist"
+        data-id="{{ $product->id }}">
+    Remove
+</button>
 
                     </div>
 
@@ -89,7 +159,7 @@
 
     </div>
 
-    @if($products->hasPages())
+ @if($products->hasPages())
     <div id="pagination-wrapper"
          class="d-flex justify-content-center align-items-center gap-3" style="margin-top: 40px;">
 
@@ -154,12 +224,74 @@
     </div>
 @endif
 
+
 @else
 
     <div class="col-12 text-center py-5">
         <i class="fa-solid fa-filter-circle-xmark mb-3" style="font-size:48px; color:#ccc;"></i>
-        <h5 style="font-family:Outfit,sans-serif; color:#666;">No Products Match Filters</h5>
-        <p style="font-family:Inter,sans-serif; color:#888;">Try clearing active filters or adjusting the price slider.</p>
+       <h5 style="font-family:Outfit,sans-serif; color:#666;">
+    Your Wishlist is Empty
+</h5>
+
+<p style="font-family:Inter,sans-serif; color:#888;">
+    No products have been added to your wishlist yet.
+</p>
+
+<a href="{{ route('products') }}"
+   class="btn btn-dark mt-3">
+    Continue Shopping
+</a>
     </div>
 
 @endif
+                                
+
+                         </div></div>
+                </div>
+            </div>
+        </section>
+
+
+
+    </main>
+ 
+<script>
+
+document.addEventListener('click', function(e){
+
+    if(e.target.closest('.remove-wishlist')){
+
+        let btn = e.target.closest('.remove-wishlist');
+        let productId = btn.dataset.id;
+
+        fetch(`/wishlist/${productId}`,{
+            method:'DELETE',
+            headers:{
+                'X-CSRF-TOKEN':'{{ csrf_token() }}'
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+
+            Swal.fire({
+                icon:'success',
+                title:'Removed',
+                text:data.message
+            });
+
+           const card = btn.closest('.aq-product-card');
+card.remove();
+
+if(document.querySelectorAll('.aq-product-card').length === 0){
+    location.reload();
+}
+
+        });
+
+    }
+
+});
+
+</script>
+
+@endsection

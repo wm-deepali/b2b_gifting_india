@@ -156,65 +156,173 @@
                                 <p class="form-subtitle text-center mb-5" style="color: #555; font-size: 16px;">Please
                                     fill the details below. Our procurement team will get back to you within 48 hours.
                                 </p>
+                                @if(session('success'))
 
-                                <form action="#" class="aq-luxury-form">
+                                    <div class="alert alert-success">
+
+                                        {{ session('success') }}
+
+                                    </div>
+
+                                @endif
+
+                                @if($errors->any())
+
+                                    <div class="alert alert-danger">
+
+                                        <ul class="mb-0">
+
+                                            @foreach($errors->all() as $error)
+
+                                                <li>{{ $error }}</li>
+
+                                            @endforeach
+
+                                        </ul>
+
+                                    </div>
+
+                                @endif
+                                <form method="POST" action="{{ route('vendor.enquiry') }}" enctype="multipart/form-data"
+                                    class="aq-luxury-form">
+
+                                    @csrf
+
                                     <div class="row g-4">
+
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Full Name / Contact Person</label>
-                                                <input type="text" class="form-control" placeholder="Enter your name">
+                                                <input type="text" name="name" value="{{ old('name') }}"
+                                                    class="form-control" placeholder="Enter your name" required>
                                             </div>
                                         </div>
+
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Company Name</label>
-                                                <input type="text" class="form-control" placeholder="Your Company Name">
+                                                <input type="text" name="company" value="{{ old('company') }}"
+                                                    class="form-control" placeholder="Your Company Name" required>
                                             </div>
                                         </div>
+
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Email Address</label>
-                                                <input type="email" class="form-control" placeholder="you@company.com">
+                                                <input type="email" name="email" value="{{ old('email') }}"
+                                                    class="form-control" placeholder="you@company.com" required>
                                             </div>
                                         </div>
+
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Mobile Number</label>
-                                                <input type="text" class="form-control" placeholder="+91 98765 43210">
+                                                <input type="text" name="phone" value="{{ old('phone') }}"
+                                                    pattern="[6-9]{1}[0-9]{9}" maxlength="10" class="form-control"
+                                                    placeholder="+91 98765 43210" required>
                                             </div>
                                         </div>
+
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Business Category</label>
-                                                <select class="form-control">
-                                                    <option value="">Select Option</option>
-                                                    <option>Manufacturer</option>
-                                                    <option>Wholesaler / Distributor</option>
-                                                    <option>Printer / Branding Partner</option>
-                                                    <option>Packaging Provider</option>
+
+                                                <label>Business Type / Category</label>
+
+                                                <select name="vendor_type_id" class="form-control" required>
+
+                                                    <option value="">
+                                                        Select Option
+                                                    </option>
+
+                                                    <optgroup label="Business Type">
+
+                                                        @foreach($vendorTypes->where('type', 'business') as $type)
+
+                                                            <option value="{{ $type->id }}" {{ old('vendor_type_id') == $type->id ? 'selected' : '' }}>
+                                                                {{ $type->name }}
+
+                                                            </option>
+
+                                                        @endforeach
+
+                                                    </optgroup>
+
+                                                    <optgroup label="Categories">
+
+                                                        @foreach($vendorTypes->where('type', 'category') as $type)
+
+                                                            <option value="{{ $type->id }}" {{ old('vendor_type_id') == $type->id ? 'selected' : '' }}>
+
+                                                                {{ $type->name }}
+
+                                                            </option>
+
+                                                        @endforeach
+
+                                                    </optgroup>
+
                                                 </select>
+
                                             </div>
                                         </div>
+
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>City / Location</label>
-                                                <input type="text" class="form-control" placeholder="e.g. Delhi, Mumbai">
+                                                <input type="text" name="city" value="{{ old('city') }}"
+                                                    class="form-control" placeholder="e.g. Delhi, Mumbai">
                                             </div>
                                         </div>
+
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label>Product / Service Description</label>
-                                                <textarea class="form-control" rows="3"
-                                                    placeholder="Briefly describe your products, capacity, MOQ, etc..."></textarea>
+                                                <textarea name="description" rows="4" class="form-control"
+                                                    placeholder="Briefly describe your products, capacity, MOQ, etc...">{{ old('description') }}</textarea>
                                             </div>
                                         </div>
-                                        <div class="col-md-8 text-center mt-4 mx-auto">
-                                            <!-- The corrected button class here! -->
-                                            <button type="submit" class="aq-bulk-submit-btn w-100 py-3"
-                                                style="font-size: 16px; border-radius: 8px;">Submit Partnership
-                                                Enquiry</button>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Monthly Production Capacity</label>
+                                                <input type="text" name="capacity" value="{{ old('capacity') }}"
+                                                    class="form-control" placeholder="e.g. 10,000 units/month">
+                                            </div>
                                         </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Upload Catalogue / Company Profile</label>
+                                                <input type="file" name="catalogue" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+
+                                            <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}">
+                                            </div>
+
+                                            @error('g-recaptcha-response')
+                                                <p class="text-danger mt-2">
+                                                    {{ $message }}
+                                                </p>
+                                            @enderror
+
+                                        </div>
+
+                                        <div class="col-md-8 text-center mt-4 mx-auto">
+
+                                            <button type="submit" class="aq-bulk-submit-btn w-100 py-3"
+                                                style="font-size:16px;border-radius:8px;">
+
+                                                Submit Partnership Enquiry
+
+                                            </button>
+
+                                        </div>
+
                                     </div>
+
                                 </form>
                             </div>
                         </div>
@@ -224,5 +332,5 @@
         </div>
     </main>
 
-
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 @endsection

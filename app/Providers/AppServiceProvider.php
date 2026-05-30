@@ -76,5 +76,23 @@ class AppServiceProvider extends ServiceProvider
             );
         });
 
+
+        View::composer('*', function ($view) {
+
+              $footerCategories = \App\Models\Category::where('status', 1)
+            ->whereNull('parent_id')
+            ->orderBy('sort_order')
+            ->take(10)
+            ->get();
+
+            $view->with(
+                'footerCategories',
+                $footerCategories
+            );
+        });
+
+            
+
+
     }
 }

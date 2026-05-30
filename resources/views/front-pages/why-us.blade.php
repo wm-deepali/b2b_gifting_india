@@ -156,7 +156,7 @@
                                 class="aq-cta-btn-primary d-inline-flex align-items-center justify-content-center">
                                 Browse Our Collection
                             </a>
-                            <a href="#bulk-enquiry"
+                            <a href="javascript:void(0);" onclick="openGlobalDrawer('why_us_page')"
                                 class="aq-cta-btn-outline d-inline-flex align-items-center justify-content-center">
                                 Get a Custom Quote <i class="fa-solid fa-arrow-right-long ml-10"></i>
                             </a>
@@ -180,36 +180,14 @@
 
                     <div class="swiper aq-brand-active">
                         <div class="swiper-wrapper align-items-center">
-                            <div class="swiper-slide">
-                                <div class="aq-brand-item">
-                                    <img src="public/assets/img/corporate/amazon_logo.webp" alt="Amazon" />
+                            @foreach($brands as $brand)
+                                <div class="swiper-slide">
+                                    <div class="aq-brand-item">
+                                        <img src="{{ asset('storage/' . $brand->logo) }}" alt="{{ $brand->name }}" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="aq-brand-item">
-                                    <img src="public/assets/img/corporate/google_logo.webp" alt="Google" />
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="aq-brand-item">
-                                    <img src="public/assets/img/corporate/ibm_logo.webp" alt="IBM" />
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="aq-brand-item">
-                                    <img src="public/assets/img/corporate/netflix_logo.webp" alt="Netflix" />
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="aq-brand-item">
-                                    <img src="public/assets/img/corporate/microsoft_logo.webp" alt="Microsoft" />
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="aq-brand-item">
-                                    <img src="public/assets/img/corporate/apple_logo.webp" alt="Apple" />
-                                </div>
-                            </div>
+                            @endforeach
+
                         </div>
                     </div>
                 </div>

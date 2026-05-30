@@ -35,7 +35,7 @@
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Category</th>
-                                    <th>MOQ</th>
+                                    <th>Quantity</th>
                                     <th>City</th>
                                     <th>Date</th>
                                     <th>Action</th>
@@ -52,7 +52,7 @@
                                     <td>{{ $item->email }}</td>
                                     <td>{{ $item->phone }}</td>
                                     <td>{{ $item->category->name ?? '-' }}</td>
-                                    <td>{{ $item->moq }}</td>
+                                    <td>{{ $item->quantity }}</td>
                                     <td>{{ $item->city }}</td>
                                     <td>{{ $item->created_at->format('d M Y') }}</td>
 

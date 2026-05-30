@@ -45,7 +45,7 @@
 
                     <div class="aq-product-actions">
                         <button class="aq-product-action-btn aq-consultation-trigger" title="Quick Consultation"
-                            onclick="openEnquiryDrawer()">
+                            onclick="openGlobalDrawer('product-listing')">
                             <i class="fa-regular fa-envelope"></i>
                         </button>
                     </div>
@@ -75,7 +75,7 @@
                             <span>/ unit</span>
                         </div>
 
-                        <button class="aq-product-card-cta aq-consultation-trigger" onclick="openEnquiryDrawer()">
+                        <button class="aq-product-card-cta aq-consultation-trigger" onclick="openGlobalDrawer('product-listing')">
                             Enquire
                         </button>
 

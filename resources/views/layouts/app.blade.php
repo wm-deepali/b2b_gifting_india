@@ -876,8 +876,7 @@
                         <div class="aq-header-right-options text-end">
                             <ul class="d-flex justify-content-center align-items-center">
                                 <li class="aq-header-top-bulk-orders d-none d-lg-inline-block">
-                                    <a href="#bulkOrderModal" class="aq-bulk-orders-btn" data-bs-toggle="modal"
-                                        data-bs-target="#bulkOrderModal">
+                                    <a href="{{ route('bulk-order') }}" class="aq-bulk-orders-btn">
                                         <i>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -1470,16 +1469,7 @@
         flex-direction: column;
         gap: 15px;
       ">
-        <!-- WhatsApp Button -->
-        <!-- <a href="https://wa.me/91XXXXXXXXXX" target="_blank" class="whatsapp-btn"
-            style="background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.3s ease; text-decoration: none;">
-            <i class="fa-brands fa-whatsapp" style="font-size: 30px;"></i>
-        </a> -->
-        <!-- Enquiry Button -->
-        <!-- <a href="#bulk-enquiry" class="enquiry-btn"
-            style="background: #800000; color: white; padding: 12px 25px; border-radius: 30px; font-weight: 600; text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.3s ease; display: flex; align-items: center; gap: 10px;">
-            <i class="fa-regular fa-envelope"></i> Bulk Enquiry
-        </a> -->
+
     </div>
 
     <style>
@@ -2354,129 +2344,94 @@
             <!-- Scrollable Content -->
             <div class="aq-drawer-form-scrollable">
                 <!-- Form State -->
-                <form class="aq-drawer-form" id="aqDrawerForm" action="#">
-                    <!-- Full Name -->
+                <form class="aq-drawer-form" id="aqDrawerForm" method="POST" action="{{ route('general.enquiry') }}">
+                    @csrf
+
+                    <input type="hidden" name="source" id="global_source">
+
                     <div class="aq-drawer-form-row">
                         <div class="aq-drawer-form-group">
-                            <label class="aq-drawer-label" for="drawerFullName">Full Name *</label>
+                            <label class="aq-drawer-label">Full Name *</label>
                             <div class="aq-drawer-input-wrapper">
                                 <i class="fa-regular fa-user"></i>
-                                <input type="text" id="drawerFullName" class="aq-drawer-input"
-                                    placeholder="e.g. Rahul Sharma" required />
+                                <input type="text" name="name" value="{{ old('name') }}" class="aq-drawer-input"
+                                    placeholder="Enter your name" required>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Work Email -->
                     <div class="aq-drawer-form-row">
                         <div class="aq-drawer-form-group">
-                            <label class="aq-drawer-label" for="drawerEmail">Corporate Email *</label>
-                            <div class="aq-drawer-input-wrapper">
-                                <i class="fa-regular fa-envelope"></i>
-                                <input type="email" id="drawerEmail" class="aq-drawer-input"
-                                    placeholder="e.g. rahul@company.com" required />
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Phone Number -->
-                    <div class="aq-drawer-form-row">
-                        <div class="aq-drawer-form-group">
-                            <label class="aq-drawer-label" for="drawerPhone">Contact Number *</label>
-                            <div class="aq-drawer-input-wrapper">
-                                <i class="fa-solid fa-phone-flip"></i>
-                                <input type="tel" id="drawerPhone" class="aq-drawer-input"
-                                    placeholder="e.g. +91 98765 43210" required />
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Company Name -->
-                    <div class="aq-drawer-form-row">
-                        <div class="aq-drawer-form-group">
-                            <label class="aq-drawer-label" for="drawerCompanyName">Company Name *</label>
+                            <label class="aq-drawer-label">Company Name *</label>
                             <div class="aq-drawer-input-wrapper">
                                 <i class="fa-solid fa-building"></i>
-                                <input type="text" id="drawerCompanyName" class="aq-drawer-input"
-                                    placeholder="e.g. Reliance Industries" required />
+                                <input type="text" name="company" value="{{ old('company') }}" class="aq-drawer-input"
+                                    placeholder="Your Company Name" required>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Quantity Range & Budget (Two Columns) -->
-                    <div class="aq-drawer-form-row two-cols">
-                        <div class="aq-drawer-form-group">
-                            <label class="aq-drawer-label" for="drawerQuantity">Quantity Range *</label>
-                            <div class="aq-drawer-select-wrapper">
-                                <i class="fa-solid fa-cubes"></i>
-                                <select id="drawerQuantity" class="aq-drawer-select" required>
-                                    <option value="" disabled selected>Select Units</option>
-                                    <option value="10-50">10 to 50 pcs</option>
-                                    <option value="51-200">51 to 200 pcs</option>
-                                    <option value="201-500">201 to 500 pcs</option>
-                                    <option value="500+">500+ pcs (Enterprise)</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="aq-drawer-form-group">
-                            <label class="aq-drawer-label" for="drawerBudget">Budget per Gift *</label>
-                            <div class="aq-drawer-select-wrapper">
-                                <i class="fa-solid fa-indian-rupee-sign"></i>
-                                <select id="drawerBudget" class="aq-drawer-select" required>
-                                    <option value="" disabled selected>Select Budget</option>
-                                    <option value="Under 500">Under â‚¹500</option>
-                                    <option value="500-1500">â‚¹500 - â‚¹1,500</option>
-                                    <option value="1500-3000">â‚¹1,500 - â‚¹3,000</option>
-                                    <option value="3000+">Premium (â‚¹3,000+)</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Gifting Occasion -->
                     <div class="aq-drawer-form-row">
                         <div class="aq-drawer-form-group">
-                            <label class="aq-drawer-label" for="drawerOccasion">Gifting Occasion</label>
-                            <div class="aq-drawer-select-wrapper">
-                                <i class="fa-solid fa-calendar-days"></i>
-                                <select id="drawerOccasion" class="aq-drawer-select">
-                                    <option value="" disabled selected>Select Occasion</option>
-                                    <option value="Festive / Diwali">Festive / Diwali Hampers</option>
-                                    <option value="Employee Appreciation">Employee Rewards & Milestones</option>
-                                    <option value="Onboarding Kit">Welcome / Joining Kits</option>
-                                    <option value="Client Gifting">Client Premium Gifting</option>
-                                    <option value="Corporate Events">Events & Conferences</option>
-                                </select>
+                            <label class="aq-drawer-label">Email Address *</label>
+                            <div class="aq-drawer-input-wrapper">
+                                <i class="fa-regular fa-envelope"></i>
+                                <input type="email" name="email" value="{{ old('email') }}" class="aq-drawer-input"
+                                    placeholder="you@company.com" required>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Custom Requirements -->
                     <div class="aq-drawer-form-row">
                         <div class="aq-drawer-form-group">
-                            <label class="aq-drawer-label" for="drawerMessage">Custom Requirements</label>
+                            <label class="aq-drawer-label">Mobile Number *</label>
+                            <div class="aq-drawer-input-wrapper">
+                                <i class="fa-solid fa-phone-flip"></i>
+                                <input type="tel" name="phone" value="{{ old('phone') }}" class="aq-drawer-input"
+                                    placeholder="+91 98765 43210" pattern="[6-9]{1}[0-9]{9}" maxlength="10" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="aq-drawer-form-row">
+                        <div class="aq-drawer-form-group">
+                            <label class="aq-drawer-label">
+                                Message / Special Requirement
+                            </label>
+
                             <div class="aq-drawer-input-wrapper textarea-wrapper">
                                 <i class="fa-regular fa-comment-dots"></i>
-                                <textarea id="drawerMessage" class="aq-drawer-textarea"
-                                    placeholder="Brand colors, theme preference, logo engraving details, etc..."></textarea>
+
+                                <textarea name="message" class="aq-drawer-textarea"
+                                    placeholder="Any specific requirement or customization needed?">{{ old('message') }}</textarea>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Submit & Privacy -->
+                    <div>
+                        <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}">
+                        </div>
+                    </div>
+
                     <div class="aq-drawer-form-footer">
+
                         <button type="submit" class="aq-drawer-submit-btn">
-                            <span>Request Curations</span>
+
+                            <span>Submit Enquiry</span>
+
                             <i class="fa-solid fa-arrow-right-long"></i>
+
                         </button>
 
                         <div class="aq-drawer-secure-note">
                             <i class="fa-solid fa-shield-halved"></i>
                             <span>Corporate privacy guarantee. No spam.</span>
                         </div>
+
                     </div>
+
                 </form>
+
 
                 <!-- Success State -->
                 <div class="aq-drawer-success-state" id="aqDrawerSuccess">
@@ -2496,16 +2451,62 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
+    @if(session('success_general'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
 
+                const drawerWrap = document.getElementById("aqEnquiryDrawerWrap");
+                const drawerForm = document.getElementById("aqDrawerForm");
+                const drawerSuccess = document.getElementById("aqDrawerSuccess");
+
+                // Open drawer
+                if (drawerWrap) {
+                    drawerWrap.classList.add("active");
+                }
+
+                // Hide form
+                if (drawerForm) {
+                    drawerForm.classList.add("hidden");
+                }
+
+                // Show success state
+                setTimeout(() => {
+                    if (drawerSuccess) {
+                        drawerSuccess.classList.add("active");
+                    }
+                }, 250);
+
+            });
+        </script>
+    @endif
+
+    @if($errors->generalForm->any())
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+
+                const drawerWrap = document.getElementById('aqEnquiryDrawerWrap');
+
+                if (drawerWrap) {
+                    drawerWrap.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    html: `{!! implode('<br>', $errors->generalForm->all()) !!}`
+                });
+
+            });
+        </script>
+    @endif
 
     <!-- Bulk Orders Submission Handler & Drawer Controller -->
     <script>
-        function handleBulkOrderSubmit(event) {
-            event.preventDefault();
-            document.getElementById("aqBulkOrderForm").style.display = "none";
-            document.getElementById("aqBulkSuccessMessage").style.display = "block";
-        }
+
 
         document.addEventListener("DOMContentLoaded", function () {
             const drawerWrap = document.getElementById("aqEnquiryDrawerWrap");
@@ -2515,35 +2516,12 @@
             const drawerSuccess = document.getElementById("aqDrawerSuccess");
             const drawerSuccessClose = document.getElementById("aqDrawerSuccessClose");
 
-            window.openEnquiryDrawer = function (e) {
-                if (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                }
+            window.openGlobalDrawer = function (source = 'general') {
 
-                const activeModal = document.querySelector('.modal.show');
+                const sourceField = document.getElementById('global_source');
 
-                if (activeModal) {
-                    try {
-                        if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
-                            const modalInstance = bootstrap.Modal.getInstance(activeModal);
-                            if (modalInstance) {
-                                modalInstance.hide();
-                            }
-                        }
-                    } catch (err) {
-                        console.error(err);
-                    }
-                }
-
-                drawerWrap.classList.add('active');
-            };
-
-            // Open Drawer Function
-            function openEnquiryDrawer(e) {
-                if (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
+                if (sourceField) {
+                    sourceField.value = source;
                 }
 
                 // Hide any open bootstrap modal if present safely
@@ -2565,9 +2543,10 @@
                     }
                 }
 
-                drawerWrap.classList.add("active");
-                document.body.style.overflow = "hidden"; // Prevent background body scroll
-            }
+
+                drawerWrap.classList.add('active');
+                document.body.style.overflow = "hidden";
+            };
 
             // Close Drawer Function
             function closeEnquiryDrawer() {
@@ -2584,26 +2563,6 @@
                         wrap.classList.remove("focus");
                     });
                 }, 500);
-            }
-
-            // Trigger Drawer on all matching bulk/enquiry buttons
-            function setupTriggers() {
-                // Selector targeting all relevant buttons
-                const buttons = document.querySelectorAll(
-                    '.aq-cta-offer-btn, ' +
-                    '.enquiry-btn, ' +
-                    '.aq-bulk-orders-btn, ' +
-                    '[data-bs-target="#bulkOrderModal"], ' +
-                    'a[href="#bulk-enquiry"]'
-                );
-
-                buttons.forEach(btn => {
-                    // Remove Bootstrap data-attributes so it doesn't trigger standard modal
-                    btn.removeAttribute("data-bs-toggle");
-                    btn.removeAttribute("data-bs-target");
-
-                    btn.addEventListener("click", openEnquiryDrawer);
-                });
             }
 
             // Setup input wrapper active state indicators
@@ -2626,20 +2585,6 @@
                 });
             }
 
-            // Form Submit handler inside drawer
-            if (drawerForm) {
-                drawerForm.addEventListener("submit", function (e) {
-                    e.preventDefault();
-
-                    // Transition to success state
-                    drawerForm.classList.add("hidden");
-
-                    setTimeout(() => {
-                        drawerSuccess.classList.add("active");
-                    }, 250);
-                });
-            }
-
             // Bind click events for closing
             if (drawerCloseBtn) drawerCloseBtn.addEventListener("click", closeEnquiryDrawer);
             if (drawerOverlay) drawerOverlay.addEventListener("click", closeEnquiryDrawer);
@@ -2653,18 +2598,18 @@
             });
 
             // Initialize Setup
-            setupTriggers();
             setupInputEffects();
-
-            // Watch dynamically added elements if any
-            const observer = new MutationObserver(function () {
-                setupTriggers();
-            });
             observer.observe(document.body, { childList: true, subtree: true });
         });
     </script>
 
     <script>
+        function handleBulkOrderSubmit(event) {
+            event.preventDefault();
+            document.getElementById("aqBulkOrderForm").style.display = "none";
+            document.getElementById("aqBulkSuccessMessage").style.display = "block";
+        }
+
         document.addEventListener("DOMContentLoaded", function () {
             const tabBtns = document.querySelectorAll(".aq-brands-tab-btn");
             const tabPanes = document.querySelectorAll(".aq-brands-tab-pane");

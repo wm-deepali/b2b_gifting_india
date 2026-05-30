@@ -55,78 +55,217 @@
                             <h3 class="form-title">Bulk Order Enquiry</h3>
                             <p class="form-subtitle">Please provide your details below. Our procurement team will
                                 contact you within 48 hours.</p>
+                            @if(session('success'))
 
-                            <form action="#" class="aq-luxury-form">
-                                <div class="row g-4">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Contact Person Name</label>
-                                            <input type="text" class="form-control" placeholder="Enter full name">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Company / Firm Name</label>
-                                            <input type="text" class="form-control" placeholder="Your Company Name">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Email Address</label>
-                                            <input type="email" class="form-control" placeholder="you@company.com">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Mobile / WhatsApp Number</label>
-                                            <input type="text" class="form-control" placeholder="+91 98765 43210">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Product Category Interested In</label>
-                                            <select class="form-control">
-                                                <option value="">Select Main Category</option>
-                                                <option>Drinkware</option>
-                                                <option>Electronics & Tech</option>
-                                                <option>Apparel & Bags</option>
-                                                <option>Diaries & Pens</option>
-                                                <option>Luxury Combos</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Estimated Quantity Required</label>
-                                            <input type="text" class="form-control"
-                                                placeholder="e.g. 500 - 1000 pieces">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Target Delivery Date</label>
-                                            <input type="text" class="form-control" placeholder="e.g. 15th Aug 2026">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Delivery City</label>
-                                            <input type="text" class="form-control"
-                                                placeholder="e.g. Delhi, Mumbai, Pan-India">
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <label>Product / Branding Description</label>
-                                            <textarea class="form-control" rows="3"
-                                                placeholder="Describe the products you need, branding requirements, quality standards..."></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8 text-center mt-4 mx-auto">
-                                        <button type="submit" class="aq-bulk-submit-btn w-100 text-center">Request Bulk
-                                            Quote</button>
-                                    </div>
+                                <div class="alert alert-success">
+
+                                    {{ session('success') }}
+
                                 </div>
+
+                            @endif
+
+                            @if($errors->any())
+
+                                <div class="alert alert-danger">
+
+                                    <ul class="mb-0">
+
+                                        @foreach($errors->all() as $error)
+
+                                            <li>{{ $error }}</li>
+
+                                        @endforeach
+
+                                    </ul>
+
+                                </div>
+
+                            @endif
+
+                            <form method="POST" action="{{ route('supplier.enquiry') }}" enctype="multipart/form-data"
+                                class="aq-luxury-form">
+
+                                @csrf
+
+                                <div class="row g-4">
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+
+                                            <label>Contact Person Name</label>
+
+                                            <input type="text" name="name" value="{{ old('name') }}" class="form-control"
+                                                placeholder="Enter full name" required>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+
+                                            <label>Company / Firm Name</label>
+
+                                            <input type="text" name="company" value="{{ old('company') }}"
+                                                class="form-control" placeholder="Your Company Name" required>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+
+                                            <label>Email Address</label>
+
+                                            <input type="email" name="email" value="{{ old('email') }}" class="form-control"
+                                                placeholder="you@company.com" required>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+
+                                            <label>Mobile / WhatsApp Number</label>
+
+                                            <input type="tel" name="phone" value="{{ old('phone') }}" class="form-control"
+                                                placeholder="+91 98765 43210" pattern="[6-9]{1}[0-9]{9}" maxlength="10"
+                                                required>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+
+                                            <label>Product Category Interested In</label>
+
+                                            <select name="category_id" class="form-control" required>
+
+                                                <option value="">
+                                                    Select Main Category
+                                                </option>
+
+                                                @foreach($categories as $cat)
+
+                                                    <option value="{{ $cat->id }}" {{ old('category_id') == $cat->id ? 'selected' : '' }}>
+
+                                                        {{ $cat->name }}
+
+                                                    </option>
+
+                                                @endforeach
+
+                                            </select>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+
+                                            <label>Estimated Quantity Required</label>
+
+                                            <input type="text" name="quantity" value="{{ old('quantity') }}"
+                                                class="form-control" placeholder="e.g. 500 - 1000 pieces">
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+
+                                            <label>Target Delivery Date</label>
+
+                                            <input type="date" name="delivery_date" value="{{ old('delivery_date') }}"
+                                                class="form-control">
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+
+                                            <label>Delivery City</label>
+
+                                            <input type="text" name="city" value="{{ old('city') }}" class="form-control"
+                                                placeholder="e.g. Delhi, Mumbai, Pan-India">
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-12">
+
+                                        <div class="form-group">
+
+                                            <label>Product / Branding Description</label>
+
+                                            <textarea name="description" rows="4" class="form-control"
+                                                placeholder="Describe the products you need, branding requirements, quality standards...">{{ old('description') }}</textarea>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-12">
+
+                                        <div class="form-group">
+
+                                            <label>
+                                                Upload Artwork / Reference File
+                                            </label>
+
+                                            <input type="file" name="catalogue" class="form-control">
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-12">
+
+                                        <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}">
+                                        </div>
+
+                                        @error('g-recaptcha-response')
+
+                                            <small class="text-danger">
+
+                                                {{ $message }}
+
+                                            </small>
+
+                                        @enderror
+
+                                    </div>
+
+                                    <div class="col-md-8 text-center mt-4 mx-auto">
+
+                                        <button type="submit" class="aq-bulk-submit-btn w-100 text-center">
+
+                                            Request Bulk Quote
+
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
                             </form>
                         </div>
                     </div>
@@ -136,4 +275,5 @@
         </div>
     </main>
 
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 @endsection

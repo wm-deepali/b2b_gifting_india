@@ -5,19 +5,6 @@
     <main>
 
 
-        <!-- Hero Section -->
-        <!-- <section class="about-hero text-center">
-                <div class="container">
-                    <span class="about-hero-tagline">Empowering Businesses • Creating Memorable Experiences</span>
-                    <h1 class="about-hero-title">Discover <span>B2B Gifts India</span></h1>
-                    <p class="about-hero-desc">
-                        We create premium corporate gifting solutions that help businesses build stronger relationships,
-                        enhance brand value, and leave lasting impressions on clients, employees, and partners.
-                    </p>
-                    <a href="#bulk-enquiry" class="aq-about-btn-gold enquiry-btn">Speak With Our Expert</a>
-                </div>
-            </section> -->
-
 
         <!-- 1. Luxury Inner Banner / Hero Section -->
         <section class="aq-catpage-hero">
@@ -52,8 +39,7 @@
                                     Turn meaningful moments into lasting memories with precision engraving. From names and
                                     messages to special dates, create unique gifts that feel truly personal and timeless.
                                 </p>
-                                <button type="button" class="aq-personalised-btn" data-bs-toggle="modal"
-                                    data-bs-target="#bulkOrderModal">
+                                <button type="button" class="aq-personalised-btn" onclick="openGlobalDrawer('personalised_engraving')">
                                     Start Your Custom Project <i class="fa-solid fa-arrow-right-long"></i>
                                 </button>
                             </div>
@@ -79,18 +65,90 @@
                         <div class="col-lg-8">
                             <h2 class="aq-section-title aq-personalised-main-title text-center">Our Personal Engraving Works
                             </h2>
-
-                            <div class="aq-personalised-empty-state">
-                                <div class="aq-personalised-empty-icon">
-                                    <i class="fa-solid fa-box-open"></i>
-                                </div>
-                                <h4 class="aq-personalised-empty-title">No Products found</h4>
-                                <p class="aq-personalised-empty-desc">Please explore our product section to find items
-                                    available for personalization.</p>
-                                <a href="index.html" class="aq-personalised-btn-outline mt-30">Explore Collection</a>
-                            </div>
                         </div>
                     </div>
+
+                    @if($products->count() > 0)
+
+                        <div class="row g-4 justify-content-center">
+                            @foreach($products as $product)
+                                        <!-- Item 1 -->
+                                        <div class="col-lg-4 col-md-6">
+
+                                            <a href="{{ route('product.details', $product->slug) }}" class="text-decoration-none text-dark">
+
+                                                <div class="aq-engraving-card">
+
+                                                    <div class="aq-engraving-img-wrap">
+
+                                                        <img src="{{ $product->display_image
+                                ? asset('storage/' . $product->display_image)
+                                : asset('no-image.jpg') }}" alt="{{ $product->name }}">
+
+                                                        <div class="aq-engraving-overlay">
+                                                            <i class="fa-solid fa-magnifying-glass-plus"></i>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="aq-engraving-content">
+
+                                                        <h3 class="aq-engraving-card-title">
+                                                            {{ $product->name }}
+                                                        </h3>
+
+                                                        <p class="aq-engraving-card-desc">
+                                                            {{ $product->description }}
+                                                        </p>
+
+                                                        <div class="aq-engraving-card-details">
+
+                                                            <span class="aq-engraving-price">
+                                                                ₹{{ number_format($product->price) }}
+                                                            </span>
+
+                                                            <span class="aq-engraving-moq">
+                                                                MOQ: {{ $product->min_qty ?? 1 }} pcs
+                                                            </span>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </a>
+
+                                        </div>
+                            @endforeach
+                        </div>
+
+                        <div class="row mt-50">
+                            <div class="col-12 text-center">
+                                <a href="{{ route('products', ['collection' => 'engravings']) }}"
+                                    class="aq-engraving-btn-outline">View More Engravings</a>
+                            </div>
+                        </div>
+
+                    @else
+
+                        <div class="row justify-content-center text-center">
+                            <div class="col-lg-8">
+                                <div class="aq-personalised-empty-state">
+                                    <div class="aq-personalised-empty-icon">
+                                        <i class="fa-solid fa-box-open"></i>
+                                    </div>
+                                    <h4 class="aq-personalised-empty-title">No Products found</h4>
+                                    <p class="aq-personalised-empty-desc">Please explore our product section to find items
+                                        available for personalization.</p>
+                                    <a href="{{ route('products') }}" class="aq-personalised-btn-outline mt-30">Explore
+                                        Collection</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    @endif
+
                 </div>
             </section>
 
@@ -151,30 +209,6 @@
                     </div>
                 </div>
             </section>
-
-            <!-- Works / Empty State Section -->
-            <section class="aq-personalised-works-section">
-                <div class="container">
-                    <div class="row justify-content-center text-center">
-                        <div class="col-lg-8">
-                            <h2 class="aq-section-title aq-personalised-main-title text-center">Our Personal Engraving Works
-                            </h2>
-
-                            <div class="aq-personalised-empty-state">
-                                <div class="aq-personalised-empty-icon">
-                                    <i class="fa-solid fa-box-open"></i>
-                                </div>
-                                <h4 class="aq-personalised-empty-title">No Products found</h4>
-                                <p class="aq-personalised-empty-desc">Please explore our product section to find items
-                                    available for personalization.</p>
-                                <a href="index.html" class="aq-personalised-btn-outline mt-30">Explore Collection</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-
         </div>
 
     </main>

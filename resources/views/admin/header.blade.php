@@ -220,11 +220,11 @@
                     </a>
                 </li>
 
-                <li class="{{ request()->routeIs('admin.home-enquiries.*') ? 'active' : '' }}">
+                <!-- <li class="{{ request()->routeIs('admin.home-enquiries.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.home-enquiries.index') }}">
                         <i class="fa-solid fa-house"></i> Home
                     </a>
-                </li>
+                </li> -->
 
                 <li class="{{ request()->routeIs('admin.package-enquiries.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.package-enquiries.index') }}">

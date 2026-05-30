@@ -12,13 +12,11 @@ class SupplierEnquiry extends Model
         'email',
         'phone',
         'category_id',
-        'capacity',
-        'moq',
+        'quantity',
+        'delivery_date',
         'description',
         'city',
-        'gst',
         'catalogue',
-        'status'
     ];
 
     public function category()

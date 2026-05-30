@@ -5,20 +5,6 @@
     <main class="aq-about-page">
 
 
-        <!-- Hero Section -->
-        <!-- <section class="about-hero text-center">
-                <div class="container">
-                    <span class="about-hero-tagline">Empowering Businesses • Creating Memorable Experiences</span>
-                    <h1 class="about-hero-title">Discover <span>B2B Gifts India</span></h1>
-                    <p class="about-hero-desc">
-                        We create premium corporate gifting solutions that help businesses build stronger relationships,
-                        enhance brand value, and leave lasting impressions on clients, employees, and partners.
-                    </p>
-                    <a href="#bulk-enquiry" class="aq-about-btn-gold enquiry-btn">Speak With Our Expert</a>
-                </div>
-            </section> -->
-
-
         <!-- 1. Luxury Inner Banner / Hero Section -->
         <section class="aq-catpage-hero">
             <div class="aq-hero-glow"></div>
@@ -40,14 +26,14 @@
 
         <!-- Breadcrumb Bar -->
         <!-- <div class="aq-about-breadcrumb-wrap">
-                <div class="container">
-                    <div class="aq-details-breadcrumbs">
-                        <a href="index.html">Home</a>
-                        <span class="divider">/</span>
-                        <span class="current">About Us</span>
+                    <div class="container">
+                        <div class="aq-details-breadcrumbs">
+                            <a href="index.html">Home</a>
+                            <span class="divider">/</span>
+                            <span class="current">About Us</span>
+                        </div>
                     </div>
-                </div>
-            </div> -->
+                </div> -->
 
 
         <!-- Luxury Stats Overlap Wrap -->
@@ -115,7 +101,8 @@
                             corporate needs for any occasion. We will closely collaborate with you to gain a
                             comprehensive understanding of your choices, budget, and timelines.
                         </p>
-                        <a href="#bulk-enquiry" class="aq-about-btn-gold mt-10 enquiry-btn">Get Started</a>
+                        <a href="javascript:void(0);" onclick="openGlobalDrawer('about_page')"
+                            class="aq-about-btn-gold mt-10 enquiry-btn">Get Started</a>
                     </div>
                     <div class="col-lg-6">
                         <div class="aq-image-box-premium">
@@ -188,7 +175,8 @@
                         <p class="aq-reach-desc">Our design curators are ready to help you launch your next campaign.
                         </p>
                     </div>
-                    <a href="#bulk-enquiry" class="aq-about-btn-gold enquiry-btn"
+                    <a href="javascript:void(0);" onclick="openGlobalDrawer('about_page')"
+                        class="aq-about-btn-gold enquiry-btn"
                         style="background:#ffffff; color:#003108 !important; border-color:#ffffff; box-shadow:0 10px 20px rgba(0,0,0,0.1);">Get
                         a Custom Proposal</a>
                 </div>
@@ -339,28 +327,21 @@
                     <div class="aq-footer-cat-group">
                         <span class="aq-footer-cat-label">Shop by Recipient</span>
                         <div class="aq-footer-cat-links">
-                            <a href="#" class="aq-footer-cat-link">Gifts for Employees</a>
-                            <a href="#" class="aq-footer-cat-link">Gifts for Clients</a>
-                            <a href="#" class="aq-footer-cat-link">Gifts for Executives</a>
-                            <a href="#" class="aq-footer-cat-link">Gifts for Managers</a>
-                            <a href="#" class="aq-footer-cat-link">Gifts for Vendors</a>
-                            <a href="#" class="aq-footer-cat-link">Gifts for New Joinees</a>
-                            <a href="#" class="aq-footer-cat-link">Gifts for Leadership</a>
-                            <a href="#" class="aq-footer-cat-link">Corporate Bundles</a>
-                            <a href="#" class="aq-footer-cat-link">Team Kits</a>
+                            @foreach($footerCategories as $footerCategory)
+                                <a href="{{ route('category.products', $footerCategory->slug) }}" class="aq-footer-cat-link">
+                                    {{ $footerCategory->name }}
+                                </a>
+                            @endforeach
                         </div>
                     </div>
                     <div class="aq-footer-cat-group">
                         <span class="aq-footer-cat-label">Shop by Occasion</span>
                         <div class="aq-footer-cat-links">
-                            <a href="#" class="aq-footer-cat-link">Employee Appreciation</a>
-                            <a href="#" class="aq-footer-cat-link">Company Milestones</a>
-                            <a href="#" class="aq-footer-cat-link">Product Launches</a>
-                            <a href="#" class="aq-footer-cat-link">Conferences & Events</a>
-                            <a href="#" class="aq-footer-cat-link">Retirement Gifts</a>
-                            <a href="#" class="aq-footer-cat-link">Festive Corporate Hampers</a>
-                            <a href="#" class="aq-footer-cat-link">Joining Kits</a>
-                            <a href="#" class="aq-footer-cat-link">Reward & Recognition</a>
+                            @foreach($occasions->take(10) as $occasion)
+                                <a href="{{ route('products', ['occasion' => $occasion->slug]) }}" class="aq-footer-cat-link">
+                                    {{ $occasion->title }}
+                                </a>
+                            @endforeach
                         </div>
                     </div>
                 </div>

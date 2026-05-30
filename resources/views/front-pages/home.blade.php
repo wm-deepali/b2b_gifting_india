@@ -930,16 +930,16 @@
 
                     <!-- Section Title -->
                     <!-- <div class="aqf-collection-top mb-40 mt-50">
-                                                                                                                                                                                                        <div class="row align-items-end">
-                                                                                                                                                                                                            <div class="col-md-12">
-                                                                                                                                                                                                                <div class="aq-creative-title-box">
-                                                                                                                                                                                                                    <span class="aq-creative-subtitle">Premium Selections</span>
-                                                                                                                                                                                                                    <h4 class="aq-creative-title">Bespoke Curation Categories</h4>
-                                                                                                                                                                                                                    <div class="aq-creative-title-line"></div>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                    </div> -->
+                                                                                                                                                                                                                                    <div class="row align-items-end">
+                                                                                                                                                                                                                                        <div class="col-md-12">
+                                                                                                                                                                                                                                            <div class="aq-creative-title-box">
+                                                                                                                                                                                                                                                <span class="aq-creative-subtitle">Premium Selections</span>
+                                                                                                                                                                                                                                                <h4 class="aq-creative-title">Bespoke Curation Categories</h4>
+                                                                                                                                                                                                                                                <div class="aq-creative-title-line"></div>
+                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                </div> -->
 
 
                 </div>
@@ -1449,8 +1449,8 @@
 
                                                 <div class="banner-item">
 
-                                                    <img src="{{ asset('storage/' . $banner->image) }}" alt="{{ $banner->title }}"
-                                                        loading="lazy" />
+                                                    <img src="{{ asset('storage/' . $banner->image) }}"
+                                                        alt="{{ $banner->title }}" loading="lazy" />
 
                                                     <div class="banner-content">
 
@@ -2269,7 +2269,8 @@
                         for Early Festive Bookings
                     </h2>
                     <div class="d-flex align-items-center gap-3 flex-wrap justify-content-center justify-content-md-start">
-                        <a href="#" class="aq-cta-offer-btn">Enquire Now <i class="fa-solid fa-arrow-right-long"></i></a>
+                        <a href="javascript:void(0)" class="aq-cta-offer-btn" onclick="openGlobalDrawer('home') ">Enquire
+                            Now <i class="fa-solid fa-arrow-right-long"></i></a>
                         <a href="https://wa.me/" target="_blank" class="aq-cta-offer-btn aq-cta-whatsapp-btn"><i
                                 class="fa-brands fa-whatsapp" style="margin-right: 6px"></i>
                             Connect on WhatsApp <i class="fa-solid fa-arrow-right-long"></i></a>
@@ -2320,15 +2321,11 @@
                     <div class="aq-footer-cat-group">
                         <span class="aq-footer-cat-label">Shop by Recipient</span>
                         <div class="aq-footer-cat-links">
-                            <a href="#" class="aq-footer-cat-link">Gifts for Employees</a>
-                            <a href="#" class="aq-footer-cat-link">Gifts for Clients</a>
-                            <a href="#" class="aq-footer-cat-link">Gifts for Executives</a>
-                            <a href="#" class="aq-footer-cat-link">Gifts for Managers</a>
-                            <a href="#" class="aq-footer-cat-link">Gifts for Vendors</a>
-                            <a href="#" class="aq-footer-cat-link">Gifts for New Joinees</a>
-                            <a href="#" class="aq-footer-cat-link">Gifts for Leadership</a>
-                            <a href="#" class="aq-footer-cat-link">Corporate Bundles</a>
-                            <a href="#" class="aq-footer-cat-link">Team Kits</a>
+                            @foreach($footerCategories as $footerCategory)
+                                <a href="{{ route('category.products', $footerCategory->slug) }}" class="aq-footer-cat-link">
+                                    {{ $footerCategory->name }}
+                                </a>
+                            @endforeach
                         </div>
                     </div>
 
@@ -2336,40 +2333,33 @@
                     <div class="aq-footer-cat-group">
                         <span class="aq-footer-cat-label">Shop by Occasion</span>
                         <div class="aq-footer-cat-links">
-                            <a href="#" class="aq-footer-cat-link">Employee Appreciation</a>
-                            <a href="#" class="aq-footer-cat-link">Company Milestones</a>
-                            <a href="#" class="aq-footer-cat-link">Product Launches</a>
-                            <a href="#" class="aq-footer-cat-link">Conferences & Events</a>
-                            <a href="#" class="aq-footer-cat-link">Retirement Gifts</a>
-                            <a href="#" class="aq-footer-cat-link">Festive Corporate Hampers</a>
-                            <a href="#" class="aq-footer-cat-link">Joining Kits</a>
-                            <a href="#" class="aq-footer-cat-link">Reward & Recognition</a>
+                            @foreach($occasions->take(10) as $occasion)
+                                <a href="{{ route('products', ['occasion' => $occasion->slug]) }}" class="aq-footer-cat-link">
+                                    {{ $occasion->title }}
+                                </a>
+                            @endforeach
                         </div>
                     </div>
 
-                    <!-- Group 3: Interest -->
-                    <div class="aq-footer-cat-group">
-                        <span class="aq-footer-cat-label">Shop By Interest</span>
-                        <div class="aq-footer-cat-links">
-                            <a href="#" class="aq-footer-cat-link">Tech Gadgets</a>
-                            <a href="#" class="aq-footer-cat-link">Executive Stationery</a>
-                            <a href="#" class="aq-footer-cat-link">Premium Drinkware</a>
-                            <a href="#" class="aq-footer-cat-link">Gourmet Food Hampers</a>
-                            <a href="#" class="aq-footer-cat-link">Eco-friendly Collections</a>
-                            <a href="#" class="aq-footer-cat-link">Luxury Home Decor</a>
-                            <a href="#" class="aq-footer-cat-link">Travel Essentials</a>
-                            <a href="#" class="aq-footer-cat-link">Wellness Kits</a>
-                        </div>
-                    </div>
-
-                    <!-- Group 4: Price -->
+                    <!-- Group 3: Price -->
                     <div class="aq-footer-cat-group">
                         <span class="aq-footer-cat-label">By Price (Bulk)</span>
                         <div class="aq-footer-cat-links">
-                            <a href="#" class="aq-footer-cat-link">Under â‚¹500</a>
-                            <a href="#" class="aq-footer-cat-link">â‚¹500 to â‚¹1500</a>
-                            <a href="#" class="aq-footer-cat-link">â‚¹1500 to â‚¹3000</a>
-                            <a href="#" class="aq-footer-cat-link">Premium (â‚¹3000+)</a>
+                            <a href="{{ route('products', ['budget' => 'under-500']) }}" class="aq-footer-cat-link">
+                                Under ₹500
+                            </a>
+                            <a href="{{ route('products', ['budget' => '500-1000']) }}" class="aq-footer-cat-link">
+                                ₹500 – ₹1,000
+                            </a>
+                            <a href="{{ route('products', ['budget' => '1000-2000']) }}" class="aq-footer-cat-link">
+                                ₹1,000 – ₹2,000
+                            </a>
+                            <a href="{{ route('products', ['budget' => '2000-5000']) }}" class="aq-footer-cat-link">
+                                ₹2,000 – ₹5,000
+                            </a>
+                            <a href="{{ route('products', ['budget' => 'above-5000']) }}" class="aq-footer-cat-link">
+                                Above ₹5,000
+                            </a>
                         </div>
                     </div>
                 </div>

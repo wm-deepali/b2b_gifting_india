@@ -5,21 +5,6 @@
 
 <main class="aq-about-page">
 
-
-        <!-- Hero Section -->
-        <!-- <section class="about-hero text-center">
-            <div class="container">
-                <span class="about-hero-tagline">Empowering Businesses • Creating Memorable Experiences</span>
-                <h1 class="about-hero-title">Discover <span>B2B Gifts India</span></h1>
-                <p class="about-hero-desc">
-                    We create premium corporate gifting solutions that help businesses build stronger relationships,
-                    enhance brand value, and leave lasting impressions on clients, employees, and partners.
-                </p>
-                <a href="#bulk-enquiry" class="aq-about-btn-gold enquiry-btn">Speak With Our Expert</a>
-            </div>
-        </section> -->
-
-
                 <!-- 1. Luxury Inner Banner / Hero Section -->
         <section class="aq-catpage-hero">
             <div class="aq-hero-glow"></div>
@@ -52,7 +37,7 @@
                                 <p class="aq-section-desc aq-recycling-intro-desc">
                                     We help businesses make a positive impact with sustainable corporate gifts crafted from eco-conscious materials — combining thoughtful gifting with environmental responsibility.
                                 </p>
-                                <button type="button" class="aq-recycling-expert-btn mt-30" data-bs-toggle="modal" data-bs-target="#bulkOrderModal">
+                                <button type="button" class="aq-recycling-expert-btn mt-30" onclick="openGlobalDrawer('recycling_pledge')">
                                     Speak With Our Expert <i class="fa-solid fa-arrow-right-long"></i>
                                 </button>
                             </div>

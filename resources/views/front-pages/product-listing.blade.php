@@ -345,7 +345,7 @@
                         <span class="aq-footer-cat-label">Shop by Occasion</span>
                         <div class="aq-footer-cat-links">
                             @foreach($occasions->take(10) as $occasion)
-                                <a href="#" class="aq-footer-cat-link">
+                                <a href="{{ route('products', ['occasion' => $occasion->slug]) }}" class="aq-footer-cat-link">
                                     {{ $occasion->title }}
                                 </a>
                             @endforeach

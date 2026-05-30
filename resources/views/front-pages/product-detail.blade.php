@@ -360,15 +360,6 @@
 
                             <!-- Call to Action Buttons -->
                             <div class="d-flex flex-column flex-sm-row gap-3">
-                                <!--<button class="aq-btn-black btn-red-bg flex-grow-1 aq-custom-quote-btn"-->
-                                <!--    data-bs-toggle="modal" data-bs-target="#bulkOrderModal">-->
-                                <!--    <i class="fa-regular fa-envelope"></i> Get Customized Bulk Quote-->
-                                <!--</button>-->
-                                <!--<a href="#" class="aq-btn-black flex-grow-1 aq-download-pdf-btn"-->
-                                <!--    onclick="alert('Digital Proposal & Catalog Brochure started downloading!')">-->
-                                <!--    <i class="fa-solid fa-file-pdf"></i> Download Catalog PDF-->
-                                <!--</a>-->
-                                
                             @if($product->cart)
                             <button data-id="{{ $product->id }}" class="aq-btn-black btn-red-bg flex-grow-1 aq-custom-quote-btn add-to-cart">
                                 <i class="fa-solid fa-cart-plus"></i>
@@ -603,7 +594,7 @@
 
                                             <div class="aq-product-actions">
                                                 <button class="aq-product-action-btn" title="Quick Consultation"
-                                                    onclick="openEnquiryDrawer()">
+                                                    onclick="openGlobalDrawer('product-details')">
                                                     <i class="fa-regular fa-envelope"></i>
                                                 </button>
                                             </div>
@@ -633,7 +624,7 @@
                                                     <span>/ unit</span>
                                                 </div>
 
-                                                <button class="aq-product-card-cta" onclick="openEnquiryDrawer()">
+                                                <button class="aq-product-card-cta" onclick="openGlobalDrawer('product-details')">
                                                     Enquire
                                                 </button>
 
@@ -716,7 +707,7 @@
                                             </div>
 
                                             <div class="aq-product-actions">
-                                                <button class="aq-product-action-btn" onclick="openEnquiryDrawer()">
+                                                <button class="aq-product-action-btn" onclick="openGlobalDrawer('product-details')">
                                                     <i class="fa-regular fa-envelope"></i>
                                                 </button>
                                             </div>
@@ -746,7 +737,7 @@
                                                     <span>/ unit</span>
                                                 </div>
 
-                                                <button class="aq-product-card-cta" onclick="openEnquiryDrawer()">
+                                                <button class="aq-product-card-cta" onclick="openGlobalDrawer('product-details')">
                                                     Enquire
                                                 </button>
 

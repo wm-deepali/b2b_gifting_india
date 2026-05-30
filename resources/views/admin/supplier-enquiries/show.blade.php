@@ -38,10 +38,9 @@
                     <p><strong>Phone:</strong> {{ $enquiry->phone }}</p>
                     <p><strong>Company:</strong> {{ $enquiry->company }}</p>
                     <p><strong>Category:</strong> {{ $enquiry->category->name ?? '-' }}</p>
-                    <p><strong>MOQ:</strong> {{ $enquiry->moq }}</p>
-                    <p><strong>Capacity:</strong> {{ $enquiry->capacity }}</p>
+                    <p><strong>Quantity:</strong> {{ $enquiry->quantity }}</p>
+                    <p><strong>Delivery Date:</strong> {{ $enquiry->delivery_date }}</p>
                     <p><strong>City:</strong> {{ $enquiry->city }}</p>
-                    <p><strong>GST:</strong> {{ $enquiry->gst }}</p>
                     <p><strong>Description:</strong> {{ $enquiry->description }}</p>
 
                     @if($enquiry->catalogue)

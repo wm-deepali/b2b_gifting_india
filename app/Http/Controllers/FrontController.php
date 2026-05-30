@@ -1140,6 +1140,7 @@ class FrontController extends Controller
             ->take(6)
             ->get();
 
+        // dd($products->toArray());
         return view('front-pages.personalised-engraving', compact('products'));
     }
 
@@ -1527,21 +1528,30 @@ class FrontController extends Controller
         ]);
 
         // CAPTCHA
-        $captcha = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
-            'secret' => env('RECAPTCHA_SECRET_KEY'),
-            'response' => $request->input('g-recaptcha-response'),
-        ]);
+        $captcha = Http::asForm()->post(
+            'https://www.google.com/recaptcha/api/siteverify',
+            [
+                'secret' => env('RECAPTCHA_SECRET_KEY'),
+                'response' => $request->input('g-recaptcha-response'),
+            ]
+        );
 
         if (!$captcha->json('success')) {
+
             return back()
-                ->withErrors(['g-recaptcha-response' => 'Captcha failed'])
+                ->withErrors([
+                    'g-recaptcha-response' => 'Captcha failed'
+                ])
                 ->withInput();
         }
 
         // FILE UPLOAD
         $filePath = null;
+
         if ($request->hasFile('catalogue')) {
-            $filePath = $request->file('catalogue')->store('catalogues', 'public');
+
+            $filePath = $request->file('catalogue')
+                ->store('catalogues', 'public');
         }
 
         SupplierEnquiry::create([
@@ -1550,15 +1560,22 @@ class FrontController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'category_id' => $request->category_id,
-            'capacity' => $request->capacity,
-            'moq' => $request->moq,
+
+            // NEW FORM FIELDS
+            'quantity' => $request->quantity,
+            'delivery_date' => $request->delivery_date,
+
+            // EXISTING
             'description' => $request->description,
             'city' => $request->city,
-            'gst' => $request->gst,
+
             'catalogue' => $filePath,
         ]);
 
-        return back()->with('success', 'Supplier enquiry submitted successfully!');
+        return back()->with(
+            'success',
+            'Bulk enquiry submitted successfully!'
+        );
     }
 
     public function occasions(Request $request)

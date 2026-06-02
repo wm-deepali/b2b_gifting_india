@@ -41,7 +41,8 @@ use App\Http\Controllers\Admin\HomeBrandSectionController;
 use App\Http\Controllers\Admin\HomeBrandSectionImageController;
 use App\Http\Controllers\Admin\HomeDealBannerController;
 use App\Http\Controllers\Admin\HomeHeroSlideController;
-Use App\Http\Controllers\Admin\HomeHeroBannerController;
+use App\Http\Controllers\Admin\HomeHeroBannerController;
+use App\Http\Controllers\Admin\FooterSettingController;
 use App\Http\Controllers\FrontController;
 
 Route::controller(FrontController::class)->group(function () {
@@ -203,8 +204,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('home-deal-banners', HomeDealBannerController::class)->names('home-deal-banners');
         Route::delete('home-deal-banners/delete/{id}', [HomeDealBannerController::class, 'destroy'])->name('home-deal-banners.delete');
 
-        Route::resource('home-hero-slides',HomeHeroSlideController::class)->names('home-hero-slides');
-        Route::resource('home-hero-banners',HomeHeroBannerController::class)->names('home-hero-banners');
+        Route::resource('home-hero-slides', HomeHeroSlideController::class)->names('home-hero-slides');
+        Route::resource('home-hero-banners', HomeHeroBannerController::class)->names('home-hero-banners');
 
         // ================= HERO =================
         Route::get('/home-hero', [HomeHeroController::class, 'edit'])
@@ -258,6 +259,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::delete('/home-features/{id}', [HomeFeatureController::class, 'delete'])
             ->name('home.features.delete');
+
+        Route::get('/footer-settings', [FooterSettingController::class, 'index'])
+            ->name('footer-settings.index');
+
+        Route::post('/footer-settings', [FooterSettingController::class, 'store'])
+            ->name('footer-settings.store');
 
         Route::get('/seo', [SeoController::class, 'index'])->name('seo.index');
         Route::put('/seo/{id}', [SeoController::class, 'update'])->name('seo.update');

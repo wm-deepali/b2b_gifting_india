@@ -89,7 +89,19 @@ class AppServiceProvider extends ServiceProvider
                 'footerCategories',
                 $footerCategories
             );
+
         });
+
+            View::composer('*', function ($view) {
+    
+                $footerSetting = \App\Models\FooterSetting::first();
+    
+                $view->with(
+                    'footerSetting',
+                    $footerSetting
+                );
+    
+            });
 
             
 

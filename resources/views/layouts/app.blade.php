@@ -719,7 +719,7 @@
         <div class="container">
             <div class="row row-cols-5">
                 <div class="col">
-                    <a href="#">
+                    <a href="{{ route('home') }}">
                         <div class="aq-bottom-menu-item">
                             <i>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="16" viewBox="0 0 15 16"
@@ -749,7 +749,7 @@
                     </a>
                 </div>
                 <div class="col">
-                    <a href="#">
+                    <a href="{{ route('categories') }}">
                         <div class="aq-bottom-menu-item">
                             <i>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15"
@@ -764,20 +764,22 @@
                     </a>
                 </div>
                 <div class="col">
-                    <div class="aq-bottom-menu-item">
-                        <button class="p-relative">
-                            <span class="count-box">3</span>
-                            <i>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="15" viewBox="0 0 18 15"
-                                    fill="none">
-                                    <path
-                                        d="M13.0179 0C11.3585 0 9.90563 0.693914 9 1.86685C8.09437 0.693914 6.64152 0 4.98214 0C3.66125 0.00144779 2.39489 0.512355 1.46088 1.42064C0.52687 2.32892 0.00148881 3.56039 0 4.84489C0 10.3149 8.34027 14.7425 8.69545 14.9254C8.78906 14.9744 8.8937 15 9 15C9.1063 15 9.21094 14.9744 9.30455 14.9254C9.65973 14.7425 18 10.3149 18 4.84489C17.9985 3.56039 17.4731 2.32892 16.5391 1.42064C15.6051 0.512355 14.3387 0.00144779 13.0179 0ZM9 13.6595C7.53268 12.828 1.28571 9.04041 1.28571 4.84489C1.28699 3.89193 1.67684 2.97835 2.36978 2.3045C3.06272 1.63065 4.00218 1.25154 4.98214 1.25029C6.54509 1.25029 7.85732 2.05986 8.40536 3.36017C8.45379 3.47483 8.53618 3.57289 8.64206 3.64191C8.74794 3.71093 8.87253 3.74778 9 3.74778C9.12747 3.74778 9.25206 3.71093 9.35794 3.64191C9.46382 3.57289 9.54621 3.47483 9.59464 3.36017C10.1427 2.05752 11.4549 1.25029 13.0179 1.25029C13.9978 1.25154 14.9373 1.63065 15.6302 2.3045C16.3232 2.97835 16.713 3.89193 16.7143 4.84489C16.7143 9.03416 10.4657 12.8272 9 13.6595Z"
-                                        fill="#343330"></path>
-                                </svg>
-                            </i>
-                        </button>
-                        <span>Wishlist</span>
-                    </div>
+                    <a href="{{ route('wishlist') }}">
+                        <div class="aq-bottom-menu-item">
+                            <button class="p-relative">
+                                <span class="count-box">{{ $wishlistCount ?? 0 }}</span>
+                                <i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="15" viewBox="0 0 18 15"
+                                        fill="none">
+                                        <path
+                                            d="M13.0179 0C11.3585 0 9.90563 0.693914 9 1.86685C8.09437 0.693914 6.64152 0 4.98214 0C3.66125 0.00144779 2.39489 0.512355 1.46088 1.42064C0.52687 2.32892 0.00148881 3.56039 0 4.84489C0 10.3149 8.34027 14.7425 8.69545 14.9254C8.78906 14.9744 8.8937 15 9 15C9.1063 15 9.21094 14.9744 9.30455 14.9254C9.65973 14.7425 18 10.3149 18 4.84489C17.9985 3.56039 17.4731 2.32892 16.5391 1.42064C15.6051 0.512355 14.3387 0.00144779 13.0179 0ZM9 13.6595C7.53268 12.828 1.28571 9.04041 1.28571 4.84489C1.28699 3.89193 1.67684 2.97835 2.36978 2.3045C3.06272 1.63065 4.00218 1.25154 4.98214 1.25029C6.54509 1.25029 7.85732 2.05986 8.40536 3.36017C8.45379 3.47483 8.53618 3.57289 8.64206 3.64191C8.74794 3.71093 8.87253 3.74778 9 3.74778C9.12747 3.74778 9.25206 3.71093 9.35794 3.64191C9.46382 3.57289 9.54621 3.47483 9.59464 3.36017C10.1427 2.05752 11.4549 1.25029 13.0179 1.25029C13.9978 1.25154 14.9373 1.63065 15.6302 2.3045C16.3232 2.97835 16.713 3.89193 16.7143 4.84489C16.7143 9.03416 10.4657 12.8272 9 13.6595Z"
+                                            fill="#343330"></path>
+                                    </svg>
+                                </i>
+                            </button>
+                            <span>Wishlist</span>
+                        </div>
+                    </a>
                 </div>
                 <div class="col">
                     <div class="aq-bottom-menu-item aq-cart-btn">
@@ -1198,27 +1200,44 @@
                         <div class="col-xl-4 col-lg-4 col-md-12">
                             <div class="aq-footer-widget footer-col-brand mb-50">
                                 <div class="aq-footer-logo-luxury mb-35">
-                                    <a href="index.html">
-                                        <img src="public/assets/img/corporate/logo.webp" alt="B2B Gifts India"
-                                            style="filter: brightness(0) invert(1); width: 180px" />
+                                    <a href="{{ route('home') }}">
+                                        @if(!empty($footerSetting?->logo))
+                                            <img src="{{ asset($footerSetting->logo) }}" alt="Logo"
+                                                style="filter: brightness(0) invert(1); width:180px">
+                                        @endif
                                     </a>
                                 </div>
-                                <p class="aq-footer-intro-text">
-                                    Premium corporate gifting partner since 2018. <br />
-                                    Custom branded solutions for employees, clients & business
-                                    partners.
-                                </p>
-                                <!-- <div class="aq-footer-social-luxury mt-40">
-                                        <a href="#" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
-                                        <a href="#" class="social-icon"><i class="fa-brands fa-x-twitter"></i></a>
-                                        <a href="#" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
-                                        <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
-                                    </div> -->
+                                @if(!empty($footerSetting?->about_text))
+                                    <p class="aq-footer-intro-text">
+                                        {!! nl2br(e($footerSetting->about_text)) !!}
+                                    </p>
+                                @endif
                                 <div class="aq-footer-social-luxury mt-40">
-                                    <a href="#" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
-                                    <a href="#" class="social-icon"><i class="fa-brands fa-twitter"></i></a>
-                                    <a href="#" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
-                                    <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+
+                                    @if($footerSetting->facebook)
+                                        <a href="{{ $footerSetting->facebook }}" target="_blank" class="social-icon">
+                                            <i class="fa-brands fa-facebook-f"></i>
+                                        </a>
+                                    @endif
+
+                                    @if($footerSetting->twitter)
+                                        <a href="{{ $footerSetting->twitter }}" target="_blank" class="social-icon">
+                                            <i class="fa-brands fa-twitter"></i>
+                                        </a>
+                                    @endif
+
+                                    @if($footerSetting->linkedin)
+                                        <a href="{{ $footerSetting->linkedin }}" target="_blank" class="social-icon">
+                                            <i class="fa-brands fa-linkedin-in"></i>
+                                        </a>
+                                    @endif
+
+                                    @if($footerSetting->instagram)
+                                        <a href="{{ $footerSetting->instagram }}" target="_blank" class="social-icon">
+                                            <i class="fa-brands fa-instagram"></i>
+                                        </a>
+                                    @endif
+
                                 </div>
                             </div>
                         </div>
@@ -1323,7 +1342,9 @@
                                         </div>
                                         <div class="aq-contact-content-luxury">
                                             <h6>ADDRESS</h6>
-                                            <p>Sector 62, Noida</p>
+                                            @if(!empty($footerSetting?->address))
+                                                <p>{{ $footerSetting->address }}</p>
+                                            @endif
                                         </div>
                                     </div>
 
@@ -1333,7 +1354,9 @@
                                         </div>
                                         <div class="aq-contact-content-luxury">
                                             <h6>PHONE</h6>
-                                            <p>+91 34534534456</p>
+                                            @if(!empty($footerSetting?->phone))
+                                                <p>{{ $footerSetting->phone }}</p>
+                                            @endif
                                         </div>
                                     </div>
 
@@ -1345,9 +1368,16 @@
                                         </a>
                                         <div class="aq-contact-content-luxury">
                                             <h6>WHATSAPP</h6>
-                                            <p>
-                                                <a href="https://wa.me/91XXXXXXXXXX" target="_blank">+91 34534534456</a>
-                                            </p>
+                                            @if(!empty($footerSetting?->whatsapp))
+                                                <p>
+                                                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $footerSetting->whatsapp) }}"
+                                                        target="_blank">
+
+                                                        {{ $footerSetting->whatsapp }}
+
+                                                    </a>
+                                                </p>
+                                            @endif
                                         </div>
                                     </div>
 
@@ -1357,8 +1387,13 @@
                                         </div>
                                         <div class="aq-contact-content-luxury">
                                             <h6>EMAIL</h6>
-                                            <p>info@example22222.com</p>
-                                            <p>info@example.com</p>
+                                            @if(!empty($footerSetting?->email))
+                                                <p>{{ $footerSetting->email }}</p>
+                                            @endif
+
+                                            @if(!empty($footerSetting?->email2))
+                                                <p>{{ $footerSetting->email2 }}</p>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -1422,8 +1457,12 @@
         <!-- footer area end -->
 
         <div class="footer_whatspp">
-            <a href="https://wa.me/7408730333" target="_blank" class="social-whatspp" title="WhatsApp">
+
+            <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $footerSetting->whatsapp) }}" target="_blank"
+                class="social-whatspp" title="WhatsApp">
+
                 <i class="fa-brands fa-whatsapp"></i>
+
             </a>
         </div>
     </footer>

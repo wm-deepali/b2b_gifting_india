@@ -116,11 +116,11 @@
                     </a>
                 </li>
 
-<li class="{{ request()->routeIs('admin.announcements.*') ? 'active' : '' }}">
-    <a href="{{ route('admin.announcements.index') }}">
-        <i class="fa-solid fa-bullhorn"></i> Announcement Bar
-    </a>
-</li>
+                <li class="{{ request()->routeIs('admin.announcements.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.announcements.index') }}">
+                        <i class="fa-solid fa-bullhorn"></i> Announcement Bar
+                    </a>
+                </li>
 
                 <li class="{{ request()->routeIs('admin.pages.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.pages.index') }}">
@@ -186,6 +186,11 @@
                 <li class="{{ request()->routeIs('admin.vendor-types.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.vendor-types.index') }}">
                         <i class="fa-solid fa-building"></i> Vendor Types
+                    </a>
+                </li>
+                <li class="{{ request()->routeIs('admin.footer-settings.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.footer-settings.index') }}">
+                        <i class="fa-solid fa-address-card"></i> Footer Settings
                     </a>
                 </li>
 

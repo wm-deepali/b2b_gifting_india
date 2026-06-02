@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\GiftingOccasion;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Imports\GiftingOccasionImport;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use ZipArchive;
 
 class GiftingOccasionController extends Controller
 {
@@ -105,5 +109,117 @@ class GiftingOccasionController extends Controller
         return response()->json([
             'message' => 'Deleted Successfully'
         ]);
+    }
+
+    public function import()
+    {
+        return view('admin.gifting_occasions.import');
+    }
+
+    public function importStore(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimetypes:text/plain,text/csv,application/vnd.ms-excel'
+        ]);
+
+        try {
+
+            Excel::import(
+                new GiftingOccasionImport,
+                $request->file('file')
+            );
+
+            return redirect()
+                ->route('admin.gifting-occasions.index')
+                ->with('success', 'Occasions imported successfully.');
+
+        } catch (\Exception $e) {
+
+            return back()->with(
+                'error',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function uploadImagesZip(Request $request)
+    {
+        $request->validate([
+            'zip_file' => 'required|mimes:zip'
+        ]);
+
+        $zip = new ZipArchive();
+
+        if ($zip->open($request->file('zip_file')->getRealPath()) === true) {
+
+            $extractPath = storage_path(
+                'app/public/gifting'
+            );
+
+            if (!file_exists($extractPath)) {
+                mkdir($extractPath, 0777, true);
+            }
+
+            $zip->extractTo($extractPath);
+
+            $zip->close();
+
+            return back()->with(
+                'success',
+                'Images uploaded successfully.'
+            );
+        }
+
+        return back()->with(
+            'error',
+            'Unable to extract ZIP.'
+        );
+    }
+
+    public function downloadSample()
+    {
+        $headers = [
+            'title',
+            'sub_title',
+            'short_description',
+            'image_name',
+            'icon',
+            'meta_title',
+            'meta_description',
+            'status'
+        ];
+
+        $sampleRow = [
+            'Diwali Gifts',
+            'Corporate Diwali Gifts',
+            'Best Diwali gifting ideas',
+            'diwali.jpg',
+            'fa-gift',
+            'Diwali Gifts',
+            'Corporate Diwali Gifts',
+            '1'
+        ];
+
+        $response = new StreamedResponse(function () use ($headers, $sampleRow) {
+
+            $handle = fopen('php://output', 'w');
+
+            fputcsv($handle, $headers);
+            fputcsv($handle, $sampleRow);
+
+            fclose($handle);
+        });
+
+        $response->headers->set(
+            'Content-Type',
+            'text/csv'
+        );
+
+        $response->headers->set(
+            'Content-Disposition',
+            'attachment; filename=gifting_occasions_sample.csv'
+        );
+
+        return $response;
     }
 }

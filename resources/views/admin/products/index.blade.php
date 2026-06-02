@@ -38,9 +38,15 @@
             </div>
 
             <div class="ml-auto mr-2">
+
+                <a href="{{ route('admin.products.import') }}" class="btn btn-success">
+                    <i class="fa fa-upload"></i> Bulk Import Products
+                </a>
+
                 <a href="{{ route('admin.products.create') }}" class="btn btn-primary">
                     <i class="fa fa-plus"></i> Add Product
                 </a>
+
             </div>
 
         </div>
@@ -238,7 +244,7 @@
                                 @empty
 
                                     <tr>
-                                        <td colspan="6" class="text-center text-muted py-4">
+                                        <td colspan="7" class="text-center text-muted py-4">
                                             No Products Found
                                         </td>
                                     </tr>

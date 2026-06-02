@@ -35,10 +35,18 @@
             </div>
 
             <div class="ml-auto mr-2">
-                <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">
-                    <i class="fa fa-plus"></i> Add Category
-                </a>
-            </div>
+
+    <a href="{{ route('admin.categories.import') }}"
+       class="btn btn-success mr-2">
+        <i class="fa fa-upload"></i> Bulk Import
+    </a>
+
+    <a href="{{ route('admin.categories.create') }}"
+       class="btn btn-primary">
+        <i class="fa fa-plus"></i> Add Category
+    </a>
+
+</div>
 
         </div>
 
@@ -252,7 +260,7 @@ class="btn btn-sm btn-outline-dark">
 
                     </div>
 
-                    {{-- 🔥 PAGINATION --}}
+                    {{-- PAGINATION --}}
                     <div class="mt-3 d-flex justify-content-center">
                         {{ $categories->links('pagination::bootstrap-4') }}
                     </div>

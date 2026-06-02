@@ -7,6 +7,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Imports\CategoryImport;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use ZipArchive;
 
 class CategoryController extends Controller
 {
@@ -202,4 +206,178 @@ class CategoryController extends Controller
             'message' => 'Category Deleted Successfully'
         ]);
     }
+
+    public function import()
+    {
+        return view('admin.categories.import');
+    }
+
+    public function importStore(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimetypes:text/plain,text/csv,application/vnd.ms-excel'
+        ]);
+
+        try {
+
+            Excel::import(
+                new CategoryImport,
+                $request->file('file')
+            );
+
+            return redirect()
+                ->route('admin.categories.index')
+                ->with('success', 'Categories imported successfully.');
+
+        } catch (\Exception $e) {
+
+            return back()->with(
+                'error',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function downloadSample()
+    {
+        $headers = [
+            'name',
+            'sub_title',
+            'image_name',
+            'parent_category',
+            'meta_title',
+            'meta_description',
+            'is_popular',
+            'is_featured',
+            'show_on_website',
+            'status',
+            'sort_order',
+            'added_by'
+        ];
+
+        $sampleRow = [
+            'Corporate Gifts',
+            'Premium Corporate Gifts',
+            'corporate-gifts.jpg',
+            '',
+            'Corporate Gifts',
+            'Corporate Gifts Category',
+            '1',
+            '1',
+            '1',
+            '1',
+            '1',
+            'admin'
+        ];
+
+        $response = new StreamedResponse(function () use ($headers, $sampleRow) {
+
+            $handle = fopen('php://output', 'w');
+
+            fputcsv($handle, $headers);
+            fputcsv($handle, $sampleRow);
+
+            fclose($handle);
+        });
+
+        $response->headers->set(
+            'Content-Type',
+            'text/csv'
+        );
+
+        $response->headers->set(
+            'Content-Disposition',
+            'attachment; filename=category_import_sample.csv'
+        );
+
+        return $response;
+    }
+
+    public function uploadImagesZip(Request $request)
+    {
+        $request->validate([
+            'zip_file' => 'required|mimes:zip'
+        ]);
+
+        try {
+
+            $zip = new ZipArchive();
+
+            if ($zip->open($request->file('zip_file')->getRealPath()) === true) {
+
+                $extractPath = storage_path(
+                    'app/public/categories'
+                );
+
+                if (!file_exists($extractPath)) {
+                    mkdir($extractPath, 0777, true);
+                }
+
+                $zip->extractTo($extractPath);
+
+                $zip->close();
+
+                return back()->with(
+                    'success',
+                    'Category images uploaded successfully.'
+                );
+            }
+
+            return back()->with(
+                'error',
+                'Unable to extract ZIP file.'
+            );
+
+        } catch (\Exception $e) {
+
+            return back()->with(
+                'error',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function downloadParentCategoryReference()
+    {
+        $categories = Category::whereNull('parent_id')
+            ->orWhere('parent_id', 0)
+            ->orderBy('id')
+            ->get([
+                'id',
+                'name'
+            ]);
+
+        $response = new StreamedResponse(function () use ($categories) {
+
+            $handle = fopen('php://output', 'w');
+
+            fputcsv($handle, [
+                'id',
+                'category_name'
+            ]);
+
+            foreach ($categories as $category) {
+
+                fputcsv($handle, [
+                    $category->id,
+                    $category->name
+                ]);
+            }
+
+            fclose($handle);
+        });
+
+        $response->headers->set(
+            'Content-Type',
+            'text/csv'
+        );
+
+        $response->headers->set(
+            'Content-Disposition',
+            'attachment; filename=parent_category_reference.csv'
+        );
+
+        return $response;
+    }
+
 }

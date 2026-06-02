@@ -23,6 +23,9 @@
             </div>
 
             <div class="ml-auto mr-2">
+                <a href="{{ route('admin.brands.import') }}" class="btn btn-success mr-2">
+                    <i class="fa fa-upload"></i> Bulk Import
+                </a>
                 <a href="{{ route('admin.brands.create') }}" class="btn btn-primary">
                     <i class="fa fa-plus"></i> Add Brand
                 </a>

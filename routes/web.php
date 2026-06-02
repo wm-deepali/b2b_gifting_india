@@ -114,11 +114,40 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('/profile-setting', ProfileSettingController::class);
         Route::post('/resetpassword', [ProfileSettingController::class, 'resetPassword'])->name('reset.password');
 
+        // category routes
+        Route::get('categories/import', [CategoryController::class, 'import'])->name('categories.import');
+        Route::post('categories/import', [CategoryController::class, 'importStore'])->name('categories.import.store');
+        Route::get('categories/import/sample', [CategoryController::class, 'downloadSample'])->name('categories.import.sample');
+        Route::post('categories/upload-images', [CategoryController::class, 'uploadImagesZip'])->name('categories.images.upload');
+        Route::get('categories/import/parent-reference', [CategoryController::class, 'downloadParentCategoryReference'])->name('categories.parent.reference');
         Route::resource('categories', CategoryController::class);
 
+        // occasion routes
+        Route::get('gifting-occasions/import', [GiftingOccasionController::class, 'import'])->name('gifting-occasions.import');
+        Route::post('gifting-occasions/import', [GiftingOccasionController::class, 'importStore'])->name('gifting-occasions.import.store');
+        Route::get('gifting-occasions/import/sample', [GiftingOccasionController::class, 'downloadSample'])->name('gifting-occasions.import.sample');
+        Route::post('gifting-occasions/upload-images', [GiftingOccasionController::class, 'uploadImagesZip'])->name('gifting-occasions.images.upload');
         Route::resource('gifting-occasions', GiftingOccasionController::class);
 
+        // product routes
+        Route::post('/products/upload-images-zip', [ProductController::class, 'uploadImagesZip'])->name('products.images.upload');
+        Route::get('/products/import', [ProductController::class, 'import'])->name('products.import');
+        Route::post('/products/import', [ProductController::class, 'importStore'])->name('products.import.store');
+        Route::get('products/import/sample', [ProductController::class, 'downloadSample'])->name('products.import.sample');
+        Route::get('products/reference/categories', [ProductController::class, 'downloadCategoryReference'])->name('products.reference.categories');
+        Route::get('products/reference/subcategories', [ProductController::class, 'downloadSubCategoryReference'])->name('products.reference.subcategories');
+        Route::get('products/reference/brands', [ProductController::class, 'downloadBrandReference'])->name('products.reference.brands');
+        Route::get('products/reference/occasions', [ProductController::class, 'downloadOccasionReference'])->name('products.reference.occasions');
+        Route::get('products/reference/customizations', [ProductController::class, 'downloadCustomizationReference'])->name('products.reference.customizations');
         Route::resource('products', ProductController::class)->names('products');
+
+        // brand routes
+        Route::get('brands/import', [BrandController::class, 'import'])->name('brands.import');
+        Route::post('brands/import', [BrandController::class, 'importStore'])->name('brands.import.store');
+        Route::get('brands/import/sample', [BrandController::class, 'downloadSample'])->name('brands.import.sample');
+        Route::post('brands/upload-images', [BrandController::class, 'uploadImagesZip'])->name('brands.images.upload');
+        Route::get('brands/import/category-reference', [BrandController::class, 'downloadCategoryReference'])->name('brands.category.reference');
+        Route::resource('brands', BrandController::class)->names('brands');
 
         Route::resource('customizations', CustomizationController::class);
 
@@ -128,7 +157,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::resource('blogs', BlogController::class)->names('blogs');
 
-        Route::resource('brands', BrandController::class)->names('brands');
 
         Route::resource('clients', ClientController::class)->names('clients');
 

@@ -23,6 +23,10 @@
             </div>
 
             <div class="ml-auto mr-2">
+                <a href="{{ route('admin.gifting-occasions.import') }}" class="btn btn-success mr-2">
+                    <i class="fa fa-upload"></i> Bulk Import
+                </a>
+
                 <a href="{{ route('admin.gifting-occasions.create') }}" class="btn btn-primary">
                     <i class="fa fa-plus"></i> Add Occasion
                 </a>
@@ -59,7 +63,7 @@
 
                                         <td>
                                             @if($item->image)
-                                                <img src="{{ asset('storage/'.$item->image) }}" width="70">
+                                                <img src="{{ asset('storage/' . $item->image) }}" width="70">
                                             @endif
                                         </td>
 
@@ -78,12 +82,12 @@
                                         <td>
 
                                             <a href="{{ route('admin.gifting-occasions.edit', $item->id) }}"
-                                               class="btn btn-sm btn-outline-dark">
+                                                class="btn btn-sm btn-outline-dark">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
 
                                             <button class="btn btn-sm btn-outline-danger"
-                                                    onclick="deleteItem({{ $item->id }})">
+                                                onclick="deleteItem({{ $item->id }})">
                                                 <i class="fa fa-trash"></i>
                                             </button>
 
@@ -105,10 +109,10 @@
 
                         </table>
 
-                         <div class="mt-3">
+                        <div class="mt-3">
                             {{ $occasions->links('pagination::bootstrap-4') }}
                         </div>
-                        
+
                     </div>
 
                 </div>
@@ -123,36 +127,36 @@
 @include('admin.footer')
 
 <script>
-function deleteItem(id) {
-    Swal.fire({
-        title: 'Delete Occasion?',
-        text: "This action cannot be undone.",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        confirmButtonText: 'Yes, Delete'
-    }).then((result) => {
+    function deleteItem(id) {
+        Swal.fire({
+            title: 'Delete Occasion?',
+            text: "This action cannot be undone.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'Yes, Delete'
+        }).then((result) => {
 
-        if (result.isConfirmed) {
+            if (result.isConfirmed) {
 
-            $.ajax({
-                url: "{{ url('admin/gifting-occasions') }}/" + id,
-                type: "DELETE",
-                data: {
-                    _token: "{{ csrf_token() }}"
-                },
-                success: function (res) {
+                $.ajax({
+                    url: "{{ url('admin/gifting-occasions') }}/" + id,
+                    type: "DELETE",
+                    data: {
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function (res) {
 
-                    Swal.fire('Deleted!', res.message, 'success');
+                        Swal.fire('Deleted!', res.message, 'success');
 
-                    $("#row" + id).fadeOut(400, function () {
-                        $(this).remove();
-                    });
+                        $("#row" + id).fadeOut(400, function () {
+                            $(this).remove();
+                        });
 
-                }
-            });
+                    }
+                });
 
-        }
-    });
-}
+            }
+        });
+    }
 </script>

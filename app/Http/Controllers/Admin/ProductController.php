@@ -385,18 +385,23 @@ class ProductController extends Controller
     public function importStore(Request $request)
     {
         $request->validate([
-            'file' => 'required|mimetypes:text/plain,text/csv,application/vnd.ms-excel'
+            'file' => 'required|mimetypes:text/plain,text/csv,application/vnd.ms-excel|max:10240'
         ]);
         try {
 
+            $import = new ProductImport();
+
             Excel::import(
-                new ProductImport,
+                $import,
                 $request->file('file')
             );
 
-            return redirect()
-                ->route('admin.products.index')
-                ->with('success', 'Products imported successfully.');
+            return back()->with([
+                'success' => 'Import completed successfully.',
+                'imported' => $import->imported,
+                'skipped' => $import->skipped,
+                'skipped_products' => $import->skippedProducts,
+            ]);
 
         } catch (\Exception $e) {
 
@@ -411,7 +416,7 @@ class ProductController extends Controller
     {
         $headers = [
             'name',
-            'image_name',
+            'image_names',
 
             'brand',
 
@@ -474,7 +479,7 @@ class ProductController extends Controller
 
         $sampleRow = [
             'Leather Diary',
-            'SKU001.jpg',
+            'SKU001.jpg,SKU001-2.jpg,SKU001-3.jpg',
 
             'Parker',
 
@@ -561,7 +566,7 @@ class ProductController extends Controller
     public function uploadImagesZip(Request $request)
     {
         $request->validate([
-            'zip_file' => 'required|mimes:zip'
+            'zip_file' => 'required|mimes:zip|max:51200'
         ]);
 
         $zipFile = $request->file('zip_file');

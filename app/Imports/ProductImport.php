@@ -16,12 +16,47 @@ use App\Models\ProductImage;
 
 class ProductImport implements ToCollection, WithHeadingRow
 {
+    public int $imported = 0;
+    public int $skipped = 0;
+
+    public array $skippedProducts = [];
+
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) {
 
             if (empty($row['name'])) {
+
+                $this->skipped++;
+
+                $this->skippedProducts[] = [
+                    'name' => '',
+                    'sku' => '',
+                    'reason' => 'Product name missing'
+                ];
+
                 continue;
+            }
+
+            if (!empty($row['sku'])) {
+
+                $exists = Product::where(
+                    'sku',
+                    trim($row['sku'])
+                )->exists();
+
+                if ($exists) {
+
+                    $this->skipped++;
+
+                    $this->skippedProducts[] = [
+                        'name' => $row['name'],
+                        'sku' => $row['sku'],
+                        'reason' => 'Duplicate SKU'
+                    ];
+
+                    continue;
+                }
             }
 
             // Brand
@@ -92,6 +127,8 @@ class ProductImport implements ToCollection, WithHeadingRow
                 'sort_order' => $row['sort_order'] ?? 0,
                 'added_by' => $row['added_by'] ?? null,
             ]);
+
+            $this->imported++;
 
             /*
             |--------------------------------------------------------------------------
@@ -181,24 +218,6 @@ class ProductImport implements ToCollection, WithHeadingRow
                 $product->occasions()->sync($occasionIds);
             }
 
-            if (!empty($row['customizations'])) {
-
-                $customizationIds = [];
-
-                foreach (explode(',', $row['customizations']) as $customizationName) {
-
-                    $customization = Customization::where(
-                        'name',
-                        trim($customizationName)
-                    )->first();
-
-                    if ($customization) {
-                        $customizationIds[] = $customization->id;
-                    }
-                }
-
-                $product->customizations()->sync($customizationIds);
-            }
 
             // CUSTOMIZATIONS
             if (!empty($row['customizations'])) {
@@ -231,18 +250,29 @@ class ProductImport implements ToCollection, WithHeadingRow
                     ]);
                 }
             }
+            if (!empty($row['image_names'])) {
 
-            if (!empty($row['image_name'])) {
+                $images = explode(',', $row['image_names']);
 
-                $imagePath = 'products/' . trim($row['image_name']);
+                $defaultAssigned = false;
 
-                if (storage_path('app/public/' . $imagePath)) {
+                foreach ($images as $image) {
+
+                    $image = trim($image);
+
+                    $imagePath = 'products/' . $image;
+
+                    if (!file_exists(storage_path('app/public/' . $imagePath))) {
+                        continue;
+                    }
 
                     ProductImage::create([
                         'product_id' => $product->id,
                         'image' => $imagePath,
-                        'is_default' => 1
+                        'is_default' => !$defaultAssigned ? 1 : 0,
                     ]);
+
+                    $defaultAssigned = true;
                 }
             }
         }

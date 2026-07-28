@@ -1,4 +1,4 @@
-@forelse($categories as $category)
+@foreach($categories as $category)
     <div class="col">
         <div class="aqf-categories-item text-center">
             <a href="{{ route('category.products', $category->slug) }}">
@@ -19,8 +19,4 @@
             </a>
         </div>
     </div>
-@empty
-    <div class="col-12 text-center">
-        <p>No categories found.</p>
-    </div>
-@endforelse
+@endforeach

@@ -64,12 +64,12 @@ class AppServiceProvider extends ServiceProvider
             );
         });
 
-         View::composer('*', function ($view) {
+        View::composer('*', function ($view) {
 
             $wishlistCount = \App\Models\Wishlist::where(
-    'session_id',
-    session()->getId()
-)->count();
+                'session_id',
+                session()->getId()
+            )->count();
             $view->with(
                 'wishlistCount',
                 $wishlistCount
@@ -79,11 +79,11 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer('*', function ($view) {
 
-              $footerCategories = \App\Models\Category::where('status', 1)
-            ->whereNull('parent_id')
-            ->orderBy('sort_order')
-            ->take(10)
-            ->get();
+            $footerCategories = \App\Models\Category::where('status', 1)
+                ->whereNull('parent_id')
+                ->orderBy('sort_order')
+                ->take(10)
+                ->get();
 
             $view->with(
                 'footerCategories',
@@ -92,19 +92,47 @@ class AppServiceProvider extends ServiceProvider
 
         });
 
-            View::composer('*', function ($view) {
-    
-                $footerSetting = \App\Models\FooterSetting::first();
-    
-                $view->with(
-                    'footerSetting',
-                    $footerSetting
-                );
-    
-            });
+        View::composer('*', function ($view) {
 
-            
+            $footerSetting = \App\Models\FooterSetting::first();
 
+            $view->with(
+                'footerSetting',
+                $footerSetting
+            );
+
+        });
+
+
+        View::composer('*', function ($view) {
+
+            $popularCategories = \App\Models\Category::where('status', 1)
+                ->where('is_popular', 1)
+                ->whereNull('parent_id')
+                ->take(4)->get();
+
+            $view->with(
+                'popularCategories',
+                $popularCategories
+            );
+
+        });
+
+
+        View::composer('*', function ($view) {
+
+            $recentProducts = \App\Models\Product::latest()
+                ->where('status', 1)
+                ->take(4)
+                ->get();
+
+
+            $view->with(
+                'recentProducts',
+                $recentProducts
+            );
+
+        });
 
     }
 }

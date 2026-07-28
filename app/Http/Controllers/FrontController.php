@@ -54,7 +54,7 @@ class FrontController extends Controller
             ->orderBy('sort_order')
             ->get();
 
-        $popularCategories = Category::withCount('children')
+        $Categories = Category::withCount('children')
             ->whereNull('parent_id')   // ✅ only parent categories
             ->where('is_popular', 1)   // ✅ only popular
             ->where('status', 1)
@@ -62,6 +62,7 @@ class FrontController extends Controller
             ->take(10)
             ->orderBy('sort_order', 'asc')
             ->get();
+            
 
         $newArrivals = Product::with(['images'])
             ->where('status', 1)
@@ -198,7 +199,7 @@ class FrontController extends Controller
         return view('front-pages.home', compact(
             'sliders',
             'textSliders',
-            'popularCategories',
+            'Categories',
             'newArrivals',
             'bestSellers',
             'featuredProducts',
@@ -1118,8 +1119,11 @@ class FrontController extends Controller
         $teams = Team::where('status', 1)
             ->latest()
             ->get();
+            
+             $occasions = GiftingOccasion::where('status', 1)
+        ->get();
 
-        return view('front-pages.about-us', compact('teams'));
+        return view('front-pages.about-us', compact('teams', 'occasions'));
     }
 
     public function awards(Request $request)
@@ -1578,22 +1582,24 @@ class FrontController extends Controller
         );
     }
 
-    public function occasions(Request $request)
-    {
-        $occasions = GiftingOccasion::where('status', 1)
-            ->orderBy('title')
-            ->paginate(8);
+  public function occasions(Request $request)
+{
+    $occasions = GiftingOccasion::where('status', 1)
+        ->orderBy('title')
+        ->paginate(8);
 
-        // AJAX request
-        if ($request->ajax()) {
-            return view(
+    if ($request->ajax()) {
+        return response()->json([
+            'html' => view(
                 'front-pages.partials.occasion-items',
                 compact('occasions')
-            )->render();
-        }
-
-        return view('front-pages.occasions', compact('occasions'));
+            )->render(),
+            'hasMorePages' => $occasions->hasMorePages(),
+        ]);
     }
+
+    return view('front-pages.occasions', compact('occasions'));
+}
 
     public function addToWishlist(Request $request)
     {

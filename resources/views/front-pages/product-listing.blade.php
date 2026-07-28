@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="aq-category-grid">
-                    <!-- 1. Welcome Kits -->
+                     
                     @foreach($subcategories as $subcategory)
 
                         <div class="aq-category-card" data-category-filter="{{ $subcategory->slug }}">
@@ -289,6 +289,8 @@
                                 Reset All Filters
                             </button>
                         </div>
+                        
+                          
                     </div>
 
                     <!-- Right Product Grid -->
@@ -623,13 +625,15 @@ if (clearBtn) {
 
 }
 
+         
             // Mobile filters offcanvas toggle handlers
             const mobileFilterOpenBtn = document.getElementById("aq-mobile-filter-open-btn");
             const mobileFilterCloseBtn = document.getElementById("aq-mobile-filter-close");
             const filterSidebar = document.querySelector(".aq-filter-sidebar");
 
             if (mobileFilterOpenBtn && filterSidebar) {
-                mobileFilterOpenBtn.addEventListener("click", function () {
+                mobileFilterOpenBtn.addEventListener("click", function (event) {
+                    event.stopPropagation(); // Prevent immediate closing
                     filterSidebar.classList.add("active");
                     document.body.style.overflow = "hidden";
                 });
@@ -639,6 +643,21 @@ if (clearBtn) {
                 mobileFilterCloseBtn.addEventListener("click", function () {
                     filterSidebar.classList.remove("active");
                     document.body.style.overflow = "";
+                });
+            }
+
+            // Close sidebar when clicking outside
+            if (filterSidebar) {
+                document.addEventListener("click", function (event) {
+                    if (filterSidebar.classList.contains("active")) {
+                        const isClickInsideSidebar = filterSidebar.contains(event.target);
+                        const isClickOnOpenBtn = mobileFilterOpenBtn && mobileFilterOpenBtn.contains(event.target);
+                        
+                        if (!isClickInsideSidebar && !isClickOnOpenBtn) {
+                            filterSidebar.classList.remove("active");
+                            document.body.style.overflow = "";
+                        }
+                    }
                 });
             }
 

@@ -58,7 +58,7 @@
                                 @forelse($brands as $brand)
                                     <tr id="row{{ $brand->id }}">
 
-                                        <td>{{ $brand->id }}</td>
+                                       <td>{{ $brands->firstItem() + $loop->index }}</td>
 
                                         <td>
                                             @if($brand->logo)
@@ -115,7 +115,7 @@
                                 @empty
 
                                     <tr>
-                                        <td colspan="5" class="text-center text-muted">
+                                        <td colspan="6" class="text-center text-muted">
                                             No Brands Found
                                         </td>
                                     </tr>

@@ -184,7 +184,7 @@
 
                                                                 <tr id="row{{ $item->id }}">
 
-                                                                    <td>{{ $item->id }}</td>
+                                                                    <td>{{ $products->firstItem() + $loop->index }}</td>
 
                                                                     <td>
 

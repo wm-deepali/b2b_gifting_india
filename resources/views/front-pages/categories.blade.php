@@ -47,70 +47,82 @@
                         </div>
                     </div>
                 </div>
-                <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4 pb-30" id="category-container">
-                    @include('front-pages.partials.category-items', ['categories' => $categories])
-                </div>
+             
+                <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4 pb-30"
+     id="category-container">
 
-                <div class="readmore-btn">
-                    <div class="aq-header-top-bulk-orders d-none d-lg-inline-block">
-                        @if($categories->hasMorePages())
+    @if($categories->count())
+        @include('front-pages.partials.category-items', ['categories' => $categories])
+    @else
+        <div class="col-12 text-center">
+            <p>No categories found.</p>
+        </div>
+    @endif
 
-                            <a href="javascript:void(0)" class="aq-load-more-btn" id="load-more-categories" data-page="2">
+</div>
 
-                                <i>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round">
-                                        <path
-                                            d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
-                                        </path>
-                                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                                    </svg>
-                                </i>
-
-                                <span>LOAD MORE CATEGORIES</span>
-
-                            </a>
-
-                        @endif
-
-                    </div>
-                </div>
+                @if($categories->hasMorePages())
+    <div id="category-loader"
+         data-page="2"
+         class="text-center py-4">
+        Loading more categories...
+    </div>
+@endif
 
             </div>
         </section>
         <!-- categories area end -->
     </main>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-       $(document).on('click', '#load-more-categories', function () {
+<script>
+$(document).ready(function () {
 
-            let btn = $(this);
-            let page = btn.data('page');
+    let loading = false;
 
-            btn.find('span').text('Loading...');
+    const loader = document.getElementById('category-loader');
 
-            $.ajax({
-                url: "{{ route('categories') }}",
-                type: "GET",
-                data: {
-                    page: page
-                },
-                success: function (response) {
+    if (!loader) return;
 
-                    if ($.trim(response) === '') {
-                        btn.remove();
-                        return;
-                    }
+    const observer = new IntersectionObserver(function(entries) {
 
-                    $('#category-container').append(response);
+        if (!entries[0].isIntersecting || loading) {
+            return;
+        }
 
-                    btn.data('page', page + 1);
-                    btn.find('span').text('LOAD MORE CATEGORIES');
+        loading = true;
+
+        let page = parseInt(loader.dataset.page);
+
+        $.ajax({
+            url: "{{ route('categories') }}",
+            type: "GET",
+            data: {
+                page: page
+            },
+            success: function(response) {
+
+                if ($.trim(response) === '') {
+                    observer.disconnect();
+                    loader.remove();
+                    return;
                 }
-            });
 
+                $('#category-container').append(response);
+
+                loader.dataset.page = page + 1;
+                loading = false;
+            },
+            error: function() {
+                loading = false;
+            }
         });
-    </script>
+
+    }, {
+        rootMargin: '300px'
+    });
+
+    observer.observe(loader);
+
+});
+</script>
 @endsection

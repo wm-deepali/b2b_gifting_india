@@ -385,8 +385,22 @@ class ProductController extends Controller
     public function importStore(Request $request)
     {
         $request->validate([
-            'file' => 'required|mimetypes:text/plain,text/csv,application/vnd.ms-excel|max:10240'
-        ]);
+    'file' => 'required|file|max:10240'
+]);
+
+$file = $request->file('file');
+
+$allowed = ['xlsx', 'xls', 'csv'];
+
+if (!in_array(
+    strtolower($file->getClientOriginalExtension()),
+    $allowed
+)) {
+    return back()->withErrors([
+        'file' => 'Only XLSX, XLS and CSV files are allowed.'
+    ]);
+}
+
         try {
 
             $import = new ProductImport();
@@ -464,7 +478,6 @@ class ProductController extends Controller
             'whatsapp',
             // 'call',
 
-            'status',
             'sort_order',
             'added_by',
 
@@ -526,8 +539,7 @@ class ProductController extends Controller
             '1',
             '1',
             // '0',
-
-            '1',
+            
             '1',
             'Admin',
 
@@ -563,37 +575,54 @@ class ProductController extends Controller
         return $response;
     }
 
-    public function uploadImagesZip(Request $request)
-    {
-        $request->validate([
-            'zip_file' => 'required|mimes:zip|max:51200'
-        ]);
+ public function uploadImagesZip(Request $request)
+{
+    $request->validate([
+        'zip_file' => 'required|mimes:zip|max:51200'
+    ]);
 
-        $zipFile = $request->file('zip_file');
+    $zip = new ZipArchive();
 
-        $zipPath = $zipFile->getRealPath();
+    if ($zip->open($request->file('zip_file')->getRealPath()) === true) {
 
-        $zip = new ZipArchive();
+$destination = storage_path('app/public/products');
 
-        if ($zip->open($zipPath) === TRUE) {
+if (!file_exists($destination)) {
+    mkdir($destination, 0755, true);
+}
+        for ($i = 0; $i < $zip->numFiles; $i++) {
 
-            $zip->extractTo(
-                storage_path('app/public/products')
-            );
+            $entry = $zip->getNameIndex($i);
 
-            $zip->close();
+            // Skip directories
+            if (substr($entry, -1) === '/') {
+                continue;
+            }
 
-            return back()->with(
-                'success',
-                'Images extracted successfully.'
+            // Get only filename, remove folder path
+            $fileName = basename($entry);
+
+            $content = $zip->getFromIndex($i);
+
+            file_put_contents(
+                $destination . DIRECTORY_SEPARATOR . $fileName,
+                $content
             );
         }
 
+        $zip->close();
+
         return back()->with(
-            'error',
-            'Unable to extract zip.'
+            'success',
+            'Images extracted successfully.'
         );
     }
+
+    return back()->with(
+        'error',
+        'Unable to extract zip.'
+    );
+}
 
     public function downloadCategoryReference()
     {

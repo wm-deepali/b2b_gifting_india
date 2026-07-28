@@ -8,11 +8,13 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Illuminate\Support\Str;
 
 class BrandImport implements ToCollection, WithHeadingRow
 {
     public function collection(Collection $rows)
     {
+        $renamedImages = [];
         foreach ($rows as $row) {
 
             if (empty($row['name'])) {
@@ -28,20 +30,53 @@ class BrandImport implements ToCollection, WithHeadingRow
                 continue;
             }
 
-            $logo = null;
+          
+   $logo = null;
 
-            if (!empty($row['logo_name'])) {
+if (!empty($row['logo_name'])) {
 
-                $logoPath = 'brands/' . trim($row['logo_name']);
-                if (storage_path('app/public/' . $logoPath)) {
-                    $logo = $logoPath;
-                }
+    $oldImageName = trim($row['logo_name']);
+
+    // image already renamed before
+    if (isset($renamedImages[$oldImageName])) {
+
+        $logo = $renamedImages[$oldImageName];
+
+    } else {
+
+        $oldPath = 'brands/' . $oldImageName;
+
+        if (Storage::disk('public')->exists($oldPath)) {
+
+            $extension = pathinfo(
+                $oldImageName,
+                PATHINFO_EXTENSION
+            );
+
+            $newImageName =
+                Str::slug(trim($row['name'])) . '.' . $extension;
+
+            $newPath = 'brands/' . $newImageName;
+
+            if (!Storage::disk('public')->exists($newPath)) {
+
+                Storage::disk('public')->move(
+                    $oldPath,
+                    $newPath
+                );
             }
+
+            $logo = $newPath;
+
+            $renamedImages[$oldImageName] = $newPath;
+        }
+    }
+}
 
             $brand = Brand::create([
                 'name' => trim($row['name']),
                 'logo' => $logo,
-                'status' => $row['status'] ?? 1,
+                'status' =>  1,
             ]);
 
             if (!empty($row['categories'])) {

@@ -1,4 +1,5 @@
-  @forelse($occasions as $occasion)
+@foreach($occasions as $occasion)
+
 
                                 <div class="aqf-collection-item p-relative" style="cursor: pointer;">
                                     <div class="aqf-collection-thumb">
@@ -39,10 +40,4 @@
                                     </div>
                                 </div>
 
-                            @empty
-
-                                <div class="col-12 text-center">
-                                    <p>No occasions found.</p>
-                                </div>
-
-                            @endforelse
+                            @endforeach

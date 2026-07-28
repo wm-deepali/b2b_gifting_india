@@ -56,7 +56,7 @@
 
                                     <tr id="row{{ $award->id }}">
 
-                                        <td>{{ $award->id }}</td>
+                                        <td>{{ $loop->iteration }}</td>
 
                                         <td>
                                             @if($award->image)

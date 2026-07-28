@@ -65,7 +65,7 @@
                         <div class="row g-4 justify-content-center">
                             @foreach($products as $product)
                                         <!-- Item 1 -->
-                                        <div class="col-lg-4 col-md-6">
+                                        <div class="col-lg-3 col-md-6">
 
                                             <a href="{{ route('product.details', $product->slug) }}" class="text-decoration-none text-dark">
 

@@ -13,6 +13,8 @@ class CategoryImport implements ToCollection, WithHeadingRow
 {
     public function collection(Collection $rows)
     {
+         $renamedImages = [];
+         
         foreach ($rows as $row) {
 
             if (empty($row['name'])) {
@@ -40,24 +42,64 @@ class CategoryImport implements ToCollection, WithHeadingRow
                 continue;
             }
 
-            // IMAGE
             $image = null;
 
-            if (!empty($row['image_name'])) {
+if (!empty($row['image_name'])) {
 
-                $imagePath = 'categories/' . trim($row['image_name']);
+    $oldImageName = trim($row['image_name']);
 
-                if (storage_path('app/public/' . $imagePath)) {
-                    $image = $imagePath;
-                }
+    // image already renamed before
+    if (isset($renamedImages[$oldImageName])) {
+
+        $image = $renamedImages[$oldImageName];
+
+    } else {
+
+        $oldPath = 'categories/' . $oldImageName;
+
+        if (Storage::disk('public')->exists($oldPath)) {
+
+            $extension = pathinfo(
+                $oldImageName,
+                PATHINFO_EXTENSION
+            );
+
+            $newImageName =
+                Str::slug(trim($row['name'])) . '.' . $extension;
+
+            $newPath = 'categories/' . $newImageName;
+
+            if (!Storage::disk('public')->exists($newPath)) {
+
+                Storage::disk('public')->move(
+                    $oldPath,
+                    $newPath
+                );
             }
 
+            $image = $newPath;
+
+            $renamedImages[$oldImageName] = $newPath;
+        }
+    }
+}
+
+$slug = Str::slug(trim($row['name']));
+$originalSlug = $slug;
+$count = 1;
+
+while (
+    Category::where('slug', $slug)->exists()
+) {
+    $slug = $originalSlug . '-' . $count;
+    $count++;
+}
             Category::create([
                 'name' => trim($row['name']),
 
                 'sub_title' => $row['sub_title'] ?? null,
 
-                'slug' => Str::slug($row['name']),
+                'slug' => $slug,
 
                 'meta_title' => $row['meta_title'] ?? null,
                 'meta_description' => $row['meta_description'] ?? null,
@@ -74,7 +116,7 @@ class CategoryImport implements ToCollection, WithHeadingRow
 
                 'added_by' => $row['added_by'] ?? 'admin',
 
-                'status' => $row['status'] ?? 1,
+                'status' =>  1,
 
                 'sort_order' => $row['sort_order'] ?? 0,
             ]);

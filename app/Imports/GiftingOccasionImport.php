@@ -13,6 +13,7 @@ class GiftingOccasionImport implements ToCollection, WithHeadingRow
 {
     public function collection(Collection $rows)
     {
+        $renamedImages = [];
         foreach ($rows as $row) {
 
             if (empty($row['title'])) {
@@ -28,16 +29,58 @@ class GiftingOccasionImport implements ToCollection, WithHeadingRow
                 continue;
             }
 
-            $image = null;
+            
+               $image = null;
 
-            if (!empty($row['image_name'])) {
+if (!empty($row['image_name'])) {
 
-                $imagePath = 'gifting/' . trim($row['image_name']);
+    $oldImageName = trim($row['image_name']);
 
-                if (storage_path('app/public/' . $imagePath)) {
-                    $image = $imagePath;
-                }
+    // image already renamed before
+    if (isset($renamedImages[$oldImageName])) {
+
+        $image = $renamedImages[$oldImageName];
+
+    } else {
+
+        $oldPath = 'gifting/' . $oldImageName;
+
+        if (Storage::disk('public')->exists($oldPath)) {
+
+            $extension = pathinfo(
+                $oldImageName,
+                PATHINFO_EXTENSION
+            );
+
+            $newImageName =
+                Str::slug(trim($row['name'])) . '.' . $extension;
+
+            $newPath = 'gifting/' . $newImageName;
+
+            if (!Storage::disk('public')->exists($newPath)) {
+
+                Storage::disk('public')->move(
+                    $oldPath,
+                    $newPath
+                );
             }
+
+            $image = $newPath;
+
+            $renamedImages[$oldImageName] = $newPath;
+        }
+    }
+}
+$slug = Str::slug(trim($row['title']));
+$originalSlug = $slug;
+$count = 1;
+
+while (
+    Category::where('slug', $slug)->exists()
+) {
+    $slug = $originalSlug . '-' . $count;
+    $count++;
+}
 
             GiftingOccasion::create([
                 'title' => trim($row['title']),
@@ -46,7 +89,7 @@ class GiftingOccasionImport implements ToCollection, WithHeadingRow
 
                 'short_description' => $row['short_description'] ?? null,
 
-                'slug' => Str::slug($row['title']),
+                'slug' => $slug,
 
                 'meta_title' => $row['meta_title'] ?? null,
 
@@ -56,7 +99,7 @@ class GiftingOccasionImport implements ToCollection, WithHeadingRow
 
                 'image' => $image,
 
-                'status' => $row['status'] ?? 1,
+                'status' =>  1,
             ]);
         }
     }

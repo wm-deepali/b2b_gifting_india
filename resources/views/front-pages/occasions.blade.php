@@ -47,36 +47,23 @@
                     <div class="gifting_occasions">
                         <div class="aq-occasion-grid" id="occasion-container">
 
-                            @include('front-pages.partials.occasion-items', ['occasions' => $occasions])
+    @if($occasions->count())
+        @include('front-pages.partials.occasion-items', ['occasions' => $occasions])
+    @else
+        <div class="col-12 text-center">
+            <p>No occasions found.</p>
+        </div>
+    @endif
 
-                        </div>
-
-                        <div class="readmore-btn">
-                            <div class="aq-header-top-bulk-orders d-none d-lg-inline-block">
-                                @if($occasions->hasMorePages())
-
-                                    <a href="javascript:void(0)" class="aq-load-more-btn"id="load-more-occasions" data-page="2">
-
-                                        <i>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
-                                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path
-                                                    d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
-                                                </path>
-                                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                                            </svg>
-                                        </i>
-
-                                        <span>LOAD MORE OCCASIONS</span>
-
-                                    </a>
-
-                                @endif
-
-                            </div>
-                        </div>
+</div>
+                       
+@if($occasions->hasMorePages())
+    <div id="occasion-loader"
+         data-page="2"
+         class="text-center py-4">
+        Loading more occasions...
+    </div>
+@endif
 
 
                     </div>
@@ -86,35 +73,61 @@
     </main>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).on('click', '#load-more-occasions', function () {
 
-            let btn = $(this);
-            let page = btn.data('page');
+   <script>
+$(document).ready(function () {
 
-            btn.find('span').text('Loading...');
+    let loading = false;
 
-            $.ajax({
-                url: "{{ route('occasions') }}",
-                type: "GET",
-                data: {
-                    page: page
-                },
-                success: function (response) {
+    const loader = document.getElementById('occasion-loader');
 
-                    if ($.trim(response) === '') {
-                        btn.remove();
-                        return;
-                    }
+    if (!loader) {
+        return;
+    }
 
-                    $('#occasion-container').append(response);
+    const observer = new IntersectionObserver(function (entries) {
 
-                    btn.data('page', page + 1);
-                    btn.find('span').text('LOAD MORE OCCASIONS');
-                }
-            });
+        if (!entries[0].isIntersecting || loading) {
+            return;
+        }
 
+        loading = true;
+
+        let page = parseInt(loader.dataset.page);
+
+        $.ajax({
+            url: "{{ route('occasions') }}",
+            type: "GET",
+            data: {
+                page: page
+            },
+         success: function (response) {
+
+    $('#occasion-container').append(response.html);
+
+    if (response.hasMorePages) {
+
+        loader.dataset.page = page + 1;
+        loading = false;
+
+    } else {
+
+        observer.disconnect();
+        loader.remove();
+    }
+},
+            error: function () {
+                loading = false;
+            }
         });
-    </script>
+
+    }, {
+        rootMargin: '200px'
+    });
+
+    observer.observe(loader);
+
+});
+</script>
 
 @endsection

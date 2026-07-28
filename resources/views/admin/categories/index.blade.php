@@ -186,14 +186,14 @@
 
                                                             <tr id="row{{ $cat->id }}">
 
-                                                                <td>{{ $cat->id }}</td>
-
+                                                              <td>{{ $categories->firstItem() + $loop->index }}</td>
+                                                              
                                                                 <td>
                                                                     @if($cat->image)
                                                                         <img src="{{ asset('storage/' . $cat->image) }}" width="60" height="60"
                                                                             class="rounded" style="object-fit:cover;">
                                                                     @else
-                                                                        <span class="text-muted">â€”</span>
+                                                                        <span class="text-muted">—</span>
                                                                     @endif
                                                                 </td>
 

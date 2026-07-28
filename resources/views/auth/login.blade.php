@@ -38,7 +38,7 @@
 }
     .login-left {
         width: 45%;
-        background: linear-gradient(135deg, #f97316, #fb923c);
+        background: linear-gradient(135deg, #003108, #146c2e);
         color: #fff;
         text-align: center;
         padding: 40px 20px;
@@ -73,14 +73,14 @@
     .form-control {
         border-radius: 10px;
         padding: 12px;
-        background: #f1f5f9;
+        background: #00310814;
         border: none;
     }
 
     .form-control:focus {
         box-shadow: none;
-        border: 1px solid #f97316;
-        background: #fff;
+        border: 1px solid #00310814;
+        background: #00310814;
     }
 
     .btn-login {
@@ -88,7 +88,7 @@
         padding: 12px;
         border-radius: 12px;
         border: none;
-        background: linear-gradient(90deg, #f97316, #fb923c);
+        background: linear-gradient(90deg, #003108, #146c2e);
         color: #fff;
         font-weight: 500;
     }

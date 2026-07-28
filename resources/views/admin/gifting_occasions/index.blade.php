@@ -59,8 +59,8 @@
 
                                     <tr id="row{{ $item->id }}">
 
-                                        <td>{{ $item->id }}</td>
-
+                                       <td>{{ $occasions->firstItem() + $loop->index }}</td>
+                                       
                                         <td>
                                             @if($item->image)
                                                 <img src="{{ asset('storage/' . $item->image) }}" width="70">

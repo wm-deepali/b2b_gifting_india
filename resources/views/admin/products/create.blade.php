@@ -442,7 +442,7 @@
                                     placeholder="Enter full YouTube URL (https://youtube.com/watch?v=xxxx) OR direct MP4 link">
 
                                 <small class="text-muted">
-                                    ðŸ‘‰ Enter full YouTube URL. Example:
+                                    👉 Enter full YouTube URL. Example:
                                     https://www.youtube.com/watch?v=abc123XYZ
                                 </small>
                             </div>
@@ -816,7 +816,7 @@
                     <img src="${e.target.result}">
 
                     <div class="thumb-actions">
-                        <button type="button" class="remove-btn" onclick="removeImage(${index})">Ã—</button>
+                        <button type="button" class="remove-btn" onclick="removeImage(${index})">×</button>
                     </div>
 
                     <div class="text-center mt-1">

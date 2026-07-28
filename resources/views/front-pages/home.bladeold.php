@@ -119,7 +119,7 @@
                 </svg>
             </div>
 
-            <div class="container custom-fluid-container">
+            <div class="container">
 
                 <div class="row align-items-center mb-40">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-12">
@@ -137,10 +137,9 @@
                     </div>
                 </div>
 
-                <!--<div class="row row-cols-3 row-cols-sm-3 row-cols-md-3 row-cols-lg-5 g-4 carddesign">-->
-                <div class="row row-cols-sm-3 row-cols-md-3 row-cols-lg-4  g-4 carddesign">
+                <div class="row row-cols-3 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4">
 
-                    @foreach($popularCategories as $category)
+                    @foreach($Categories as $category)
 
                         <div class="col">
 
@@ -703,7 +702,7 @@
 
         <!-- Section 1: Premium Pastel Trust Cards Start -->
         <section class="aqf-pastel-features-section pt-40 pb-40">
-            <div class="container custom-fluid-container">
+            <div class="container">
                 <div class="row g-4">
                     <!-- Card 1: Bulk Orders -->
                     <div class="col-lg-4 col-md-6 col-12">
@@ -771,7 +770,7 @@
         @endphp
         <section>
             <div class="aqf-collection-area fix">
-                <div class="container custom-fluid-container">
+                <div class="container">
                     <!-- Section Title -->
                     <div class="aqf-collection-top mb-40">
                         <div class="row align-items-end">
@@ -968,7 +967,7 @@
         <section class="deal-aqf-area">
             <div class="aqf-deals-area">
                 <div class="aqf-deals-wrap py-0 py-md-5" >
-                    <div class="container custom-fluid-container">
+                    <div class="container">
                         <div class="row">
                             <div class="col-xl-5 col-lg-6">
                                 <div class="aqf-deals-banner-wrap p-relative mr-30">
@@ -1215,7 +1214,7 @@
                     </svg>
                 </div>
 
-                <div class="container custom-fluid-container">
+                <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-xl-12">
                             <div class="aq-creative-title-box">
@@ -1358,7 +1357,7 @@
                     </svg>
                 </div>
 
-                <div class="container custom-fluid-container">
+                <div class="container">
                     <div class="row justify-content-center pt-20 pb-20">
                         <div class="col-xl-12">
                             <div class="aq-creative-title-box">
@@ -1506,7 +1505,7 @@
         <!-- saller area start -->
         <section>
             <div class="aqf-seller-area fix pt-20 pb-20">
-                <div class="container custom-fluid-container">
+                <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-xl-12">
                             <div class="aq-creative-title-box text-center">
@@ -1683,7 +1682,7 @@
                         <path d="M50 0 L60 40 L100 50 L60 60 L50 100 L40 60 L0 50 L40 40 Z" />
                     </svg>
                 </div>
-                <div class="container custom-fluid-container">
+                <div class="container">
                     <div class="aqf-summer-wrap" data-bg-color="#FAFAFA">
                         <div class="row align-items-center">
                             <div class="col-xl-5 col-lg-7 d-none d-lg-block">
@@ -1798,7 +1797,7 @@
         <!-- reels area start -->
         <section>
             <div class="aqf-reels-area fix pb-md-50">
-                <div class="container custom-fluid-container">
+                <div class="container">
                     <div class="aqf-collection-top mb-40">
                         <div class="row align-items-end">
                             <div class="col-md-12">
@@ -1896,7 +1895,7 @@
                     </svg>
                 </div>
 
-                <div class="container custom-fluid-container">
+                <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-xl-12">
                             <div class="aq-creative-title-box pt-30">
@@ -1969,7 +1968,7 @@
 
         <!-- Our Brands section start -->
         <section class="aq-brands-section-wrap">
-            <div class="container custom-fluid-container">
+            <div class="container">
 
                 <!-- Section Title -->
                 <div class="aqf-collection-top mb-40">
@@ -2081,7 +2080,7 @@
         <!-- testimonial area start -->
         <section>
             <div class="aqf-testimonial-area-creative fix pt-20 pb-20">
-                <div class="container custom-fluid-container">
+                <div class="container">
                     <div class="row justify-content-center">
                         <div class="aq-creative-title-box">
                             <span class="aq-creative-subtitle">Client Testimonials</span>

@@ -25,10 +25,10 @@
             </div>
         </section>
 
-        <div class="aq-personalised-page-wrap">
+        <div class="aq-personalised-page-wrap aq-engraving-page-wrap">
 
             <!-- Intro Section -->
-            <section class="aq-personalised-intro-section">
+            <section class="aq-personalised-intro-section ">
                 <div class="container">
                     <div class="row align-items-center g-5">
                         <div class="col-lg-6">
@@ -58,80 +58,47 @@
                 </div>
             </section>
 
-            <!-- Works / Empty State Section -->
-            <section class="aq-personalised-works-section">
+               <!-- Works / Empty State Section -->
+            <section class="aq-engraving-gallery-section">
                 <div class="container">
-                    <div class="row justify-content-center text-center">
+                    <div class="row justify-content-center text-center mb-50">
                         <div class="col-lg-8">
-                            <h2 class="aq-section-title aq-personalised-main-title text-center">Our Personal Engraving Works
-                            </h2>
+                            <h2 class="aq-section-title aq-personalised-main-title text-center">Our Personal Engraving Works</h2>
                         </div>
                     </div>
 
                     @if($products->count() > 0)
-
                         <div class="row g-4 justify-content-center">
                             @foreach($products as $product)
-                                        <!-- Item 1 -->
-                                        <div class="col-lg-4 col-md-6">
-
-                                            <a href="{{ route('product.details', $product->slug) }}" class="text-decoration-none text-dark">
-
-                                                <div class="aq-engraving-card">
-
-                                                    <div class="aq-engraving-img-wrap">
-
-                                                        <img src="{{ $product->display_image
-                                ? asset('storage/' . $product->display_image)
-                                : asset('no-image.jpg') }}" alt="{{ $product->name }}">
-
-                                                        <div class="aq-engraving-overlay">
-                                                            <i class="fa-solid fa-magnifying-glass-plus"></i>
-                                                        </div>
-
-                                                    </div>
-
-                                                    <div class="aq-engraving-content">
-
-                                                        <h3 class="aq-engraving-card-title">
-                                                            {{ $product->name }}
-                                                        </h3>
-
-                                                        <p class="aq-engraving-card-desc">
-                                                            {{ $product->description }}
-                                                        </p>
-
-                                                        <div class="aq-engraving-card-details">
-
-                                                            <span class="aq-engraving-price">
-                                                                ₹{{ number_format($product->price) }}
-                                                            </span>
-
-                                                            <span class="aq-engraving-moq">
-                                                                MOQ: {{ $product->min_qty ?? 1 }} pcs
-                                                            </span>
-
-                                                        </div>
-
-                                                    </div>
-
+                                <div class="col-lg-3 col-md-6">
+                                    <a href="{{ route('product.details', $product->slug) }}" class="text-decoration-none text-dark">
+                                        <div class="aq-engraving-card bg-white">
+                                            <div class="aq-engraving-img-wrap">
+                                                <img src="{{ $product->display_image ? asset('storage/' . $product->display_image) : asset('no-image.jpg') }}" alt="{{ $product->name }}">
+                                                <div class="aq-engraving-overlay">
+                                                    <i class="fa-solid fa-magnifying-glass-plus"></i>
                                                 </div>
-
-                                            </a>
-
+                                            </div>
+                                            <div class="aq-engraving-content">
+                                                <h3 class="aq-engraving-card-title">{{ $product->name }}</h3>
+                                                <p class="aq-engraving-card-desc">{{ $product->description }}</p>
+                                                <div class="aq-engraving-card-details">
+                                                    <span class="aq-engraving-price">₹{{ number_format($product->price) }}</span>
+                                                    <span class="aq-engraving-moq">MOQ: {{ $product->min_qty ?? 1 }} pcs</span>
+                                                </div>
+                                            </div>
                                         </div>
+                                    </a>
+                                </div>
                             @endforeach
                         </div>
 
                         <div class="row mt-50">
                             <div class="col-12 text-center">
-                                <a href="{{ route('products', ['collection' => 'engravings']) }}"
-                                    class="aq-engraving-btn-outline">View More Engravings</a>
+                                <a href="{{ route('products', ['collection' => 'engravings']) }}" class="aq-personalised-btn-outline">View More Engravings</a>
                             </div>
                         </div>
-
                     @else
-
                         <div class="row justify-content-center text-center">
                             <div class="col-lg-8">
                                 <div class="aq-personalised-empty-state">
@@ -139,18 +106,18 @@
                                         <i class="fa-solid fa-box-open"></i>
                                     </div>
                                     <h4 class="aq-personalised-empty-title">No Products found</h4>
-                                    <p class="aq-personalised-empty-desc">Please explore our product section to find items
-                                        available for personalization.</p>
-                                    <a href="{{ route('products') }}" class="aq-personalised-btn-outline mt-30">Explore
-                                        Collection</a>
+                                    <p class="aq-personalised-empty-desc">Please explore our product section to find items available for personalization.</p>
+                                    <a href="{{ route('products') }}" class="aq-personalised-btn-outline mt-30">Explore Collection</a>
                                 </div>
                             </div>
                         </div>
-
                     @endif
-
                 </div>
             </section>
+            
+            
+            
+       
 
             <!-- Process Section -->
             <section class="aq-personalised-process-section">

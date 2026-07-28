@@ -13,6 +13,7 @@ use App\Models\GiftingOccasion;
 use App\Models\Customization;
 use App\Models\ProductInclusion;
 use App\Models\ProductImage;
+use Illuminate\Support\Facades\Storage;
 
 class ProductImport implements ToCollection, WithHeadingRow
 {
@@ -23,6 +24,7 @@ class ProductImport implements ToCollection, WithHeadingRow
 
     public function collection(Collection $rows)
     {
+        $renamedImages = [];
         foreach ($rows as $row) {
 
             if (empty($row['name'])) {
@@ -71,10 +73,21 @@ class ProductImport implements ToCollection, WithHeadingRow
                 $brandId = $brand?->id;
             }
 
+$slug = Str::slug(trim($row['name']));
+$originalSlug = $slug;
+$count = 1;
+
+while (
+    Category::where('slug', $slug)->exists()
+) {
+    $slug = $originalSlug . '-' . $count;
+    $count++;
+}
+
             // Product Create
             $product = Product::create([
                 'name' => trim($row['name']),
-                'slug' => Str::slug($row['name']),
+                'slug' => $slug,
 
                 'brand_id' => $brandId,
 
@@ -122,7 +135,7 @@ class ProductImport implements ToCollection, WithHeadingRow
                 'whatsapp' => !empty($row['whatsapp']) ? 1 : 0,
                 // 'call' => !empty($row['call']) ? 1 : 0,
 
-                'status' => $row['status'] ?? 1,
+                'status' => 1,
 
                 'sort_order' => $row['sort_order'] ?? 0,
                 'added_by' => $row['added_by'] ?? null,
@@ -250,31 +263,77 @@ class ProductImport implements ToCollection, WithHeadingRow
                     ]);
                 }
             }
+            
             if (!empty($row['image_names'])) {
 
-                $images = explode(',', $row['image_names']);
+    $images = explode(',', $row['image_names']);
 
-                $defaultAssigned = false;
+    $defaultAssigned = false;
 
-                foreach ($images as $image) {
+    foreach ($images as $index => $imageName) {
 
-                    $image = trim($image);
+        $imageName = trim($imageName);
 
-                    $imagePath = 'products/' . $image;
+        if (empty($imageName)) {
+            continue;
+        }
 
-                    if (!file_exists(storage_path('app/public/' . $imagePath))) {
-                        continue;
-                    }
+        // Already renamed earlier
+        if (isset($renamedImages[$imageName])) {
 
-                    ProductImage::create([
-                        'product_id' => $product->id,
-                        'image' => $imagePath,
-                        'is_default' => !$defaultAssigned ? 1 : 0,
-                    ]);
+            $imagePath = $renamedImages[$imageName];
 
-                    $defaultAssigned = true;
-                }
+        } else {
+
+            $oldPath = 'products/' . $imageName;
+
+            if (!Storage::disk('public')->exists($oldPath)) {
+                continue;
             }
+
+            $extension = pathinfo(
+                $imageName,
+                PATHINFO_EXTENSION
+            );
+
+            $baseName =
+                Str::slug($product->name);
+
+            $newImageName =
+                $baseName .
+                ($index > 0 ? '-' . ($index + 1) : '') .
+                '.' .
+                $extension;
+
+            $newPath =
+                'products/' . $newImageName;
+
+            if (
+                !Storage::disk('public')->exists($newPath)
+            ) {
+                Storage::disk('public')->move(
+                    $oldPath,
+                    $newPath
+                );
+            }
+
+            $imagePath = $newPath;
+
+            $renamedImages[$imageName] = $newPath;
+        }
+
+        ProductImage::create([
+            'product_id' => $product->id,
+            'image' => $imagePath,
+            'is_default' => !$defaultAssigned ? 1 : 0,
+        ]);
+
+        $defaultAssigned = true;
+    }
+}
+            
+            
+            
         }
     }
 }

@@ -140,8 +140,22 @@ class BrandController extends Controller
     public function importStore(Request $request)
     {
         $request->validate([
-            'file' => 'required|mimetypes:text/plain,text/csv,application/vnd.ms-excel'
-        ]);
+    'file' => 'required|file|max:10240'
+]);
+
+$file = $request->file('file');
+
+$allowed = ['xlsx', 'xls', 'csv'];
+
+if (!in_array(
+    strtolower($file->getClientOriginalExtension()),
+    $allowed
+)) {
+    return back()->withErrors([
+        'file' => 'Only XLSX, XLS and CSV files are allowed.'
+    ]);
+}
+
 
         try {
             Excel::import(
@@ -164,53 +178,66 @@ class BrandController extends Controller
     }
 
     public function uploadImagesZip(Request $request)
-    {
-        $request->validate([
-            'zip_file' => 'required|mimes:zip'
-        ]);
+{
+    $request->validate([
+        'zip_file' => 'required|mimes:zip'
+    ]);
 
-        $zip = new ZipArchive();
+    $zip = new ZipArchive();
 
-        if ($zip->open($request->file('zip_file')->getRealPath()) === true) {
+    if ($zip->open($request->file('zip_file')->getRealPath()) === true) {
 
-            $extractPath = storage_path(
-                'app/public/brands'
-            );
+        $extractPath = storage_path('app/public/brands');
 
-            if (!file_exists($extractPath)) {
-                mkdir($extractPath, 0777, true);
+        if (!file_exists($extractPath)) {
+            mkdir($extractPath, 0777, true);
+        }
+
+        for ($i = 0; $i < $zip->numFiles; $i++) {
+
+            $entry = $zip->getNameIndex($i);
+
+            // Skip directories
+            if (substr($entry, -1) === '/') {
+                continue;
             }
 
-            $zip->extractTo($extractPath);
+            // Extract only filename, ignore folders
+            $fileName = basename($entry);
 
-            $zip->close();
+            $content = $zip->getFromIndex($i);
 
-            return back()->with(
-                'success',
-                'Brand logos uploaded successfully.'
+            file_put_contents(
+                $extractPath . DIRECTORY_SEPARATOR . $fileName,
+                $content
             );
         }
 
+        $zip->close();
+
         return back()->with(
-            'error',
-            'Unable to extract ZIP.'
+            'success',
+            'Brand logos uploaded successfully.'
         );
     }
 
+    return back()->with(
+        'error',
+        'Unable to extract ZIP.'
+    );
+}
     public function downloadSample()
     {
         $headers = [
             'name',
             'logo_name',
             'categories',
-            'status'
         ];
 
         $sampleRow = [
             'Parker',
             'parker.jpg',
             'Corporate Gifts, Diaries',
-            '1'
         ];
 
         $response = new StreamedResponse(function () use ($headers, $sampleRow) {

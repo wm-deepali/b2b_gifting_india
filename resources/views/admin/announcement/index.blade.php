@@ -56,7 +56,7 @@
 
                                     <tr id="row{{ $item->id }}">
 
-                                        <td>{{ $item->id }}</td>
+                                         <td>{{ $loop->iteration }}</td>
 
                                         <td>
                                             <strong>{{ $item->title }}</strong>

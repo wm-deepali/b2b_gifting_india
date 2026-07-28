@@ -66,7 +66,7 @@
 
                                     <tr id="row{{ $blog->id }}">
 
-                                        <td>{{ $blog->id }}</td>
+                                        <td>{{ $loop->iteration }}</td>
 
                                         <td>
                                             @if($blog->image)

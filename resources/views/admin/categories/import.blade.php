@@ -68,17 +68,29 @@
             </div>
         </div>
 
-        @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
+      @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 
-        @if(session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <strong>Please fix the following errors:</strong>
+
+        <ul class="mb-0 mt-2">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
         {{-- Instructions --}}
         <div class="card import-card">
@@ -185,6 +197,7 @@
                     <i class="fa fa-file-excel-o text-success"></i>
                     Import Categories
                 </h4>
+                
 
                 <form action="{{ route('admin.categories.import.store') }}" method="POST" enctype="multipart/form-data">
 

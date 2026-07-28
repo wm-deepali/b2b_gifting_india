@@ -90,19 +90,15 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="aq-search-input p-relative mb-60">
-                            <form action="{{ route('search.suggestions') }}" method="GET" autocomplete="off">
-                                <div class="aq-search-input-wrap">
-                                    <input type="text" class="searchInput" name="q"
-                                        placeholder="Search premium gifts, corporate hampers, brands..." />
-
-                                    <button type="submit" class="aq-search-btn">
-                                        <i class="fa-solid fa-magnifying-glass"></i>
-                                    </button>
-
-                                    <div class="searchSuggestions search-suggestions"></div>
-                                </div>
-                            </form>
-
+                            <input type="text" placeholder="What are you looking for?" />
+                            <button type="submit" class="aq-search-input-btn" aria-label="Submit Search Query">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"
+                                    fill="none">
+                                    <path
+                                        d="M13.6792 12.6197C13.3863 12.3268 12.9114 12.3268 12.6185 12.6197C12.3256 12.9126 12.3256 13.3875 12.6185 13.6804L13.1489 13.15L13.6792 12.6197ZM13.1489 13.15L12.6185 13.6804L16.2185 17.2803L16.7489 16.75L17.2792 16.2197L13.6792 12.6197L13.1489 13.15ZM15.1499 7.94997H15.8999C15.8999 3.55932 12.3406 0 7.94997 0V0.75V1.5C11.5122 1.5 14.3999 4.38775 14.3999 7.94997H15.1499ZM7.94997 0.75V0C3.55932 0 0 3.55932 0 7.94997H0.75H1.5C1.5 4.38775 4.38775 1.5 7.94997 1.5V0.75ZM0.75 7.94997H0C0 12.3406 3.55932 15.8999 7.94997 15.8999V15.1499V14.3999C4.38775 14.3999 1.5 11.5122 1.5 7.94997H0.75ZM7.94997 15.1499V15.8999C12.3406 15.8999 15.8999 12.3406 15.8999 7.94997H15.1499H14.3999C14.3999 11.5122 11.5122 14.3999 7.94997 14.3999V15.1499Z"
+                                        fill="currentcolor"></path>
+                                </svg>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -111,64 +107,118 @@
                         <div class="aq-search-cat-wrap mb-30">
                             <h4 class="aq-search-cat-title mb-35">Popular Searches</h4>
                             <div class="aq-search-cat">
-                                @foreach($popularCategories as $category)
-                                    <a href="{{ route('category.products', $category->slug) }}">
-                                        {{ $category->name }}
-                                    </a>
-                                @endforeach
+                                <a href="#">Hampers</a>
+                                <a href="#">Welcome Kits</a>
+                                <a href="#">Tech Gadgets</a>
+                                <a href="#">Business Bags</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-xl-9">
                         <div class="aq-search-product mb-30">
-
                             <h4 class="aq-search-cat-title mb-35">
                                 Recently Viewed Products
                             </h4>
-
                             <div class="row row-cols-xl-4 row-cols-lg-4 row-cols-md-2 row-cols-sm-2 row-cols-1">
-
-                                @forelse($recentProducts as $product)
-
-                                    <div class="col">
-                                        <div class="aq-product-item aq-product-main mb-40" data-lazy="true">
-                                            <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
-                                                <a href="{{ route('product.details', $product->slug) }}">
-                                                    
-                                                    <img class="lazyload aq-product-img"
-                                                        src="{{ asset('storage/' . $product->display_image) }}"
-                                                        alt="{{ $product->name }}" loading="lazy" />
-
-                                                    <img class="aq-img-hover lazyload"
-                                                        src="{{ asset('storage/' . $product->display_image) }}"
-                                                        alt="{{ $product->name }}" loading="lazy" />
-                                                </a>
-                                            </div>
-                                            <div class="aq-product-content">
-                                                <span class="aqf-product-3-category">Premium Hampers</span>
-                                                <h4 class="aq-product-title mb-5">
-                                                    <a href="{{ route('product.details', $product->slug) }}">
-                                                        {{ $product->name }}</a>
-                                                </h4>
-                                                <div class="aq-product-price">
-                                                    <ins><span
-                                                            class="aq-product-new-price">${{ number_format($product->price, 2) }}</span></ins>
-                                                </div>
+                                <div class="col">
+                                    <div class="aq-product-item aq-product-main mb-40" data-lazy="true">
+                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
+                                            <a href="product-details-default.html">
+                                                <img class="lazyload aq-product-img"
+                                                    src="public/assets/img/corporate/custom_gift_hampers1.webp"
+                                                    alt="Corporate Hamper" loading="lazy" />
+                                                <img class="aq-img-hover lazyload"
+                                                    src="public/assets/img/corporate/custom_gift_hampers2.webp"
+                                                    alt="Corporate Hamper Hover" loading="lazy" />
+                                            </a>
+                                        </div>
+                                        <div class="aq-product-content">
+                                            <span class="aqf-product-3-category">Premium Hampers</span>
+                                            <h4 class="aq-product-title mb-5">
+                                                <a href="product-details-default.html">Bespoke Corporate Hamper</a>
+                                            </h4>
+                                            <div class="aq-product-price">
+                                                <ins><span class="aq-product-new-price">$85.00</span></ins>
                                             </div>
                                         </div>
                                     </div>
-
-
-                                @empty
-
-                                    <div class="col-12">
-                                        <p>No recently viewed products found.</p>
+                                </div>
+                                <div class="col">
+                                    <div class="aq-product-item aq-product-main mb-40" data-lazy="true">
+                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
+                                            <div class="aq-product-badge">
+                                                <span class="clr-sale">-10%</span>
+                                            </div>
+                                            <a href="product-details-default.html">
+                                                <img class="lazyload aq-product-img"
+                                                    src="public/assets/img/corporate/premium_gadgets_1778668027534.webp"
+                                                    alt="Tech Gadgets" loading="lazy" />
+                                                <img class="aq-img-hover lazyload"
+                                                    src="public/assets/img/corporate/media__1778668953904.webp"
+                                                    alt="Tech Gadgets Hover" loading="lazy" />
+                                            </a>
+                                        </div>
+                                        <div class="aq-product-content">
+                                            <span class="aqf-product-3-category">Tech & Gadgets</span>
+                                            <h4 class="aq-product-title mb-5">
+                                                <a href="product-details-default.html">Elite Tech Suite</a>
+                                            </h4>
+                                            <div class="aq-product-price">
+                                                <ins><span class="aq-product-new-price">$145.00</span></ins>
+                                            </div>
+                                        </div>
                                     </div>
-
-                                @endforelse
-
+                                </div>
+                                <div class="col">
+                                    <div class="aq-product-item aq-product-main mb-40" data-lazy="true">
+                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
+                                            <a href="product-details-default.html">
+                                                <img class="lazyload aq-product-img"
+                                                    src="public/assets/img/corporate/apparel_gifts_1778668621245.webp"
+                                                    alt="Corporate Apparel" loading="lazy" />
+                                                <img class="aq-img-hover lazyload"
+                                                    src="public/assets/img/corporate/media__1778668979144.png"
+                                                    alt="Corporate Apparel Hover" loading="lazy" />
+                                            </a>
+                                        </div>
+                                        <div class="aq-product-content">
+                                            <span class="aqf-product-3-category">Corporate Wear</span>
+                                            <h4 class="aq-product-title mb-5">
+                                                <a href="product-details-default.html">Premium Branded Polo</a>
+                                            </h4>
+                                            <div class="aq-product-price">
+                                                <ins><span class="aq-product-new-price">$30.00</span></ins>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="aq-product-item aq-product-main mb-40" data-lazy="true">
+                                        <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
+                                            <div class="aq-product-badge">
+                                                <span class="clr-new">New</span>
+                                            </div>
+                                            <a href="product-details-default.html">
+                                                <img class="lazyload aq-product-img"
+                                                    src="public/assets/img/corporate/backpack_gifts_1778668040094.webp"
+                                                    alt="Business Bag" loading="lazy" />
+                                                <img class="aq-img-hover lazyload"
+                                                    src="public/assets/img/corporate/media__1778668962634.png"
+                                                    alt="Business Bag Hover" loading="lazy" />
+                                            </a>
+                                        </div>
+                                        <div class="aq-product-content">
+                                            <span class="aqf-product-3-category">Travel</span>
+                                            <h4 class="aq-product-title mb-5">
+                                                <a href="product-details-default.html">Executive Travel Case</a>
+                                            </h4>
+                                            <div class="aq-product-price">
+                                                <ins><span class="aq-product-new-price">$44.00</span></ins>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -798,8 +848,7 @@
 
         <div class="aq-header-top-area aq-header-top-bdr" style="background: #00310814">
             <div class="container container-1830">
-                <!-- Desktop Header Layout -->
-                <div class="row align-items-center d-none d-xl-flex">
+                <div class="row align-items-center">
                     <div class="col-2">
                         <div class="aq-header-logo text-center pt-10 pb-10">
                             <a href="{{ url('/') }}">
@@ -812,13 +861,14 @@
                         <div class="aq-header-search-box">
                             <form action="{{ route('search.suggestions') }}" method="GET" autocomplete="off">
                                 <div class="aq-search-input-wrap">
-                                    <input type="text" class="searchInput" name="q"
+                                    <input type="text" id="searchInput" name="q"
                                         placeholder="Search premium gifts, corporate hampers, brands..." />
 
                                     <button type="submit" class="aq-search-btn">
                                         <i class="fa-solid fa-magnifying-glass"></i>
                                     </button>
-                                    <div class="searchSuggestions search-suggestions"></div>
+
+                                    <div id="searchSuggestions" class="search-suggestions"></div>
                                 </div>
                             </form>
                         </div>
@@ -884,53 +934,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Mobile Header Layout -->
-                <div class="row align-items-center d-flex d-xl-none py-3">
-                    <div class="col-5 text-start">
-                        <div class="aq-header-logo">
-                            <a href="{{ url('/') }}">
-                                <img style="max-width: 140px; width: 100%;"
-                                    src="{{ asset('assets/img/corporate/logo.webp') }}" alt="Logo" />
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-7 text-end">
-                        <div class="aq-header-right-options">
-                            <ul class="d-flex justify-content-end align-items-center gap-3 m-0 p-0">
-                                <li>
-                                    <button class="aq-search-toggle"
-                                        style="background: transparent; border: none; font-size: 20px; cursor: pointer; color: #343330; padding: 0;">
-                                        <i class="fa-solid fa-magnifying-glass"></i>
-                                    </button>
-                                </li>
-                                <li class="aq-header-top-cart aq-cart-btn">
-                                    <button
-                                        style="position: relative; background: transparent; border: none; padding: 0;">
-                                        <span class="count-box"
-                                            style="position: absolute; top: -8px; right: -8px; background: #C98F9D; color: white; border-radius: 50%; font-size: 11px; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-weight: bold;">
-                                            {{ \App\Models\Cart::where('session_id', session()->getId())
-    ->first()?->items()->sum('quantity') ?? 0 }}
-                                        </span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="23"
-                                            viewBox="0 0 20 21" fill="none">
-                                            <path
-                                                d="M5.48681 5.07041C5.48681 2.68433 7.4211 0.750039 9.80717 0.750039C10.9562 0.74517 12.0598 1.1982 12.874 2.00895C13.6882 2.81971 14.1459 3.92139 14.1458 5.07041M6.84107 9.57384H6.88684M12.6721 9.57388H12.7179M5.62368 19.972H13.9715C17.0379 19.972 19.3903 18.8645 18.7221 14.4068L17.944 8.3656C17.5321 6.14134 16.1134 5.29008 14.8685 5.29008H4.69004C3.42688 5.29008 2.0905 6.20542 1.61453 8.3656L0.836493 14.4068C0.268988 18.361 2.55732 19.972 5.62368 19.972Z"
-                                                stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"
-                                                stroke-linejoin="round"></path>
-                                        </svg>
-                                    </button>
-                                </li>
-                                <li>
-                                    <button class="aq-offcanvas-toggle"
-                                        style="background: transparent; border: none; font-size: 24px; cursor: pointer; color: #343330; padding: 0;">
-                                        <i class="fa-solid fa-bars"></i>
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         @php
@@ -947,6 +950,16 @@
 
         <div class="aq-header-bottom-area p-relative" data-bg-color="rgba(0, 49, 8, 0.08)">
             <div class="container">
+                <!-- Mobile Menu Toggle -->
+                <div class="row align-items-center d-xl-none py-2">
+                    <div class="col-12 text-center">
+                        <button
+                            class="aq-offcanvas-toggle d-flex align-items-center justify-content-center gap-2 m-auto"
+                            style="background: transparent; border: none; font-size: 16px; font-weight: 600; cursor: pointer; color: #000;">
+                            <i class="fa-solid fa-bars"></i> Menu
+                        </button>
+                    </div>
+                </div>
                 <!-- Desktop Menu -->
                 <div class="row justify-content-center d-none d-xl-flex">
                     <div class="col-xl-12">
@@ -1099,8 +1112,7 @@
                                                 <div
                                                     class="row row-cols-xl-6 row-cols-lg-3 row-cols-md-2 row-cols-1 gx-20">
 
-                                                   @foreach($menuCategories->take(11) as $category)
-
+                                                    @foreach($menuCategories as $category)
 
                                                         <div class="col">
                                                             <div class="aq-megamenu-img-item mb-20">
@@ -1130,26 +1142,6 @@
 
                                                     @endforeach
 
-@if($menuCategories->count() > 11)
-    <div class="col">
-       <div class="aq-megamenu-img-item mb-20">
-
-            <a href="{{ url('categories') }}"> {{-- change route as needed --}}
-
-            <div class="aq-megamenu-img d-flex align-items-center justify-content-center"
-     style="height: 180px;">
-    <span style="font-size: 50px; font-weight: 700;">+</span>
-</div>
-
-                <span class="aq-megamenu-img-title">
-                    Load More
-                </span>
-
-            </a>
-
-        </div>
-    </div>
-@endif
                                                 </div>
 
                                             </div>
@@ -2766,17 +2758,12 @@
             const storagePath = "{{ asset('storage') }}";
             const noImage = "{{ asset('assets/images/no-image.png') }}";
 
-            $(document).on('keyup', '.searchInput', function () {
+            $('#searchInput').on('keyup', function () {
 
-                let input = $(this);
-                let query = input.val().trim();
-
-                let suggestionsBox = input
-                    .closest('.aq-search-input-wrap')
-                    .find('.searchSuggestions');
+                let query = $(this).val().trim();
 
                 if (query.length < 2) {
-                    suggestionsBox.hide().html('');
+                    $('#searchSuggestions').hide().html('');
                     return;
                 }
 
@@ -2802,14 +2789,14 @@
                                     : noImage;
 
                                 html += `
-                            <a href="/product/${item.slug}" class="d-flex align-items-center gap-2">
-                                <img src="${image}"
-                                     width="40"
-                                     height="40"
-                                     style="object-fit:cover;border-radius:6px;">
-                                <span>${item.name}</span>
-                            </a>
-                        `;
+                                <a href="/product/${item.slug}" class="d-flex align-items-center gap-2">
+                                    <img src="${image}"
+                                         width="40"
+                                         height="40"
+                                         style="object-fit:cover;border-radius:6px;">
+                                    <span>${item.name}</span>
+                                </a>
+                            `;
                             });
                         }
 
@@ -2825,14 +2812,14 @@
                                     : noImage;
 
                                 html += `
-                            <a href="/category/${item.slug}" class="d-flex align-items-center gap-2">
-                                <img src="${image}"
-                                     width="40"
-                                     height="40"
-                                     style="object-fit:cover;border-radius:6px;">
-                                <span>${item.name}</span>
-                            </a>
-                        `;
+                                <a href="/category/${item.slug}" class="d-flex align-items-center gap-2">
+                                    <img src="${image}"
+                                         width="40"
+                                         height="40"
+                                         style="object-fit:cover;border-radius:6px;">
+                                    <span>${item.name}</span>
+                                </a>
+                            `;
                             });
                         }
 
@@ -2848,15 +2835,15 @@
                                     : noImage;
 
                                 html += `
-                            <a href="/category/${item.parent_slug}?subcategory=${item.slug}"
-                               class="d-flex align-items-center gap-2">
-                                <img src="${image}"
-                                     width="40"
-                                     height="40"
-                                     style="object-fit:cover;border-radius:6px;">
-                                <span>${item.name}</span>
-                            </a>
-                        `;
+                               <a href="/category/${item.parent_slug}?subcategory=${item.slug}"
+   class="d-flex align-items-center gap-2">
+                                    <img src="${image}"
+                                         width="40"
+                                         height="40"
+                                         style="object-fit:cover;border-radius:6px;">
+                                    <span>${item.name}</span>
+                                </a>
+                            `;
                             });
                         }
 
@@ -2871,38 +2858,39 @@
                                     ? `${storagePath}/${item.image}`
                                     : noImage;
 
+                                let url = `/products?occasion=${item.slug}`;
+
                                 html += `
-                            <a href="/products?occasion=${item.slug}"
-                               class="d-flex align-items-center gap-2">
-                                <img src="${image}"
-                                     width="40"
-                                     height="40"
-                                     style="object-fit:cover;border-radius:6px;">
-                                <span>${item.title}</span>
-                            </a>
-                        `;
+            <a href="${url}" class="d-flex align-items-center gap-2">
+                <img src="${image}"
+                     width="40"
+                     height="40"
+                     style="object-fit:cover;border-radius:6px;">
+                <span>${item.title}</span>
+            </a>
+        `;
                             });
                         }
 
                         if (html !== '') {
-                            suggestionsBox.html(html).show();
+                            $('#searchSuggestions').html(html).show();
                         } else {
-                            suggestionsBox.html(`
-                        <div class="p-3 text-center">
-                            No results found
-                        </div>
-                    `).show();
+                            $('#searchSuggestions').html(`
+                            <div class="p-3 text-center">
+                                No results found
+                            </div>
+                        `).show();
                         }
                     },
                     error: function () {
-                        suggestionsBox.hide().html('');
+                        $('#searchSuggestions').hide().html('');
                     }
                 });
             });
 
             $(document).on('click', function (e) {
                 if (!$(e.target).closest('.aq-search-input-wrap').length) {
-                    $('.searchSuggestions').hide();
+                    $('#searchSuggestions').hide();
                 }
             });
 

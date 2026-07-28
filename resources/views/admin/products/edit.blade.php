@@ -378,7 +378,7 @@
                                                     ->intersect($selectedSubIds)
                                                     ->isNotEmpty();
 
-                                                // âœ… NEW: also check if product linked directly to subcategory
+                                                // ✅ NEW: also check if product linked directly to subcategory
                                                 $showSubcategory = $hasSelectedChild;
                                                 $selectedOccasions = $product->occasions->pluck('id')->toArray();
                                             @endphp
@@ -459,7 +459,7 @@
 
                     <!-- REMOVE BUTTON -->
                     <div class="thumb-actions">
-                        <button type="button" class="remove-btn" onclick="removeExistingImage({{ $img->id }})">Ã—</button>
+                        <button type="button" class="remove-btn" onclick="removeExistingImage({{ $img->id }})">×</button>
                     </div>
 
                     <!-- DEFAULT -->
@@ -482,7 +482,7 @@
      <label class="mt-3">Video URL (YouTube / MP4)</label>
     <input type="text" name="video_url" value="{{ $product->video_url }}" class="form-control">
      <small class="text-muted">
-                                    ðŸ‘‰ Enter full YouTube URL. Example:
+                                    👉 Enter full YouTube URL. Example:
                                     https://www.youtube.com/watch?v=abc123XYZ
                                 </small>
 </div>
@@ -861,7 +861,7 @@ function renderPreview() {
                 <div class="thumb-box">
                     <img src="${e.target.result}">
                     <div class="thumb-actions">
-                        <button type="button" class="remove-btn" onclick="removeImage(${index})">Ã—</button>
+                        <button type="button" class="remove-btn" onclick="removeImage(${index})">×</button>
                     </div>
                     <div class="text-center mt-1">
                         <input type="radio" name="default_type" value="new_${index}" ${index === 0 ? 'checked' : ''}>

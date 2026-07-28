@@ -44,9 +44,11 @@
         {{-- MASTERS --}}
         <li class="{{ request()->routeIs(
     'admin.categories.*',
+    'admin.brands.*',
     'admin.gifting-occasions.*',
     'admin.customizations.*',
     'admin.products.*',
+    'admin.vendor-types.*',
     'admin.packages.*'
 ) ? 'active' : '' }}">
             <a href="#">
@@ -57,7 +59,12 @@
 
                 <li class="{{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.categories.index') }}">
-                        <i class="fa-solid fa-folder"></i> Categories
+                        <i class="fa-solid fa-folder"></i> Categories & Sub Categories
+                    </a>
+                </li>
+                <li class="{{ request()->routeIs('admin.brands.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.brands.index') }}">
+                        <i class="fa-solid fa-tags"></i> Manage Brands
                     </a>
                 </li>
 
@@ -69,7 +76,7 @@
 
                 <li class="{{ request()->routeIs('admin.customizations.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.customizations.index') }}">
-                        <i class="fa-solid fa-sliders"></i> Customizations
+                        <i class="fa-solid fa-sliders"></i> Customizations Options
                     </a>
                 </li>
 
@@ -78,12 +85,13 @@
                         <i class="fa-solid fa-box"></i> Manage Products
                     </a>
                 </li>
-
-                <li class="{{ request()->routeIs('admin.packages.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.packages.index') }}">
-                        <i class="fa-solid fa-box-open"></i> Manage Packages
+                <li class="{{ request()->routeIs('admin.vendor-types.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.vendor-types.index') }}">
+                        <i class="fa-solid fa-building"></i> Vendor Types
                     </a>
                 </li>
+
+                
 
             </ul>
         </li>
@@ -95,13 +103,12 @@
     'admin.home.*',
     'admin.faqs.*',
     'admin.blogs.*',
-    'admin.brands.*',
     'admin.clients.*',
     'admin.testimonials.*',
     'admin.contact-branches.*',
     'admin.awards.*',
     'admin.teams.*',
-    'admin.vendor-types.*',
+    
     'admin.seo.*'
 ) ? 'active' : '' }}">
             <a href="#">
@@ -110,15 +117,11 @@
 
             <ul>
 
-                <li class="{{ request()->routeIs('admin.seo.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.seo.index') }}">
-                        <i class="fa-solid fa-magnifying-glass-chart"></i> Manage SEO
-                    </a>
-                </li>
-
-                <li class="{{ request()->routeIs('admin.announcements.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.announcements.index') }}">
-                        <i class="fa-solid fa-bullhorn"></i> Announcement Bar
+                
+                {{-- ✅ HOME PAGE --}}
+                <li class="{{ request()->routeIs('admin.home-page.*', 'admin.home.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.home-page.index') }}">
+                        <i class="fa-solid fa-house"></i> Manage Home Page
                     </a>
                 </li>
 
@@ -128,12 +131,7 @@
                     </a>
                 </li>
 
-                {{-- ✅ HOME PAGE --}}
-                <li class="{{ request()->routeIs('admin.home-page.*', 'admin.home.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.home-page.index') }}">
-                        <i class="fa-solid fa-house"></i> Manage Home Page
-                    </a>
-                </li>
+                
 
                 <li class="{{ request()->routeIs('admin.faqs.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.faqs.index') }}">
@@ -144,12 +142,6 @@
                 <li class="{{ request()->routeIs('admin.blogs.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.blogs.index') }}">
                         <i class="fa-solid fa-blog"></i> Manage Blogs
-                    </a>
-                </li>
-
-                <li class="{{ request()->routeIs('admin.brands.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.brands.index') }}">
-                        <i class="fa-solid fa-tags"></i> Manage Brands
                     </a>
                 </li>
 
@@ -167,7 +159,7 @@
 
                 <li class="{{ request()->routeIs('admin.contact-branches.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.contact-branches.index') }}">
-                        <i class="fa-solid fa-location-dot"></i> Contact Branches
+                        <i class="fa-solid fa-location-dot"></i> Manage Contact Us
                     </a>
                 </li>
 
@@ -183,11 +175,6 @@
                     </a>
                 </li>
 
-                <li class="{{ request()->routeIs('admin.vendor-types.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.vendor-types.index') }}">
-                        <i class="fa-solid fa-building"></i> Vendor Types
-                    </a>
-                </li>
                 <li class="{{ request()->routeIs('admin.footer-settings.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.footer-settings.index') }}">
                         <i class="fa-solid fa-address-card"></i> Footer Settings
@@ -196,6 +183,66 @@
 
             </ul>
         </li>
+
+
+ {{-- SETTING --}}
+        <li class="{{ request()->routeIs(
+    'admin.seo.*',
+    'admin.gifting-occasions.*',
+    'admin.announcements.*',
+) ? 'active' : '' }}">
+            <a href="#">
+                <i class="fa-solid fa-layer-group"></i> SETTINGS
+            </a>
+
+            <ul>
+
+                 <li class="{{ request()->routeIs('admin.seo.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.seo.index') }}">
+                        <i class="fa-solid fa-magnifying-glass-chart"></i> Manage SEO
+                    </a>
+                </li>
+
+                <li class="{{ request()->routeIs('admin.announcements.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.announcements.index') }}">
+                        <i class="fa-solid fa-bullhorn"></i> Announcement Bar
+                    </a>
+                </li>
+                
+                
+                <li class="{{ request()->routeIs('admin.packages.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.packages.index') }}">
+                        <i class="fa-solid fa-box-open"></i> Manage Packages
+                    </a>
+                </li>
+
+               
+
+            </ul>
+        </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         {{-- ENQUIRIES --}}
         <li class="{{ request()->routeIs(

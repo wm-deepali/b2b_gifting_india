@@ -95,9 +95,9 @@ class CategoryController extends Controller
             'sub_title' => $request->sub_title,
 
             // ✅ slug safe
-            'slug' => $request->slug
-                ? Str::slug($request->slug)
-                : Str::slug($request->name),
+          'slug' => $this->generateUniqueSlug(
+    $request->slug ?: $request->name
+),
 
             'meta_title' => $request->meta_title,
             'meta_description' => $request->meta_description,
@@ -165,10 +165,10 @@ class CategoryController extends Controller
             'name' => $request->name,
             'sub_title' => $request->sub_title,
 
-            // ✅ slug safe
-            'slug' => $request->slug
-                ? Str::slug($request->slug)
-                : $category->slug,
+          'slug' => $this->generateUniqueSlug(
+    $request->slug ?: $request->name,
+    $category->id
+),
 
             'meta_title' => $request->meta_title,
             'meta_description' => $request->meta_description,
@@ -214,9 +214,22 @@ class CategoryController extends Controller
 
     public function importStore(Request $request)
     {
-        $request->validate([
-            'file' => 'required|mimetypes:text/plain,text/csv,application/vnd.ms-excel'
-        ]);
+$request->validate([
+    'file' => 'required|file|max:10240'
+]);
+
+$file = $request->file('file');
+
+$allowed = ['xlsx', 'xls', 'csv'];
+
+if (!in_array(
+    strtolower($file->getClientOriginalExtension()),
+    $allowed
+)) {
+    return back()->withErrors([
+        'file' => 'Only XLSX, XLS and CSV files are allowed.'
+    ]);
+}
 
         try {
 
@@ -250,7 +263,6 @@ class CategoryController extends Controller
             'is_popular',
             'is_featured',
             'show_on_website',
-            'status',
             'sort_order',
             'added_by'
         ];
@@ -262,7 +274,6 @@ class CategoryController extends Controller
             '',
             'Corporate Gifts',
             'Corporate Gifts Category',
-            '1',
             '1',
             '1',
             '1',
@@ -293,49 +304,68 @@ class CategoryController extends Controller
         return $response;
     }
 
-    public function uploadImagesZip(Request $request)
-    {
-        $request->validate([
-            'zip_file' => 'required|mimes:zip'
-        ]);
+   public function uploadImagesZip(Request $request)
+{
+    $request->validate([
+        'zip_file' => 'required|mimes:zip'
+    ]);
 
-        try {
+    try {
 
-            $zip = new ZipArchive();
+        $zip = new ZipArchive();
 
-            if ($zip->open($request->file('zip_file')->getRealPath()) === true) {
+        if ($zip->open($request->file('zip_file')->getRealPath()) === true) {
 
-                $extractPath = storage_path(
-                    'app/public/categories'
-                );
+            $extractPath = storage_path('app/public/categories');
+            if (!file_exists($extractPath)) {
+    mkdir($extractPath, 0755, true);
+}
 
-                if (!file_exists($extractPath)) {
-                    mkdir($extractPath, 0777, true);
+            if (!file_exists($extractPath)) {
+                mkdir($extractPath, 0777, true);
+            }
+
+            for ($i = 0; $i < $zip->numFiles; $i++) {
+
+                $entry = $zip->getNameIndex($i);
+
+                // Skip folders
+                if (substr($entry, -1) === '/') {
+                    continue;
                 }
 
-                $zip->extractTo($extractPath);
+                // Get filename only, remove folder path
+                $fileName = basename($entry);
 
-                $zip->close();
+                $content = $zip->getFromIndex($i);
 
-                return back()->with(
-                    'success',
-                    'Category images uploaded successfully.'
+                file_put_contents(
+                    $extractPath . DIRECTORY_SEPARATOR . $fileName,
+                    $content
                 );
             }
 
-            return back()->with(
-                'error',
-                'Unable to extract ZIP file.'
-            );
-
-        } catch (\Exception $e) {
+            $zip->close();
 
             return back()->with(
-                'error',
-                $e->getMessage()
+                'success',
+                'Category images uploaded successfully.'
             );
         }
+
+        return back()->with(
+            'error',
+            'Unable to extract ZIP file.'
+        );
+
+    } catch (\Exception $e) {
+
+        return back()->with(
+            'error',
+            $e->getMessage()
+        );
     }
+}
 
     public function downloadParentCategoryReference()
     {
@@ -380,4 +410,30 @@ class CategoryController extends Controller
         return $response;
     }
 
+private function generateUniqueSlug($slug, $ignoreId = null)
+{
+    $slug = Str::slug($slug);
+    $originalSlug = $slug;
+    $count = 1;
+
+    $query = Category::where('slug', $slug);
+
+    if ($ignoreId) {
+        $query->where('id', '!=', $ignoreId);
+    }
+
+    while ($query->exists()) {
+        $slug = $originalSlug . '-' . $count;
+
+        $query = Category::where('slug', $slug);
+
+        if ($ignoreId) {
+            $query->where('id', '!=', $ignoreId);
+        }
+
+        $count++;
+    }
+
+    return $slug;
+}
 }

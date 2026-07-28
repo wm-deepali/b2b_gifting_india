@@ -443,11 +443,6 @@ document.querySelectorAll(
             ).innerHTML = response.html;
 
             document.getElementById(
-                'pagination-wrapper'
-            ).innerHTML =
-                response.pagination;
-
-            document.getElementById(
                 'aq-product-results-count'
             ).innerText =
                 'Showing ' +

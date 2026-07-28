@@ -190,6 +190,7 @@
     'admin.seo.*',
     'admin.gifting-occasions.*',
     'admin.announcements.*',
+    'admin.quote-settings.*'
 ) ? 'active' : '' }}">
             <a href="#">
                 <i class="fa-solid fa-layer-group"></i> SETTINGS
@@ -216,32 +217,43 @@
                     </a>
                 </li>
 
+                <li class="{{ request()->routeIs('admin.quote-settings.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.quote-settings.index') }}">
+                        <i class="fa-solid fa-file-invoice-dollar"></i> Quote Settings
+                    </a>
+                </li>
+
                
 
             </ul>
         </li>
 
 
+        {{-- QUOTE SYSTEM --}}
+        <li class="{{ request()->routeIs(
+    'admin.customers.*',
+    'admin.quotes.*'
+) ? 'active' : '' }}">
+            <a href="#">
+                <i class="fa-solid fa-file-invoice"></i> Quote System
+            </a>
 
+            <ul>
 
+                <li class="{{ request()->routeIs('admin.customers.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.customers.index') }}">
+                        <i class="fa-solid fa-user-tie"></i> Manage Customers
+                    </a>
+                </li>
 
+                <li class="{{ request()->routeIs('admin.quotes.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.quotes.index') }}">
+                        <i class="fa-solid fa-file-invoice"></i> Manage Quotes
+                    </a>
+                </li>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            </ul>
+        </li>
 
 
         {{-- ENQUIRIES --}}

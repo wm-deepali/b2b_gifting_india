@@ -634,20 +634,11 @@ class FrontController extends Controller
 
         $products = $products->paginate(12);
 
-        return response()->json([
-
-            'success' => true,
-
-            'html' => view(
-                'front-pages.partials.product-grid',
-                compact('products')
-            )->render(),
-
-            'pagination' => $products->links()->render(),
-
-            'total' => $products->total()
-
-        ]);
+       return response()->json([
+    'success' => true,
+    'html' => view('front-pages.partials.product-grid', compact('products'))->render(),
+    'total' => $products->total()
+]);
     }
 
 

@@ -44,6 +44,10 @@ use App\Http\Controllers\Admin\HomeHeroSlideController;
 use App\Http\Controllers\Admin\HomeHeroBannerController;
 use App\Http\Controllers\Admin\FooterSettingController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\Admin\QuoteSettingController;
+use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\QuoteController;
+
 
 Route::controller(FrontController::class)->group(function () {
 
@@ -298,6 +302,28 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('/seo/{id}', [SeoController::class, 'update'])->name('seo.update');
         Route::resource('announcements', AnnouncementController::class);
 
+        // Quote Settings
+        Route::get('quote-settings', [QuoteSettingController::class, 'index'])->name('quote-settings.index');
+        Route::post('quote-settings', [QuoteSettingController::class, 'store'])->name('quote-settings.store');
+        Route::get('quote-settings/get-cities/{state_id}', [QuoteSettingController::class, 'getCitiesByState'])->name('quote-settings.get-cities');
+
+        // Manage Customers
+        Route::get('customers', [CustomerController::class, 'index'])->name('customers.index');
+        Route::get('customers/{customer}', [CustomerController::class, 'show'])->name('customers.show');
+        Route::post('customers/{customer}/status', [CustomerController::class, 'updateStatus'])->name('customers.update-status');
+
+
+        // Manage Quotes
+        Route::get('quotes', [QuoteController::class, 'index'])->name('quotes.index');
+        Route::get('quotes/create', [QuoteController::class, 'create'])->name('quotes.create');
+        Route::post('quotes', [QuoteController::class, 'store'])->name('quotes.store');
+        Route::get('quotes/{quote}/preview', [QuoteController::class, 'preview'])->name('quotes.preview');
+        Route::get('quotes/{quote}/download', [QuoteController::class, 'download'])->name('quotes.download');
+
+        // AJAX endpoints
+        Route::get('quotes/search-customer', [QuoteController::class, 'searchCustomer'])->name('quotes.search-customer');
+        Route::get('quotes/search-products', [QuoteController::class, 'searchProducts'])->name('quotes.search-products');
+        Route::post('quotes/{quote}/send-email', [QuoteController::class, 'sendEmail']) ->name('quotes.sendEmail');
 
     });
 });

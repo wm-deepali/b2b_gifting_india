@@ -22,6 +22,12 @@ class QuoteSetting extends Model
         'id_padding_length',
         'current_serial',
         'terms_conditions',
+        'bank_name',
+        'account_name',
+        'account_number',
+        'ifsc_code',
+        'upi_id',
+        'qr_code',
     ];
 
     public function state()

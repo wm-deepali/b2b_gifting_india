@@ -28,26 +28,29 @@
 
         <div class="content-wrapper pb-4">
 
-            <div class="card">
+            <div class="card wm-quotes-card">
 
-                <div class="card-header d-flex align-items-center justify-content-between">
+                <div class="card-header d-flex align-items-center justify-content-between wm-quotes-header">
 
-                    <h4 class="mb-0">
+                    <h4 class="mb-0 wm-quotes-title">
                         Manage Customers
                     </h4>
 
                     <form action="{{ route('admin.customers.index') }}"
                         method="GET"
-                        class="d-flex">
+                        class="d-flex wm-search-form">
 
-                        <input type="text"
-                            name="search"
-                            class="form-control form-control-sm mr-2"
-                            placeholder="Search business, email, mobile..."
-                            value="{{ request('search') }}">
+                        <div class="wm-search-wrap">
+                            <i class="fa fa-search wm-search-icon"></i>
+                            <input type="text"
+                                name="search"
+                                class="form-control form-control-sm mr-2 wm-search-input"
+                                placeholder="Search business, email, mobile..."
+                                value="{{ request('search') }}">
+                        </div>
 
                         <button type="submit"
-                            class="btn btn-sm btn-primary">
+                            class="btn btn-sm wm-btn-primary">
                             <i class="fa fa-search"></i>
                         </button>
 
@@ -59,7 +62,7 @@
 
                     <div class="table-responsive">
 
-                        <table class="table table-hover mb-0">
+                        <table class="table table-hover mb-0 wm-quotes-table">
 
                             <thead>
                                 <tr>
@@ -86,16 +89,16 @@
                                         <td>
 
                                             @if($customer->status === 'active')
-                                                <span class="badge badge-success">Active</span>
+                                                <span class="badge wm-badge-active">Active</span>
                                             @else
-                                                <span class="badge badge-secondary">Inactive</span>
+                                                <span class="badge wm-badge-inactive">Inactive</span>
                                             @endif
 
                                         </td>
                                         <td>
 
                                             <a href="{{ route('admin.customers.show', $customer->id) }}"
-                                                class="btn btn-sm btn-info">
+                                                class="btn btn-sm wm-btn-info">
                                                 <i class="fa fa-eye"></i> View
                                             </a>
 
@@ -106,8 +109,9 @@
 
                                     <tr>
                                         <td colspan="7"
-                                            class="text-center py-4">
-                                            No customers found.
+                                            class="text-center py-4 wm-empty-state">
+                                            <i class="fa fa-users wm-empty-icon"></i>
+                                            <div>No customers found.</div>
                                         </td>
                                     </tr>
 
@@ -121,7 +125,7 @@
 
                 </div>
 
-                <div class="card-footer">
+                <div class="card-footer wm-quotes-footer">
                     {{ $customers->links() }}
                 </div>
 
@@ -134,3 +138,241 @@
 </div>
 
 @include('admin.footer')
+
+{{-- ==========================================================
+     Scoped UI styling for Manage Customers page only.
+     No Blade logic, routes, or dynamic data touched above —
+     this block is purely presentational (safe to include).
+     Same design language as Manage Quotes page.
+     ========================================================== --}}
+<style>
+    :root {
+        --wm-primary: #123108;
+        --wm-primary-hover: #1c4a0d;
+        --wm-primary-light: #eef3ea;
+        --wm-border: #e6e9e3;
+        --wm-text: #23291f;
+        --wm-muted: #6b7568;
+        --wm-row-odd: #ffffff;
+        --wm-row-even: #f6f8f4;
+        --wm-radius: 10px;
+    }
+
+    /* Card shell */
+    .wm-quotes-card {
+        border: 1px solid var(--wm-border);
+        border-radius: var(--wm-radius);
+        box-shadow: 0 2px 10px rgba(18, 49, 8, 0.06);
+        overflow: hidden;
+    }
+
+    .wm-quotes-header {
+        background: linear-gradient(180deg, #ffffff 0%, #fafbf9 100%);
+        border-bottom: 1px solid var(--wm-border);
+        padding: 1rem 1.25rem;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .wm-quotes-title {
+        font-weight: 700;
+        color: var(--wm-text);
+        letter-spacing: 0.2px;
+    }
+
+    /* Search box */
+    .wm-search-form {
+        align-items: center;
+    }
+
+    .wm-search-wrap {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .wm-search-icon {
+        position: absolute;
+        left: 12px;
+        font-size: 12px;
+        color: var(--wm-muted);
+        pointer-events: none;
+    }
+
+    .wm-search-input {
+        padding-left: 30px !important;
+        border-radius: 8px !important;
+        border: 1px solid var(--wm-border) !important;
+        background: #fbfcfa;
+        min-width: 260px;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .wm-search-input:focus {
+        border-color: var(--wm-primary) !important;
+        box-shadow: 0 0 0 3px rgba(18, 49, 8, 0.12) !important;
+        background: #fff;
+        outline: none;
+    }
+
+    /* Buttons */
+    .wm-btn-primary,
+    .wm-btn-success,
+    .wm-btn-info,
+    .wm-btn-outline {
+        border-radius: 8px !important;
+        font-weight: 600;
+        font-size: 0.8rem;
+        padding: 0.4rem 0.85rem;
+        border: 1px solid transparent;
+        transition: all 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+    }
+
+    .wm-btn-primary,
+    .wm-btn-success {
+        background-color: var(--wm-primary);
+        color: #ffffff !important;
+    }
+
+    .wm-btn-primary:hover,
+    .wm-btn-success:hover {
+        background-color: var(--wm-primary-hover);
+        color: #ffffff !important;
+        transform: translateY(-1px);
+        box-shadow: 0 3px 8px rgba(18, 49, 8, 0.25);
+    }
+
+    .wm-btn-info {
+        background-color: var(--wm-primary-light);
+        color: var(--wm-primary) !important;
+        border-color: var(--wm-border);
+    }
+
+    .wm-btn-info:hover {
+        background-color: var(--wm-primary);
+        color: #fff !important;
+    }
+
+    .wm-btn-outline {
+        background-color: #fff;
+        color: var(--wm-primary) !important;
+        border-color: var(--wm-primary);
+    }
+
+    .wm-btn-outline:hover {
+        background-color: var(--wm-primary);
+        color: #fff !important;
+    }
+
+    /* Table */
+    .wm-quotes-table {
+        margin-bottom: 0;
+    }
+
+    .wm-quotes-table thead tr th {
+        background-color: var(--wm-primary);
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        border: none;
+        padding: 0.85rem 1rem;
+        white-space: nowrap;
+    }
+
+    .wm-quotes-table tbody tr td {
+        padding: 0.8rem 1rem;
+        vertical-align: middle;
+        color: var(--wm-text);
+        font-size: 0.88rem;
+        border-color: var(--wm-border);
+    }
+
+    .wm-quotes-table tbody tr:nth-child(odd) {
+        background-color: var(--wm-row-odd);
+    }
+
+    .wm-quotes-table tbody tr:nth-child(even) {
+        background-color: var(--wm-row-even);
+    }
+
+    .wm-quotes-table tbody tr:hover {
+        background-color: var(--wm-primary-light) !important;
+    }
+
+    .wm-badge-id {
+        display: inline-block;
+        background-color: var(--wm-primary-light);
+        color: var(--wm-primary);
+        font-weight: 600;
+        font-size: 0.78rem;
+        padding: 3px 10px;
+        border-radius: 20px;
+    }
+
+    /* Status badges */
+    .wm-badge-active,
+    .wm-badge-inactive {
+        font-weight: 600;
+        font-size: 0.75rem;
+        padding: 4px 12px;
+        border-radius: 20px;
+        display: inline-block;
+        letter-spacing: 0.2px;
+    }
+
+    .wm-badge-active {
+        background-color: #e5f3e0;
+        color: var(--wm-primary);
+    }
+
+    .wm-badge-inactive {
+        background-color: #f1f1ef;
+        color: var(--wm-muted);
+    }
+
+    .wm-amount {
+        font-weight: 700;
+        color: var(--wm-primary);
+    }
+
+    .wm-empty-state {
+        color: var(--wm-muted);
+        font-size: 0.9rem;
+    }
+
+    .wm-empty-icon {
+        display: block;
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+        color: #c9d1c3;
+    }
+
+    .wm-quotes-footer {
+        background: #fafbf9;
+        border-top: 1px solid var(--wm-border);
+        padding: 0.75rem 1.25rem;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 576px) {
+        .wm-quotes-header {
+            flex-direction: column;
+            align-items: flex-start !important;
+        }
+
+        .wm-search-form {
+            width: 100%;
+        }
+
+        .wm-search-input {
+            min-width: 0;
+            width: 100%;
+        }
+    }
+</style>

@@ -78,6 +78,16 @@
                                 </a>
                             </li>
 
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                    id="bank-tab"
+                                    data-toggle="tab"
+                                    href="#bank-detail"
+                                    role="tab">
+                                    Bank Detail
+                                </a>
+                            </li>
+
                         </ul>
 
                         <div class="tab-content" id="quoteSettingsTabContent">
@@ -301,7 +311,7 @@
                                         <div class="form-group">
 
                                             <label>
-                                                GST Number
+                                                GSTIN
                                             </label>
 
                                             <input type="text"
@@ -421,6 +431,133 @@
 
                             </div>
 
+                            {{-- Tab 4: Bank Detail --}}
+                            <div class="tab-pane fade"
+                                id="bank-detail"
+                                role="tabpanel">
+
+                                <div class="row">
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+
+                                            <label>
+                                                Bank Name
+                                            </label>
+
+                                            <input type="text"
+                                                name="bank_name"
+                                                class="form-control"
+                                                value="{{ old('bank_name', $quoteSetting?->bank_name) }}">
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+
+                                            <label>
+                                                Account Name
+                                            </label>
+
+                                            <input type="text"
+                                                name="account_name"
+                                                class="form-control"
+                                                value="{{ old('account_name', $quoteSetting?->account_name) }}">
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+
+                                            <label>
+                                                Account Number
+                                            </label>
+
+                                            <input type="text"
+                                                name="account_number"
+                                                class="form-control"
+                                                value="{{ old('account_number', $quoteSetting?->account_number) }}">
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+
+                                            <label>
+                                                IFSC Code
+                                            </label>
+
+                                            <input type="text"
+                                                name="ifsc_code"
+                                                class="form-control"
+                                                style="text-transform: uppercase;"
+                                                value="{{ old('ifsc_code', $quoteSetting?->ifsc_code) }}">
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+
+                                            <label>
+                                                UPI ID
+                                            </label>
+
+                                            <input type="text"
+                                                name="upi_id"
+                                                class="form-control"
+                                                placeholder="example@upi"
+                                                value="{{ old('upi_id', $quoteSetting?->upi_id) }}">
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+
+                                            <label>
+                                                QR Code
+                                            </label>
+
+                                            <input type="file"
+                                                name="qr_code"
+                                                accept="image/*"
+                                                class="form-control">
+
+                                            @if(!empty($quoteSetting?->qr_code))
+
+                                                <div class="mt-2">
+
+                                                    <img src="{{ asset('storage/' . $quoteSetting->qr_code) }}"
+                                                        width="150"
+                                                        class="img-thumbnail">
+
+                                                </div>
+
+                                            @endif
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            
                         </div>
 
                     </div>
@@ -447,6 +584,12 @@
 
 </div>
 @include('admin.footer')
+
+<script>
+    if (typeof CKEDITOR !== 'undefined') {
+        CKEDITOR.config.versionCheck = false;
+    }
+</script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>

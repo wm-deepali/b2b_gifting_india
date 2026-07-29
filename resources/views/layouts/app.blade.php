@@ -1097,7 +1097,7 @@
                                             <div class="container">
 
                                                 <div
-                                                    class="row row-cols-xl-6 row-cols-lg-3 row-cols-md-2 row-cols-1 gx-20">
+                                                    class="row row-cols-xl-6 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 gx-20">
 
                                                    @foreach($menuCategories->take(11) as $category)
 

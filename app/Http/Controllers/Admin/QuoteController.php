@@ -3,15 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Mail\QuoteProposalMail;
 use App\Models\City;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Quote;
-use App\Models\QuoteSetting;
 use App\Models\State;
-use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Brand;
 use Illuminate\Http\Request;
+use App\Models\Customization;
+use App\Models\QuoteSetting;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Mail\QuoteProposalMail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
@@ -38,8 +40,10 @@ class QuoteController extends Controller
     public function create()
     {
         $states = State::orderBy('name')->get();
+        $brands = Brand::orderBy('name')->get(['id', 'name']);
+        $customizations = Customization::orderBy('name')->get(['id', 'name']);
 
-        return view('admin.quotes.create', compact('states'));
+        return view('admin.quotes.create', compact('states', 'brands', 'customizations'));
     }
 
     public function searchCustomer(Request $request)
@@ -76,17 +80,20 @@ class QuoteController extends Controller
             'term' => 'nullable|string',
         ]);
 
-        $products = Product::with('images')
+        $products = Product::with(['images', 'customizations'])
             ->where('name', 'like', '%' . $request->term . '%')
             ->limit(10)
             ->get()
             ->map(function ($product) {
                 return [
-                    'id'     => $product->id,
-                    'name'   => $product->name,
-                    'price'  => $product->price,
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'price' => $product->price,
                     'detail' => strip_tags((string) $product->details),
-                    'image'  => $product->display_image ? asset('storage/' . $product->display_image) : null,
+                    'image' => $product->display_image ? asset('storage/' . $product->display_image) : null,
+                    'sku' => $product->sku,
+                    'brand_id' => $product->brand_id,
+                    'customization_ids' => $product->customizations->pluck('id')->toArray(),
                 ];
             });
 
@@ -96,22 +103,29 @@ class QuoteController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'mobile_number'              => 'required|string|max:15',
-            'customer_name'              => 'required|string|max:255',
-            'business_name'              => 'nullable|string|max:255',
-            'email'                      => 'nullable|email|max:255',
-            'address'                    => 'nullable|string|max:255',
-            'state_id'                   => 'nullable|exists:states,id',
-            'city_id'                    => 'nullable|exists:cities,id',
-            'pincode'                    => 'nullable|string|max:10',
-            'gst_number'                 => 'nullable|string|max:20',
-            'items'                      => 'required|array|min:1',
-            'items.*.product_id'         => 'nullable|exists:products,id',
-            'items.*.product_name'       => 'required|string|max:255',
-            'items.*.product_image'      => 'nullable|string',
-            'items.*.product_detail'     => 'nullable|string',
-            'items.*.price'              => 'required|numeric|min:0',
-            'items.*.quantity'           => 'required|integer|min:1',
+            'mobile_number' => 'required|string|max:15',
+            'customer_name' => 'required|string|max:255',
+            'business_name' => 'nullable|string|max:255',
+            'email' => 'nullable|email|max:255',
+            'address' => 'nullable|string|max:255',
+            'state_id' => 'nullable|exists:states,id',
+            'city_id' => 'nullable|exists:cities,id',
+            'pincode' => 'nullable|string|max:10',
+            'gst_number' => 'nullable|string|max:20',
+            'items' => 'required|array|min:1',
+            'items.*.product_id' => 'nullable|exists:products,id',
+            'items.*.brand_id' => 'nullable|exists:brands,id',
+            'items.*.customization_ids' => 'nullable|array',
+            'items.*.customization_ids.*' => 'exists:customizations,id',
+            'items.*.product_name' => 'required|string|max:255',
+            'items.*.product_image' => 'nullable|string',
+            'items.*.product_detail' => 'nullable|string',
+            'items.*.sku_code' => 'nullable|string|max:100',
+            'items.*.hsn_code' => 'nullable|string|max:20',
+            'items.*.colour' => 'nullable|string|max:100',
+            'items.*.price' => 'required|numeric|min:0',
+            'items.*.quantity' => 'required|integer|min:1',
+            'items.*.tax_percentage' => 'required|numeric|min:0|max:100',
         ]);
 
         $quote = DB::transaction(function () use ($request) {
@@ -121,37 +135,53 @@ class QuoteController extends Controller
                 [
                     'customer_name' => $request->customer_name,
                     'business_name' => $request->business_name,
-                    'email'         => $request->email,
-                    'address'       => $request->address,
-                    'state_id'      => $request->state_id,
-                    'city_id'       => $request->city_id,
-                    'pincode'       => $request->pincode,
-                    'gst_number'    => $request->gst_number,
+                    'email' => $request->email,
+                    'address' => $request->address,
+                    'state_id' => $request->state_id,
+                    'city_id' => $request->city_id,
+                    'pincode' => $request->pincode,
+                    'gst_number' => $request->gst_number,
                 ]
             );
 
             $proposalId = $this->generateProposalId();
 
             $totalAmount = collect($request->items)->sum(function ($item) {
-                return $item['price'] * $item['quantity'];
+                $subtotal = $item['price'] * $item['quantity'];
+                $tax = $subtotal * ($item['tax_percentage'] / 100);
+                return $subtotal + $tax;
             });
 
             $quote = Quote::create([
-                'proposal_id'  => $proposalId,
-                'customer_id'  => $customer->id,
+                'proposal_id' => $proposalId,
+                'customer_id' => $customer->id,
                 'total_amount' => $totalAmount,
             ]);
 
             foreach ($request->items as $item) {
-                $quote->items()->create([
-                    'product_id'     => $item['product_id'] ?? null,
-                    'product_name'   => $item['product_name'],
-                    'product_image'  => $item['product_image'] ?? null,
+
+                $subtotal = $item['price'] * $item['quantity'];
+                $taxAmount = $subtotal * ($item['tax_percentage'] / 100);
+
+                $quoteItem = $quote->items()->create([
+                    'product_id' => $item['product_id'] ?? null,
+                    'brand_id' => $item['brand_id'] ?? null,
+                    'product_name' => $item['product_name'],
+                    'product_image' => $item['product_image'] ?? null,
                     'product_detail' => $item['product_detail'] ?? null,
-                    'price'          => $item['price'],
-                    'quantity'       => $item['quantity'],
-                    'total_price'    => $item['price'] * $item['quantity'],
+                    'sku_code' => $item['sku_code'] ?? null,
+                    'hsn_code' => $item['hsn_code'] ?? null,
+                    'colour' => $item['colour'] ?? null,
+                    'price' => $item['price'],
+                    'quantity' => $item['quantity'],
+                    'tax_percentage' => $item['tax_percentage'],
+                    'tax_amount' => $taxAmount,
+                    'total_price' => $subtotal + $taxAmount,
                 ]);
+
+                if (!empty($item['customization_ids'])) {
+                    $quoteItem->customizations()->sync($item['customization_ids']);
+                }
             }
 
             return $quote;
@@ -164,7 +194,7 @@ class QuoteController extends Controller
 
     public function preview(Quote $quote)
     {
-        $quote->load('customer.state', 'customer.city', 'items');
+        $quote->load('customer.state', 'customer.city', 'items.brand', 'items.customizations');
         $settings = QuoteSetting::with('state', 'city')->first();
 
         return view('admin.quotes.preview', compact('quote', 'settings'));
@@ -172,7 +202,7 @@ class QuoteController extends Controller
 
     public function download(Quote $quote)
     {
-        $quote->load('customer.state', 'customer.city', 'items');
+        $quote->load('customer.state', 'customer.city', 'items.brand', 'items.customizations');
         $settings = QuoteSetting::with('state', 'city')->first();
 
         $pdf = $this->buildPdf($quote, $settings);
@@ -186,7 +216,7 @@ class QuoteController extends Controller
             'email' => 'required|email',
         ]);
 
-        $quote->load('customer.state', 'customer.city', 'items');
+        $quote->load('customer.state', 'customer.city', 'items.brand', 'items.customizations');
         $settings = QuoteSetting::with('state', 'city')->first();
 
         $pdf = $this->buildPdf($quote, $settings);
@@ -207,6 +237,10 @@ class QuoteController extends Controller
         if ($settings) {
             $settings->pdf_logo_path = $settings->company_logo
                 ? $this->resolveImagePath(asset('storage/' . $settings->company_logo))
+                : null;
+
+            $settings->pdf_qr_path = $settings->qr_code
+                ? $this->resolveImagePath(asset('storage/' . $settings->qr_code))
                 : null;
         }
 

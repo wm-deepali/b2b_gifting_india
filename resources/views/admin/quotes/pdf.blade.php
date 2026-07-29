@@ -88,6 +88,9 @@
 
         .product-name { font-weight: bold; font-size: 12px; }
         .product-detail { color: #777; font-size: 10px; margin-top: 2px; }
+        .product-options { color: #777; font-size: 10px; margin-top: 4px; }
+        .product-options span { margin-right: 8px; }
+        .product-customization { color: #777; font-size: 10px; margin-top: 4px; }
 
         .text-right { text-align: right; }
 
@@ -105,7 +108,13 @@
             font-weight: bold;
         }
 
-        .terms { margin-top: 30px; font-size: 10.5px; color: #555; }
+        .bank-details { margin-top: 30px; border-top: 1px solid #e2e2e2; padding-top: 15px; font-size: 10.5px; color: #555; }
+        .bank-details .block-title { margin-bottom: 8px; }
+        .bank-details-table td { vertical-align: top; padding: 0; }
+        .bank-details-table .qr-image { width: 90px; height: 90px; }
+        .bank-details-table .qr-caption { color: #888; font-size: 9px; margin-top: 4px; }
+
+        .terms { margin-top: 25px; font-size: 10.5px; color: #555; }
         .terms .block-title { margin-bottom: 8px; }
     </style>
 </head>
@@ -200,8 +209,9 @@
                 <tr>
                     <th style="width: 70px;">Image</th>
                     <th>Product</th>
-                    <th class="text-right" style="width: 60px;">Qty</th>
-                    <th class="text-right" style="width: 100px;">Price</th>
+                    <th class="text-right" style="width: 50px;">Qty</th>
+                    <th class="text-right" style="width: 90px;">Price</th>
+                    <th class="text-right" style="width: 50px;">Tax</th>
                     <th class="text-right" style="width: 110px;">Total</th>
                 </tr>
             </thead>
@@ -217,12 +227,36 @@
                         </td>
                         <td>
                             <div class="product-name">{{ $item->product_name }}</div>
+
                             @if($item->product_detail)
                                 <div class="product-detail">{{ $item->product_detail }}</div>
+                            @endif
+
+                            <div class="product-options">
+                                @if($item->brand?->name)
+                                    <span><strong>Brand:</strong> {{ $item->brand->name }}</span>
+                                @endif
+                                @if($item->sku_code)
+                                    <span><strong>SKU:</strong> {{ $item->sku_code }}</span>
+                                @endif
+                                @if($item->hsn_code)
+                                    <span><strong>HSN:</strong> {{ $item->hsn_code }}</span>
+                                @endif
+                                @if($item->colour)
+                                    <span><strong>Colour:</strong> {{ $item->colour }}</span>
+                                @endif
+                            </div>
+
+                            @if($item->customizations && $item->customizations->count())
+                                <div class="product-customization">
+                                    <strong>Customisation:</strong>
+                                    {{ $item->customizations->pluck('name')->join(', ') }}
+                                </div>
                             @endif
                         </td>
                         <td class="text-right">{{ $item->quantity }}</td>
                         <td class="text-right">&#8377;{{ number_format($item->price, 2) }}</td>
+                        <td class="text-right">{{ rtrim(rtrim(number_format($item->tax_percentage, 2), '0'), '.') }}%</td>
                         <td class="text-right">&#8377;{{ number_format($item->total_price, 2) }}</td>
                     </tr>
                 @endforeach
@@ -236,6 +270,42 @@
                 <td class="text-right">&#8377;{{ number_format($quote->total_amount, 2) }}</td>
             </tr>
         </table>
+
+        {{-- Bank Details --}}
+        @if($settings?->bank_name || $settings?->account_name || $settings?->account_number || $settings?->ifsc_code || $settings?->upi_id || $settings?->qr_code)
+            <div class="bank-details">
+                <div class="block-title">Bank Details</div>
+
+                <table class="bank-details-table">
+                    <tr>
+                        <td style="width: 70%;">
+                            @if($settings?->bank_name)
+                                <div><span class="muted">Bank Name:</span> {{ $settings->bank_name }}</div>
+                            @endif
+                            @if($settings?->account_name)
+                                <div><span class="muted">Account Name:</span> {{ $settings->account_name }}</div>
+                            @endif
+                            @if($settings?->account_number)
+                                <div><span class="muted">Account Number:</span> {{ $settings->account_number }}</div>
+                            @endif
+                            @if($settings?->ifsc_code)
+                                <div><span class="muted">IFSC Code:</span> {{ $settings->ifsc_code }}</div>
+                            @endif
+                            @if($settings?->upi_id)
+                                <div><span class="muted">UPI ID:</span> {{ $settings->upi_id }}</div>
+                            @endif
+                        </td>
+                        @if(!empty($settings?->pdf_qr_path))
+                            <td style="width: 30%;" class="text-right">
+                                <img src="{{ $settings->pdf_qr_path }}" class="qr-image">
+                                <div class="qr-caption">Scan to pay</div>
+                            </td>
+                        @endif
+                    </tr>
+                </table>
+
+            </div>
+        @endif
 
         {{-- Terms --}}
         @if(!empty($settings?->terms_conditions))

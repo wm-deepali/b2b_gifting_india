@@ -44,16 +44,16 @@
 
                         <div class="d-flex align-items-center gap-2">
 
-                            <form action="{{ route('admin.quotes.sendEmail', $quote->id) }}" method="POST"
-                                class="d-flex align-items-center mr-2">
-                                @csrf
-                                <input type="email" name="email" class="form-control form-control-sm mr-2"
-                                    value="{{ old('email', $quote->customer->email) }}" placeholder="Recipient email"
-                                    required style="width: 220px;">
-                                <button type="submit" class="btn btn-outline-primary btn-sm">
-                                    <i class="fa fa-envelope"></i> Send Email
-                                </button>
-                            </form>
+                            <!--<form action="{{ route('admin.quotes.sendEmail', $quote->id) }}" method="POST"-->
+                            <!--    class="d-flex align-items-center mr-2">-->
+                            <!--    @csrf-->
+                            <!--    <input type="email" name="email" class="form-control form-control-sm mr-2"-->
+                            <!--        value="{{ old('email', $quote->customer->email) }}" placeholder="Recipient email"-->
+                            <!--        required style="width: 220px;">-->
+                            <!--    <button type="submit" class="btn btn-outline-primary btn-sm">-->
+                            <!--        <i class="fa fa-envelope"></i> Send Email-->
+                            <!--    </button>-->
+                            <!--</form>-->
 
                             <a href="{{ route('admin.quotes.download', $quote->id) }}" class="btn btn-primary">
                                 <i class="fa fa-download"></i> Download PDF
@@ -161,8 +161,9 @@
                                     <tr>
                                         <th style="width: 90px;">Image</th>
                                         <th>Product</th>
-                                        <th class="text-right" style="width: 70px;">Qty</th>
-                                        <th class="text-right" style="width: 110px;">Price</th>
+                                        <th class="text-right" style="width: 60px;">Qty</th>
+                                        <th class="text-right" style="width: 100px;">Price</th>
+                                        <th class="text-right" style="width: 60px;">Tax</th>
                                         <th class="text-right" style="width: 120px;">Total</th>
                                     </tr>
                                 </thead>
@@ -182,12 +183,36 @@
                                             </td>
                                             <td>
                                                 <div class="font-weight-bold">{{ $item->product_name }}</div>
+
                                                 @if($item->product_detail)
                                                     <div class="text-muted small">{{ $item->product_detail }}</div>
+                                                @endif
+
+                                                <div class="text-muted small mt-1">
+                                                    @if($item->brand?->name)
+                                                        <span class="mr-2"><strong>Brand:</strong> {{ $item->brand->name }}</span>
+                                                    @endif
+                                                    @if($item->sku_code)
+                                                        <span class="mr-2"><strong>SKU:</strong> {{ $item->sku_code }}</span>
+                                                    @endif
+                                                    @if($item->hsn_code)
+                                                        <span class="mr-2"><strong>HSN:</strong> {{ $item->hsn_code }}</span>
+                                                    @endif
+                                                    @if($item->colour)
+                                                        <span class="mr-2"><strong>Colour:</strong> {{ $item->colour }}</span>
+                                                    @endif
+                                                </div>
+
+                                                @if($item->customizations && $item->customizations->count())
+                                                    <div class="text-muted small mt-1">
+                                                        <strong>Customisation:</strong>
+                                                        {{ $item->customizations->pluck('name')->join(', ') }}
+                                                    </div>
                                                 @endif
                                             </td>
                                             <td class="text-right">{{ $item->quantity }}</td>
                                             <td class="text-right">₹{{ number_format($item->price, 2) }}</td>
+                                            <td class="text-right">{{ rtrim(rtrim(number_format($item->tax_percentage, 2), '0'), '.') }}%</td>
                                             <td class="text-right">₹{{ number_format($item->total_price, 2) }}</td>
                                         </tr>
                                     @endforeach
@@ -204,6 +229,44 @@
                                 </div>
                             </div>
                         </div>
+
+                        {{-- Bank Details --}}
+                        @if($settings?->bank_name || $settings?->account_name || $settings?->account_number || $settings?->ifsc_code || $settings?->upi_id || $settings?->qr_code)
+                            <div class="border-top mt-4 pt-3">
+                                <div class="text-uppercase text-muted small font-weight-bold mb-2">Bank Details</div>
+
+                                <div class="row no-gutters">
+
+                                    <div class="col-md-8 small">
+                                        @if($settings?->bank_name)
+                                            <div><span class="text-muted">Bank Name:</span> {{ $settings->bank_name }}</div>
+                                        @endif
+                                        @if($settings?->account_name)
+                                            <div><span class="text-muted">Account Name:</span> {{ $settings->account_name }}</div>
+                                        @endif
+                                        @if($settings?->account_number)
+                                            <div><span class="text-muted">Account Number:</span> {{ $settings->account_number }}</div>
+                                        @endif
+                                        @if($settings?->ifsc_code)
+                                            <div><span class="text-muted">IFSC Code:</span> {{ $settings->ifsc_code }}</div>
+                                        @endif
+                                        @if($settings?->upi_id)
+                                            <div><span class="text-muted">UPI ID:</span> {{ $settings->upi_id }}</div>
+                                        @endif
+                                    </div>
+
+                                    @if($settings?->qr_code)
+                                        <div class="col-md-4 text-md-right text-left mt-2 mt-md-0">
+                                            <img src="{{ asset('storage/' . $settings->qr_code) }}"
+                                                style="width: 110px; height: 110px; object-fit: contain; border: 1px solid #eee; border-radius: 4px;">
+                                            <div class="text-muted small mt-1">Scan to pay</div>
+                                        </div>
+                                    @endif
+
+                                </div>
+
+                            </div>
+                        @endif
 
                         {{-- Terms --}}
                         @if(!empty($settings?->terms_conditions))

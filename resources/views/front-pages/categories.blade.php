@@ -48,7 +48,9 @@
                     </div>
                 </div>
              
-                <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4 pb-30"
+     <!--           <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4 pb-30"-->
+     <!--id="category-container">-->
+                <div class="row row-cols-sm-3 row-cols-md-3 row-cols-lg-4 g-4 pb-30"
      id="category-container">
 
     @if($categories->count())

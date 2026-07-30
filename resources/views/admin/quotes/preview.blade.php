@@ -4,6 +4,8 @@
 
     @include('admin.header')
 
+    @php $isDraft = $isDraft ?? false; @endphp
+
     <div class="app-content content container-fluid">
 
         <div class="breadcrumbs-top d-flex align-items-center bg-light mb-3">
@@ -24,7 +26,11 @@
                     </li>
 
                     <li class="breadcrumb-item active">
-                        Preview — {{ $quote->proposal_id }}
+                        @if($isDraft)
+                            Draft Preview
+                        @else
+                            Preview — {{ $quote->proposal_id }}
+                        @endif
                     </li>
 
                 </ol>
@@ -34,60 +40,111 @@
 
         <div class="content-wrapper pb-4">
 
-            <div class="card">
+            <div class="card wm-quotes-card">
 
-                <div class="card-body">
+                <div class="card-body wm-preview-body">
 
                     {{-- Toolbar --}}
-                    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
-                        <h5 class="mb-0">Proposal #{{ $quote->proposal_id }}</h5>
+                    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2 wm-toolbar">
+                        <h5 class="mb-0 wm-toolbar-title">
+                            @if($isDraft)
+                                Draft Proposal Preview
+                            @else
+                                Quotation Number #{{ $quote->proposal_id }}
+                            @endif
+                        </h5>
 
                         <div class="d-flex align-items-center gap-2">
 
-                            <!--<form action="{{ route('admin.quotes.sendEmail', $quote->id) }}" method="POST"-->
-                            <!--    class="d-flex align-items-center mr-2">-->
-                            <!--    @csrf-->
-                            <!--    <input type="email" name="email" class="form-control form-control-sm mr-2"-->
-                            <!--        value="{{ old('email', $quote->customer->email) }}" placeholder="Recipient email"-->
-                            <!--        required style="width: 220px;">-->
-                            <!--    <button type="submit" class="btn btn-outline-primary btn-sm">-->
-                            <!--        <i class="fa fa-envelope"></i> Send Email-->
-                            <!--    </button>-->
-                            <!--</form>-->
+                            @if($isDraft)
 
-                            <a href="{{ route('admin.quotes.download', $quote->id) }}" class="btn btn-primary">
-                                <i class="fa fa-download"></i> Download PDF
-                            </a>
+                                <a href="{{ route('admin.quotes.edit', $quote->id) }}"
+                                    class="btn btn-secondary wm-btn-cancel mr-2">
+                                    <i class="fa fa-arrow-left"></i> Edit
+                                </a>
+
+                                <a href="{{ route('admin.quotes.index') }}"
+                                    class="btn btn-outline-secondary wm-btn-outline mr-2">
+                                    <i class="fa fa-save"></i> Save as Draft
+                                </a>
+
+                                <form action="{{ route('admin.quotes.generate', $quote->id) }}" method="POST"
+                                    class="d-inline">
+                                    @csrf
+                                    <button type="submit" class="btn btn-primary wm-btn-primary">
+                                        <i class="fa fa-check"></i> Generate Quote
+                                    </button>
+                                </form>
+
+                            @else
+
+                                <!--<form action="{{ route('admin.quotes.sendEmail', $quote->id) }}" method="POST"-->
+                                <!--    class="d-flex align-items-center mr-2">-->
+                                <!--    @csrf-->
+                                <!--    <input type="email" name="email" class="form-control form-control-sm mr-2"-->
+                                <!--        value="{{ old('email', $quote->customer->email) }}" placeholder="Recipient email"-->
+                                <!--        required style="width: 220px;">-->
+                                <!--    <button type="submit" class="btn btn-outline-primary btn-sm">-->
+                                <!--        <i class="fa fa-envelope"></i> Send Email-->
+                                <!--    </button>-->
+                                <!--</form>-->
+
+                                <a href="{{ route('admin.quotes.download', $quote->id) }}"
+                                    class="btn btn-primary wm-btn-primary">
+                                    <i class="fa fa-download"></i> Download PDF
+                                </a>
+
+                            @endif
 
                         </div>
                     </div>
 
+                    @if($isDraft)
+                        <div class="alert wm-alert-draft mb-3">
+                            <i class="fa fa-info-circle"></i>
+                            This is a draft and has not been saved to the database yet. The Proposal ID will be generated
+                            and the record will be saved only after you click "Confirm & Generate".
+                        </div>
+                    @endif
+
                     @if(session('success'))
-                        <div class="alert alert-success">{{ session('success') }}</div>
+                        <div class="alert wm-alert-success">{{ session('success') }}</div>
+                    @endif
+                    @if(session('error'))
+                        <div class="alert wm-alert-danger">{{ session('error') }}</div>
                     @endif
                     @if($errors->any())
-                        <div class="alert alert-danger">{{ $errors->first() }}</div>
+                        <div class="alert wm-alert-danger">{{ $errors->first() }}</div>
                     @endif
-                    <div class="border rounded p-4" style="background: #fff;">
+                    <div class="border rounded p-4 wm-invoice-sheet" style="background: #fff;">
 
                         {{-- Header --}}
-                        <div class="d-flex align-items-start justify-content-between border-bottom pb-3 mb-3">
+                        <div
+                            class="d-flex align-items-start justify-content-between border-bottom pb-3 mb-3 wm-invoice-top">
+
 
                             <div>
                                 @if(!empty($settings?->company_logo))
                                     <img src="{{ asset('storage/' . $settings->company_logo) }}"
                                         style="max-height: 60px; max-width: 180px;" class="mb-2 d-block">
                                 @endif
-                                <h5 class="mb-0">{{ $settings?->company_name }}</h5>
+                                <h5 class="mb-0 wm-invoice-company">{{ $settings?->company_name }}</h5>
+                                @if(!empty($settings?->tagline))
+                                    <div class="text-muted small wm-invoice-tagline">{{ $settings->tagline }}</div>
+                                @endif
                             </div>
 
                             <div class="text-right">
-                                <div class="text-uppercase font-weight-bold" style="letter-spacing: 1px;">
-                                    Proposal
+                                <div class="text-uppercase font-weight-bold wm-invoice-tag"
+                                    style="letter-spacing: 1px;">
+                                    Quotaton
                                 </div>
                                 <div class="text-muted small mt-1">
-                                    No. {{ $quote->proposal_id }}<br>
+                                    No. {{ $isDraft ? 'Not yet generated' : $quote->proposal_id }}<br>
                                     Date: {{ $quote->created_at?->format('d M Y') }}
+                                    @if($quote->prepared_by)
+                                        <br>Prepared By: {{ $quote->prepared_by }}
+                                    @endif
                                 </div>
                             </div>
 
@@ -100,10 +157,11 @@
                         @endif
 
                         {{-- From / Proposal To --}}
-                        <div class="row no-gutters border rounded mb-4 overflow-hidden">
+                        <div class="row no-gutters border rounded mb-4 overflow-hidden wm-detail-panel">
 
-                            <div class="col-md-6 p-3 border-right" style="background: #f7f7f8;">
-                                <div class="text-uppercase text-muted small font-weight-bold mb-2">From</div>
+                            <div class="col-md-6 p-3 border-right wm-detail-block" style="background: #f7f7f8;">
+                                <div class="text-uppercase text-muted small font-weight-bold mb-2 wm-detail-heading">
+                                    Company Detail</div>
                                 <div class="font-weight-bold">{{ $settings?->company_name }}</div>
                                 @if($settings?->address)
                                     <div>{{ $settings->address }}</div>
@@ -128,8 +186,9 @@
                                 @endif
                             </div>
 
-                            <div class="col-md-6 p-3" style="background: #f7f7f8;">
-                                <div class="text-uppercase text-muted small font-weight-bold mb-2">Proposal To</div>
+                            <div class="col-md-6 p-3 wm-detail-block" style="background: #f7f7f8;">
+                                <div class="text-uppercase text-muted small font-weight-bold mb-2 wm-detail-heading">
+                                    Customer Detail</div>
                                 <div class="font-weight-bold">{{ $quote->customer->customer_name }}</div>
                                 @if($quote->customer->business_name)
                                     <div>{{ $quote->customer->business_name }}</div>
@@ -156,8 +215,8 @@
 
                         {{-- Items --}}
                         <div class="table-responsive">
-                            <table class="table table-bordered align-middle mb-0">
-                                <thead style="background: #1a1a1a; color: #fff;">
+                            <table class="table table-bordered align-middle mb-0 wm-invoice-table">
+                                <thead class="wm-invoice-thead">
                                     <tr>
                                         <th style="width: 90px;">Image</th>
                                         <th>Product</th>
@@ -188,20 +247,27 @@
                                                     <div class="text-muted small">{{ $item->product_detail }}</div>
                                                 @endif
 
-                                                <div class="text-muted small mt-1">
-                                                    @if($item->brand?->name)
-                                                        <span class="mr-2"><strong>Brand:</strong> {{ $item->brand->name }}</span>
-                                                    @endif
-                                                    @if($item->sku_code)
-                                                        <span class="mr-2"><strong>SKU:</strong> {{ $item->sku_code }}</span>
-                                                    @endif
-                                                    @if($item->hsn_code)
-                                                        <span class="mr-2"><strong>HSN:</strong> {{ $item->hsn_code }}</span>
-                                                    @endif
-                                                    @if($item->colour)
-                                                        <span class="mr-2"><strong>Colour:</strong> {{ $item->colour }}</span>
-                                                    @endif
-                                                </div>
+                                                @php
+                                                    $hasOptions = $item->brand?->name || $item->sku_code || $item->hsn_code || $item->colour;
+                                                @endphp
+
+                                                @if($hasOptions)
+                                                    <div class="text-muted small mt-1">
+                                                        @if($item->brand?->name)
+                                                            <span class="mr-2"><strong>Brand:</strong>
+                                                                {{ $item->brand->name }}</span>
+                                                        @endif
+                                                        @if($item->sku_code)
+                                                            <span class="mr-2"><strong>SKU:</strong> {{ $item->sku_code }}</span>
+                                                        @endif
+                                                        @if($item->hsn_code)
+                                                            <span class="mr-2"><strong>HSN:</strong> {{ $item->hsn_code }}</span>
+                                                        @endif
+                                                        @if($item->colour)
+                                                            <span class="mr-2"><strong>Colour:</strong> {{ $item->colour }}</span>
+                                                        @endif
+                                                    </div>
+                                                @endif
 
                                                 @if($item->customizations && $item->customizations->count())
                                                     <div class="text-muted small mt-1">
@@ -212,8 +278,11 @@
                                             </td>
                                             <td class="text-right">{{ $item->quantity }}</td>
                                             <td class="text-right">₹{{ number_format($item->price, 2) }}</td>
-                                            <td class="text-right">{{ rtrim(rtrim(number_format($item->tax_percentage, 2), '0'), '.') }}%</td>
-                                            <td class="text-right">₹{{ number_format($item->total_price, 2) }}</td>
+                                            <td class="text-right">
+                                                {{ rtrim(rtrim(number_format($item->tax_percentage, 2), '0'), '.') }}%
+                                            </td>
+                                            <td class="text-right wm-invoice-item-total">
+                                                ₹{{ number_format($item->total_price, 2) }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -221,19 +290,69 @@
                         </div>
 
                         {{-- Grand total --}}
+                        @php
+                            $subTotal = $quote->items->sum(function ($item) {
+                                return $item->price * $item->quantity;
+                            });
+
+                            $discount = $quote->discount_amount ?? 0;
+
+                            $packing = $quote->packing_charges ?? 0;
+                            $shipping = $quote->shipping_charges ?? 0;
+
+                            $taxes = $quote->items->sum(function ($item) {
+                                return ($item->price * $item->quantity) * ($item->tax_percentage / 100);
+                            });
+
+                            $packingTax = ($packing * ($quote->packing_tax_percentage ?? 0)) / 100;
+                            $shippingTax = ($shipping * ($quote->shipping_tax_percentage ?? 0)) / 100;
+
+                            $taxes += $packingTax + $shippingTax;
+                        @endphp
+
                         <div class="d-flex justify-content-end mt-3">
-                            <div style="min-width: 260px;">
-                                <div class="d-flex justify-content-between border-top pt-2" style="font-size: 16px;">
-                                    <strong>Grand Total</strong>
-                                    <strong>₹{{ number_format($quote->total_amount, 2) }}</strong>
+                            <div class="wm-grand-total" style="min-width:320px;">
+
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Sub Total</span>
+                                    <span>₹{{ number_format($subTotal, 2) }}</span>
                                 </div>
+
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Discount</span>
+                                    <span>-₹{{ number_format($discount, 2) }}</span>
+                                </div>
+
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Packaging Charges</span>
+                                    <span>₹{{ number_format($packing, 2) }}</span>
+                                </div>
+
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Shipping Charges</span>
+                                    <span>₹{{ number_format($shipping, 2) }}</span>
+                                </div>
+
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Taxes</span>
+                                    <span>₹{{ number_format($taxes, 2) }}</span>
+                                </div>
+
+                                <div class="d-flex justify-content-between border-top pt-2 mt-2">
+                                    <strong>Total</strong>
+                                    <strong class="wm-grand-total-amount">
+                                        ₹{{ number_format($quote->total_amount, 2) }}
+                                    </strong>
+                                </div>
+
                             </div>
                         </div>
 
                         {{-- Bank Details --}}
                         @if($settings?->bank_name || $settings?->account_name || $settings?->account_number || $settings?->ifsc_code || $settings?->upi_id || $settings?->qr_code)
                             <div class="border-top mt-4 pt-3">
-                                <div class="text-uppercase text-muted small font-weight-bold mb-2">Bank Details</div>
+                                <div class="text-uppercase text-muted small font-weight-bold mb-2 wm-detail-heading">Bank
+                                    Details</div>
 
                                 <div class="row no-gutters">
 
@@ -242,10 +361,12 @@
                                             <div><span class="text-muted">Bank Name:</span> {{ $settings->bank_name }}</div>
                                         @endif
                                         @if($settings?->account_name)
-                                            <div><span class="text-muted">Account Name:</span> {{ $settings->account_name }}</div>
+                                            <div><span class="text-muted">Account Name:</span> {{ $settings->account_name }}
+                                            </div>
                                         @endif
                                         @if($settings?->account_number)
-                                            <div><span class="text-muted">Account Number:</span> {{ $settings->account_number }}</div>
+                                            <div><span class="text-muted">Account Number:</span> {{ $settings->account_number }}
+                                            </div>
                                         @endif
                                         @if($settings?->ifsc_code)
                                             <div><span class="text-muted">IFSC Code:</span> {{ $settings->ifsc_code }}</div>
@@ -271,7 +392,8 @@
                         {{-- Terms --}}
                         @if(!empty($settings?->terms_conditions))
                             <div class="border-top mt-4 pt-3">
-                                <div class="text-uppercase text-muted small font-weight-bold mb-2">Terms & Conditions</div>
+                                <div class="text-uppercase text-muted small font-weight-bold mb-2 wm-detail-heading">Terms &
+                                    Conditions</div>
                                 <div class="small text-muted">
                                     {!! $settings->terms_conditions !!}
                                 </div>
@@ -291,3 +413,190 @@
 </div>
 
 @include('admin.footer')
+
+<style>
+    :root {
+        --wm-primary: #123108;
+        --wm-primary-hover: #1c4a0d;
+        --wm-primary-light: #eef3ea;
+        --wm-border: #e6e9e3;
+        --wm-text: #23291f;
+        --wm-muted: #6b7568;
+        --wm-radius: 10px;
+    }
+
+    .wm-invoice-tagline {
+        font-style: italic;
+    }
+
+    .wm-quotes-card {
+        border: 1px solid var(--wm-border);
+        border-radius: var(--wm-radius);
+        box-shadow: 0 2px 10px rgba(18, 49, 8, 0.06);
+        overflow: hidden;
+    }
+
+    .wm-preview-body {
+        padding: 1.75rem;
+    }
+
+    .wm-toolbar {
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--wm-border);
+    }
+
+    .wm-toolbar-title {
+        font-weight: 700;
+        color: var(--wm-text);
+    }
+
+    /* Buttons */
+    .wm-btn-primary {
+        background-color: var(--wm-primary) !important;
+        border-color: var(--wm-primary) !important;
+        color: #ffffff !important;
+        border-radius: 8px !important;
+        font-weight: 600 !important;
+        padding: 0.5rem 1rem !important;
+        transition: all 0.15s ease;
+    }
+
+    .wm-btn-primary:hover {
+        background-color: var(--wm-primary-hover) !important;
+        border-color: var(--wm-primary-hover) !important;
+        color: #ffffff !important;
+    }
+
+    .wm-btn-cancel {
+        border-radius: 8px !important;
+        font-weight: 600 !important;
+        padding: 0.5rem 1rem !important;
+        background-color: #fff !important;
+        border-color: var(--wm-border) !important;
+        color: var(--wm-muted) !important;
+    }
+
+    /* Alerts */
+    .wm-alert-success {
+        background-color: #e5f3e0;
+        border: 1px solid #cfe6c4;
+        color: var(--wm-primary);
+        border-radius: 8px;
+        font-weight: 500;
+    }
+
+    .wm-alert-danger {
+        background-color: #fbeceb;
+        border: 1px solid #f3cfcc;
+        color: #b3261e;
+        border-radius: 8px;
+        font-weight: 500;
+    }
+
+    .wm-alert-draft {
+        background-color: #fff8e1;
+        border: 1px solid #ffe4a1;
+        color: #8a6300;
+        border-radius: 8px;
+        font-weight: 500;
+        padding: 0.7rem 1rem;
+        font-size: 0.88rem;
+    }
+
+    /* Invoice sheet */
+    .wm-invoice-sheet {
+        border-color: var(--wm-border) !important;
+        border-radius: var(--wm-radius) !important;
+    }
+
+    .wm-invoice-top {
+        border-bottom-color: var(--wm-border) !important;
+    }
+
+    .wm-invoice-company {
+        font-weight: 700;
+        color: var(--wm-text);
+    }
+
+    .wm-invoice-tag {
+        color: var(--wm-primary);
+        font-size: 0.85rem;
+    }
+
+    .wm-detail-panel {
+        border-color: var(--wm-border) !important;
+        border-radius: 8px !important;
+    }
+
+    .wm-detail-block {
+        background-color: var(--wm-primary-light) !important;
+        font-size: 0.88rem;
+        line-height: 1.6;
+    }
+
+    .wm-detail-block .border-right {
+        border-color: var(--wm-border) !important;
+    }
+
+    .wm-detail-heading {
+        color: var(--wm-primary) !important;
+        letter-spacing: 0.5px;
+    }
+
+    /* Items table */
+    .wm-invoice-table {
+        border-color: var(--wm-border) !important;
+    }
+
+    .wm-invoice-table td,
+    .wm-invoice-table th {
+        border-color: var(--wm-border) !important;
+    }
+
+    .wm-invoice-thead {
+        background-color: var(--wm-primary) !important;
+        color: #ffffff !important;
+    }
+
+    .wm-invoice-thead th {
+        font-weight: 600;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        border-color: var(--wm-primary) !important;
+    }
+
+    .wm-invoice-item-total {
+        font-weight: 700;
+        color: var(--wm-primary);
+    }
+
+    /* Grand total */
+    .wm-grand-total {
+        background-color: var(--wm-primary-light);
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+    }
+
+    .wm-grand-total .border-top {
+        border-top-color: var(--wm-primary) !important;
+        border-top-width: 2px !important;
+    }
+
+    .wm-grand-total-amount {
+        color: var(--wm-primary);
+        font-size: 1.1rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 576px) {
+        .wm-preview-body {
+            padding: 1.1rem;
+        }
+
+        .wm-detail-block.border-right {
+            border-right: none !important;
+            border-bottom: 1px solid var(--wm-border) !important;
+        }
+    }
+</style>

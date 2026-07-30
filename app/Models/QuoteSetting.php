@@ -9,6 +9,7 @@ class QuoteSetting extends Model
     protected $fillable = [
         'company_logo',
         'company_name',
+        'tagline',
         'company_introduction',
         'address',
         'state_id',

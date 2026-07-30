@@ -313,17 +313,22 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('customers/{customer}/status', [CustomerController::class, 'updateStatus'])->name('customers.update-status');
 
 
-        // Manage Quotes
-        Route::get('quotes', [QuoteController::class, 'index'])->name('quotes.index');
         Route::get('quotes/create', [QuoteController::class, 'create'])->name('quotes.create');
+        Route::get('quotes/{quote}/edit', [QuoteController::class, 'edit'])->name('quotes.edit');
         Route::post('quotes', [QuoteController::class, 'store'])->name('quotes.store');
         Route::get('quotes/{quote}/preview', [QuoteController::class, 'preview'])->name('quotes.preview');
-        Route::get('quotes/{quote}/download', [QuoteController::class, 'download'])->name('quotes.download');
+        Route::post('quotes/{quote}/generate', [QuoteController::class, 'generate'])->name('quotes.generate');
+        Route::delete('quotes/{quote}/discard', [QuoteController::class, 'discardDraft'])->name('quotes.discard');
 
-        // AJAX endpoints
+        // ye jaise-hai-waise rehne do
+        Route::get('quotes', [QuoteController::class, 'index'])->name('quotes.index');
         Route::get('quotes/search-customer', [QuoteController::class, 'searchCustomer'])->name('quotes.search-customer');
         Route::get('quotes/search-products', [QuoteController::class, 'searchProducts'])->name('quotes.search-products');
-        Route::post('quotes/{quote}/send-email', [QuoteController::class, 'sendEmail']) ->name('quotes.sendEmail');
+        Route::get('quotes/{quote}/download', [QuoteController::class, 'download'])->name('quotes.download');
+        Route::post('quotes/{quote}/send-email', [QuoteController::class, 'sendEmail'])->name('quotes.sendEmail');
+        Route::post('quotes/brands', [QuoteController::class, 'storeBrand'])->name('quotes.store-brand');
+        Route::delete('quotes/{quote}', [QuoteController::class, 'destroy'])->name('quotes.destroy');
+
 
     });
 });

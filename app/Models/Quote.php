@@ -9,7 +9,11 @@ class Quote extends Model
     protected $fillable = [
         'proposal_id',
         'customer_id',
+        'packing_charges',
+        'shipping_charges',
         'total_amount',
+        'status',
+        'prepared_by'
     ];
 
     public function customer()

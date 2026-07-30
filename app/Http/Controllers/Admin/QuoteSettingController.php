@@ -28,6 +28,7 @@ class QuoteSettingController extends Controller
         $request->validate([
             'company_logo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'company_name' => 'nullable|string|max:255',
+            'tagline' => 'nullable|string|max:255',  
             'company_introduction' => 'nullable|string',
             'address' => 'nullable|string|max:255',
             'state_id' => 'nullable|exists:states,id',

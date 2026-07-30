@@ -29,7 +29,9 @@
         <div class="content-wrapper pb-4">
 
             <div class="card wm-quotes-card">
-
+                @if(session('success'))
+                    <div class="alert wm-alert-success m-3 mb-0">{{ session('success') }}</div>
+                @endif
                 <div class="card-header d-flex align-items-center justify-content-between wm-quotes-header">
 
                     <h4 class="mb-0 wm-quotes-title">
@@ -38,28 +40,24 @@
 
                     <div class="d-flex wm-quotes-actions">
 
-                        <form action="{{ route('admin.quotes.index') }}"
-                            method="GET"
+                        <form action="{{ route('admin.quotes.index') }}" method="GET"
                             class="d-flex mr-2 wm-search-form">
 
                             <div class="wm-search-wrap">
                                 <i class="fa fa-search wm-search-icon"></i>
-                                <input type="text"
-                                    name="search"
+                                <input type="text" name="search"
                                     class="form-control form-control-sm mr-2 wm-search-input"
                                     placeholder="Search Proposal ID, business, mobile..."
                                     value="{{ request('search') }}">
                             </div>
 
-                            <button type="submit"
-                                class="btn btn-sm wm-btn-primary">
+                            <button type="submit" class="btn btn-sm wm-btn-primary">
                                 <i class="fa fa-search"></i>
                             </button>
 
                         </form>
 
-                        <a href="{{ route('admin.quotes.create') }}"
-                            class="btn btn-sm wm-btn-success">
+                        <a href="{{ route('admin.quotes.create') }}" class="btn btn-sm wm-btn-success">
                             <i class="fa fa-plus"></i> New Proposal
                         </a>
 
@@ -81,6 +79,7 @@
                                     <th>Mobile Number</th>
                                     <th>Total Products</th>
                                     <th>Total Cost</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -97,25 +96,46 @@
                                         <td>{{ $quote->items_count }}</td>
                                         <td class="wm-amount">₹{{ number_format($quote->total_amount, 2) }}</td>
                                         <td>
+                                            @if($quote->status === 'draft')
+                                                <span class="badge badge-warning">Draft</span>
+                                            @else
+                                                <span class="badge badge-success">Print Ready</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($quote->status === 'draft')
+                                                <a href="{{ route('admin.quotes.edit', $quote->id) }}"
+                                                    class="btn btn-sm wm-btn-info">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            @else
+                                                <a href="{{ route('admin.quotes.preview', $quote->id) }}"
+                                                    class="btn btn-sm wm-btn-info">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
 
-                                            <a href="{{ route('admin.quotes.preview', $quote->id) }}"
-                                                class="btn btn-sm wm-btn-info">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
+                                                <a href="{{ route('admin.quotes.download', $quote->id) }}"
+                                                    class="btn btn-sm wm-btn-outline">
+                                                    <i class="fa fa-download"></i>
+                                                </a>
+                                            @endif
 
-                                            <a href="{{ route('admin.quotes.download', $quote->id) }}"
-                                                class="btn btn-sm wm-btn-outline">
-                                                <i class="fa fa-download"></i>
-                                            </a>
-
+                                            <form action="{{ route('admin.quotes.destroy', $quote->id) }}" method="POST"
+                                                class="d-inline"
+                                                onsubmit="return confirm('Are you sure you want to delete this proposal? This cannot be undone.');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm wm-btn-danger">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
 
                                 @empty
 
                                     <tr>
-                                        <td colspan="7"
-                                            class="text-center py-4 wm-empty-state">
+                                        <td colspan="7" class="text-center py-4 wm-empty-state">
                                             <i class="fa fa-file-text-o wm-empty-icon"></i>
                                             <div>No proposals found.</div>
                                         </td>
@@ -146,10 +166,10 @@
 @include('admin.footer')
 
 {{-- ==========================================================
-     Scoped UI styling for Manage Quotes page only.
-     No Blade logic, routes, or dynamic data touched above —
-     this block is purely presentational (safe to include).
-     ========================================================== --}}
+Scoped UI styling for Manage Quotes page only.
+No Blade logic, routes, or dynamic data touched above —
+this block is purely presentational (safe to include).
+========================================================== --}}
 <style>
     :root {
         --wm-primary: #123108;
@@ -372,5 +392,14 @@
         .wm-search-form {
             flex: 1;
         }
+    }
+
+    .wm-alert-success {
+        background-color: #e5f3e0;
+        border: 1px solid #cfe6c4;
+        color: var(--wm-primary);
+        border-radius: 8px;
+        font-weight: 500;
+        padding: 0.7rem 1rem;
     }
 </style>

@@ -30,6 +30,9 @@ class QuoteController extends Controller
                             ->orWhere('mobile_number', 'like', '%' . $request->search . '%');
                     });
             })
+            ->when($request->status, function ($query) use ($request) {
+                $query->where('status', $request->status);
+            })
             ->latest()
             ->paginate(20)
             ->withQueryString();
@@ -37,13 +40,78 @@ class QuoteController extends Controller
         return view('admin.quotes.index', compact('quotes'));
     }
 
+    /**
+     * Blank form for a brand-new proposal (no existing quote row yet).
+     */
     public function create()
     {
         $states = State::orderBy('name')->get();
         $brands = Brand::orderBy('name')->get(['id', 'name']);
         $customizations = Customization::orderBy('name')->get(['id', 'name']);
 
-        return view('admin.quotes.create', compact('states', 'brands', 'customizations'));
+        return view('admin.quotes.create', [
+            'states' => $states,
+            'brands' => $brands,
+            'customizations' => $customizations,
+            'draft' => null,
+            'quoteId' => null,
+        ]);
+    }
+
+    /**
+     * Re-open an existing draft quote for editing. Only drafts can be
+     * edited here — a print_ready quote is redirected to its preview.
+     */
+    public function edit(Quote $quote)
+    {
+        if ($quote->status !== 'draft') {
+            return redirect()->route('admin.quotes.preview', $quote->id);
+        }
+
+        $quote->load('customer', 'items.customizations');
+
+        $states = State::orderBy('name')->get();
+        $brands = Brand::orderBy('name')->get(['id', 'name']);
+        $customizations = Customization::orderBy('name')->get(['id', 'name']);
+
+        $draft = [
+            'customer_name' => $quote->customer->customer_name,
+            'business_name' => $quote->customer->business_name,
+            'mobile_number' => $quote->customer->mobile_number,
+            'email' => $quote->customer->email,
+            'gst_number' => $quote->customer->gst_number,
+            'address' => $quote->customer->address,
+            'state_id' => $quote->customer->state_id,
+            'city_id' => $quote->customer->city_id,
+            'pincode' => $quote->customer->pincode,
+            'prepared_by' => $quote->prepared_by,
+            'packing_charges' => $quote->packing_charges,
+            'shipping_charges' => $quote->shipping_charges,
+            'items' => $quote->items->map(function ($item) {
+                return [
+                    'product_id' => $item->product_id,
+                    'product_name' => $item->product_name,
+                    'product_image' => $item->product_image,
+                    'product_detail' => $item->product_detail,
+                    'brand_id' => $item->brand_id,
+                    'customization_ids' => $item->customizations->pluck('id')->toArray(),
+                    'sku_code' => $item->sku_code,
+                    'hsn_code' => $item->hsn_code,
+                    'colour' => $item->colour,
+                    'price' => $item->price,
+                    'quantity' => $item->quantity,
+                    'tax_percentage' => $item->tax_percentage,
+                ];
+            })->toArray(),
+        ];
+
+        return view('admin.quotes.create', [
+            'states' => $states,
+            'brands' => $brands,
+            'customizations' => $customizations,
+            'draft' => $draft,
+            'quoteId' => $quote->id,
+        ]);
     }
 
     public function searchCustomer(Request $request)
@@ -100,9 +168,15 @@ class QuoteController extends Controller
         return response()->json($products);
     }
 
+    /**
+     * Persists the proposal straight to the DB as a draft (status = draft).
+     * If `quote_id` is present in the payload, updates that existing draft
+     * in place instead of creating a new row (the "Edit" flow).
+     */
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
+            'quote_id' => 'nullable|exists:quotes,id',
             'mobile_number' => 'required|string|max:15',
             'customer_name' => 'required|string|max:255',
             'business_name' => 'nullable|string|max:255',
@@ -111,7 +185,10 @@ class QuoteController extends Controller
             'state_id' => 'nullable|exists:states,id',
             'city_id' => 'nullable|exists:cities,id',
             'pincode' => 'nullable|string|max:10',
+            'prepared_by' => 'nullable|string|max:255',   // ← naya
             'gst_number' => 'nullable|string|max:20',
+            'packing_charges' => 'nullable|numeric|min:0',
+            'shipping_charges' => 'nullable|numeric|min:0',
             'items' => 'required|array|min:1',
             'items.*.product_id' => 'nullable|exists:products,id',
             'items.*.brand_id' => 'nullable|exists:brands,id',
@@ -128,37 +205,49 @@ class QuoteController extends Controller
             'items.*.tax_percentage' => 'required|numeric|min:0|max:100',
         ]);
 
-        $quote = DB::transaction(function () use ($request) {
+        $quote = DB::transaction(function () use ($validated) {
 
             $customer = Customer::updateOrCreate(
-                ['mobile_number' => $request->mobile_number],
+                ['mobile_number' => $validated['mobile_number']],
                 [
-                    'customer_name' => $request->customer_name,
-                    'business_name' => $request->business_name,
-                    'email' => $request->email,
-                    'address' => $request->address,
-                    'state_id' => $request->state_id,
-                    'city_id' => $request->city_id,
-                    'pincode' => $request->pincode,
-                    'gst_number' => $request->gst_number,
+                    'customer_name' => $validated['customer_name'],
+                    'business_name' => $validated['business_name'] ?? null,
+                    'email' => $validated['email'] ?? null,
+                    'address' => $validated['address'] ?? null,
+                    'state_id' => $validated['state_id'] ?? null,
+                    'city_id' => $validated['city_id'] ?? null,
+                    'pincode' => $validated['pincode'] ?? null,
+                    'gst_number' => $validated['gst_number'] ?? null,
                 ]
             );
 
-            $proposalId = $this->generateProposalId();
-
-            $totalAmount = collect($request->items)->sum(function ($item) {
+            $itemsTotal = collect($validated['items'])->sum(function ($item) {
                 $subtotal = $item['price'] * $item['quantity'];
                 $tax = $subtotal * ($item['tax_percentage'] / 100);
                 return $subtotal + $tax;
             });
 
-            $quote = Quote::create([
-                'proposal_id' => $proposalId,
-                'customer_id' => $customer->id,
-                'total_amount' => $totalAmount,
-            ]);
+            $packingCharges = (float) ($validated['packing_charges'] ?? 0);
+            $shippingCharges = (float) ($validated['shipping_charges'] ?? 0);
 
-            foreach ($request->items as $item) {
+            $quoteData = [
+                'customer_id' => $customer->id,
+                'prepared_by' => $validated['prepared_by'] ?? null,
+                'packing_charges' => $packingCharges,
+                'shipping_charges' => $shippingCharges,
+                'total_amount' => $itemsTotal + $packingCharges + $shippingCharges,
+                'status' => 'draft',
+            ];
+
+            if (!empty($validated['quote_id'])) {
+                $quote = Quote::where('status', 'draft')->findOrFail($validated['quote_id']);
+                $quote->update($quoteData);
+                $quote->items()->delete(); // rebuilt fresh below
+            } else {
+                $quote = Quote::create($quoteData);
+            }
+
+            foreach ($validated['items'] as $item) {
 
                 $subtotal = $item['price'] * $item['quantity'];
                 $taxAmount = $subtotal * ($item['tax_percentage'] / 100);
@@ -187,9 +276,21 @@ class QuoteController extends Controller
             return $quote;
         });
 
-        return redirect()
-            ->route('admin.quotes.preview', $quote->id)
-            ->with('success', 'Proposal created successfully.');
+        return redirect()->route('admin.quotes.preview', $quote->id);
+    }
+
+    /**
+     * Deletes a draft outright — used by the explicit "Discard & Start
+     * Fresh" action on the create page. print_ready quotes are untouched.
+     */
+    public function discardDraft(Quote $quote)
+    {
+        if ($quote->status === 'draft') {
+            $quote->items()->delete();
+            $quote->delete();
+        }
+
+        return redirect()->route('admin.quotes.create');
     }
 
     public function preview(Quote $quote)
@@ -197,17 +298,49 @@ class QuoteController extends Controller
         $quote->load('customer.state', 'customer.city', 'items.brand', 'items.customizations');
         $settings = QuoteSetting::with('state', 'city')->first();
 
-        return view('admin.quotes.preview', compact('quote', 'settings'));
+        return view('admin.quotes.preview', [
+            'quote' => $quote,
+            'settings' => $settings,
+            'isDraft' => $quote->status === 'draft',
+        ]);
+    }
+
+    /**
+     * "Generate Quote" — finalizes a draft: assigns the proposal_id and
+     * flips status to print_ready. Only works on drafts.
+     */
+    public function generate(Quote $quote)
+    {
+        if ($quote->status !== 'draft') {
+            return redirect()->route('admin.quotes.preview', $quote->id);
+        }
+
+        DB::transaction(function () use ($quote) {
+            $quote->update([
+                'proposal_id' => $this->generateProposalId(),
+                'status' => 'print_ready',
+            ]);
+        });
+
+        return redirect()
+            ->route('admin.quotes.preview', $quote->id)
+            ->with('success', 'Proposal generated successfully.');
     }
 
     public function download(Quote $quote)
     {
+        if ($quote->status !== 'print_ready') {
+            return back()->with('error', 'Please generate the quote before downloading.');
+        }
+
         $quote->load('customer.state', 'customer.city', 'items.brand', 'items.customizations');
         $settings = QuoteSetting::with('state', 'city')->first();
 
         $pdf = $this->buildPdf($quote, $settings);
 
-        return $pdf->download($quote->proposal_id . '.pdf');
+        $filename = preg_replace('/[\/\\\\:*?"<>|]+/', '-', $quote->proposal_id);
+
+        return $pdf->download($filename . '.pdf');
     }
 
     public function sendEmail(Request $request, Quote $quote)
@@ -215,6 +348,10 @@ class QuoteController extends Controller
         $request->validate([
             'email' => 'required|email',
         ]);
+
+        if ($quote->status !== 'print_ready') {
+            return back()->with('error', 'Please generate the quote before sending it.');
+        }
 
         $quote->load('customer.state', 'customer.city', 'items.brand', 'items.customizations');
         $settings = QuoteSetting::with('state', 'city')->first();
@@ -250,7 +387,7 @@ class QuoteController extends Controller
 
         return Pdf::loadView('admin.quotes.pdf', compact('quote', 'settings'))
             ->setPaper('a4')
-            ->setOption('isRemoteEnabled', true); // fallback, in case a local path can't be resolved
+            ->setOption('isRemoteEnabled', true);
     }
 
     /**
@@ -304,5 +441,41 @@ class QuoteController extends Controller
             '0',
             STR_PAD_LEFT
         );
+    }
+
+    /**
+     * Quick-add a brand from the quote's Options modal. Saved as inactive
+     * (status = 0) so it stays hidden on the website front until the admin
+     * approves it via Manage Brands -> Edit.
+     */
+    public function storeBrand(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:brands,name',
+        ]);
+
+        $brand = Brand::create([
+            'name' => $validated['name'],
+            'status' => 0,
+        ]);
+
+        return response()->json([
+            'id' => $brand->id,
+            'name' => $brand->name,
+        ]);
+    }
+
+    public function destroy(Quote $quote)
+    {
+        foreach ($quote->items as $item) {
+            $item->customizations()->detach();
+        }
+
+        $quote->items()->delete();
+        $quote->delete();
+
+        return redirect()
+            ->route('admin.quotes.index')
+            ->with('success', 'Proposal deleted successfully.');
     }
 }

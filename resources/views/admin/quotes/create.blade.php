@@ -265,25 +265,31 @@
 
                         <div class="row align-items-end mt-3">
 
-                            <div class="col-md-3">
+                            <div class="col">
                                 <label class="mb-0 small wm-label">Qty</label>
                                 <input type="text" id="stagedQty" class="form-control wm-input wm-input-readonly"
                                     value="-" readonly>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col">
                                 <label class="mb-0 small wm-label">Price</label>
                                 <input type="text" id="stagedPrice" class="form-control wm-input wm-input-readonly"
                                     value="-" readonly>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col">
+                                <label class="mb-0 small wm-label">Branding</label>
+                                <input type="text" id="stagedBranding" class="form-control wm-input wm-input-readonly"
+                                    value="-" readonly>
+                            </div>
+
+                            <div class="col">
                                 <label class="mb-0 small wm-label">Tax</label>
                                 <input type="text" id="stagedTax" class="form-control wm-input wm-input-readonly"
                                     value="-" readonly>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col">
                                 <label class="mb-0 small wm-label">Total</label>
                                 <input type="text" id="stagedTotal" class="form-control wm-input wm-input-readonly"
                                     value="-" readonly>
@@ -292,7 +298,7 @@
                         </div>
 
                         <small class="text-muted d-block mt-1 wm-hint">
-                            Select a product and click "Options" to configure the Quantity, Price, and Tax.
+                            Select a product and click "Options" to configure the Quantity, Price, Branding/Customization Charges, and Tax.
                         </small>
 
                         <hr class="wm-divider">
@@ -307,6 +313,7 @@
                                         <th width="90">Options</th>
                                         <th width="80">Qty</th>
                                         <th width="110">Price</th>
+                                        <th width="110">Branding</th>
                                         <th width="90">Tax</th>
                                         <th width="120">Total</th>
                                         <th width="60">Remove</th>
@@ -315,7 +322,7 @@
 
                                 <tbody id="itemsTableBody">
                                     <tr id="noItemsRow">
-                                        <td colspan="7" class="text-center text-muted wm-empty-state">
+                                        <td colspan="8" class="text-center text-muted wm-empty-state">
                                             No products added yet.
                                         </td>
                                     </tr>
@@ -492,6 +499,13 @@
 
                     <div class="col-md-3">
                         <div class="form-group wm-form-group">
+                            <label class="wm-label">Branding / Customization Charges</label>
+                            <input type="number" id="opt_branding_charges" class="form-control wm-input" step="0.01" min="0" value="0">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group wm-form-group">
                             <label class="wm-label">Taxes</label>
                             <select id="opt_tax_percentage" class="form-control wm-input">
                                 <option value="0">0%</option>
@@ -540,8 +554,11 @@
         var editIndex = null;
         var draftData = @json($draft ?? null); // session draft data, if resuming an edit
 
-        function calcTotal(price, qty, taxPercentage) {
-            var subtotal = price * qty;
+        // Branding/Customization Charges are per-unit: multiplied by qty just like price,
+        // then tax is applied on the combined (price + branding) subtotal.
+        function calcTotal(price, brandingCharges, qty, taxPercentage) {
+            var perUnit = (parseFloat(price) || 0) + (parseFloat(brandingCharges) || 0);
+            var subtotal = perUnit * qty;
             var taxAmount = subtotal * (taxPercentage / 100);
             return {
                 subtotal: subtotal,
@@ -553,13 +570,14 @@
         // live preview inside modal
         function updateModalPreview() {
             var price = parseFloat($('#opt_price').val()) || 0;
+            var branding = parseFloat($('#opt_branding_charges').val()) || 0;
             var qty = parseInt($('#opt_quantity').val()) || 0;
             var tax = parseFloat($('#opt_tax_percentage').val()) || 0;
-            var calc = calcTotal(price, qty, tax);
+            var calc = calcTotal(price, branding, qty, tax);
             $('#opt_total_preview').val(calc.total.toFixed(2));
         }
 
-        $('#opt_price, #opt_quantity, #opt_tax_percentage').on('input change', updateModalPreview);
+        $('#opt_price, #opt_branding_charges, #opt_quantity, #opt_tax_percentage').on('input change', updateModalPreview);
 
         // keep chip's visual (active/inactive) state in sync with its checkbox
         $(document).on('change', '.customization-checkbox', function () {
@@ -718,6 +736,7 @@
 
             $('#stagedQty').val('-');
             $('#stagedPrice').val('-');
+            $('#stagedBranding').val('-');
             $('#stagedTax').val('-');
             $('#stagedTotal').val('-');
 
@@ -742,6 +761,7 @@
                 colour: '',
                 quantity: 1,
                 price: selectedProduct.price || 0,
+                branding_charges: 0,
                 tax_percentage: 5,
             };
 
@@ -795,6 +815,7 @@
             $('#opt_colour').val(data.colour || '');
             $('#opt_quantity').val(data.quantity || 1);
             $('#opt_price').val(data.price || 0);
+            $('#opt_branding_charges').val(data.branding_charges || 0);
             $('#opt_tax_percentage').val(data.tax_percentage || 5);
 
             updateModalPreview();
@@ -848,6 +869,7 @@
 
             var quantity = parseInt($('#opt_quantity').val()) || 0;
             var price = parseFloat($('#opt_price').val()) || 0;
+            var brandingCharges = parseFloat($('#opt_branding_charges').val()) || 0;
 
             if (quantity < 1) {
                 alert('Quantity must be at least 1.');
@@ -856,6 +878,11 @@
 
             if (price < 0) {
                 alert('Please enter a valid price.');
+                return;
+            }
+
+            if (brandingCharges < 0) {
+                alert('Please enter a valid branding/customization charge.');
                 return;
             }
 
@@ -874,10 +901,11 @@
                 colour: $('#opt_colour').val(),
                 quantity: quantity,
                 price: price,
+                branding_charges: brandingCharges,
                 tax_percentage: parseFloat($('#opt_tax_percentage').val()) || 0,
             };
 
-            var calc = calcTotal(data.price, data.quantity, data.tax_percentage);
+            var calc = calcTotal(data.price, data.branding_charges, data.quantity, data.tax_percentage);
 
             if (modalMode === 'stage') {
 
@@ -885,6 +913,7 @@
 
                 $('#stagedQty').val(data.quantity);
                 $('#stagedPrice').val(data.price.toFixed(2));
+                $('#stagedBranding').val(data.branding_charges.toFixed(2));
                 $('#stagedTax').val(data.tax_percentage + '%');
                 $('#stagedTotal').val(calc.total.toFixed(2));
 
@@ -925,10 +954,11 @@
                 colour: itemData.colour || '',
                 quantity: parseInt(itemData.quantity) || 1,
                 price: parseFloat(itemData.price) || 0,
+                branding_charges: parseFloat(itemData.branding_charges) || 0,
                 tax_percentage: parseFloat(itemData.tax_percentage) || 0,
             };
 
-            var calc = calcTotal(normalized.price, normalized.quantity, normalized.tax_percentage);
+            var calc = calcTotal(normalized.price, normalized.branding_charges, normalized.quantity, normalized.tax_percentage);
             normalized.total = calc.total;
 
             items[index] = normalized;
@@ -938,6 +968,7 @@
                 + '<td><button type="button" class="btn btn-sm btn-outline-primary rowOptionsBtn" data-index="' + index + '"><i class="fa fa-cog"></i></button></td>'
                 + '<td class="itemQty">' + normalized.quantity + '</td>'
                 + '<td class="itemPrice">' + normalized.price.toFixed(2) + '</td>'
+                + '<td class="itemBranding">' + normalized.branding_charges.toFixed(2) + '</td>'
                 + '<td class="itemTax">' + normalized.tax_percentage + '%</td>'
                 + '<td class="itemTotal">' + calc.total.toFixed(2) + '</td>'
                 + '<td><button type="button" class="btn btn-sm btn-danger removeItemBtn" data-index="' + index + '"><i class="fa fa-trash"></i></button></td>'
@@ -972,6 +1003,7 @@
             $('#addProductBtn').prop('disabled', true);
             $('#stagedQty').val('-');
             $('#stagedPrice').val('-');
+            $('#stagedBranding').val('-');
             $('#stagedTax').val('-');
             $('#stagedTotal').val('-');
             $('#itemsError').text('');
@@ -980,12 +1012,13 @@
 
         function updateTableRow(index, data) {
 
-            var calc = calcTotal(data.price, data.quantity, data.tax_percentage);
+            var calc = calcTotal(data.price, data.branding_charges, data.quantity, data.tax_percentage);
             data.total = calc.total;
 
             var $row = $('#itemRow' + index);
             $row.find('.itemQty').text(data.quantity);
             $row.find('.itemPrice').text(data.price.toFixed(2));
+            $row.find('.itemBranding').text((data.branding_charges || 0).toFixed(2));
             $row.find('.itemTax').text(data.tax_percentage + '%');
             $row.find('.itemTotal').text(calc.total.toFixed(2));
 
@@ -1010,6 +1043,7 @@
                 + '<input type="hidden" name="items[' + index + '][hsn_code]" value="' + $('<div>').text(data.hsn_code ?? '').html() + '">'
                 + '<input type="hidden" name="items[' + index + '][colour]" value="' + $('<div>').text(data.colour ?? '').html() + '">'
                 + '<input type="hidden" name="items[' + index + '][price]" value="' + data.price + '">'
+                + '<input type="hidden" name="items[' + index + '][branding_charges]" value="' + (data.branding_charges || 0) + '">'
                 + '<input type="hidden" name="items[' + index + '][quantity]" value="' + data.quantity + '">'
                 + '<input type="hidden" name="items[' + index + '][tax_percentage]" value="' + data.tax_percentage + '">';
 
@@ -1030,7 +1064,7 @@
             itemsCount--;
 
             if (itemsCount === 0) {
-                $('#itemsTableBody').append('<tr id="noItemsRow"><td colspan="7" class="text-center text-muted wm-empty-state">No products added yet.</td></tr>');
+                $('#itemsTableBody').append('<tr id="noItemsRow"><td colspan="8" class="text-center text-muted wm-empty-state">No products added yet.</td></tr>');
             }
 
         });

@@ -99,6 +99,7 @@ class QuoteController extends Controller
                     'hsn_code' => $item->hsn_code,
                     'colour' => $item->colour,
                     'price' => $item->price,
+                    'branding_charges' => $item->branding_charges,
                     'quantity' => $item->quantity,
                     'tax_percentage' => $item->tax_percentage,
                 ];
@@ -201,6 +202,7 @@ class QuoteController extends Controller
             'items.*.hsn_code' => 'nullable|string|max:20',
             'items.*.colour' => 'nullable|string|max:100',
             'items.*.price' => 'required|numeric|min:0',
+            'items.*.branding_charges' => 'nullable|numeric|min:0',
             'items.*.quantity' => 'required|integer|min:1',
             'items.*.tax_percentage' => 'required|numeric|min:0|max:100',
         ]);
@@ -221,8 +223,11 @@ class QuoteController extends Controller
                 ]
             );
 
+            // Branding/Customization Charges are per-unit, same as price:
+            // subtotal = (price + branding_charges) * qty, then tax on that subtotal.
             $itemsTotal = collect($validated['items'])->sum(function ($item) {
-                $subtotal = $item['price'] * $item['quantity'];
+                $brandingCharges = (float) ($item['branding_charges'] ?? 0);
+                $subtotal = ($item['price'] + $brandingCharges) * $item['quantity'];
                 $tax = $subtotal * ($item['tax_percentage'] / 100);
                 return $subtotal + $tax;
             });
@@ -249,7 +254,8 @@ class QuoteController extends Controller
 
             foreach ($validated['items'] as $item) {
 
-                $subtotal = $item['price'] * $item['quantity'];
+                $brandingCharges = (float) ($item['branding_charges'] ?? 0);
+                $subtotal = ($item['price'] + $brandingCharges) * $item['quantity'];
                 $taxAmount = $subtotal * ($item['tax_percentage'] / 100);
 
                 $quoteItem = $quote->items()->create([
@@ -262,6 +268,7 @@ class QuoteController extends Controller
                     'hsn_code' => $item['hsn_code'] ?? null,
                     'colour' => $item['colour'] ?? null,
                     'price' => $item['price'],
+                    'branding_charges' => $brandingCharges,
                     'quantity' => $item['quantity'],
                     'tax_percentage' => $item['tax_percentage'],
                     'tax_amount' => $taxAmount,

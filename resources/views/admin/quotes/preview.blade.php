@@ -222,6 +222,7 @@
                                         <th>Product</th>
                                         <th class="text-right" style="width: 60px;">Qty</th>
                                         <th class="text-right" style="width: 100px;">Price</th>
+                                        <th class="text-right" style="width: 100px;">Branding</th>
                                         <th class="text-right" style="width: 60px;">Tax</th>
                                         <th class="text-right" style="width: 120px;">Total</th>
                                     </tr>
@@ -278,6 +279,7 @@
                                             </td>
                                             <td class="text-right">{{ $item->quantity }}</td>
                                             <td class="text-right">₹{{ number_format($item->price, 2) }}</td>
+                                            <td class="text-right">₹{{ number_format($item->branding_charges ?? 0, 2) }}</td>
                                             <td class="text-right">
                                                 {{ rtrim(rtrim(number_format($item->tax_percentage, 2), '0'), '.') }}%
                                             </td>
@@ -291,8 +293,10 @@
 
                         {{-- Grand total --}}
                         @php
+                            // Sub Total includes Branding/Customization Charges — they're per-unit,
+                            // multiplied by qty, and taxed the same way as price (matches QuoteController@store).
                             $subTotal = $quote->items->sum(function ($item) {
-                                return $item->price * $item->quantity;
+                                return ($item->price + ($item->branding_charges ?? 0)) * $item->quantity;
                             });
 
                             $discount = $quote->discount_amount ?? 0;
@@ -301,7 +305,7 @@
                             $shipping = $quote->shipping_charges ?? 0;
 
                             $taxes = $quote->items->sum(function ($item) {
-                                return ($item->price * $item->quantity) * ($item->tax_percentage / 100);
+                                return (($item->price + ($item->branding_charges ?? 0)) * $item->quantity) * ($item->tax_percentage / 100);
                             });
 
                             $packingTax = ($packing * ($quote->packing_tax_percentage ?? 0)) / 100;

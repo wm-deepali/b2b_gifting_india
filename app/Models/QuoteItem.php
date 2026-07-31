@@ -17,6 +17,7 @@ class QuoteItem extends Model
         'hsn_code',
         'colour',
         'price',
+        'branding_charges',
         'quantity',
         'tax_percentage',
         'tax_amount',

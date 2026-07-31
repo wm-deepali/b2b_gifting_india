@@ -12,12 +12,11 @@
 
         /* ==========================================================
            Page setup — dompdf reads @page for per-page margins.
-           Top/bottom margins reserve room for the fixed header/footer
-           below. Left/right reduced from the old 35px .sheet padding
-           so more content fits per row.
+           Top margin increased to fit the taller new header
+           (logo + company block + black bar + meta band).
            ========================================================== */
         @page {
-            margin: 145px 22px 95px 22px;
+            margin: 206px 22px 95px 22px;
         }
 
         body {
@@ -45,96 +44,81 @@
         }
 
         /* ==========================================================
-           REPEATING HEADER
-           position: fixed + negative top places this inside the
-           @page top-margin box, so dompdf repeats it on every page.
+           REPEATING HEADER — matches reference design:
+           logo left / company block right, black divider bar,
+           then a grey meta band with Quotation Number / Date /
+           Prepared By.
            ========================================================== */
         .pdf-header {
             position: fixed;
-            top: -128px;
+            top: -191px;
             left: 0;
             right: 0;
-            height: 112px;
+            height: 165px;
         }
 
         .pdf-header .header-shade {
             background: #ffffff;
-            border-top: 4px solid #123108;
-            padding: 16px 22px 12px 22px;
+            padding: 16px 22px 14px 22px;
         }
 
         .pdf-header .header-table td {
             vertical-align: middle;
         }
 
-        .pdf-header .brand-table td {
-            vertical-align: middle;
-        }
-
-        .pdf-header .logo-cell {
-            width: 54px;
-            padding-right: 10px;
+        .pdf-header .logo-col {
+            width: 105px;
+            padding-right: 18px;
         }
 
         .pdf-header .logo {
-            max-height: 46px;
-            max-width: 54px;
+            max-width: 100px;
+            max-height: 100px;
         }
 
         .pdf-header .company-name {
-            font-size: 16px;
+            font-size: 22px;
             font-weight: bold;
             color: #23291f;
-            margin: 0;
+            margin: 0 0 5px 0;
         }
 
-        .pdf-header .company-tagline {
-            font-size: 9.5px;
-            font-style: italic;
-            color: #6b7568;
-            margin-top: 1px;
-        }
-
-        .pdf-header .invoice-title {
-            font-size: 19px;
-            font-weight: bold;
-            text-transform: uppercase;
-            color: #123108;
-            letter-spacing: 2px;
-        }
-
-        .pdf-header .invoice-meta {
-            margin-top: 10px;
-            width: auto;
-            margin-left: auto;
-            border-collapse: collapse;
-        }
-
-        .pdf-header .invoice-meta td {
-            padding: 2px 0;
-            font-size: 10.5px;
-            white-space: nowrap;
-        }
-
-        .pdf-header .invoice-meta td.label {
-            color: #6b7568;
-            text-align: left;
-            padding-right: 8px;
-        }
-
-        .pdf-header .invoice-meta td.value {
-            text-align: right;
+        .pdf-header .company-line {
+            font-size: 10px;
             color: #23291f;
-            font-weight: 600;
+            line-height: 1.6;
         }
 
-        .pdf-header .header-divider {
-            border-top: 1px solid #e6e9e3;
+        .pdf-header .company-line strong {
+            color: #23291f;
+        }
+
+        .pdf-header .company-line span {
+            margin-right: 16px;
+        }
+
+        .pdf-header .header-black-bar {
+            background: #111111;
+            height: 6px;
+        }
+
+        .pdf-header .header-meta-band {
+            background: #e9e9e7;
+            padding: 8px 22px;
+        }
+
+        .pdf-header .header-meta-table td {
+            font-size: 10px;
+            color: #23291f;
+            vertical-align: middle;
+        }
+
+        .pdf-header .header-meta-table td strong {
+            font-weight: bold;
         }
 
         /* ==========================================================
-           REPEATING FOOTER — static company contact line, shown on
-           every page, plus page number via dompdf's CSS counters.
+           REPEATING FOOTER — unchanged.
            ========================================================== */
         .pdf-footer {
             position: fixed;
@@ -173,7 +157,7 @@
             content: "Page " counter(page) " of " counter(pages);
         }
 
-      .company-intro {
+        .company-intro {
             font-size: 10.5px;
             color: #6b7568;
             margin-bottom: 12px;
@@ -386,54 +370,68 @@
 <body>
 
     {{-- ==========================================================
-    Repeating header — same data/fields as before (logo,
-    company name, "Quotation" title, No./Date), just wrapped
-    in a position:fixed block so dompdf repeats it on every
-    page. No Blade logic changed.
+    REPEATING HEADER — logo left, company block right (name,
+    address, mobile/GSTIN, email, website), black divider bar,
+    then grey meta band with Quotation Number / Date / Prepared By.
+    Quotation Number and Date are dynamic (same $quote fields as
+    before). Prepared By is static text as requested.
     ========================================================== --}}
     <div class="pdf-header">
         <div class="header-shade">
             <table class="header-table">
                 <tr>
-                    <td style="width: 55%;">
-                        <table class="brand-table">
-                            <tr>
-                                @if(!empty($settings?->pdf_logo_path))
-                                    <td class="logo-cell">
-                                        <img src="{{ $settings->pdf_logo_path }}" class="logo">
-                                    </td>
-                                @endif
-                                <td>
-                                    <div class="company-name">{{ $settings?->company_name }}</div>
-                                    @if(!empty($settings?->tagline))
-                                        <div class="company-tagline">{{ $settings->tagline }}</div>
-                                    @endif
-                                </td>
-                            </tr>
-                        </table>
+                    <td class="logo-col">
+                        @if(!empty($settings?->pdf_logo_path))
+                            <img src="{{ $settings->pdf_logo_path }}" class="logo">
+                        @endif
                     </td>
-                    <td style="width: 45%;" class="text-right">
-                        <div class="invoice-title">Quotaton</div>
-                        <table class="invoice-meta">
-                            <tr>
-                                <td class="label">No.</td>
-                                <td class="value">{{ $quote->proposal_id }}</td>
-                            </tr>
-                            <tr>
-                                <td class="label">Date</td>
-                                <td class="value">{{ $quote->created_at?->format('d M Y') }}</td>
-                            </tr>
-                        </table>
+                    <td>
+                        <div class="company-name">{{ $settings?->company_name }}</div>
+
+                        @if($settings?->address || $settings?->city?->name || $settings?->state?->name || $settings?->pincode)
+                            <div class="company-line">
+                                {{ $settings?->address }}{{ $settings?->address && ($settings?->city?->name || $settings?->state?->name || $settings?->pincode) ? ', ' : '' }}{{ $settings?->city?->name }}{{ $settings?->city?->name && $settings?->state?->name ? ', ' : '' }}{{ $settings?->state?->name }}{{ $settings?->pincode ? ', ' . $settings->pincode : '' }}
+                            </div>
+                        @endif
+
+                        @if($settings?->phone || $settings?->gst_number)
+                            <div class="company-line">
+                                @if($settings?->phone)
+                                    <span><strong>Mobile:</strong> {{ $settings->phone }}</span>
+                                @endif
+                                @if($settings?->gst_number)
+                                    <span><strong>GSTIN:</strong> {{ $settings->gst_number }}</span>
+                                @endif
+                            </div>
+                        @endif
+
+                        @if($settings?->email)
+                            <div class="company-line"><strong>Email:</strong> {{ $settings->email }}</div>
+                        @endif
+
+                        @if($settings?->website)
+                            <div class="company-line"><strong>www:</strong> {{ $settings->website }}</div>
+                        @endif
                     </td>
                 </tr>
             </table>
         </div>
-        <div class="header-divider"></div>
+
+        <div class="header-black-bar"></div>
+
+        <div class="header-meta-band">
+            <table class="header-meta-table">
+                <tr>
+                    <td><strong>Quotation Number:</strong> {{ $quote->proposal_id }}</td>
+                    <td><strong>Quotation Date:</strong> {{ $quote->created_at?->format('d/m/Y') }}</td>
+                    <td><strong>Prepared By:</strong> Sales Team</td>
+                </tr>
+            </table>
+        </div>
     </div>
 
     {{-- ==========================================================
-    Repeating footer — static contact line as provided, plus
-    auto page-number counter. Shown on every page.
+    Repeating footer — untouched, exactly as before.
     ========================================================== --}}
     <div class="pdf-footer">
         <div class="footer-address">1025, Tower A, GrandSlam Ithum, Sector - 62, Noida, Uttar Pradesh, India</div>
@@ -509,12 +507,14 @@
         <table class="items-table">
             <thead>
                 <tr>
-                    <th style="width: 74px;">Image</th>
+                    <th style="width: 60px;">Image</th>
+                    <th class="text-right" style="width: 120px;">Product</th>
                     <th>Product</th>
-                    <th class="text-right" style="width: 50px;">Qty</th>
-                    <th class="text-right" style="width: 90px;">Price</th>
-                    <th class="text-right" style="width: 50px;">Tax</th>
-                    <th class="text-right" style="width: 110px;">Total</th>
+                    <th class="text-right" style="width: 40px;">Qty</th>
+                    <th class="text-right" style="width: 80px;">Price</th>
+                    <th class="text-right" style="width: 80px;">Branding</th>
+                    <th class="text-right" style="width: 40px;">Tax</th>
+                    <th class="text-right" style="width: 100px;">Total</th>
                 </tr>
             </thead>
             <tbody>
@@ -563,6 +563,7 @@
                         </td>
                         <td class="text-right">{{ $item->quantity }}</td>
                         <td class="text-right">&#8377;{{ number_format($item->price, 2) }}</td>
+                        <td class="text-right">₹{{ number_format($item->branding_charges ?? 0, 2) }}</td>
                         <td class="text-right">{{ rtrim(rtrim(number_format($item->tax_percentage, 2), '0'), '.') }}%</td>
                         <td class="text-right item-total">&#8377;{{ number_format($item->total_price, 2) }}</td>
                     </tr>
@@ -571,8 +572,10 @@
         </table>
 
         @php
+            // Sub Total includes Branding/Customization Charges — they're per-unit,
+            // multiplied by qty, and taxed the same way as price (matches QuoteController@store).
             $subTotal = $quote->items->sum(function ($item) {
-                return $item->price * $item->quantity;
+                return ($item->price + ($item->branding_charges ?? 0)) * $item->quantity;
             });
 
             $discount = $quote->discount_amount ?? 0;
@@ -581,7 +584,7 @@
             $shipping = $quote->shipping_charges ?? 0;
 
             $taxes = $quote->items->sum(function ($item) {
-                return ($item->price * $item->quantity) * ($item->tax_percentage / 100);
+                return (($item->price + ($item->branding_charges ?? 0)) * $item->quantity) * ($item->tax_percentage / 100);
             });
 
             $packingTax = ($packing * ($quote->packing_tax_percentage ?? 0)) / 100;

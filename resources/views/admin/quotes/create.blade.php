@@ -263,6 +263,7 @@
 
                         </div>
 
+                        {{-- Staged preview: Product side (A) --}}
                         <div class="row align-items-end mt-3">
 
                             <div class="col">
@@ -278,14 +279,37 @@
                             </div>
 
                             <div class="col">
+                                <label class="mb-0 small wm-label">Product Tax</label>
+                                <input type="text" id="stagedTaxA" class="form-control wm-input wm-input-readonly"
+                                    value="-" readonly>
+                            </div>
+
+                            <div class="col">
+                                <label class="mb-0 small wm-label">Product Sub Total</label>
+                                <input type="text" id="stagedSubTotalA" class="form-control wm-input wm-input-readonly"
+                                    value="-" readonly>
+                            </div>
+
+                        </div>
+
+                        {{-- Staged preview: Branding/Customization side (B) --}}
+                        <div class="row align-items-end mt-2">
+
+                            <div class="col">
                                 <label class="mb-0 small wm-label">Branding</label>
                                 <input type="text" id="stagedBranding" class="form-control wm-input wm-input-readonly"
                                     value="-" readonly>
                             </div>
 
                             <div class="col">
-                                <label class="mb-0 small wm-label">Tax</label>
-                                <input type="text" id="stagedTax" class="form-control wm-input wm-input-readonly"
+                                <label class="mb-0 small wm-label">Branding Tax</label>
+                                <input type="text" id="stagedTaxB" class="form-control wm-input wm-input-readonly"
+                                    value="-" readonly>
+                            </div>
+
+                            <div class="col">
+                                <label class="mb-0 small wm-label">Branding Sub Total</label>
+                                <input type="text" id="stagedSubTotalB" class="form-control wm-input wm-input-readonly"
                                     value="-" readonly>
                             </div>
 
@@ -298,7 +322,8 @@
                         </div>
 
                         <small class="text-muted d-block mt-1 wm-hint">
-                            Select a product and click "Options" to configure the Quantity, Price, Branding/Customization Charges, and Tax.
+                            Select a product and click "Options" to configure Quantity, Price &amp; Tax (Product), and
+                            Branding/Customization Charges &amp; Tax (Branding) separately.
                         </small>
 
                         <hr class="wm-divider">
@@ -310,19 +335,22 @@
                                 <thead>
                                     <tr>
                                         <th>Product</th>
-                                        <th width="90">Options</th>
-                                        <th width="80">Qty</th>
-                                        <th width="110">Price</th>
-                                        <th width="110">Branding</th>
-                                        <th width="90">Tax</th>
-                                        <th width="120">Total</th>
+                                        <th width="80">Options</th>
+                                        <th width="70">Qty</th>
+                                        <th width="100">Price</th>
+                                        <th width="80">Product Tax</th>
+                                        <th width="120">Product Sub Total</th>
+                                        <th width="100">Branding</th>
+                                        <th width="90">Branding Tax</th>
+                                        <th width="130">Branding Sub Total</th>
+                                        <th width="110">Total</th>
                                         <th width="60">Remove</th>
                                     </tr>
                                 </thead>
 
                                 <tbody id="itemsTableBody">
                                     <tr id="noItemsRow">
-                                        <td colspan="8" class="text-center text-muted wm-empty-state">
+                                        <td colspan="11" class="text-center text-muted wm-empty-state">
                                             No products added yet.
                                         </td>
                                     </tr>
@@ -483,6 +511,12 @@
 
                     </div>
 
+                    {{-- Product price side --}}
+                    <div class="col-md-12">
+                        <hr class="wm-divider">
+                        <label class="wm-label mb-2" style="color: var(--wm-primary);">Product Price</label>
+                    </div>
+
                     <div class="col-md-3">
                         <div class="form-group wm-form-group">
                             <label class="wm-label">Quantity</label>
@@ -499,14 +533,7 @@
 
                     <div class="col-md-3">
                         <div class="form-group wm-form-group">
-                            <label class="wm-label">Branding / Customization Charges</label>
-                            <input type="number" id="opt_branding_charges" class="form-control wm-input" step="0.01" min="0" value="0">
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="form-group wm-form-group">
-                            <label class="wm-label">Taxes</label>
+                            <label class="wm-label">Product Tax</label>
                             <select id="opt_tax_percentage" class="form-control wm-input">
                                 <option value="0">0%</option>
                                 <option value="5" selected>5%</option>
@@ -519,7 +546,55 @@
 
                     <div class="col-md-3">
                         <div class="form-group wm-form-group">
-                            <label class="d-block wm-label">Total (preview)</label>
+                            <label class="d-block wm-label">Product Sub Total (preview)</label>
+                            <input type="text" id="opt_subtotal_a_preview" class="form-control wm-input wm-input-readonly"
+                                readonly value="0.00">
+                        </div>
+                    </div>
+
+                    {{-- Branding / Customization side --}}
+                    <div class="col-md-12">
+                        <label class="wm-label mb-2" style="color: var(--wm-primary);">Branding / Customization
+                            Charges</label>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group wm-form-group">
+                            <label class="wm-label">Branding / Customization Charges</label>
+                            <input type="number" id="opt_branding_charges" class="form-control wm-input" step="0.01"
+                                min="0" value="0">
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group wm-form-group">
+                            <label class="wm-label">Branding Tax</label>
+                            <select id="opt_branding_tax_percentage" class="form-control wm-input">
+                                <option value="0" selected>0%</option>
+                                <option value="5">5%</option>
+                                <option value="12">12%</option>
+                                <option value="18">18%</option>
+                                <option value="28">28%</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group wm-form-group">
+                            <label class="d-block wm-label">Branding Sub Total (preview)</label>
+                            <input type="text" id="opt_subtotal_b_preview" class="form-control wm-input wm-input-readonly"
+                                readonly value="0.00">
+                        </div>
+                    </div>
+
+                    {{-- Grand Total --}}
+                    <div class="col-md-12">
+                        <hr class="wm-divider">
+                    </div>
+
+                    <div class="col-md-4 offset-md-8">
+                        <div class="form-group wm-form-group mb-0">
+                            <label class="d-block wm-label">Grand Total (preview)</label>
                             <input type="text" id="opt_total_preview" class="form-control wm-input wm-input-readonly"
                                 readonly value="0.00">
                         </div>
@@ -554,30 +629,50 @@
         var editIndex = null;
         var draftData = @json($draft ?? null); // session draft data, if resuming an edit
 
-        // Branding/Customization Charges are per-unit: multiplied by qty just like price,
-        // then tax is applied on the combined (price + branding) subtotal.
-        function calcTotal(price, brandingCharges, qty, taxPercentage) {
-            var perUnit = (parseFloat(price) || 0) + (parseFloat(brandingCharges) || 0);
-            var subtotal = perUnit * qty;
-            var taxAmount = subtotal * (taxPercentage / 100);
+        // A) Product side: Quantity x Price, then Tax(A) on that subtotal = Sub Total A
+        // B) Branding side: Branding/Customization Charges x Quantity, then Tax(B) on that subtotal = Sub Total B
+        // Grand Total = Sub Total A + Sub Total B
+        // Each side can have its own, independent tax percentage.
+        function calcTotals(price, qty, taxPercentageA, brandingCharges, taxPercentageB) {
+
+            var subtotalA = (parseFloat(price) || 0) * (parseInt(qty) || 0);
+            var taxAmountA = subtotalA * ((parseFloat(taxPercentageA) || 0) / 100);
+            var totalA = subtotalA + taxAmountA;
+
+            var subtotalB = (parseFloat(brandingCharges) || 0) * (parseInt(qty) || 0);
+            var taxAmountB = subtotalB * ((parseFloat(taxPercentageB) || 0) / 100);
+            var totalB = subtotalB + taxAmountB;
+
             return {
-                subtotal: subtotal,
-                taxAmount: taxAmount,
-                total: subtotal + taxAmount,
+                subtotalA: subtotalA,
+                taxAmountA: taxAmountA,
+                totalA: totalA,
+                subtotalB: subtotalB,
+                taxAmountB: taxAmountB,
+                totalB: totalB,
+                grandTotal: totalA + totalB,
             };
         }
 
         // live preview inside modal
         function updateModalPreview() {
+
             var price = parseFloat($('#opt_price').val()) || 0;
-            var branding = parseFloat($('#opt_branding_charges').val()) || 0;
             var qty = parseInt($('#opt_quantity').val()) || 0;
-            var tax = parseFloat($('#opt_tax_percentage').val()) || 0;
-            var calc = calcTotal(price, branding, qty, tax);
-            $('#opt_total_preview').val(calc.total.toFixed(2));
+            var taxA = parseFloat($('#opt_tax_percentage').val()) || 0;
+
+            var branding = parseFloat($('#opt_branding_charges').val()) || 0;
+            var taxB = parseFloat($('#opt_branding_tax_percentage').val()) || 0;
+
+            var calc = calcTotals(price, qty, taxA, branding, taxB);
+
+            $('#opt_subtotal_a_preview').val(calc.totalA.toFixed(2));
+            $('#opt_subtotal_b_preview').val(calc.totalB.toFixed(2));
+            $('#opt_total_preview').val(calc.grandTotal.toFixed(2));
         }
 
-        $('#opt_price, #opt_branding_charges, #opt_quantity, #opt_tax_percentage').on('input change', updateModalPreview);
+        $('#opt_price, #opt_branding_charges, #opt_quantity, #opt_tax_percentage, #opt_branding_tax_percentage')
+            .on('input change', updateModalPreview);
 
         // keep chip's visual (active/inactive) state in sync with its checkbox
         $(document).on('change', '.customization-checkbox', function () {
@@ -736,8 +831,11 @@
 
             $('#stagedQty').val('-');
             $('#stagedPrice').val('-');
+            $('#stagedTaxA').val('-');
+            $('#stagedSubTotalA').val('-');
             $('#stagedBranding').val('-');
-            $('#stagedTax').val('-');
+            $('#stagedTaxB').val('-');
+            $('#stagedSubTotalB').val('-');
             $('#stagedTotal').val('-');
 
         });
@@ -761,8 +859,9 @@
                 colour: '',
                 quantity: 1,
                 price: selectedProduct.price || 0,
-                branding_charges: 0,
                 tax_percentage: 5,
+                branding_charges: 0,
+                branding_tax_percentage: 0,
             };
 
             fillModal(base);
@@ -815,8 +914,9 @@
             $('#opt_colour').val(data.colour || '');
             $('#opt_quantity').val(data.quantity || 1);
             $('#opt_price').val(data.price || 0);
-            $('#opt_branding_charges').val(data.branding_charges || 0);
             $('#opt_tax_percentage').val(data.tax_percentage || 5);
+            $('#opt_branding_charges').val(data.branding_charges || 0);
+            $('#opt_branding_tax_percentage').val(data.branding_tax_percentage || 0);
 
             updateModalPreview();
 
@@ -869,7 +969,9 @@
 
             var quantity = parseInt($('#opt_quantity').val()) || 0;
             var price = parseFloat($('#opt_price').val()) || 0;
+            var taxA = parseFloat($('#opt_tax_percentage').val()) || 0;
             var brandingCharges = parseFloat($('#opt_branding_charges').val()) || 0;
+            var taxB = parseFloat($('#opt_branding_tax_percentage').val()) || 0;
 
             if (quantity < 1) {
                 alert('Quantity must be at least 1.');
@@ -901,11 +1003,12 @@
                 colour: $('#opt_colour').val(),
                 quantity: quantity,
                 price: price,
+                tax_percentage: taxA,
                 branding_charges: brandingCharges,
-                tax_percentage: parseFloat($('#opt_tax_percentage').val()) || 0,
+                branding_tax_percentage: taxB,
             };
 
-            var calc = calcTotal(data.price, data.branding_charges, data.quantity, data.tax_percentage);
+            var calc = calcTotals(data.price, data.quantity, data.tax_percentage, data.branding_charges, data.branding_tax_percentage);
 
             if (modalMode === 'stage') {
 
@@ -913,16 +1016,19 @@
 
                 $('#stagedQty').val(data.quantity);
                 $('#stagedPrice').val(data.price.toFixed(2));
+                $('#stagedTaxA').val(data.tax_percentage + '%');
+                $('#stagedSubTotalA').val(calc.totalA.toFixed(2));
                 $('#stagedBranding').val(data.branding_charges.toFixed(2));
-                $('#stagedTax').val(data.tax_percentage + '%');
-                $('#stagedTotal').val(calc.total.toFixed(2));
+                $('#stagedTaxB').val(data.branding_tax_percentage + '%');
+                $('#stagedSubTotalB').val(calc.totalB.toFixed(2));
+                $('#stagedTotal').val(calc.grandTotal.toFixed(2));
 
                 $('#addProductBtn').prop('disabled', false);
 
             } else if (modalMode === 'edit' && editIndex !== null) {
 
                 items[editIndex] = $.extend({}, items[editIndex], data);
-                items[editIndex].total = calc.total;
+                items[editIndex].total = calc.grandTotal;
 
                 updateTableRow(editIndex, items[editIndex]);
                 updateHiddenInputs(editIndex, items[editIndex]);
@@ -954,12 +1060,13 @@
                 colour: itemData.colour || '',
                 quantity: parseInt(itemData.quantity) || 1,
                 price: parseFloat(itemData.price) || 0,
-                branding_charges: parseFloat(itemData.branding_charges) || 0,
                 tax_percentage: parseFloat(itemData.tax_percentage) || 0,
+                branding_charges: parseFloat(itemData.branding_charges) || 0,
+                branding_tax_percentage: parseFloat(itemData.branding_tax_percentage) || 0,
             };
 
-            var calc = calcTotal(normalized.price, normalized.branding_charges, normalized.quantity, normalized.tax_percentage);
-            normalized.total = calc.total;
+            var calc = calcTotals(normalized.price, normalized.quantity, normalized.tax_percentage, normalized.branding_charges, normalized.branding_tax_percentage);
+            normalized.total = calc.grandTotal;
 
             items[index] = normalized;
 
@@ -968,9 +1075,12 @@
                 + '<td><button type="button" class="btn btn-sm btn-outline-primary rowOptionsBtn" data-index="' + index + '"><i class="fa fa-cog"></i></button></td>'
                 + '<td class="itemQty">' + normalized.quantity + '</td>'
                 + '<td class="itemPrice">' + normalized.price.toFixed(2) + '</td>'
+                + '<td class="itemTaxA">' + normalized.tax_percentage + '%</td>'
+                + '<td class="itemSubTotalA">' + calc.totalA.toFixed(2) + '</td>'
                 + '<td class="itemBranding">' + normalized.branding_charges.toFixed(2) + '</td>'
-                + '<td class="itemTax">' + normalized.tax_percentage + '%</td>'
-                + '<td class="itemTotal">' + calc.total.toFixed(2) + '</td>'
+                + '<td class="itemTaxB">' + normalized.branding_tax_percentage + '%</td>'
+                + '<td class="itemSubTotalB">' + calc.totalB.toFixed(2) + '</td>'
+                + '<td class="itemTotal">' + calc.grandTotal.toFixed(2) + '</td>'
                 + '<td><button type="button" class="btn btn-sm btn-danger removeItemBtn" data-index="' + index + '"><i class="fa fa-trash"></i></button></td>'
                 + '</tr>';
 
@@ -1003,8 +1113,11 @@
             $('#addProductBtn').prop('disabled', true);
             $('#stagedQty').val('-');
             $('#stagedPrice').val('-');
+            $('#stagedTaxA').val('-');
+            $('#stagedSubTotalA').val('-');
             $('#stagedBranding').val('-');
-            $('#stagedTax').val('-');
+            $('#stagedTaxB').val('-');
+            $('#stagedSubTotalB').val('-');
             $('#stagedTotal').val('-');
             $('#itemsError').text('');
 
@@ -1012,15 +1125,18 @@
 
         function updateTableRow(index, data) {
 
-            var calc = calcTotal(data.price, data.branding_charges, data.quantity, data.tax_percentage);
-            data.total = calc.total;
+            var calc = calcTotals(data.price, data.quantity, data.tax_percentage, data.branding_charges, data.branding_tax_percentage);
+            data.total = calc.grandTotal;
 
             var $row = $('#itemRow' + index);
             $row.find('.itemQty').text(data.quantity);
             $row.find('.itemPrice').text(data.price.toFixed(2));
+            $row.find('.itemTaxA').text(data.tax_percentage + '%');
+            $row.find('.itemSubTotalA').text(calc.totalA.toFixed(2));
             $row.find('.itemBranding').text((data.branding_charges || 0).toFixed(2));
-            $row.find('.itemTax').text(data.tax_percentage + '%');
-            $row.find('.itemTotal').text(calc.total.toFixed(2));
+            $row.find('.itemTaxB').text((data.branding_tax_percentage || 0) + '%');
+            $row.find('.itemSubTotalB').text(calc.totalB.toFixed(2));
+            $row.find('.itemTotal').text(calc.grandTotal.toFixed(2));
 
         }
 
@@ -1043,9 +1159,10 @@
                 + '<input type="hidden" name="items[' + index + '][hsn_code]" value="' + $('<div>').text(data.hsn_code ?? '').html() + '">'
                 + '<input type="hidden" name="items[' + index + '][colour]" value="' + $('<div>').text(data.colour ?? '').html() + '">'
                 + '<input type="hidden" name="items[' + index + '][price]" value="' + data.price + '">'
+                + '<input type="hidden" name="items[' + index + '][tax_percentage]" value="' + data.tax_percentage + '">'
                 + '<input type="hidden" name="items[' + index + '][branding_charges]" value="' + (data.branding_charges || 0) + '">'
-                + '<input type="hidden" name="items[' + index + '][quantity]" value="' + data.quantity + '">'
-                + '<input type="hidden" name="items[' + index + '][tax_percentage]" value="' + data.tax_percentage + '">';
+                + '<input type="hidden" name="items[' + index + '][branding_tax_percentage]" value="' + (data.branding_tax_percentage || 0) + '">'
+                + '<input type="hidden" name="items[' + index + '][quantity]" value="' + data.quantity + '">';
 
             $('#itemHidden' + index).remove();
             $('#hiddenItemsContainer').append('<div id="itemHidden' + index + '">' + hiddenHtml + '</div>');
@@ -1064,7 +1181,7 @@
             itemsCount--;
 
             if (itemsCount === 0) {
-                $('#itemsTableBody').append('<tr id="noItemsRow"><td colspan="8" class="text-center text-muted wm-empty-state">No products added yet.</td></tr>');
+                $('#itemsTableBody').append('<tr id="noItemsRow"><td colspan="11" class="text-center text-muted wm-empty-state">No products added yet.</td></tr>');
             }
 
         });
@@ -1375,6 +1492,12 @@ or the
 
     .wm-quotes-table .itemProductName {
         font-weight: 600;
+    }
+
+    .wm-quotes-table .itemSubTotalA,
+    .wm-quotes-table .itemSubTotalB {
+        font-weight: 600;
+        color: var(--wm-text);
     }
 
     .wm-quotes-table .itemTotal {

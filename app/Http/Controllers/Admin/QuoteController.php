@@ -99,9 +99,10 @@ class QuoteController extends Controller
                     'hsn_code' => $item->hsn_code,
                     'colour' => $item->colour,
                     'price' => $item->price,
-                    'branding_charges' => $item->branding_charges,
-                    'quantity' => $item->quantity,
                     'tax_percentage' => $item->tax_percentage,
+                    'branding_charges' => $item->branding_charges,
+                    'branding_tax_percentage' => $item->branding_tax_percentage,
+                    'quantity' => $item->quantity,
                 ];
             })->toArray(),
         ];
@@ -170,6 +171,43 @@ class QuoteController extends Controller
     }
 
     /**
+     * Calculates the A/B/grand totals for a single item.
+     *
+     * A) Product side  : (price * qty) + tax_percentage on that subtotal
+     * B) Branding side : (branding_charges * qty) + branding_tax_percentage on that subtotal
+     * Grand total = A + B
+     *
+     * The two sides carry independent tax percentages.
+     */
+    private function calculateItemTotals(array $item): array
+    {
+        $price = (float) $item['price'];
+        $quantity = (int) $item['quantity'];
+        $taxPercentage = (float) $item['tax_percentage'];
+
+        $brandingCharges = (float) ($item['branding_charges'] ?? 0);
+        $brandingTaxPercentage = (float) ($item['branding_tax_percentage'] ?? 0);
+
+        $subtotalA = $price * $quantity;
+        $taxAmountA = $subtotalA * ($taxPercentage / 100);
+        $totalA = $subtotalA + $taxAmountA;
+
+        $subtotalB = $brandingCharges * $quantity;
+        $taxAmountB = $subtotalB * ($brandingTaxPercentage / 100);
+        $totalB = $subtotalB + $taxAmountB;
+
+        return [
+            'subtotal_a' => $subtotalA,
+            'tax_amount_a' => $taxAmountA,
+            'total_a' => $totalA,
+            'subtotal_b' => $subtotalB,
+            'tax_amount_b' => $taxAmountB,
+            'total_b' => $totalB,
+            'grand_total' => $totalA + $totalB,
+        ];
+    }
+
+    /**
      * Persists the proposal straight to the DB as a draft (status = draft).
      * If `quote_id` is present in the payload, updates that existing draft
      * in place instead of creating a new row (the "Edit" flow).
@@ -186,7 +224,7 @@ class QuoteController extends Controller
             'state_id' => 'nullable|exists:states,id',
             'city_id' => 'nullable|exists:cities,id',
             'pincode' => 'nullable|string|max:10',
-            'prepared_by' => 'nullable|string|max:255',   // ← naya
+            'prepared_by' => 'nullable|string|max:255',
             'gst_number' => 'nullable|string|max:20',
             'packing_charges' => 'nullable|numeric|min:0',
             'shipping_charges' => 'nullable|numeric|min:0',
@@ -202,9 +240,10 @@ class QuoteController extends Controller
             'items.*.hsn_code' => 'nullable|string|max:20',
             'items.*.colour' => 'nullable|string|max:100',
             'items.*.price' => 'required|numeric|min:0',
-            'items.*.branding_charges' => 'nullable|numeric|min:0',
-            'items.*.quantity' => 'required|integer|min:1',
             'items.*.tax_percentage' => 'required|numeric|min:0|max:100',
+            'items.*.branding_charges' => 'nullable|numeric|min:0',
+            'items.*.branding_tax_percentage' => 'nullable|numeric|min:0|max:100',
+            'items.*.quantity' => 'required|integer|min:1',
         ]);
 
         $quote = DB::transaction(function () use ($validated) {
@@ -223,13 +262,8 @@ class QuoteController extends Controller
                 ]
             );
 
-            // Branding/Customization Charges are per-unit, same as price:
-            // subtotal = (price + branding_charges) * qty, then tax on that subtotal.
             $itemsTotal = collect($validated['items'])->sum(function ($item) {
-                $brandingCharges = (float) ($item['branding_charges'] ?? 0);
-                $subtotal = ($item['price'] + $brandingCharges) * $item['quantity'];
-                $tax = $subtotal * ($item['tax_percentage'] / 100);
-                return $subtotal + $tax;
+                return $this->calculateItemTotals($item)['grand_total'];
             });
 
             $packingCharges = (float) ($validated['packing_charges'] ?? 0);
@@ -254,9 +288,7 @@ class QuoteController extends Controller
 
             foreach ($validated['items'] as $item) {
 
-                $brandingCharges = (float) ($item['branding_charges'] ?? 0);
-                $subtotal = ($item['price'] + $brandingCharges) * $item['quantity'];
-                $taxAmount = $subtotal * ($item['tax_percentage'] / 100);
+                $totals = $this->calculateItemTotals($item);
 
                 $quoteItem = $quote->items()->create([
                     'product_id' => $item['product_id'] ?? null,
@@ -268,11 +300,13 @@ class QuoteController extends Controller
                     'hsn_code' => $item['hsn_code'] ?? null,
                     'colour' => $item['colour'] ?? null,
                     'price' => $item['price'],
-                    'branding_charges' => $brandingCharges,
-                    'quantity' => $item['quantity'],
                     'tax_percentage' => $item['tax_percentage'],
-                    'tax_amount' => $taxAmount,
-                    'total_price' => $subtotal + $taxAmount,
+                    'tax_amount' => $totals['tax_amount_a'],
+                    'branding_charges' => (float) ($item['branding_charges'] ?? 0),
+                    'branding_tax_percentage' => (float) ($item['branding_tax_percentage'] ?? 0),
+                    'branding_tax_amount' => $totals['tax_amount_b'],
+                    'quantity' => $item['quantity'],
+                    'total_price' => $totals['grand_total'],
                 ]);
 
                 if (!empty($item['customization_ids'])) {

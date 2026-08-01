@@ -18,6 +18,8 @@ class QuoteItem extends Model
         'colour',
         'price',
         'branding_charges',
+        'branding_tax_percentage',
+        'branding_tax_amount',
         'quantity',
         'tax_percentage',
         'tax_amount',

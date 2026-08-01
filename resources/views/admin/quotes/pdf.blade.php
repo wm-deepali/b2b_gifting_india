@@ -269,14 +269,16 @@
             margin-top: 2px;
         }
 
+        /* Brand / SKU / HSN / Colour — one per row, not inline,
+           so each label:value pair is easy to scan on its own line. */
         .product-options {
             color: #6b7568;
             font-size: 10px;
             margin-top: 4px;
         }
 
-        .product-options span {
-            margin-right: 8px;
+        .product-options div {
+            margin-bottom: 2px;
         }
 
         .product-options strong {
@@ -373,8 +375,8 @@
     REPEATING HEADER — logo left, company block right (name,
     address, mobile/GSTIN, email, website), black divider bar,
     then grey meta band with Quotation Number / Date / Prepared By.
-    Quotation Number and Date are dynamic (same $quote fields as
-    before). Prepared By is static text as requested.
+    Prepared By is now dynamic — pulled from $quote->prepared_by
+    (falls back to "Sales Team" if it was left blank on the form).
     ========================================================== --}}
     <div class="pdf-header">
         <div class="header-shade">
@@ -424,7 +426,7 @@
                 <tr>
                     <td><strong>Quotation Number:</strong> {{ $quote->proposal_id }}</td>
                     <td><strong>Quotation Date:</strong> {{ $quote->created_at?->format('d/m/Y') }}</td>
-                    <td><strong>Prepared By:</strong> Sales Team</td>
+                    <td><strong>Prepared By:</strong> {{ $quote->prepared_by ?: 'Sales Team' }}</td>
                 </tr>
             </table>
         </div>
@@ -507,14 +509,14 @@
         <table class="items-table">
             <thead>
                 <tr>
-                    <th style="width: 60px;">Image</th>
-                    <th class="text-right" style="width: 120px;">Product</th>
+                    <th style="width: 55px;">Image</th>
                     <th>Product</th>
-                    <th class="text-right" style="width: 40px;">Qty</th>
-                    <th class="text-right" style="width: 80px;">Price</th>
-                    <th class="text-right" style="width: 80px;">Branding</th>
-                    <th class="text-right" style="width: 40px;">Tax</th>
-                    <th class="text-right" style="width: 100px;">Total</th>
+                    <th class="text-right" style="width: 35px;">Qty</th>
+                    <th class="text-right" style="width: 65px;">Price</th>
+                    <th class="text-right" style="width: 45px;">Tax</th>
+                    <th class="text-right" style="width: 65px;">Branding</th>
+                    <th class="text-right" style="width: 45px;">Tax</th>
+                    <th class="text-right" style="width: 85px;">Total</th>
                 </tr>
             </thead>
             <tbody>
@@ -540,16 +542,16 @@
                             @if($hasOptions)
                                 <div class="product-options">
                                     @if($item->brand?->name)
-                                        <span><strong>Brand:</strong> {{ $item->brand->name }}</span>
+                                        <div><strong>Brand:</strong> {{ $item->brand->name }}</div>
                                     @endif
                                     @if($item->sku_code)
-                                        <span><strong>SKU:</strong> {{ $item->sku_code }}</span>
+                                        <div><strong>SKU:</strong> {{ $item->sku_code }}</div>
                                     @endif
                                     @if($item->hsn_code)
-                                        <span><strong>HSN:</strong> {{ $item->hsn_code }}</span>
+                                        <div><strong>HSN:</strong> {{ $item->hsn_code }}</div>
                                     @endif
                                     @if($item->colour)
-                                        <span><strong>Colour:</strong> {{ $item->colour }}</span>
+                                        <div><strong>Colour:</strong> {{ $item->colour }}</div>
                                     @endif
                                 </div>
                             @endif
@@ -563,8 +565,9 @@
                         </td>
                         <td class="text-right">{{ $item->quantity }}</td>
                         <td class="text-right">&#8377;{{ number_format($item->price, 2) }}</td>
-                        <td class="text-right">₹{{ number_format($item->branding_charges ?? 0, 2) }}</td>
                         <td class="text-right">{{ rtrim(rtrim(number_format($item->tax_percentage, 2), '0'), '.') }}%</td>
+                        <td class="text-right">&#8377;{{ number_format($item->branding_charges ?? 0, 2) }}</td>
+                        <td class="text-right">{{ rtrim(rtrim(number_format($item->branding_tax_percentage ?? 0, 2), '0'), '.') }}%</td>
                         <td class="text-right item-total">&#8377;{{ number_format($item->total_price, 2) }}</td>
                     </tr>
                 @endforeach
@@ -572,10 +575,11 @@
         </table>
 
         @php
-            // Sub Total includes Branding/Customization Charges — they're per-unit,
-            // multiplied by qty, and taxed the same way as price (matches QuoteController@store).
+            // Sub Total is the pre-tax value of both sides combined:
+            // (price x qty) for the product side + (branding_charges x qty) for the branding side.
+            // Each side is taxed independently at its own percentage — matches QuoteController@store.
             $subTotal = $quote->items->sum(function ($item) {
-                return ($item->price + ($item->branding_charges ?? 0)) * $item->quantity;
+                return ($item->price * $item->quantity) + (($item->branding_charges ?? 0) * $item->quantity);
             });
 
             $discount = $quote->discount_amount ?? 0;
@@ -584,7 +588,9 @@
             $shipping = $quote->shipping_charges ?? 0;
 
             $taxes = $quote->items->sum(function ($item) {
-                return (($item->price + ($item->branding_charges ?? 0)) * $item->quantity) * ($item->tax_percentage / 100);
+                $productTax = ($item->price * $item->quantity) * ($item->tax_percentage / 100);
+                $brandingTax = (($item->branding_charges ?? 0) * $item->quantity) * (($item->branding_tax_percentage ?? 0) / 100);
+                return $productTax + $brandingTax;
             });
 
             $packingTax = ($packing * ($quote->packing_tax_percentage ?? 0)) / 100;

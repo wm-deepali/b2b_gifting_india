@@ -297,17 +297,25 @@
 
                         {{-- Grand total --}}
                         @php
-                            // Sub Total is the pre-tax value of both sides combined:
-                            // (price x qty) for the product side + (branding_charges x qty) for the branding side.
-                            // Each side is taxed independently at its own percentage — matches QuoteController@store / PDF.
+                            // Sub Total is the pre-tax value of all sides combined:
+                            // (price x qty) + (branding_charges x qty) per item, plus
+                            // (packing_charges x packing_qty) and (shipping_charges x shipping_qty).
+                            // Each side/charge is taxed independently at its own percentage — matches QuoteController@store / PDF.
                             $subTotal = $quote->items->sum(function ($item) {
                                 return ($item->price * $item->quantity) + (($item->branding_charges ?? 0) * $item->quantity);
                             });
 
                             $discount = $quote->discount_amount ?? 0;
 
-                            $packing = $quote->packing_charges ?? 0;
-                            $shipping = $quote->shipping_charges ?? 0;
+                            $packingRate = $quote->packing_charges ?? 0;
+                            $packingQty = $quote->packing_quantity ?? 1;
+                            $packingAmount = $packingRate * $packingQty;
+
+                            $shippingRate = $quote->shipping_charges ?? 0;
+                            $shippingQty = $quote->shipping_quantity ?? 1;
+                            $shippingAmount = $shippingRate * $shippingQty;
+
+                            $subTotal += $packingAmount + $shippingAmount;
 
                             $taxes = $quote->items->sum(function ($item) {
                                 $productTax = ($item->price * $item->quantity) * ($item->tax_percentage / 100);
@@ -315,8 +323,8 @@
                                 return $productTax + $brandingTax;
                             });
 
-                            $packingTax = ($packing * ($quote->packing_tax_percentage ?? 0)) / 100;
-                            $shippingTax = ($shipping * ($quote->shipping_tax_percentage ?? 0)) / 100;
+                            $packingTax = $packingAmount * (($quote->packing_tax_percentage ?? 0) / 100);
+                            $shippingTax = $shippingAmount * (($quote->shipping_tax_percentage ?? 0) / 100);
 
                             $taxes += $packingTax + $shippingTax;
                         @endphp
@@ -335,13 +343,15 @@
                                 </div>
 
                                 <div class="d-flex justify-content-between mb-1">
-                                    <span>Packaging Charges</span>
-                                    <span>₹{{ number_format($packing, 2) }}</span>
+                                    <span>Packaging Charges ({{ $packingQty }} x
+                                        ₹{{ number_format($packingRate, 2) }})</span>
+                                    <span>₹{{ number_format($packingAmount, 2) }}</span>
                                 </div>
 
                                 <div class="d-flex justify-content-between mb-1">
-                                    <span>Shipping Charges</span>
-                                    <span>₹{{ number_format($shipping, 2) }}</span>
+                                    <span>Shipping Charges ({{ $shippingQty }} x
+                                        ₹{{ number_format($shippingRate, 2) }})</span>
+                                    <span>₹{{ number_format($shippingAmount, 2) }}</span>
                                 </div>
 
                                 <div class="d-flex justify-content-between mb-1">

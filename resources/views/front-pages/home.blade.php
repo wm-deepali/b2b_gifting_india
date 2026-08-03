@@ -10,32 +10,40 @@
         .wishlist-active svg path {
             stroke: #fff !important;
         }
+
+        .aq-product-contact-price {
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
     </style>
 
 
     <main>
-      <!-- slider area start (Desktop) -->
+        <!-- slider area start (Desktop) -->
         <div class="aqf-slider-area d-none d-md-block">
             <div class="swiper aqf-slider-active p-relative">
                 <div class="swiper-wrapper">
                     @foreach($sliders as $slider)
-                        <div class="swiper-slide">
-                            <div class="aqf-slider-item aqf-slider-height d-flex align-items-center"
-                                data-bg-color="#F5F5F5">
-                                <a href="{{ $slider->link ?: '#' }}" class="aq-slider-banner-overlay-link"></a>
-                                <div class="aqf-slider-thumb include-bg" data-background="{{ asset('storage/' . $slider->image) }}">
-                                </div>
-                                <div class="container">
-                                    <div class="row align-items-center">
-                                        <div class="col-xl-6 col-lg-7 col-md-8">
-                                            <div class="aqf-slider-content">
-                                                <!-- Dynamic content can go here -->
+                        @if($slider->desktop_image)
+                            <div class="swiper-slide">
+                                <div class="aqf-slider-item aqf-slider-height d-flex align-items-center" data-bg-color="#F5F5F5">
+                                    <a href="{{ $slider->link ?: '#' }}" class="aq-slider-banner-overlay-link"></a>
+                                    <div class="aqf-slider-thumb include-bg"
+                                        data-background="{{ asset('storage/' . $slider->desktop_image) }}">
+                                    </div>
+                                    <div class="container">
+                                        <div class="row align-items-center">
+                                            <div class="col-xl-6 col-lg-7 col-md-8">
+                                                <div class="aqf-slider-content">
+                                                    <!-- Dynamic content can go here -->
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
                     @endforeach
                 </div>
                 <div class="aqf-slider-dot"></div>
@@ -48,28 +56,34 @@
             <div class="swiper aqf-slider-active p-relative">
                 <div class="swiper-wrapper">
                     @foreach($sliders as $slider)
-                        <div class="swiper-slide">
-                            <div class="aqf-slider-item aqf-slider-height d-flex align-items-center"
-                                data-bg-color="#F5F5F5">
-                                <a href="{{ $slider->link ?: '#' }}" class="aq-slider-banner-overlay-link"></a>
-                                <div class="aqf-slider-thumb include-bg" data-background="{{ asset('storage/' . $slider->image) }}">
-                                </div>
-                                <div class="container">
-                                    <div class="row align-items-center">
-                                        <div class="col-xl-6 col-lg-7 col-md-8">
-                                            <div class="aqf-slider-content">
-                                                <!-- Dynamic content can go here -->
+                        @php
+                            $mobileImg = $slider->mobile_image ?: $slider->desktop_image;
+                        @endphp
+
+                        @if($mobileImg)
+                            <div class="swiper-slide">
+                                <div class="aqf-slider-item aqf-slider-height d-flex align-items-center" data-bg-color="#F5F5F5">
+                                    <a href="{{ $slider->link ?: '#' }}" class="aq-slider-banner-overlay-link"></a>
+                                    <div class="aqf-slider-thumb include-bg" data-background="{{ asset('storage/' . $mobileImg) }}">
+                                    </div>
+                                    <div class="container">
+                                        <div class="row align-items-center">
+                                            <div class="col-xl-6 col-lg-7 col-md-8">
+                                                <div class="aqf-slider-content">
+                                                    <!-- Dynamic content can go here -->
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
                     @endforeach
                 </div>
                 <div class="aqf-slider-dot"></div>
             </div>
         </div>
+        <!-- slider area end (Mobile) -->
 
         <!-- text slide area start -->
         <div class="aqf-text-slide-area aqf-text-slide-bdr fix">
@@ -119,9 +133,9 @@
                 </svg>
             </div>
 
-            <div class="container custom-fluid-container">
+            <div class="container-fluid custom-fluid-container">
 
-                <div class="row align-items-center mb-40">
+                <div class="row align-items-center mb-15 mb-md-4">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-12">
                         <div class="aq-creative-title-box">
                             <span class="aq-creative-subtitle">
@@ -138,9 +152,9 @@
                 </div>
 
                 <!--<div class="row row-cols-3 row-cols-sm-3 row-cols-md-3 row-cols-lg-5 g-4 carddesign">-->
-                <div class="row row-cols-sm-3 row-cols-md-3 row-cols-lg-4  g-4 carddesign">
+                <div class="row row-cols-3 row-cols-sm-3 row-cols-md-3 row-cols-lg-5 g-2 g-md-4 carddesign">
 
-                    @foreach($popularCategories as $category)
+                    @foreach($HomeCategories as $category)
 
                         <div class="col">
 
@@ -216,42 +230,43 @@
                                     <div class="aq-creative-title-line"></div>
                                 </div>
                             </div>
-                         <div class="col-md-12">
-                                
-                                    <div class="aq-product-tab-btn text-center mb-15">
-                                        <ul class="nav nav-tab d-inline-flex flex-nowrap overflow-x-auto hide-scrollbar"
-                                            id="myTab" role="tablist">
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-links active" id="home-tab" data-bs-toggle="tab"
-                                                    data-bs-target="#home-tab-pane" type="button" role="tab"
-                                                    aria-controls="home-tab-pane" aria-selected="true">
-                                                    New Arrivals
-                                                </button>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-links" id="profile-tab" data-bs-toggle="tab"
-                                                    data-bs-target="#profile-tab-pane" type="button" role="tab"
-                                                    aria-controls="profile-tab-pane" aria-selected="false">
-                                                    Best Sellers
-                                                </button>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-links" id="contact-tab" data-bs-toggle="tab"
-                                                    data-bs-target="#contact-tab-pane" type="button" role="tab"
-                                                    aria-controls="contact-tab-pane" aria-selected="false">
-                                                    Featured
-                                                </button>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                
+                            <div class="col-md-12">
+
+                                <div class="aq-product-tab-btn text-center mb-15">
+                                    <ul class="nav nav-tab d-inline-flex flex-nowrap overflow-x-auto hide-scrollbar"
+                                        id="myTab" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-links active" id="home-tab" data-bs-toggle="tab"
+                                                data-bs-target="#home-tab-pane" type="button" role="tab"
+                                                aria-controls="home-tab-pane" aria-selected="true">
+                                                New Arrivals
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-links" id="profile-tab" data-bs-toggle="tab"
+                                                data-bs-target="#profile-tab-pane" type="button" role="tab"
+                                                aria-controls="profile-tab-pane" aria-selected="false">
+                                                Best Sellers
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-links" id="contact-tab" data-bs-toggle="tab"
+                                                data-bs-target="#contact-tab-pane" type="button" role="tab"
+                                                aria-controls="contact-tab-pane" aria-selected="false">
+                                                Featured
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+
                             </div>
                         </div>
                     </div>
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
                             tabindex="0">
-                            <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 row-cols-1">
+                            <div
+                                class="row row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 row-cols-2 tabcontent-section ">
 
                                 @foreach($newArrivals as $product)
 
@@ -340,23 +355,24 @@
                                                 </h4>
 
                                                 <div class="aq-product-price">
-
-                                                    <ins>
-                                                        <span class="aq-product-new-price">
-                                                            ₹{{ number_format($product->price) }}
-                                                        </span>
-                                                    </ins>
-
-                                                    @if($product->mrp > $product->price)
-                                                        <del>
-                                                            <span class="aq-product-old-price">
-                                                                ₹{{ number_format($product->mrp) }}
+                                                    @if($product->price > 0)
+                                                        <ins>
+                                                            <span class="aq-product-new-price">
+                                                                ₹{{ number_format($product->price) }}
                                                             </span>
-                                                        </del>
+                                                        </ins>
+
+                                                        @if($product->mrp > $product->price)
+                                                            <del>
+                                                                <span class="aq-product-old-price">
+                                                                    ₹{{ number_format($product->mrp) }}
+                                                                </span>
+                                                            </del>
+                                                        @endif
+                                                    @else
+                                                        <span class="aq-product-contact-price">Contact for Price</span>
                                                     @endif
-
                                                 </div>
-
                                             </div>
 
                                         </div>
@@ -397,7 +413,7 @@
                         </div>
                         <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab"
                             tabindex="0">
-                            <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 row-cols-1">
+                            <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 row-cols-2">
 
                                 @foreach($bestSellers as $product)
 
@@ -489,21 +505,23 @@
                                                 </h4>
 
                                                 <div class="aq-product-price">
-
-                                                    <ins>
-                                                        <span class="aq-product-new-price">
-                                                            ₹{{ number_format($product->price) }}
-                                                        </span>
-                                                    </ins>
-
-                                                    @if($product->mrp > $product->price)
-                                                        <del>
-                                                            <span class="aq-product-old-price">
-                                                                ₹{{ number_format($product->mrp) }}
+                                                    @if($product->price > 0)
+                                                        <ins>
+                                                            <span class="aq-product-new-price">
+                                                                ₹{{ number_format($product->price) }}
                                                             </span>
-                                                        </del>
-                                                    @endif
+                                                        </ins>
 
+                                                        @if($product->mrp > $product->price)
+                                                            <del>
+                                                                <span class="aq-product-old-price">
+                                                                    ₹{{ number_format($product->mrp) }}
+                                                                </span>
+                                                            </del>
+                                                        @endif
+                                                    @else
+                                                        <span class="aq-product-contact-price">Contact for Price</span>
+                                                    @endif
                                                 </div>
 
                                             </div>
@@ -546,7 +564,7 @@
                         </div>
                         <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab"
                             tabindex="0">
-                            <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 row-cols-1">
+                            <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 row-cols-2">
 
                                 @foreach($featuredProducts as $product)
 
@@ -640,21 +658,23 @@
                                                 </h4>
 
                                                 <div class="aq-product-price">
-
-                                                    <ins>
-                                                        <span class="aq-product-new-price">
-                                                            ₹{{ number_format($product->price) }}
-                                                        </span>
-                                                    </ins>
-
-                                                    @if($product->mrp > $product->price)
-                                                        <del>
-                                                            <span class="aq-product-old-price">
-                                                                ₹{{ number_format($product->mrp) }}
+                                                    @if($product->price > 0)
+                                                        <ins>
+                                                            <span class="aq-product-new-price">
+                                                                ₹{{ number_format($product->price) }}
                                                             </span>
-                                                        </del>
-                                                    @endif
+                                                        </ins>
 
+                                                        @if($product->mrp > $product->price)
+                                                            <del>
+                                                                <span class="aq-product-old-price">
+                                                                    ₹{{ number_format($product->mrp) }}
+                                                                </span>
+                                                            </del>
+                                                        @endif
+                                                    @else
+                                                        <span class="aq-product-contact-price">Contact for Price</span>
+                                                    @endif
                                                 </div>
 
                                             </div>
@@ -881,11 +901,11 @@
 
                                                 </h4>
 
-                                                <span>
+                                                <p>
 
                                                     {{ $occasion->sub_title }}
 
-                                                </span>
+                                                </p>
 
                                             </div>
 
@@ -946,16 +966,16 @@
 
                     <!-- Section Title -->
                     <!-- <div class="aqf-collection-top mb-40 mt-50">
-                                                                                                                                                                                                                                    <div class="row align-items-end">
-                                                                                                                                                                                                                                        <div class="col-md-12">
-                                                                                                                                                                                                                                            <div class="aq-creative-title-box">
-                                                                                                                                                                                                                                                <span class="aq-creative-subtitle">Premium Selections</span>
-                                                                                                                                                                                                                                                <h4 class="aq-creative-title">Bespoke Curation Categories</h4>
-                                                                                                                                                                                                                                                <div class="aq-creative-title-line"></div>
-                                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                                                </div> -->
+                                                                                                                                                                                                                                                                <div class="row align-items-end">
+                                                                                                                                                                                                                                                                    <div class="col-md-12">
+                                                                                                                                                                                                                                                                        <div class="aq-creative-title-box">
+                                                                                                                                                                                                                                                                            <span class="aq-creative-subtitle">Premium Selections</span>
+                                                                                                                                                                                                                                                                            <h4 class="aq-creative-title">Bespoke Curation Categories</h4>
+                                                                                                                                                                                                                                                                            <div class="aq-creative-title-line"></div>
+                                                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                            </div> -->
 
 
                 </div>
@@ -967,7 +987,7 @@
         <!-- deals area start -->
         <section class="deal-aqf-area">
             <div class="aqf-deals-area">
-                <div class="aqf-deals-wrap py-0 py-md-5" >
+                <div class="aqf-deals-wrap py-0 py-md-5">
                     <div class="container custom-fluid-container">
                         <div class="row">
                             <div class="col-xl-5 col-lg-6">
@@ -1169,21 +1189,24 @@
                                                                 </h4>
 
                                                                 <div class="aq-product-price">
-
-                                                                    <ins>
-                                                                        <span class="aq-product-new-price">
-                                                                            ₹{{ number_format($product->price, 2) }}
-                                                                        </span>
-                                                                    </ins>
-
-                                                                    @if($product->mrp > $product->price)
-                                                                        <del>
-                                                                            <span class="aq-product-old-price">
-                                                                                ₹{{ number_format($product->mrp, 2) }}
+                                                                    @if($product->price > 0)
+                                                                        <ins>
+                                                                            <span class="aq-product-new-price">
+                                                                                ₹{{ number_format($product->price, 2) }}
                                                                             </span>
-                                                                        </del>
-                                                                    @endif
+                                                                        </ins>
 
+                                                                        @if($product->mrp > $product->price)
+                                                                            <del>
+                                                                                <span class="aq-product-old-price">
+                                                                                    ₹{{ number_format($product->mrp, 2) }}
+                                                                                </span>
+                                                                            </del>
+                                                                        @endif
+                                                                    @else
+                                                                        <span class="aq-product-contact-price">Contact for
+                                                                            Price</span>
+                                                                    @endif
                                                                 </div>
 
                                                             </div>
@@ -1278,7 +1301,7 @@
 
                                                     @foreach($category->products->take(6) as $product)
 
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-6 col-lg-4 col-xl-4 col-6">
 
                                                             <a href="{{ route('product.details', $product->slug) }}"
                                                                 class="text-decoration-none">
@@ -1299,7 +1322,11 @@
                                                                         </h4>
 
                                                                         <span class="aq-luxury-item-price">
-                                                                            ₹{{ number_format($product->price) }}
+                                                                            @if($product->price > 0)
+                                                                                ₹{{ number_format($product->price) }}
+                                                                            @else
+                                                                                Contact for Price
+                                                                            @endif
                                                                         </span>
 
                                                                     </div>
@@ -1371,7 +1398,7 @@
                         </div>
                     </div>
 
-                    <div class="row g-3 pt-50">
+                    <div class="row g-3 pt-50 elegant-gifts-card">
                         <div class="col-lg-8">
                             <div class="hero-slider-wrap">
                                 <div class="hero-slider swiper hero-slider-active">
@@ -1601,21 +1628,23 @@
                                                 </h4>
 
                                                 <div class="aq-product-price">
-
-                                                    <ins>
-                                                        <span class="aq-product-new-price">
-                                                            ₹{{ number_format($product->price) }}
-                                                        </span>
-                                                    </ins>
-
-                                                    @if($product->mrp > $product->price)
-                                                        <del>
-                                                            <span class="aq-product-old-price">
-                                                                ₹{{ number_format($product->mrp) }}
+                                                    @if($product->price > 0)
+                                                        <ins>
+                                                            <span class="aq-product-new-price">
+                                                                ₹{{ number_format($product->price) }}
                                                             </span>
-                                                        </del>
-                                                    @endif
+                                                        </ins>
 
+                                                        @if($product->mrp > $product->price)
+                                                            <del>
+                                                                <span class="aq-product-old-price">
+                                                                    ₹{{ number_format($product->mrp) }}
+                                                                </span>
+                                                            </del>
+                                                        @endif
+                                                    @else
+                                                        <span class="aq-product-contact-price">Contact for Price</span>
+                                                    @endif
                                                 </div>
 
                                             </div>
@@ -1627,38 +1656,38 @@
 
                             </div>
 
-                           
+
                         </div>
-                         <div class="readmore-btn ">
+                        <div class="readmore-btn ">
 
-                                <div class="aq-header-top-bulk-orders ">
+                            <div class="aq-header-top-bulk-orders ">
 
-                                    <a href="{{ route('products', ['filter' => 'personalized-engraving']) }}"
-                                        class="aq-loadmore-btn">
+                                <a href="{{ route('products', ['filter' => 'personalized-engraving']) }}"
+                                    class="aq-loadmore-btn">
 
-                                        <i>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round">
+                                    <i>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
 
-                                                <path
-                                                    d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
-                                                </path>
+                                            <path
+                                                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                                            </path>
 
-                                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
 
-                                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
 
-                                            </svg>
-                                        </i>
+                                        </svg>
+                                    </i>
 
-                                        <span>LOAD MORE</span>
+                                    <span>LOAD MORE</span>
 
-                                    </a>
-
-                                </div>
+                                </a>
 
                             </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1786,6 +1815,32 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-12">
+                                <div class="aqf-summer-slider-content mb-60 aqf-summer_textbtn">
+
+                                    <p>
+                                        {!! nl2br(e($brandSection->description)) !!}
+                                    </p>
+
+                                    @if($brandSection->button_text)
+
+                                        <div class="aqf-summer-btn">
+
+                                            <a href="{{ $brandSection->button_link }}" class="aq-btn-black">
+
+                                                {{ $brandSection->button_text }}
+
+                                                <i class="fa-solid fa-arrow-right-long ml-10"></i>
+
+                                            </a>
+
+                                        </div>
+
+                                    @endif
+
                                 </div>
                             </div>
                         </div>

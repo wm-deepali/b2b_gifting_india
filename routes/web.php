@@ -47,6 +47,7 @@ use App\Http\Controllers\FrontController;
 use App\Http\Controllers\Admin\QuoteSettingController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\QuoteController;
+use App\Http\Controllers\Admin\PriceManagementController;
 
 
 Route::controller(FrontController::class)->group(function () {
@@ -328,6 +329,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('quotes/{quote}/send-email', [QuoteController::class, 'sendEmail'])->name('quotes.sendEmail');
         Route::post('quotes/brands', [QuoteController::class, 'storeBrand'])->name('quotes.store-brand');
         Route::delete('quotes/{quote}', [QuoteController::class, 'destroy'])->name('quotes.destroy');
+
+        Route::get('price-management', [PriceManagementController::class, 'index'])->name('price-management.index');
+        Route::post('price-management/{product}/update', [PriceManagementController::class, 'update'])->name('price-management.update');
 
 
     });

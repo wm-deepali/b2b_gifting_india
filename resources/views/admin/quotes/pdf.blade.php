@@ -567,7 +567,9 @@
                         <td class="text-right">&#8377;{{ number_format($item->price, 2) }}</td>
                         <td class="text-right">{{ rtrim(rtrim(number_format($item->tax_percentage, 2), '0'), '.') }}%</td>
                         <td class="text-right">&#8377;{{ number_format($item->branding_charges ?? 0, 2) }}</td>
-                        <td class="text-right">{{ rtrim(rtrim(number_format($item->branding_tax_percentage ?? 0, 2), '0'), '.') }}%</td>
+                        <td class="text-right">
+                            {{ rtrim(rtrim(number_format($item->branding_tax_percentage ?? 0, 2), '0'), '.') }}%
+                        </td>
                         <td class="text-right item-total">&#8377;{{ number_format($item->total_price, 2) }}</td>
                     </tr>
                 @endforeach
@@ -575,17 +577,25 @@
         </table>
 
         @php
-            // Sub Total is the pre-tax value of both sides combined:
-            // (price x qty) for the product side + (branding_charges x qty) for the branding side.
-            // Each side is taxed independently at its own percentage — matches QuoteController@store.
+            // Sub Total is the pre-tax value of all sides combined:
+            // (price x qty) + (branding_charges x qty) per item, plus
+            // (packing_charges x packing_qty) and (shipping_charges x shipping_qty).
+            // Each side/charge is taxed independently at its own percentage — matches QuoteController@store.
             $subTotal = $quote->items->sum(function ($item) {
                 return ($item->price * $item->quantity) + (($item->branding_charges ?? 0) * $item->quantity);
             });
 
             $discount = $quote->discount_amount ?? 0;
 
-            $packing = $quote->packing_charges ?? 0;
-            $shipping = $quote->shipping_charges ?? 0;
+            $packingRate = $quote->packing_charges ?? 0;
+            $packingQty = $quote->packing_quantity ?? 1;
+            $packingAmount = $packingRate * $packingQty;
+
+            $shippingRate = $quote->shipping_charges ?? 0;
+            $shippingQty = $quote->shipping_quantity ?? 1;
+            $shippingAmount = $shippingRate * $shippingQty;
+
+            $subTotal += $packingAmount + $shippingAmount;
 
             $taxes = $quote->items->sum(function ($item) {
                 $productTax = ($item->price * $item->quantity) * ($item->tax_percentage / 100);
@@ -593,8 +603,8 @@
                 return $productTax + $brandingTax;
             });
 
-            $packingTax = ($packing * ($quote->packing_tax_percentage ?? 0)) / 100;
-            $shippingTax = ($shipping * ($quote->shipping_tax_percentage ?? 0)) / 100;
+            $packingTax = $packingAmount * (($quote->packing_tax_percentage ?? 0) / 100);
+            $shippingTax = $shippingAmount * (($quote->shipping_tax_percentage ?? 0) / 100);
 
             $taxes += $packingTax + $shippingTax;
         @endphp
@@ -612,13 +622,13 @@
             </tr>
 
             <tr>
-                <td>Packaging Charges</td>
-                <td class="text-right">&#8377;{{ number_format($packing, 2) }}</td>
+                <td>Packaging Charges ({{ $packingQty }} x &#8377;{{ number_format($packingRate, 2) }})</td>
+                <td class="text-right">&#8377;{{ number_format($packingAmount, 2) }}</td>
             </tr>
 
             <tr>
-                <td>Shipping Charges</td>
-                <td class="text-right">&#8377;{{ number_format($shipping, 2) }}</td>
+                <td>Shipping Charges ({{ $shippingQty }} x &#8377;{{ number_format($shippingRate, 2) }})</td>
+                <td class="text-right">&#8377;{{ number_format($shippingAmount, 2) }}</td>
             </tr>
 
             <tr>

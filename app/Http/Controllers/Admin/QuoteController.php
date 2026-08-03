@@ -86,7 +86,11 @@ class QuoteController extends Controller
             'pincode' => $quote->customer->pincode,
             'prepared_by' => $quote->prepared_by,
             'packing_charges' => $quote->packing_charges,
+            'packing_quantity' => $quote->packing_quantity,
+            'packing_tax_percentage' => $quote->packing_tax_percentage,
             'shipping_charges' => $quote->shipping_charges,
+            'shipping_quantity' => $quote->shipping_quantity,
+            'shipping_tax_percentage' => $quote->shipping_tax_percentage,
             'items' => $quote->items->map(function ($item) {
                 return [
                     'product_id' => $item->product_id,
@@ -208,6 +212,22 @@ class QuoteController extends Controller
     }
 
     /**
+     * Calculates the tax-inclusive amount for a flat charge (packing/shipping).
+     * Amount = (rate * qty) + tax_percentage on that subtotal.
+     */
+    private function calculateChargeTotal(float $rate, int $quantity, float $taxPercentage): array
+    {
+        $subtotal = $rate * $quantity;
+        $taxAmount = $subtotal * ($taxPercentage / 100);
+
+        return [
+            'subtotal' => $subtotal,
+            'tax_amount' => $taxAmount,
+            'total' => $subtotal + $taxAmount,
+        ];
+    }
+
+    /**
      * Persists the proposal straight to the DB as a draft (status = draft).
      * If `quote_id` is present in the payload, updates that existing draft
      * in place instead of creating a new row (the "Edit" flow).
@@ -227,7 +247,11 @@ class QuoteController extends Controller
             'prepared_by' => 'nullable|string|max:255',
             'gst_number' => 'nullable|string|max:20',
             'packing_charges' => 'nullable|numeric|min:0',
+            'packing_quantity' => 'nullable|integer|min:0',
+            'packing_tax_percentage' => 'nullable|numeric|min:0|max:100',
             'shipping_charges' => 'nullable|numeric|min:0',
+            'shipping_quantity' => 'nullable|integer|min:0',
+            'shipping_tax_percentage' => 'nullable|numeric|min:0|max:100',
             'items' => 'required|array|min:1',
             'items.*.product_id' => 'nullable|exists:products,id',
             'items.*.brand_id' => 'nullable|exists:brands,id',
@@ -267,14 +291,25 @@ class QuoteController extends Controller
             });
 
             $packingCharges = (float) ($validated['packing_charges'] ?? 0);
+            $packingQuantity = (int) ($validated['packing_quantity'] ?? 1);
+            $packingTaxPercentage = (float) ($validated['packing_tax_percentage'] ?? 0);
+            $packingTotals = $this->calculateChargeTotal($packingCharges, $packingQuantity, $packingTaxPercentage);
+
             $shippingCharges = (float) ($validated['shipping_charges'] ?? 0);
+            $shippingQuantity = (int) ($validated['shipping_quantity'] ?? 1);
+            $shippingTaxPercentage = (float) ($validated['shipping_tax_percentage'] ?? 0);
+            $shippingTotals = $this->calculateChargeTotal($shippingCharges, $shippingQuantity, $shippingTaxPercentage);
 
             $quoteData = [
                 'customer_id' => $customer->id,
                 'prepared_by' => $validated['prepared_by'] ?? null,
                 'packing_charges' => $packingCharges,
+                'packing_quantity' => $packingQuantity,
+                'packing_tax_percentage' => $packingTaxPercentage,
                 'shipping_charges' => $shippingCharges,
-                'total_amount' => $itemsTotal + $packingCharges + $shippingCharges,
+                'shipping_quantity' => $shippingQuantity,
+                'shipping_tax_percentage' => $shippingTaxPercentage,
+                'total_amount' => $itemsTotal + $packingTotals['total'] + $shippingTotals['total'],
                 'status' => 'draft',
             ];
 

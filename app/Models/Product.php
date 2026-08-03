@@ -33,6 +33,7 @@ class Product extends Model
         'price',
         'discount',
         'discount_type',
+        'landing_price',
 
         // FLAGS
         'featured',

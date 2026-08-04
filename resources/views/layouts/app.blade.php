@@ -90,7 +90,7 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="aq-search-input p-relative mb-60">
-                            <form action="{{ route('search.suggestions') }}" method="GET" autocomplete="off">
+                            <!--<form action="{{ route('search.suggestions') }}" method="GET" autocomplete="off">-->
                                 <div class="aq-search-input-wrap">
                                     <input type="text" class="searchInput" name="q"
                                         placeholder="Search premium gifts, corporate hampers, brands..." />
@@ -101,7 +101,7 @@
 
                                     <div class="searchSuggestions search-suggestions"></div>
                                 </div>
-                            </form>
+                            <!--</form>-->
 
                         </div>
                     </div>
@@ -810,7 +810,7 @@
 
                     <div class="col-md-6 col-7">
                         <div class="aq-header-search-box">
-                            <form action="{{ route('search.suggestions') }}" method="GET" autocomplete="off">
+                            <!--<form action="{{ route('search.suggestions') }}" method="GET" autocomplete="off">-->
                                 <div class="aq-search-input-wrap">
                                     <input type="text" class="searchInput" name="q"
                                         placeholder="Search premium gifts, corporate hampers, brands..." />
@@ -820,7 +820,7 @@
                                     </button>
                                     <div class="searchSuggestions search-suggestions"></div>
                                 </div>
-                            </form>
+                            <!--</form>-->
                         </div>
                     </div>
 
@@ -1155,31 +1155,76 @@
                                             </div>
                                         </div>
                                     </li>
+                                    <li class="has-dropdown p-static">
+    <a href="#">Occasions</a>
 
+    <div class="aq-megamenu-wrap aq-megamenu-img-wrap mega-menu">
+        <div class="container">
 
-                                    <li class="has-dropdown">
-                                        <a href="#">Occasions</a>
+            <div class="row row-cols-xl-6 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 gx-20">
 
-                                        <ul class="submenu">
+                @forelse($menuOccasions->take(11) as $occasion)
 
-                                            @forelse($menuOccasions as $occasion)
+                    <div class="col">
+                        <div class="aq-megamenu-img-item mb-20">
 
-                                                <li>
-                                                    <a href="{{ route('products', ['occasion' => $occasion->slug]) }}">
-                                                        {{ $occasion->title }}
-                                                    </a>
-                                                </li>
+                            <a href="{{ route('products', ['occasion' => $occasion->slug]) }}">
 
-                                            @empty
+                                <div class="aq-megamenu-img">
 
-                                                <li>
-                                                    <a href="#">No Occasions Found</a>
-                                                </li>
+                                    @if($occasion->image)
+                                        <img src="{{ asset('storage/' . $occasion->image) }}"
+                                            alt="{{ $occasion->title }}" loading="lazy">
+                                    @else
+                                        <img src="{{ asset('assets/images/no-image.png') }}"
+                                            alt="{{ $occasion->title }}" loading="lazy">
+                                    @endif
 
-                                            @endforelse
+                                </div>
 
-                                        </ul>
-                                    </li>
+                                <span class="aq-megamenu-img-title">
+                                    {{ $occasion->title }}
+                                </span>
+
+                            </a>
+
+                        </div>
+                    </div>
+
+                @empty
+
+                    <div class="col-12">
+                        <a href="#">No Occasions Found</a>
+                    </div>
+
+                @endforelse
+
+                @if($menuOccasions->count() > 11)
+                    <div class="col">
+                        <div class="aq-megamenu-img-item mb-20">
+
+                            <a href="{{ route('occasions') }}">
+
+                                <div class="aq-megamenu-img d-flex align-items-center justify-content-center"
+                                    style="height: 180px;">
+                                    <span style="font-size: 50px; font-weight: 700;">+</span>
+                                </div>
+
+                                <span class="aq-megamenu-img-title">
+                                    Load More
+                                </span>
+
+                            </a>
+
+                        </div>
+                    </div>
+                @endif
+
+            </div>
+
+        </div>
+    </div>
+</li>
                                     <li><a href="{{ route('personalised-engraving') }}">Custom Gifting</a></li>
                                     <li><a href="{{ route('bulk-order') }}">Bulk Orders</a></li>
                                     <li><a href="{{ route('blogs') }}">Blogs</a></li>
@@ -1202,12 +1247,12 @@
             <div class="aq-footer-shape-top"></div>
 
             <div class="container">
-                <div class="aq-footer-main pt-30 pb-30">
+                <div class="aq-footer-main pt-20 pb-20">
                     <div class="row">
                         <!-- Column 1: Branding & Intro -->
                         <div class="col-xl-4 col-lg-4 col-md-12">
                             <div class="aq-footer-widget footer-col-brand mb-50">
-                                <div class="aq-footer-logo-luxury mb-35">
+                                <div class="aq-footer-logo-luxury">
                                     <a href="{{ route('home') }}">
                                         @if(!empty($footerSetting?->logo))
                                             <img src="{{ asset($footerSetting->logo) }}" alt="Logo"
@@ -1220,31 +1265,52 @@
                                         {!! nl2br(e($footerSetting->about_text)) !!}
                                     </p>
                                 @endif
-                                <div class="aq-footer-social-luxury mt-40">
+                                <div class="aq-footer-social-luxury mt-10">
 
-                                    @if($footerSetting->facebook)
+                                    <!--@if($footerSetting->facebook)-->
+                                    <!--    <a href="{{ $footerSetting->facebook }}" target="_blank" class="social-icon">-->
+                                    <!--        <i class="fa-brands fa-facebook-f"></i>-->
+                                    <!--    </a>-->
+                                    <!--@endif-->
+
+                                    <!--@if($footerSetting->twitter)-->
+                                    <!--    <a href="{{ $footerSetting->twitter }}" target="_blank" class="social-icon">-->
+                                    <!--        <i class="fa-brands fa-twitter"></i>-->
+                                    <!--    </a>-->
+                                    <!--@endif-->
+
+                                    <!--@if($footerSetting->linkedin)-->
+                                    <!--    <a href="{{ $footerSetting->linkedin }}" target="_blank" class="social-icon">-->
+                                    <!--        <i class="fa-brands fa-linkedin-in"></i>-->
+                                    <!--    </a>-->
+                                    <!--@endif-->
+
+                                    <!--@if($footerSetting->instagram)-->
+                                    <!--    <a href="{{ $footerSetting->instagram }}" target="_blank" class="social-icon">-->
+                                    <!--        <i class="fa-brands fa-instagram"></i>-->
+                                    <!--    </a>-->
+                                    <!--@endif-->
+                                    
+                                    
+                                     
                                         <a href="{{ $footerSetting->facebook }}" target="_blank" class="social-icon">
                                             <i class="fa-brands fa-facebook-f"></i>
                                         </a>
-                                    @endif
-
-                                    @if($footerSetting->twitter)
+                                   
                                         <a href="{{ $footerSetting->twitter }}" target="_blank" class="social-icon">
                                             <i class="fa-brands fa-twitter"></i>
                                         </a>
-                                    @endif
-
-                                    @if($footerSetting->linkedin)
+                                  
                                         <a href="{{ $footerSetting->linkedin }}" target="_blank" class="social-icon">
                                             <i class="fa-brands fa-linkedin-in"></i>
                                         </a>
-                                    @endif
+                                  
 
-                                    @if($footerSetting->instagram)
+                                   
                                         <a href="{{ $footerSetting->instagram }}" target="_blank" class="social-icon">
                                             <i class="fa-brands fa-instagram"></i>
                                         </a>
-                                    @endif
+                                  
 
                                 </div>
                             </div>

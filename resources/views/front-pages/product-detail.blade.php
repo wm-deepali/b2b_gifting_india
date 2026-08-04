@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    .aq-price-on-request {
+    font-size: 13px;
+    font-weight: 600;
+    color: #6b7568;
+    font-style: italic;
+}
+</style>
     <main>
 
         <!-- 1. Luxury Inner Banner / Hero Section -->
@@ -67,7 +75,7 @@
                     </span>
                 </div>
 
-                <div class="row g-5 justify-content-between">
+                <div class="row g-5 justify-content-between section-setfor-smalllaptop">
 
                     <!-- Left Column: Image Gallery -->
                     <div class="col-lg-6 col-md-12">
@@ -109,62 +117,8 @@
                             </div>
                         </div>
 
-                        <!-- SUITABLE FOR SELECTIONS -->
-                        <div class="aq-suitable-for-extra mt-30 p-4">
-                            <h5>
-                                <i class="fa-solid fa-circle-check"></i>
-                                Suitable For
-                            </h5>
 
-                            <!-- Occasions Grid -->
-                            <div class="row g-3 text-center">
-
-                                @foreach($product->occasions as $occasion)
-
-                                    <div class="col-4">
-                                        <div class="aq-occasion-card p-3">
-
-                                            <div class="aq-occasion-icon-wrap">
-                                                <i class="{{ $occasion->icon ?: 'fa-solid fa-gift' }}"></i>
-                                            </div>
-
-                                            <span>{{ $occasion->title }}</span>
-
-                                        </div>
-                                    </div>
-
-                                @endforeach
-
-                            </div>
-                        </div>
-                        <!-- Trust Badges Section -->
-                        <div class="aq-luxury-trust-badges">
-                            <!-- Badge 1: PAN India Delivery -->
-                            @if($product->pan_india)
-                                <div class="aq-trust-badge-item">
-                                    <span class="aq-trust-badge-icon"><i class="fa-solid fa-truck-fast"></i></span>
-                                    <div class="aq-trust-badge-content">
-                                        <span class="aq-trust-badge-text">PAN India Delivery</span>
-                                        <span class="aq-trust-badge-sub">Express Shipping (7-10 Days)</span>
-                                    </div>
-                                </div>
-                            @endif
-                            @if($product->quality)
-                                <!-- Badge 2: Quality assurance check -->
-                                <div class="aq-trust-badge-item">
-                                    <span class="aq-trust-badge-icon"><i class="fa-solid fa-circle-check"></i></span>
-                                    <div class="aq-trust-badge-content">
-                                        <span class="aq-trust-badge-text">100% Quality Audited</span>
-                                        <span class="aq-trust-badge-sub">Strict Assurance Audit</span>
-                                    </div>
-                                </div>
-                            @endif
-                        </div>
-
-                    </div>
-
-                    <!-- Right Column: Product Specs & Ordering Drawer Trigger -->
-                    <div class="col-lg-6 col-md-12">
+ <div class="col-lg-6 col-md-12 show-tab-mobile">
                         <div class="aq-product-details-summary">
                             <span class="aq-details-brand">
                                 @if($product->subcategories->count())
@@ -238,7 +192,345 @@
                                             @if($price > 0)
                                                 ₹{{ number_format($price) }}
                                             @else
-                                                Contact For Price
+                                               Price on Request
+                                            @endif
+                                        </span>
+
+                                        @if($price > 0)
+                                            <span class="aq-details-price-unit">
+                                                / unit (exclusive of GST)
+                                            </span>
+                                        @endif
+
+                                    </div>
+
+                                </div>
+
+                                @if($product->min_qty)
+                                    <p class="aq-moq-info mb-0 mt-2">
+                                        <i class="fa-solid fa-circle-info mr-5"></i>
+                                        Minimum Order Quantity (MOQ):
+                                        <strong>{{ $product->min_qty }} Units</strong>
+                                    </p>
+                                @endif
+                                @if($product->delivery_time)
+                                    <p class="aq-moq-info mb-0 mt-2">
+                                        <i class="fa-solid fa-truck-fast mr-5"></i>
+                                        Delivery Time:
+                                        <strong>{{ $product->delivery_time }}</strong>
+                                    </p>
+                                @endif
+                            </div>
+                            <p class="aq-details-short-desc">
+                                {{ $product->sub_title }}
+                            </p>
+
+                            <!-- Kit Contents Summary List -->
+                            <div class="aq-details-highlights mt-20 mb-25">
+                                <h5 class="highlights-title">Gift Box Curated Contents:</h5>
+
+                                <ul class="highlights-list">
+
+                                    @forelse($product->inclusions as $inclusion)
+
+                                        <li>
+                                            <i class="fa-regular fa-circle-check"></i>
+                                            {{ $inclusion->title }}
+                                        </li>
+
+                                    @empty
+
+                                        <li>
+                                            <i class="fa-regular fa-circle-check"></i>
+                                            No inclusions available
+                                        </li>
+
+                                    @endforelse
+
+                                </ul>
+                            </div>
+
+                            <!-- Co-Branding Customizer -->
+                            <div class="aq-branding-panel p-3 mb-25">
+                                <h5 class="aq-branding-title">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                    Customize & Co-brand Your Kit
+                                </h5>
+
+                                <div class="row g-3">
+
+                                    @foreach($product->customizations as $index => $customization)
+
+                                        <div class="col-sm-6">
+                                            <button type="button" data-customization="{{ $customization->id }}"
+                                                class="aq-branding-btn {{ $index == 0 ? 'active' : '' }} w-100 d-flex align-items-center justify-content-center gap-2"
+                                                onclick="selectBrandingOption(this)">
+                                                <i class="{{ $customization->icon ?: 'fa-solid fa-check' }}"></i>
+                                                {{ $customization->title ?? $customization->name }}
+
+                                            </button>
+                                        </div>
+
+                                    @endforeach
+
+                                </div>
+                                
+                                
+                                
+                                
+                                 <!-- Trust Badges Section -->
+                        <div class="aq-luxury-trust-badges show-tab-mobile">
+                            <!-- Badge 1: PAN India Delivery -->
+                            @if($product->pan_india)
+                                <div class="aq-trust-badge-item">
+                                    <span class="aq-trust-badge-icon"><i class="fa-solid fa-truck-fast"></i></span>
+                                    <div class="aq-trust-badge-content">
+                                        <span class="aq-trust-badge-text">PAN India Delivery</span>
+                                        <span class="aq-trust-badge-sub">Express Shipping (7-10 Days)</span>
+                                    </div>
+                                </div>
+                            @endif
+                            @if($product->quality)
+                                <!-- Badge 2: Quality assurance check -->
+                                <div class="aq-trust-badge-item">
+                                    <span class="aq-trust-badge-icon"><i class="fa-solid fa-circle-check"></i></span>
+                                    <div class="aq-trust-badge-content">
+                                        <span class="aq-trust-badge-text">100% Quality Audited</span>
+                                        <span class="aq-trust-badge-sub">Strict Assurance Audit</span>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                        
+                        
+                                <input type="hidden" id="selectedCustomization"
+                                    value="{{ $product->customizations->first()?->id }}">
+                            </div>
+                            <!-- Interactive Quantity Calculator -->
+                            <div class="aq-calculator-panel p-3 mb-30">
+                                <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+
+                                    <div class="d-flex align-items-center gap-3">
+                                        <label class="aq-qty-label">Order Qty:</label>
+
+                                        <div class="aq-qty-selector">
+                                            <button type="button" class="qty-btn"
+                                                onclick="adjustQty(-{{ $product->min_qty ?? 1 }})">
+                                                -
+                                            </button>
+
+                                            <input type="number" id="aqDetailQty" value="{{ $product->min_qty ?? 1 }}"
+                                                min="{{ $product->min_qty ?? 1 }}" step="{{ $product->min_qty ?? 1 }}"
+                                                oninput="calculateTotalEstimate()" />
+
+                                            <button type="button" class="qty-btn"
+                                                onclick="adjustQty({{ $product->min_qty ?? 1 }})">
+                                                +
+                                            </button>
+                                        </div>
+                                    </div>
+
+                            
+
+<div class="text-end">
+    <span class="aq-estimate-label">Estimated Budget:</span>
+    <span id="aqTotalEstimateDisplay" class="aq-estimate-value">
+        @if(($product->price ?? 0) > 0)
+            ₹{{ number_format(($product->price ?? 0) * ($product->min_qty ?? 1)) }}
+        @else
+            Price on Request
+        @endif
+    </span>
+</div>
+
+                                </div>
+                            </div>
+
+                            <!-- Call to Action Buttons -->
+                            <div class="d-flex flex-column flex-sm-row gap-3">
+                            @if($product->cart)
+                            <button data-id="{{ $product->id }}" class="aq-btn-black btn-red-bg flex-grow-1 aq-custom-quote-btn add-to-cart">
+                                <i class="fa-solid fa-cart-plus"></i>
+                                Add to Cart
+                            </button>
+                            
+                            
+                            
+                        @endif
+                    
+                        @if($product->whatsapp)
+                            <a href="https://wa.me/919876543210" target="_blank" class="aq-btn-black flex-grow-1 aq-download-pdf-btn">
+                                <i class="fa-brands fa-whatsapp"></i>
+                                WhatsApp
+                            </a>
+                        @endif
+                        
+                                                @if($product->call)
+                            <a href="tel:919876543210" class="call-btn">
+                                <i class="fa-solid fa-phone"></i>
+                                Call Now
+                            </a>
+                        @endif
+                            </div>
+                            <!--product-action-wrapper-->
+                            <div class=" d-flex flex-column flex-sm-row gap-3">
+
+                        <!--@if($product->cart)-->
+                        <!--    <button data-id="{{ $product->id }}" class=" btn-red-bg flex-grow-1 aq-custom-quote-btn">-->
+                        <!--        <i class="fa-solid fa-cart-plus"></i>-->
+                        <!--        Add to Cart-->
+                        <!--    </button>-->
+                        <!--@endif-->
+                    
+                        <!--@if($product->whatsapp)-->
+                        <!--    <a href="https://wa.me/919876543210" target="_blank" class=" flex-grow-1 aq-download-pdf-btn">-->
+                        <!--        <i class="fa-brands fa-whatsapp"></i>-->
+                        <!--        WhatsApp-->
+                        <!--    </a>-->
+                        <!--@endif-->
+                    
+                        <!--@if($product->call)-->
+                        <!--    <a href="tel:919876543210" class="call-btn">-->
+                        <!--        <i class="fa-solid fa-phone"></i>-->
+                        <!--        Call Now-->
+                        <!--    </a>-->
+                        <!--@endif-->
+                    
+                    </div>
+
+
+                        </div>
+                    </div>
+                        <!-- SUITABLE FOR SELECTIONS -->
+                        <div class="aq-suitable-for-extra mt-30 p-4">
+                            <h5>
+                                <i class="fa-solid fa-circle-check"></i>
+                                Suitable For
+                            </h5>
+
+                            <!-- Occasions Grid -->
+                            <div class="row g-2 text-center">
+
+                                @foreach($product->occasions as $occasion)
+
+                                    <div class="col-4 col-sm-3">
+                                        <div class="aq-occasion-card p-3">
+
+                                            <div class="aq-occasion-icon-wrap">
+                                                <i class="{{ $occasion->icon ?: 'fa-solid fa-gift' }}"></i>
+                                            </div>
+
+                                            <span>{{ $occasion->title }}</span>
+
+                                        </div>
+                                    </div>
+
+                                @endforeach
+
+                            </div>
+                        </div>
+                        <!-- Trust Badges Section -->
+                        <div class="aq-luxury-trust-badges show-desktop">
+                            <!-- Badge 1: PAN India Delivery -->
+                            @if($product->pan_india)
+                                <div class="aq-trust-badge-item">
+                                    <span class="aq-trust-badge-icon"><i class="fa-solid fa-truck-fast"></i></span>
+                                    <div class="aq-trust-badge-content">
+                                        <span class="aq-trust-badge-text">PAN India Delivery</span>
+                                        <span class="aq-trust-badge-sub">Express Shipping (7-10 Days)</span>
+                                    </div>
+                                </div>
+                            @endif
+                            @if($product->quality)
+                                <!-- Badge 2: Quality assurance check -->
+                                <div class="aq-trust-badge-item">
+                                    <span class="aq-trust-badge-icon"><i class="fa-solid fa-circle-check"></i></span>
+                                    <div class="aq-trust-badge-content">
+                                        <span class="aq-trust-badge-text">100% Quality Audited</span>
+                                        <span class="aq-trust-badge-sub">Strict Assurance Audit</span>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+
+                    </div>
+
+                    <!-- Right Column: Product Specs & Ordering Drawer Trigger -->
+                    <div class="col-lg-6 col-md-12 show-desktop ">
+                        <div class="aq-product-details-summary">
+                            <span class="aq-details-brand">
+                                @if($product->subcategories->count())
+                                    {{ $product->subcategories->first()->name }}
+                                @elseif($product->categories->count())
+                                    {{ $product->categories->first()->name }}
+                                @endif
+                            </span>
+                            <h2 class="aq-details-title">
+                                {{ $product->name }}
+                            </h2>
+
+                            <!-- Star reviews rating -->
+                            <div class="aq-details-rating-wrap d-flex align-items-center gap-2 mt-10 mb-15">
+                                <div class="aq-details-stars">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                                <span class="aq-details-rating-text">(4.9 / 5 from 18 verified corporate client
+                                    orders)</span>
+                            </div>
+
+                            <!-- Pricing box -->
+                            @php
+                                $price = (float) ($product->price ?? 0);
+                                $mrp = (float) ($product->mrp ?? 0);
+
+                                $hasDiscount = $mrp > $price && $price > 0;
+
+                                $discountAmount = $mrp - $price;
+
+                                $discountPercent = $mrp > 0
+                                    ? round(($discountAmount / $mrp) * 100)
+                                    : 0;
+                            @endphp
+
+                            <div class="aq-details-price-box p-3 mb-25">
+                                <div class="d-flex flex-column gap-1">
+
+                                    @if($mrp > 0)
+
+                                        <div class="aq-price-mrp-row d-flex align-items-center gap-2">
+
+                                            <span class="mrp-label">
+                                                MRP:
+                                                <span class="mrp-value">
+                                                    ₹{{ number_format($mrp) }}
+                                                </span>
+                                            </span>
+
+                                            @if($hasDiscount)
+                                                <span class="discount-badge">
+                                                    Discount: {{ $discountPercent }}% OFF
+                                                </span>
+                                            @endif
+
+                                        </div>
+
+                                    @endif
+
+                                    <div class="aq-price-offered-row d-flex align-items-baseline gap-2 mt-1">
+
+                                        <span class="offered-label">
+                                            Offered Price:
+                                        </span>
+
+                                        <span class="aq-details-price">
+                                            @if($price > 0)
+                                                ₹{{ number_format($price) }}
+                                            @else
+                                                Price on Request
                                             @endif
                                         </span>
 
@@ -346,14 +638,16 @@
                                             </button>
                                         </div>
                                     </div>
-
-                                    <div class="text-end">
-                                        <span class="aq-estimate-label">Estimated Budget:</span>
-
-                                        <span id="aqTotalEstimateDisplay" class="aq-estimate-value">
-                                            ₹{{ number_format(($product->price ?? 0) * ($product->min_qty ?? 1)) }}
-                                        </span>
-                                    </div>
+<div class="text-end">
+    <span class="aq-estimate-label">Estimated Budget:</span>
+    <span id="aqTotalEstimateDisplay" class="aq-estimate-value">
+        @if(($product->price ?? 0) > 0)
+            ₹{{ number_format(($product->price ?? 0) * ($product->min_qty ?? 1)) }}
+        @else
+            Price on Request
+        @endif
+    </span>
+</div>
 
                                 </div>
                             </div>
@@ -365,6 +659,9 @@
                                 <i class="fa-solid fa-cart-plus"></i>
                                 Add to Cart
                             </button>
+                            
+                            
+                            
                         @endif
                     
                         @if($product->whatsapp)
@@ -546,7 +843,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-sm-2 row-cols-1 g-4 justify-content-center">
+                <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-sm-3 row-cols-2 g-2 justify-content-center scroll_set-cardsection">
 
                     @forelse($newArrivals as $arrival)
 
@@ -618,11 +915,14 @@
                                             </p>
 
                                             <div class="aq-product-card-bottom">
-
-                                                <div class="aq-product-card-price">
-                                                    ₹{{ number_format($arrival->price) }}
-                                                    <span>/ unit</span>
-                                                </div>
+<div class="aq-product-card-price">
+    @if($arrival->price > 0)
+        ₹{{ number_format($arrival->price) }}
+        <span>/ unit</span>
+    @else
+        <span class="aq-price-on-request">Price on Request</span>
+    @endif
+</div>
 
                                                 <button class="aq-product-card-cta" onclick="openGlobalDrawer('product-details')">
                                                     Enquire
@@ -660,7 +960,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-sm-2 row-cols-1 g-4 justify-content-center">
+                <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-sm-3 row-cols-2 g-2 justify-content-center scroll_set-cardsection">
 
                     @forelse($relatedProducts as $related)
 
@@ -731,11 +1031,14 @@
                                             </p>
 
                                             <div class="aq-product-card-bottom">
-
-                                                <div class="aq-product-card-price">
-                                                    ₹{{ number_format($related->price) }}
-                                                    <span>/ unit</span>
-                                                </div>
+<div class="aq-product-card-price">
+    @if($related->price > 0)
+        ₹{{ number_format($related->price) }}
+        <span>/ unit</span>
+    @else
+        <span class="aq-price-on-request">Price on Request</span>
+    @endif
+</div>
 
                                                 <button class="aq-product-card-cta" onclick="openGlobalDrawer('product-details')">
                                                     Enquire
@@ -863,24 +1166,22 @@
                 }
             }
 
-            function calculateTotalEstimate() {
+           function calculateTotalEstimate() {
+    const qtyInput = document.getElementById('aqDetailQty');
+    const totalDisplay = document.getElementById('aqTotalEstimateDisplay');
+    if (qtyInput && totalDisplay) {
+        const minQty = {{ $product->min_qty ?? 1 }};
+        const qty = parseInt(qtyInput.value) || minQty;
+        const pricePerUnit = {{ $product->price ?? 0 }};
 
-                const qtyInput = document.getElementById('aqDetailQty');
-                const totalDisplay = document.getElementById('aqTotalEstimateDisplay');
-
-                if (qtyInput && totalDisplay) {
-
-                    const minQty = {{ $product->min_qty ?? 1 }};
-                    const qty = parseInt(qtyInput.value) || minQty;
-
-                    const pricePerUnit = {{ $product->price ?? 0 }};
-
-                    const total = qty * pricePerUnit;
-
-                    totalDisplay.innerText =
-                        '₹' + total.toLocaleString('en-IN');
-                }
-            }
+        if (pricePerUnit > 0) {
+            const total = qty * pricePerUnit;
+            totalDisplay.innerText = '₹' + total.toLocaleString('en-IN');
+        } else {
+            totalDisplay.innerText = 'Price on Request';
+        }
+    }
+}
 
             function handleLogoUpload(input) {
                 const label = document.getElementById('logoUploadLabel');

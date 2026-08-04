@@ -113,7 +113,7 @@
     'admin.contact-branches.*',
     'admin.awards.*',
     'admin.teams.*',
-
+    'admin.about-settings.*',
     'admin.seo.*'
 ) ? 'active' : '' }}">
             <a href="#">
@@ -180,6 +180,11 @@
                     </a>
                 </li>
 
+                <li class="{{ request()->routeIs('admin.about-settings.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.about-settings.edit') }}">
+                        <i class="fa-solid fa-circle-info"></i> About Us Page
+                    </a>
+                </li>
                 <li class="{{ request()->routeIs('admin.footer-settings.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.footer-settings.index') }}">
                         <i class="fa-solid fa-address-card"></i> Footer Settings

@@ -48,7 +48,7 @@ use App\Http\Controllers\Admin\QuoteSettingController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\QuoteController;
 use App\Http\Controllers\Admin\PriceManagementController;
-
+use App\Http\Controllers\Admin\AboutSettingController;
 
 Route::controller(FrontController::class)->group(function () {
 
@@ -303,6 +303,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('/seo/{id}', [SeoController::class, 'update'])->name('seo.update');
         Route::resource('announcements', AnnouncementController::class);
 
+        Route::get('about-settings', [AboutSettingController::class, 'edit'])->name('about-settings.edit');
+        Route::put('about-settings', [AboutSettingController::class, 'update'])->name('about-settings.update');
+
         // Quote Settings
         Route::get('quote-settings', [QuoteSettingController::class, 'index'])->name('quote-settings.index');
         Route::post('quote-settings', [QuoteSettingController::class, 'store'])->name('quote-settings.store');
@@ -332,6 +335,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('price-management', [PriceManagementController::class, 'index'])->name('price-management.index');
         Route::post('price-management/{product}/update', [PriceManagementController::class, 'update'])->name('price-management.update');
+        Route::get('price-management/{product}/logs', [PriceManagementController::class, 'logs'])->name('price-management.logs');
+
 
 
     });

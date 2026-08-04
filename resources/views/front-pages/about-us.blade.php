@@ -15,9 +15,9 @@
                 <i class="fa-solid fa-gem"></i>
             </div>
             <div class="aq-catpage-hero-content">
-                <h1 class="aq-catpage-title">About </h1>
+                <h1 class="aq-catpage-title">{{ $about->hero_title ?? 'About' }}</h1>
                 <div class="aq-catpage-breadcrumbs">
-                    <a href="index.html">Home</a>
+                    <a href="{{ route('home') }}">Home</a>
                     <span>/</span>
                     <span>About</span>
                 </div>
@@ -26,60 +26,32 @@
 
         <!-- Breadcrumb Bar -->
         <!-- <div class="aq-about-breadcrumb-wrap">
-                    <div class="container">
-                        <div class="aq-details-breadcrumbs">
-                            <a href="index.html">Home</a>
-                            <span class="divider">/</span>
-                            <span class="current">About Us</span>
-                        </div>
-                    </div>
-                </div> -->
+                                                <div class="container">
+                                                    <div class="aq-details-breadcrumbs">
+                                                        <a href="index.html">Home</a>
+                                                        <span class="divider">/</span>
+                                                        <span class="current">About Us</span>
+                                                    </div>
+                                                </div>
+                                            </div> -->
 
 
         <!-- Luxury Stats Overlap Wrap -->
         <section class="aq-stats-wrap">
             <div class="container">
+
                 <div class="row g-4">
-                    <!-- Stat Item 1 -->
-                    <div class="col-xl-3 col-md-6">
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fa-solid fa-handshake"></i>
+                    @foreach(($about->stats ?? []) as $stat)
+                        <div class="col-xl-3 col-md-6">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="{{ $stat['icon'] }}"></i>
+                                </div>
+                                <h3 class="stat-number">{{ $stat['number'] }}</h3>
+                                <span class="stat-label">{{ $stat['label'] }}</span>
                             </div>
-                            <h3 class="stat-number">500+</h3>
-                            <span class="stat-label">Happy Corporate Clients</span>
                         </div>
-                    </div>
-                    <!-- Stat Item 2 -->
-                    <div class="col-xl-3 col-md-6">
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fa-solid fa-gift"></i>
-                            </div>
-                            <h3 class="stat-number">1,25,000+</h3>
-                            <span class="stat-label">Gifts Delivered</span>
-                        </div>
-                    </div>
-                    <!-- Stat Item 3 -->
-                    <div class="col-xl-3 col-md-6">
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fa-solid fa-crown"></i>
-                            </div>
-                            <h3 class="stat-number">700+</h3>
-                            <span class="stat-label">Premium Products</span>
-                        </div>
-                    </div>
-                    <!-- Stat Item 4 -->
-                    <div class="col-xl-3 col-md-6">
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fa-solid fa-network-wired"></i>
-                            </div>
-                            <h3 class="stat-number">100</h3>
-                            <span class="stat-label">Partners / Vendors</span>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </section>
@@ -89,24 +61,21 @@
             <div class="container">
                 <div class="row align-items-center g-5">
                     <div class="col-lg-6">
-                        <span class="aq-section-title-sm">Spreading Joy Since 5+ Years</span>
-                        <h2 class="aq-section-title">Discover B2B Gifts India &amp; Our Giftech Platform</h2>
+                        <span class="aq-section-title-sm">{{ $about->discover_subtitle ?? '' }}</span>
+                        <h2 class="aq-section-title">{{ $about->discover_title ?? '' }}</h2>
                         <p class="aq-section-desc">
-                            Our Giftech platform provides access to the next level of corporate gifting. Sharing a
-                            successful journey of over 5 years, we've been spreading joy and fostering connections
-                            through thoughtfully chosen Gifts.
+                            {{ $about->discover_para1 ?? '' }}
                         </p>
                         <p class="aq-section-desc">
-                            Our goal is to offer you the finest selection of options that cater to your specific
-                            corporate needs for any occasion. We will closely collaborate with you to gain a
-                            comprehensive understanding of your choices, budget, and timelines.
+                            {{ $about->discover_para2 ?? '' }}
                         </p>
                         <a href="javascript:void(0);" onclick="openGlobalDrawer('about_page')"
-                            class="aq-about-btn-gold mt-10 enquiry-btn">Get Started</a>
+                            class="aq-about-btn-gold mt-10 enquiry-btn">{{ $about->discover_button_text ?? 'Get Started' }}</a>
+
                     </div>
                     <div class="col-lg-6">
                         <div class="aq-image-box-premium">
-                            <img src="public/assets/img/corporate/welcome_kit_1778668006890.webp"
+                            <img src="{{ $about->discover_image ? asset('storage/' . $about->discover_image) : asset('assets/img/corporate/welcome_kit_1778668006890.webp') }}"
                                 alt="Corporate Welcome Gifting Kits Showcase" />
                             <div class="aq-image-box-overlay"></div>
                         </div>
@@ -120,65 +89,34 @@
             <div class="container">
                 <div class="row justify-content-center text-center mb-50">
                     <div class="col-lg-8">
-                        <span class="aq-section-title-sm">Innovative Gifting Ecosystem</span>
-                        <h2 class="aq-section-title">Elevate Your Corporate Gifting Experience</h2>
+                        <span class="aq-section-title-sm">{{ $about->tech_subtitle ?? '' }}</span>
+                        <h2 class="aq-section-title">{{ $about->tech_title ?? '' }}</h2>
                         <p class="aq-section-desc" style="max-width: 700px; margin: 0 auto;">
-                            We bridge premium luxury craftsmanship with cutting-edge digital curation. Discover our
-                            tech-forward corporate gifting philosophy.
+                            {{ $about->tech_description ?? '' }}
                         </p>
                     </div>
                 </div>
                 <div class="row g-4">
-                    <!-- Feature 1 -->
-                    <div class="col-lg-4">
-                        <div class="tech-feature-card">
-                            <span class="tech-feature-icon"><i class="fa-solid fa-microchip"></i></span>
-                            <h4 class="tech-feature-title">Cutting-Edge Gifting Tech</h4>
-                            <p class="tech-feature-desc">
-                                We, as a Gift-Tech company, distinguish ourselves from others through our cutting-edge
-                                technological tools, including an E-commerce website, CRM system, and well-defined
-                                processes and policies. These elements shape our unique approach, vision, and mission,
-                                ensuring customer satisfaction, exceptional service, and a strong brand value.
-                            </p>
+                    @foreach(($about->tech_features ?? []) as $feature)
+                        <div class="col-lg-4">
+                            <div class="tech-feature-card">
+                                <span class="tech-feature-icon"><i class="{{ $feature['icon'] }}"></i></span>
+                                <h4 class="tech-feature-title">{{ $feature['title'] }}</h4>
+                                <p class="tech-feature-desc">{{ $feature['desc'] }}</p>
+                            </div>
                         </div>
-                    </div>
-                    <!-- Feature 2 -->
-                    <div class="col-lg-4">
-                        <div class="tech-feature-card">
-                            <span class="tech-feature-icon"><i class="fa-solid fa-tags"></i></span>
-                            <h4 class="tech-feature-title">Vast Catalog & Brand Network</h4>
-                            <p class="tech-feature-desc">
-                                We efficiently handle a wide range of over 5000+ products & serving a client base of
-                                over 400 plus corporate and established corporate partnerships with more than 150
-                                national and international brands across 18 major categories and 100 subcategories.
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Feature 3 -->
-                    <div class="col-lg-4">
-                        <div class="tech-feature-card">
-                            <span class="tech-feature-icon"><i class="fa-solid fa-heart-pulse"></i></span>
-                            <h4 class="tech-feature-title">Empowering Local Artisans</h4>
-                            <p class="tech-feature-desc">
-                                To promote local trade, support local artisans, and contribute to the growth of the
-                                Indian economy, the majority of our products are manufactured in India. We are delighted
-                                to offer an exciting opportunity for brand partnerships.
-                            </p>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
 
                 <!-- CTA banner inside -->
                 <div class="aq-reach-cta-banner d-flex align-items-center justify-content-between flex-wrap gap-4">
                     <div>
-                        <h3 class="aq-reach-title">Reach us for extraordinary gifting experience.</h3>
-                        <p class="aq-reach-desc">Our design curators are ready to help you launch your next campaign.
-                        </p>
+                        <h3 class="aq-reach-title">{{ $about->cta_title ?? '' }}</h3>
+                        <p class="aq-reach-desc">{{ $about->cta_desc ?? '' }}</p>
                     </div>
                     <a href="javascript:void(0);" onclick="openGlobalDrawer('about_page')"
                         class="aq-about-btn-gold enquiry-btn"
-                        style="background:#ffffff; color:#003108 !important; border-color:#ffffff; box-shadow:0 10px 20px rgba(0,0,0,0.1);">Get
-                        a Custom Proposal</a>
+                        style="background:#ffffff; color:#003108 !important; border-color:#ffffff; box-shadow:0 10px 20px rgba(0,0,0,0.1);">{{ $about->cta_button_text ?? 'Get a Custom Proposal' }}</a>
                 </div>
             </div>
         </section>
@@ -188,48 +126,23 @@
             <div class="container">
                 <div class="row justify-content-center text-center mb-50">
                     <div class="col-lg-8">
-                        <span class="aq-section-title-sm">Commitment to Distinction</span>
-                        <h2 class="aq-section-title">Our Brand Promise</h2>
+                        <span class="aq-section-title-sm">{{ $about->promise_subtitle ?? '' }}</span>
+                        <h2 class="aq-section-title">{{ $about->promise_title ?? '' }}</h2>
                         <p class="aq-section-desc" style="max-width: 700px; margin: 0 auto;">
-                            We go beyond gifting — we deliver experiences that strengthen relationships, elevate your
-                            brand, and create lasting impressions.
+                            {{ $about->promise_description ?? '' }}
                         </p>
                     </div>
                 </div>
                 <div class="row g-4">
-                    <!-- Card 1 -->
-                    <div class="col-lg-4 col-md-6">
-                        <div class="promise-card">
-                            <div class="promise-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-                            <h3 class="promise-title">Premium Quality</h3>
-                            <p class="promise-desc">
-                                Carefully curated, high-quality products that reflect your brand standards and leave a
-                                lasting impression.
-                            </p>
+                    @foreach(($about->promise_cards ?? []) as $card)
+                        <div class="col-lg-4 col-md-6">
+                            <div class="promise-card">
+                                <div class="promise-icon"><i class="{{ $card['icon'] }}"></i></div>
+                                <h3 class="promise-title">{{ $card['title'] }}</h3>
+                                <p class="promise-desc">{{ $card['desc'] }}</p>
+                            </div>
                         </div>
-                    </div>
-                    <!-- Card 2 -->
-                    <div class="col-lg-4 col-md-6">
-                        <div class="promise-card">
-                            <div class="promise-icon"><i class="fa-solid fa-palette"></i></div>
-                            <h3 class="promise-title">Creative Customization</h3>
-                            <p class="promise-desc">
-                                Tailored branding solutions including logo printing, engraving, and premium packaging to
-                                make every gift uniquely yours.
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Card 3 -->
-                    <div class="col-lg-4 col-md-6">
-                        <div class="promise-card">
-                            <div class="promise-icon"><i class="fa-solid fa-handshake-angle"></i></div>
-                            <h3 class="promise-title">Exceptional Service</h3>
-                            <p class="promise-desc">
-                                End-to-end support from consultation to delivery, ensuring a smooth, reliable, and
-                                hassle-free gifting experience.
-                            </p>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </section>
@@ -241,23 +154,20 @@
                     <!-- Vision Card -->
                     <div class="col-lg-6">
                         <div class="vision-mission-card">
-                            <span class="vm-badge">Our Vision</span>
-                            <h3 class="vm-title">To Redefine Corporate Gifting</h3>
+                            <span class="vm-badge">{{ $about->vision_badge ?? '' }}</span>
+                            <h3 class="vm-title">{{ $about->vision_title ?? '' }}</h3>
                             <p class="vm-desc">
-                                To redefine corporate gifting by making it more meaningful, personalized, and
-                                result-driven — helping businesses create real impact through every gift they share.
+                                {{ $about->vision_desc ?? '' }}
                             </p>
                         </div>
                     </div>
                     <!-- Mission Card -->
                     <div class="col-lg-6">
                         <div class="vision-mission-card">
-                            <span class="vm-badge mission-badge">Our Mission</span>
-                            <h3 class="vm-title">Delivering High-Quality Customization</h3>
+                            <span class="vm-badge mission-badge">{{ $about->mission_badge ?? '' }}</span>
+                            <h3 class="vm-title">{{ $about->mission_title ?? '' }}</h3>
                             <p class="vm-desc">
-                                To provide reliable, high-quality, and customized gifting solutions with seamless
-                                execution — ensuring every order reflects our client’s brand and delivers a smooth,
-                                hassle-free experience from start to finish.
+                                {{ $about->mission_desc ?? '' }}
                             </p>
                         </div>
                     </div>

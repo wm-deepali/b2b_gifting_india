@@ -1,6 +1,6 @@
 @if($products->count())
-     <div class="aq-product-grid" >
- 
+    <div class="aq-product-grid">
+
 
         @foreach($products as $product)
 
@@ -25,9 +25,11 @@
 
                 <div class="aq-product-card-top">
 
-                    <img src="{{ $product->display_image
+                    <a href="{{ route('product.details', $product->slug) }}">
+                        <img src="{{ $product->display_image
                     ? asset('storage/' . $product->display_image)
                     : asset('assets/img/no-image.webp') }}" class="aq-product-card-img" alt="{{ $product->name }}" />
+                    </a>
 
                     <div class="aq-product-badges">
                         @if($badge)
@@ -70,12 +72,16 @@
 
                     <div class="aq-product-card-bottom">
 
-                        <div class="aq-product-card-price">
-                            ₹{{ number_format($product->price) }}
-                            <span>/ unit</span>
+                        <div class="aq-product-card-price {{ $product->price > 0 ? '' : 'aq-product-card-price--request' }}">
+                            @if($product->price > 0)
+                                <span class="aq-price-amount">₹{{ number_format($product->price) }}</span>
+                                <span class="aq-price-unit">/ unit</span>
+                            @else
+                                <span class="aq-price-amount">Price on Request</span>
+                            @endif
                         </div>
-
-                        <button class="aq-product-card-cta aq-consultation-trigger" onclick="openGlobalDrawer('product-listing')">
+                        <button class="aq-product-card-cta aq-consultation-trigger"
+                            onclick="openGlobalDrawer('product-listing')">
                             Enquire
                         </button>
 
@@ -90,69 +96,65 @@
     </div>
 
     @if($products->hasPages())
-    <div id="pagination-wrapper"
-         class="d-flex justify-content-center align-items-center gap-3" style="margin-top: 40px;">
+        <div id="pagination-wrapper" class="d-flex justify-content-center align-items-center gap-3" style="margin-top: 40px;">
 
-        {{-- Previous --}}
-        @if($products->onFirstPage())
-            <button class="btn btn-secondary" disabled>
-                ← Previous
-            </button>
-        @else
-            <a href="{{ $products->previousPageUrl() }}"
-               class="btn btn-dark">
-                ← Previous
-            </a>
-        @endif
+            {{-- Previous --}}
+            @if($products->onFirstPage())
+                <button class="btn btn-secondary" disabled>
+                    ← Previous
+                </button>
+            @else
+                <a href="{{ $products->previousPageUrl() }}" class="btn btn-dark">
+                    ← Previous
+                </a>
+            @endif
 
-        {{-- Page Numbers --}}
-        <div class="d-flex align-items-center gap-2">
+            {{-- Page Numbers --}}
+            <div class="d-flex align-items-center gap-2">
 
-            @for($i = 1; $i <= $products->lastPage(); $i++)
+                @for($i = 1; $i <= $products->lastPage(); $i++)
 
-                @if($i == $products->currentPage())
+                    @if($i == $products->currentPage())
 
-                    <span class="btn btn-dark">
-                        {{ $i }}
-                    </span>
+                        <span class="btn btn-dark">
+                            {{ $i }}
+                        </span>
 
-                @elseif(
-                    $i == 1 ||
-                    $i == $products->lastPage() ||
-                    abs($i - $products->currentPage()) <= 1
-                )
+                    @elseif(
+                            $i == 1 ||
+                            $i == $products->lastPage() ||
+                            abs($i - $products->currentPage()) <= 1
+                        )
 
-                    <a href="{{ $products->url($i) }}"
-                       class="btn btn-outline-dark">
-                        {{ $i }}
-                    </a>
+                        <a href="{{ $products->url($i) }}" class="btn btn-outline-dark">
+                            {{ $i }}
+                        </a>
 
-                @elseif(
-                    $i == $products->currentPage() - 2 ||
-                    $i == $products->currentPage() + 2
-                )
+                    @elseif(
+                            $i == $products->currentPage() - 2 ||
+                            $i == $products->currentPage() + 2
+                        )
 
-                    <span>...</span>
+                        <span>...</span>
 
-                @endif
+                    @endif
 
-            @endfor 
+                @endfor
+            </div>
+
+            {{-- Next --}}
+            @if($products->hasMorePages())
+                <a href="{{ $products->nextPageUrl() }}" class="btn btn-dark">
+                    Next →
+                </a>
+            @else
+                <button class="btn btn-secondary" disabled>
+                    Next →
+                </button>
+            @endif
+
         </div>
-
-        {{-- Next --}}
-        @if($products->hasMorePages())
-            <a href="{{ $products->nextPageUrl() }}"
-               class="btn btn-dark">
-                Next →
-            </a>
-        @else
-            <button class="btn btn-secondary" disabled>
-                Next →
-            </button>
-        @endif
-
-    </div>
-@endif
+    @endif
 
 @else
 

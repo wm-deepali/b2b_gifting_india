@@ -41,6 +41,7 @@ use App\Models\GalleryImage;
 use App\Models\HomeDealBanner;
 use App\Models\HomeHeroSlide;
 use App\Models\HomeHeroBanner;
+use App\Models\AboutSetting;
 
 class FrontController extends Controller
 {
@@ -62,7 +63,7 @@ class FrontController extends Controller
             ->take(10)
             ->orderBy('sort_order', 'asc')
             ->get();
-            
+
 
         $newArrivals = Product::with(['images'])
             ->where('status', 1)
@@ -196,6 +197,11 @@ class FrontController extends Controller
             ->orderBy('sort_order')
             ->get();
 
+        $HomeCategories = \App\Models\Category::where('status', 1)
+            ->where('is_popular', 1)
+            ->whereNull('parent_id')
+            ->take(10)->get();
+
         return view('front-pages.home', compact(
             'sliders',
             'textSliders',
@@ -219,6 +225,7 @@ class FrontController extends Controller
             'dealBanners',
             'heroSlides',
             'heroBanners',
+            'HomeCategories'
         ));
     }
 
@@ -348,32 +355,30 @@ class FrontController extends Controller
 
     public function categoryListing($slug)
     {
-        $category = Category::with([
-            'children',
-            'brands'
-        ])
+        $category = Category::with(['children', 'brands'])
             ->where('slug', $slug)
             ->where('status', 1)
             ->where('show_on_website', 1)
             ->firstOrFail();
 
-        $products = Product::with(['images', 'categories', 'subcategories'])
 
-            ->where(function ($q) use ($category) {
-
-                // products attached directly to category
-                $q->whereHas('categories', function ($query) use ($category) {
-                    $query->where('categories.id', $category->id);
-                });
-
-                // products attached to subcategories
-                $q->orWhereHas('subcategories', function ($query) use ($category) {
-                    $query->where('parent_id', $category->id);
-                });
-            })
-
+        $productQuery = Product::where(function ($q) use ($category) {
+            $q->whereHas('categories', function ($query) use ($category) {
+                $query->where('categories.id', $category->id);
+            });
+            $q->orWhereHas('subcategories', function ($query) use ($category) {
+                $query->where('parent_id', $category->id);
+            });
+        })
             ->where('status', 1)
-            ->where('show_on_website', 1)
+            ->where('show_on_website', 1);
+
+        // Clone before paginate so aggregate query isn't affected by pagination
+        $priceRange = (clone $productQuery)
+            ->selectRaw('MIN(price) as min_price, MAX(price) as max_price')
+            ->first();
+
+        $products = $productQuery->with(['images', 'categories', 'subcategories'])
             ->paginate(12);
 
         $subcategories = $category->children()
@@ -395,8 +400,7 @@ class FrontController extends Controller
             ->orderBy('sort_order')
             ->take(10)
             ->get();
-
-        // dd($products->toArray(), $category->toArray(), $subcategories->toArray());
+        // dd($products->toArray(),$category->toArray());
         return view(
             'front-pages.product-listing',
             compact(
@@ -404,7 +408,8 @@ class FrontController extends Controller
                 'subcategories',
                 'products',
                 'occasions',
-                'footerCategories'
+                'footerCategories',
+                'priceRange'   // <-- new
             )
         );
     }
@@ -592,19 +597,22 @@ class FrontController extends Controller
             });
         }
 
+        $priceRange = (clone $products)
+            ->selectRaw('MIN(price) as min_price, MAX(price) as max_price')
+            ->first();
+
         /*
         |--------------------------------------------------------------------------
         | Price Filter
         |--------------------------------------------------------------------------
         */
 
-        if ($request->filled('max_price')) {
+        if ($request->filled('min_price')) {
+            $products->where('price', '>=', $request->min_price);
+        }
 
-            $products->where(
-                'price',
-                '<=',
-                $request->max_price
-            );
+        if ($request->filled('max_price')) {
+            $products->where('price', '<=', $request->max_price);
         }
 
         /*
@@ -634,11 +642,13 @@ class FrontController extends Controller
 
         $products = $products->paginate(12);
 
-       return response()->json([
-    'success' => true,
-    'html' => view('front-pages.partials.product-grid', compact('products'))->render(),
-    'total' => $products->total()
-]);
+        return response()->json([
+            'success' => true,
+            'html' => view('front-pages.partials.product-grid', compact('products'))->render(),
+            'total' => $products->total(),
+            'min_price' => $priceRange->min_price ?? 0,
+            'max_price' => $priceRange->max_price ?? 0,
+        ]);
     }
 
 
@@ -650,25 +660,37 @@ class FrontController extends Controller
 
         $title = 'Products Collection';
 
+        // ---------- Brand Filter ----------
+        if ($request->filled('brand')) {
+
+            $query->where('brand_id', $request->brand);
+
+            $brandModel = Brand::find($request->brand);
+
+            if ($brandModel) {
+                $title = $brandModel->name . ' Products';
+            }
+        }
+
         switch ($request->filter) {
 
             case 'featured':
-                $query->where('is_featured', 1);
+                $query->where('featured', 1);
                 $title = 'Featured Products';
                 break;
 
             case 'new_arrivals':
-                $query->latest();
+                $query->where('new_arrival', 1);
                 $title = 'New Arrivals';
                 break;
 
             case 'sale':
-                $query->where('is_sale', 1);
+                $query->where('sale', 1);
                 $title = 'Exclusive on Sale';
                 break;
 
             case 'best_sellers':
-                $query->orderByDesc('sales_count');
+                $query->where('best_seller', 1);
                 $title = 'Best Sellers';
                 break;
         }
@@ -691,27 +713,27 @@ class FrontController extends Controller
             switch ($request->budget) {
 
                 case 'under-500':
-                    $query->where('sale_price', '<', 500);
+                    $query->where('price', '<', 500);
                     $title = 'Products Under ₹500';
                     break;
 
                 case '500-1000':
-                    $query->whereBetween('sale_price', [500, 1000]);
+                    $query->whereBetween('price', [500, 1000]);
                     $title = 'Products ₹500 – ₹1,000';
                     break;
 
                 case '1000-2000':
-                    $query->whereBetween('sale_price', [1000, 2000]);
+                    $query->whereBetween('price', [1000, 2000]);
                     $title = 'Products ₹1,000 – ₹2,000';
                     break;
 
                 case '2000-5000':
-                    $query->whereBetween('sale_price', [2000, 5000]);
+                    $query->whereBetween('price', [2000, 5000]);
                     $title = 'Products ₹2,000 – ₹5,000';
                     break;
 
                 case 'above-5000':
-                    $query->where('sale_price', '>', 5000);
+                    $query->where('price', '>', 5000);
                     $title = 'Products Above ₹5,000';
                     break;
             }
@@ -1110,11 +1132,21 @@ class FrontController extends Controller
         $teams = Team::where('status', 1)
             ->latest()
             ->get();
-            
-             $occasions = GiftingOccasion::where('status', 1)
-        ->get();
 
-        return view('front-pages.about-us', compact('teams', 'occasions'));
+        $occasions = GiftingOccasion::where('status', 1)
+            ->get();
+
+        $about = AboutSetting::first();
+
+        // footerCategories was missing before but used in the blade — adding it
+        // so the "Shop by Recipient" footer block actually works.
+        $footerCategories = Category::where('status', 1)
+            ->whereNull('parent_id')
+            ->orderBy('sort_order')
+            ->take(10)
+            ->get();
+
+        return view('front-pages.about-us', compact('teams', 'occasions', 'about', 'footerCategories'));
     }
 
     public function awards(Request $request)
@@ -1573,24 +1605,24 @@ class FrontController extends Controller
         );
     }
 
-  public function occasions(Request $request)
-{
-    $occasions = GiftingOccasion::where('status', 1)
-        ->orderBy('title')
-        ->paginate(8);
+    public function occasions(Request $request)
+    {
+        $occasions = GiftingOccasion::where('status', 1)
+            ->orderBy('title')
+            ->paginate(8);
 
-    if ($request->ajax()) {
-        return response()->json([
-            'html' => view(
-                'front-pages.partials.occasion-items',
-                compact('occasions')
-            )->render(),
-            'hasMorePages' => $occasions->hasMorePages(),
-        ]);
+        if ($request->ajax()) {
+            return response()->json([
+                'html' => view(
+                    'front-pages.partials.occasion-items',
+                    compact('occasions')
+                )->render(),
+                'hasMorePages' => $occasions->hasMorePages(),
+            ]);
+        }
+
+        return view('front-pages.occasions', compact('occasions'));
     }
-
-    return view('front-pages.occasions', compact('occasions'));
-}
 
     public function addToWishlist(Request $request)
     {

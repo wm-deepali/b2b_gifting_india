@@ -370,7 +370,7 @@
                                                             </del>
                                                         @endif
                                                     @else
-                                                        <span class="aq-product-contact-price">Contact for Price</span>
+                                                        <span class="aq-product-contact-price">Price on Request</span>
                                                     @endif
                                                 </div>
                                             </div>
@@ -520,7 +520,7 @@
                                                             </del>
                                                         @endif
                                                     @else
-                                                        <span class="aq-product-contact-price">Contact for Price</span>
+                                                        <span class="aq-product-contact-price">Price on Request</span>
                                                     @endif
                                                 </div>
 
@@ -673,7 +673,7 @@
                                                             </del>
                                                         @endif
                                                     @else
-                                                        <span class="aq-product-contact-price">Contact for Price</span>
+                                                        <span class="aq-product-contact-price">Price on Request</span>
                                                     @endif
                                                 </div>
 
@@ -1325,7 +1325,7 @@
                                                                             @if($product->price > 0)
                                                                                 ₹{{ number_format($product->price) }}
                                                                             @else
-                                                                                Contact for Price
+                                                                                Price on Request
                                                                             @endif
                                                                         </span>
 
@@ -1643,7 +1643,7 @@
                                                             </del>
                                                         @endif
                                                     @else
-                                                        <span class="aq-product-contact-price">Contact for Price</span>
+                                                        <span class="aq-product-contact-price">Price on Request</span>
                                                     @endif
                                                 </div>
 
@@ -2105,16 +2105,17 @@
 
                                         @foreach($category->brands as $brand)
 
-                                            <div class="aq-brand-logo-card">
+                                           
+                                            <a href="{{ route('products', ['brand' => $brand->id]) }}" class="aq-brand-logo-card">
 
-                                                <div class="aq-brand-logo-inner">
+    <div class="aq-brand-logo-inner">
 
-                                                    <img class="aq-brand-logo-img" src="{{ asset('storage/' . $brand->logo) }}"
-                                                        alt="{{ $brand->name }}" loading="lazy">
+        <img class="aq-brand-logo-img" src="{{ asset('storage/' . $brand->logo) }}"
+            alt="{{ $brand->name }}" loading="lazy">
 
-                                                </div>
+    </div>
 
-                                            </div>
+</a>
 
                                         @endforeach
 

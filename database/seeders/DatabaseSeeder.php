@@ -19,5 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(IndiaStateCitySeeder::class);
         $this->call(SeoPageSeeder::class);
         $this->call(VendorTypeSeeder::class);
+        $this->call(AboutSettingSeeder::class);
     }
+    
 }

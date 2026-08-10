@@ -49,6 +49,9 @@ use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\QuoteController;
 use App\Http\Controllers\Admin\PriceManagementController;
 use App\Http\Controllers\Admin\AboutSettingController;
+use App\Http\Controllers\Admin\WhyUsSettingController;
+use App\Http\Controllers\Admin\SmtpSettingController;
+
 
 Route::controller(FrontController::class)->group(function () {
 
@@ -305,6 +308,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('about-settings', [AboutSettingController::class, 'edit'])->name('about-settings.edit');
         Route::put('about-settings', [AboutSettingController::class, 'update'])->name('about-settings.update');
+
+        Route::get('why-us-settings', [WhyUsSettingController::class, 'edit'])->name('why-us-settings.edit');
+        Route::put('why-us-settings', [WhyUsSettingController::class, 'update'])->name('why-us-settings.update');
+
+        Route::get('smtp-settings', [SmtpSettingController::class, 'edit'])->name('smtp-settings.edit');
+        Route::put('smtp-settings', [SmtpSettingController::class, 'update'])->name('smtp-settings.update');
+        Route::post('smtp-settings/test', [SmtpSettingController::class, 'sendTestEmail'])->name('smtp-settings.test');
 
         // Quote Settings
         Route::get('quote-settings', [QuoteSettingController::class, 'index'])->name('quote-settings.index');

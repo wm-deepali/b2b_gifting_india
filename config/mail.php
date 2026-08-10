@@ -115,4 +115,17 @@ return [
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Admin Enquiry Email
+    |--------------------------------------------------------------------------
+    |
+    | Default admin email used for enquiry-form notifications. This is
+    | overridden at runtime by SmtpSetting::apply() once the admin sets
+    | the "Admin Enquiry Email" field on the SMTP Settings page.
+    |
+    */
+
+    'admin_enquiry_email' => env('ADMIN_ENQUIRY_EMAIL', 'admin@example.com'),
+
 ];

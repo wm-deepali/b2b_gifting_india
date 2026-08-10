@@ -7,6 +7,8 @@ use App\Models\Cart;
 use Illuminate\Support\Facades\View;
 use App\Models\DynamicPage;
 use App\Models\Announcement;
+use App\Models\SmtpSetting;
+
 
 
 class AppServiceProvider extends ServiceProvider
@@ -24,6 +26,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+
         View::composer('*', function ($view) {
 
             $sessionId = session()->getId();
@@ -133,6 +137,13 @@ class AppServiceProvider extends ServiceProvider
             );
 
         });
+
+
+        try {
+            SmtpSetting::apply();
+        } catch (\Exception $e) {
+            // Table might not exist yet (fresh install before migration) — ignore silently
+        }
 
     }
 }

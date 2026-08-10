@@ -42,6 +42,11 @@ use App\Models\HomeDealBanner;
 use App\Models\HomeHeroSlide;
 use App\Models\HomeHeroBanner;
 use App\Models\AboutSetting;
+use App\Models\WhyUsSetting;
+use App\Mail\EnquiryNotificationMail;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
+
 
 class FrontController extends Controller
 {
@@ -1088,7 +1093,9 @@ class FrontController extends Controller
     public function whyUs(Request $request)
     {
         $brands = Brand::where('status', 1)->get();
-        return view('front-pages.why-us', compact('brands'));
+        $whyUs = WhyUsSetting::first();
+
+        return view('front-pages.why-us', compact('brands', 'whyUs'));
     }
 
     public function vendors(Request $request)
@@ -1257,6 +1264,8 @@ class FrontController extends Controller
                 'session_id' => $sessionId,
             ]);
 
+            $itemsForMail = [];
+
             foreach ($cart->items as $item) {
 
                 EnquiryItem::create([
@@ -1268,6 +1277,25 @@ class FrontController extends Controller
                     'total' => $item->total,
                 ]);
 
+                $itemsForMail[] = [
+                    'product' => $item->product->name ?? 'N/A',
+                    'quantity' => $item->quantity,
+                    'price' => $item->price,
+                ];
+
+            }
+
+            try {
+                Mail::to(config('mail.admin_enquiry_email'))->send(new EnquiryNotificationMail('Cart / Quote Enquiry', [
+                    'business_name' => $enquiry->business_name,
+                    'owner_name' => $enquiry->owner_name,
+                    'email' => $enquiry->email,
+                    'mobile' => $enquiry->mobile,
+                    'address' => $enquiry->address,
+                    'items' => $itemsForMail,
+                ]));
+            } catch (\Exception $e) {
+                Log::error('Cart enquiry mail failed: ' . $e->getMessage());
             }
 
             // ✅ CLEAR CART
@@ -1333,6 +1361,19 @@ class FrontController extends Controller
             'message' => $request->message,
         ]);
 
+        // try {
+            Mail::to(config('mail.admin_enquiry_email'))->send(new EnquiryNotificationMail('Contact Us Enquiry', $request->only([
+                'name',
+                'email',
+                'mobile',
+                'company',
+                'inquiry_type',
+                'message',
+            ])));
+        // } catch (\Exception $e) {
+        //     Log::error('Contact enquiry mail failed: ' . $e->getMessage());
+        // }
+
         return back()->with('success', 'Enquiry sent successfully!');
     }
 
@@ -1380,6 +1421,18 @@ class FrontController extends Controller
             'user_agent' => $request->header('User-Agent'),
         ]);
 
+        try {
+            Mail::to(config('mail.admin_enquiry_email'))->send(new EnquiryNotificationMail('Home Enquiry', $request->only([
+                'name',
+                'email',
+                'phone',
+                'company',
+                'message',
+            ])));
+        } catch (\Exception $e) {
+            Log::error('Home enquiry mail failed: ' . $e->getMessage());
+        }
+
         return back()->with('success', 'Thanks! We will contact you soon.');
     }
 
@@ -1423,6 +1476,18 @@ class FrontController extends Controller
         }
 
         PackageEnquiry::create($request->all());
+
+        try {
+            Mail::to(config('mail.admin_enquiry_email'))->send(new EnquiryNotificationMail('Package Enquiry', $request->only([
+                'package_id',
+                'name',
+                'company',
+                'email',
+                'phone',
+            ])));
+        } catch (\Exception $e) {
+            Log::error('Package enquiry mail failed: ' . $e->getMessage());
+        }
 
         return back()->with('success_package', 'Enquiry submitted successfully');
     }
@@ -1473,6 +1538,19 @@ class FrontController extends Controller
             'message' => $request->message,
             'source' => $request->source,
         ]);
+
+        try {
+            Mail::to(config('mail.admin_enquiry_email'))->send(new EnquiryNotificationMail('General Enquiry', $request->only([
+                'name',
+                'company',
+                'email',
+                'phone',
+                'message',
+                'source',
+            ])));
+        } catch (\Exception $e) {
+            Log::error('General enquiry mail failed: ' . $e->getMessage());
+        }
 
         return back()->with('success_general', 'Enquiry submitted successfully!');
     }
@@ -1528,6 +1606,20 @@ class FrontController extends Controller
             'city' => $request->city,
             'catalogue' => $filePath,
         ]);
+
+        try {
+            Mail::to(config('mail.admin_enquiry_email'))->send(new EnquiryNotificationMail('Vendor Enquiry', $request->only([
+                'name',
+                'company',
+                'email',
+                'phone',
+                'description',
+                'capacity',
+                'city',
+            ])));
+        } catch (\Exception $e) {
+            Log::error('Vendor enquiry mail failed: ' . $e->getMessage());
+        }
 
         return back()->with('success', 'Enquiry submitted successfully!');
     }
@@ -1598,6 +1690,21 @@ class FrontController extends Controller
 
             'catalogue' => $filePath,
         ]);
+
+        try {
+            Mail::to(config('mail.admin_enquiry_email'))->send(new EnquiryNotificationMail('Supplier / Bulk Enquiry', $request->only([
+                'name',
+                'company',
+                'email',
+                'phone',
+                'quantity',
+                'delivery_date',
+                'description',
+                'city',
+            ])));
+        } catch (\Exception $e) {
+            Log::error('Supplier enquiry mail failed: ' . $e->getMessage());
+        }
 
         return back()->with(
             'success',

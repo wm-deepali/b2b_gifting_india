@@ -13,11 +13,11 @@
                 <i class="fa-solid fa-gem"></i>
             </div>
             <div class="aq-catpage-hero-content">
-                <h1 class="aq-catpage-title">Why Choose Us</h1>
+                <h1 class="aq-catpage-title">{{ $whyUs->hero_title ?? 'Why Choose Us' }}</h1>
                 <div class="aq-catpage-breadcrumbs">
-                    <a href="index.html">Home</a>
+                    <a href="{{ route('home') }}">Home</a>
                     <span>/</span>
-                    <span>Why Choose Us</span>
+                    <h1 class="aq-catpage-title">{{ $whyUs->hero_title ?? 'Why Choose Us' }}</h1>
                 </div>
             </div>
         </section>
@@ -35,93 +35,35 @@
             <div class="container p-relative z-index-1">
                 <div class="row justify-content-center text-center mb-70">
                     <div class="col-lg-8">
-                        <span class="aq-section-title-sm">Our Value Proposition</span>
-                        <h2 class="aq-section-title">Why Choose B2B Gifts India</h2>
+                        <span class="aq-section-title-sm">{{ $whyUs->features_subtitle ?? '' }}</span>
+                        <h2 class="aq-section-title">{{ $whyUs->features_title ?? '' }}</h2>
                         <p class="aq-section-desc" style="max-width: 700px; margin: 0 auto;">
-                            From premium product selection to seamless customization and reliable delivery, we provide
-                            end-to-end corporate gifting solutions designed to save your time and elevate your brand.
+                            {{ $whyUs->features_description ?? '' }}
                         </p>
                     </div>
                 </div>
 
+                @php
+                    $whyUsFeatures = is_string($whyUs->features ?? null)
+                        ? (json_decode($whyUs->features, true) ?? [])
+                        : ($whyUs->features ?? []);
+
+                    $delayClasses = ['', 'delay-1', 'delay-2'];
+                @endphp
+
                 <div class="row g-4 aq-staggered-grid">
-                    <div class="col-lg-4 col-md-6 aq-stagger-item">
-                        <div class="aq-creative-card">
-                            <div class="aq-creative-icon">
-                                <i class="fa-solid fa-palette"></i>
+                    @foreach($whyUsFeatures as $index => $feature)
+                        <div class="col-lg-4 col-md-6 aq-stagger-item {{ $delayClasses[$index % 3] }}">
+                            <div class="aq-creative-card">
+                                <div class="aq-creative-icon">
+                                    <i class="{{ $feature['icon'] }}"></i>
+                                </div>
+                                <h4 class="aq-creative-title">{{ $feature['title'] }}</h4>
+                                <p class="aq-creative-desc">{{ $feature['desc'] }}</p>
+                                <div class="aq-creative-card-glow"></div>
                             </div>
-                            <h4 class="aq-creative-title">Premium Quality & Customization</h4>
-                            <p class="aq-creative-desc">We offer meticulously curated products that meet high-quality
-                                standards, complemented by advanced customization options such as laser engraving,
-                                precision printing, and bespoke branding solutions.</p>
-                            <div class="aq-creative-card-glow"></div>
                         </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 aq-stagger-item delay-1">
-                        <div class="aq-creative-card">
-                            <div class="aq-creative-icon">
-                                <i class="fa-solid fa-truck-fast"></i>
-                            </div>
-                            <h4 class="aq-creative-title">Efficient & Reliable Delivery</h4>
-                            <p class="aq-creative-desc">Our streamlined logistics ensure timely and dependable delivery
-                                across India, with the flexibility to accommodate urgent requirements through expedited
-                                processing.</p>
-                            <div class="aq-creative-card-glow"></div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 aq-stagger-item delay-2">
-                        <div class="aq-creative-card">
-                            <div class="aq-creative-icon">
-                                <i class="fa-solid fa-leaf"></i>
-                            </div>
-                            <h4 class="aq-creative-title">Sustainable Gifting Solutions</h4>
-                            <p class="aq-creative-desc">We offer a thoughtfully curated range of eco-conscious products
-                                crafted from sustainable materials, enabling your brand to align with responsible and
-                                environmentally mindful practices.</p>
-                            <div class="aq-creative-card-glow"></div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 aq-stagger-item">
-                        <div class="aq-creative-card">
-                            <div class="aq-creative-icon">
-                                <i class="fa-solid fa-tags"></i>
-                            </div>
-                            <h4 class="aq-creative-title">Cost-Effective Value</h4>
-                            <p class="aq-creative-desc">We deliver optimal value through competitive pricing structures,
-                                ensuring high-quality gifting solutions without compromising on standards, especially
-                                for bulk and recurring requirements.</p>
-                            <div class="aq-creative-card-glow"></div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 aq-stagger-item delay-1">
-                        <div class="aq-creative-card">
-                            <div class="aq-creative-icon">
-                                <i class="fa-solid fa-certificate"></i>
-                            </div>
-                            <h4 class="aq-creative-title">Quality Assurance & Support</h4>
-                            <p class="aq-creative-desc">Every order undergoes strict quality checks, supported by a
-                                responsive team committed to addressing concerns promptly and ensuring a smooth client
-                                experience.</p>
-                            <div class="aq-creative-card-glow"></div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 aq-stagger-item delay-2">
-                        <div class="aq-creative-card">
-                            <div class="aq-creative-icon">
-                                <i class="fa-solid fa-handshake-angle"></i>
-                            </div>
-                            <h4 class="aq-creative-title">Dedicated Corporate Assistance</h4>
-                            <p class="aq-creative-desc">We provide end-to-end support with structured coordination,
-                                including requirement consultation, artwork approvals, and seamless execution from
-                                product selection to final delivery.</p>
-                            <div class="aq-creative-card-glow"></div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </section>
@@ -139,26 +81,26 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-8 col-lg-10 text-center">
                         <span class="aq-section-title-sm mb-15 d-inline-block"
-                            style="color: #d4af37; letter-spacing: 2px; font-weight: 600; text-transform: uppercase;">Next
-                            Steps</span>
+                            style="color: #d4af37; letter-spacing: 2px; font-weight: 600; text-transform: uppercase;">{{ $whyUs->cta_subtitle ?? '' }}</span>
                         <h2 class="font-family-heading mb-25"
                             style="color: #ffffff; font-size: 48px; font-weight: 700; line-height: 1.2;">
-                            Ready to Gift <span style="color: #d4af37; font-style: italic;">Smarter?</span>
+                            {{ $whyUs->cta_title ?? '' }} <span
+                                style="color: #d4af37; font-style: italic;">{{ $whyUs->cta_title_highlight ?? '' }}</span>
                         </h2>
                         <p class="mb-45"
                             style="color: rgba(255, 255, 255, 0.8); font-size: 18px; line-height: 1.8; max-width: 600px; margin-left: auto; margin-right: auto;">
-                            Let us help you choose the perfect corporate gifts that reflect your brand values and
-                            strengthen your relationships.
+                            {{ $whyUs->cta_desc ?? '' }}
                         </p>
 
                         <div class="d-flex justify-content-center align-items-center flex-wrap gap-3">
-                            <a href="product_details.html"
+                            <a href="{{ $whyUs->cta_primary_button_link ?? '#' }}"
                                 class="aq-cta-btn-primary d-inline-flex align-items-center justify-content-center">
-                                Browse Our Collection
+                                {{ $whyUs->cta_primary_button_text ?? 'Browse Our Collection' }}
                             </a>
                             <a href="javascript:void(0);" onclick="openGlobalDrawer('why_us_page')"
                                 class="aq-cta-btn-outline d-inline-flex align-items-center justify-content-center">
-                                Get a Custom Quote <i class="fa-solid fa-arrow-right-long ml-10"></i>
+                                {{ $whyUs->cta_secondary_button_text ?? 'Get a Custom Quote' }} <i
+                                    class="fa-solid fa-arrow-right-long ml-10"></i>
                             </a>
                         </div>
                     </div>

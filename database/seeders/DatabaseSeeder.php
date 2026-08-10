@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SeoPageSeeder::class);
         $this->call(VendorTypeSeeder::class);
         $this->call(AboutSettingSeeder::class);
+        $this->call(WhyUsSettingSeeder::class);
     }
     
 }

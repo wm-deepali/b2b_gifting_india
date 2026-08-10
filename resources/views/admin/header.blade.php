@@ -114,6 +114,7 @@
     'admin.awards.*',
     'admin.teams.*',
     'admin.about-settings.*',
+    'admin.why-us-settings.*',
     'admin.seo.*'
 ) ? 'active' : '' }}">
             <a href="#">
@@ -185,6 +186,12 @@
                         <i class="fa-solid fa-circle-info"></i> About Us Page
                     </a>
                 </li>
+
+                <li class="{{ request()->routeIs('admin.why-us-settings.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.why-us-settings.edit') }}">
+                        <i class="fa-solid fa-star"></i> Why Choose Us Page
+                    </a>
+                </li>
                 <li class="{{ request()->routeIs('admin.footer-settings.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.footer-settings.index') }}">
                         <i class="fa-solid fa-address-card"></i> Footer Settings
@@ -200,7 +207,8 @@
     'admin.seo.*',
     'admin.gifting-occasions.*',
     'admin.announcements.*',
-    'admin.quote-settings.*'
+    'admin.quote-settings.*',
+    'admin.smtp-settings.*'
 ) ? 'active' : '' }}">
             <a href="#">
                 <i class="fa-solid fa-layer-group"></i> SETTINGS
@@ -230,6 +238,12 @@
                 <li class="{{ request()->routeIs('admin.quote-settings.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.quote-settings.index') }}">
                         <i class="fa-solid fa-file-invoice-dollar"></i> Quote Settings
+                    </a>
+                </li>
+
+                <li class="{{ request()->routeIs('admin.smtp-settings.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.smtp-settings.edit') }}">
+                        <i class="fa-solid fa-envelope-open-text"></i> SMTP Settings
                     </a>
                 </li>
 

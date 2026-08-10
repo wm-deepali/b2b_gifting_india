@@ -16,7 +16,7 @@
         <!-- Contact Content Section -->
         <section class="aq-contact-content pt-100 pb-100">
             <div class="container">
-                <div class="row g-5">
+                <div class="row g-3">
                     <!-- Left: Locations -->
                     <div class="col-lg-5">
                         <div class="aq-contact-info-wrapper pe-lg-4">
@@ -92,7 +92,8 @@
 
                                             <input type="text" name="name" value="{{ old('name') }}"
                                                 class="form-control aq-contact-input" placeholder="E.g. Rajesh Kumar"
-                                                required>
+                                                pattern="[A-Za-z\s.]+" title="Name should contain letters only"
+                                                maxlength="255" required>
                                         </div>
 
                                         @error('name')
@@ -107,7 +108,7 @@
 
                                             <input type="email" name="email" value="{{ old('email') }}"
                                                 class="form-control aq-contact-input" placeholder="rajesh@company.com"
-                                                required>
+                                                maxlength="255" required>
                                         </div>
 
                                         @error('email')
@@ -141,7 +142,8 @@
                                             <i class="fa-solid fa-building position-absolute aq-contact-input-icon"></i>
 
                                             <input type="text" name="company" value="{{ old('company') }}"
-                                                class="form-control aq-contact-input" placeholder="E.g. XYZ Corp">
+                                                class="form-control aq-contact-input" placeholder="E.g. XYZ Corp"
+                                                maxlength="255">
                                         </div>
                                     </div>
                                 </div>
@@ -168,7 +170,7 @@
                                 <div class="mb-4">
                                     <label class="aq-contact-label">Your Message...</label>
 
-                                    <textarea name="message" class="form-control aq-contact-input" rows="4"
+                                    <textarea name="message" class="form-control aq-contact-input" rows="4" maxlength="2000"
                                         placeholder="Tell us about your requirements..."
                                         required>{{ old('message') }}</textarea>
 
@@ -177,14 +179,14 @@
                                     @enderror
                                 </div>
 
-                                <div class="mb-4">
+                                <!-- <div class="mb-4">
                                     <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}">
                                     </div>
 
                                     @error('g-recaptcha-response')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
-                                </div>
+                                </div> -->
 
                                 <button type="submit" class="aq-contact-btn-submit w-100">
                                     <span>Send Message</span>
@@ -198,6 +200,6 @@
         </section>
     </main>
 
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
 
 @endsection

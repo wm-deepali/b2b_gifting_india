@@ -97,7 +97,8 @@
                                             <label>Contact Person Name</label>
 
                                             <input type="text" name="name" value="{{ old('name') }}" class="form-control"
-                                                placeholder="Enter full name" required>
+                                                placeholder="Enter full name" pattern="[A-Za-z\s.]+"
+                                                title="Name should contain letters only" maxlength="255" required>
 
                                         </div>
 
@@ -110,7 +111,8 @@
                                             <label>Company / Firm Name</label>
 
                                             <input type="text" name="company" value="{{ old('company') }}"
-                                                class="form-control" placeholder="Your Company Name" required>
+                                                class="form-control" placeholder="Your Company Name" maxlength="255"
+                                                required>
 
                                         </div>
 
@@ -123,7 +125,7 @@
                                             <label>Email Address</label>
 
                                             <input type="email" name="email" value="{{ old('email') }}" class="form-control"
-                                                placeholder="you@company.com" required>
+                                                placeholder="you@company.com" maxlength="255" required>
 
                                         </div>
 
@@ -137,7 +139,7 @@
 
                                             <input type="tel" name="phone" value="{{ old('phone') }}" class="form-control"
                                                 placeholder="+91 98765 43210" pattern="[6-9]{1}[0-9]{9}" maxlength="10"
-                                                required>
+                                                title="Enter valid 10-digit mobile number starting with 6-9" required>
 
                                         </div>
 
@@ -177,8 +179,8 @@
 
                                             <label>Estimated Quantity Required</label>
 
-                                            <input type="text" name="quantity" value="{{ old('quantity') }}"
-                                                class="form-control" placeholder="e.g. 500 - 1000 pieces">
+                                            <input type="number" name="quantity" value="{{ old('quantity') }}"
+                                                class="form-control" placeholder="e.g. 500" min="1">
 
                                         </div>
 
@@ -191,7 +193,7 @@
                                             <label>Target Delivery Date</label>
 
                                             <input type="date" name="delivery_date" value="{{ old('delivery_date') }}"
-                                                class="form-control">
+                                                class="form-control" min="{{ date('Y-m-d') }}">
 
                                         </div>
 
@@ -204,7 +206,7 @@
                                             <label>Delivery City</label>
 
                                             <input type="text" name="city" value="{{ old('city') }}" class="form-control"
-                                                placeholder="e.g. Delhi, Mumbai, Pan-India">
+                                                placeholder="e.g. Delhi, Mumbai, Pan-India" maxlength="255">
 
                                         </div>
 
@@ -216,7 +218,7 @@
 
                                             <label>Product / Branding Description</label>
 
-                                            <textarea name="description" rows="4" class="form-control"
+                                            <textarea name="description" rows="4" class="form-control" maxlength="2000"
                                                 placeholder="Describe the products you need, branding requirements, quality standards...">{{ old('description') }}</textarea>
 
                                         </div>
@@ -231,28 +233,29 @@
                                                 Upload Artwork / Reference File
                                             </label>
 
-                                            <input type="file" name="catalogue" class="form-control">
+                                            <input type="file" name="catalogue" class="form-control"
+                                                accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
 
                                         </div>
 
                                     </div>
 
-                                    <div class="col-12">
+                                    <!-- <div class="col-12">
 
-                                        <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}">
-                                        </div>
+                                            <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}">
+                                            </div>
 
-                                        @error('g-recaptcha-response')
+                                            @error('g-recaptcha-response')
 
-                                            <small class="text-danger">
+                                                <small class="text-danger">
 
-                                                {{ $message }}
+                                                    {{ $message }}
 
-                                            </small>
+                                                </small>
 
-                                        @enderror
+                                            @enderror
 
-                                    </div>
+                                        </div> -->
 
                                     <div class="col-md-8 text-center mt-4 mx-auto">
 
@@ -275,5 +278,5 @@
         </div>
     </main>
 
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
 @endsection

@@ -194,7 +194,9 @@
                                             <div class="form-group">
                                                 <label>Full Name / Contact Person</label>
                                                 <input type="text" name="name" value="{{ old('name') }}"
-                                                    class="form-control" placeholder="Enter your name" required>
+                                                    class="form-control" placeholder="Enter your name"
+                                                    pattern="[A-Za-z\s.]+" title="Name should contain letters only"
+                                                    maxlength="255" required>
                                             </div>
                                         </div>
 
@@ -202,7 +204,8 @@
                                             <div class="form-group">
                                                 <label>Company Name</label>
                                                 <input type="text" name="company" value="{{ old('company') }}"
-                                                    class="form-control" placeholder="Your Company Name" required>
+                                                    class="form-control" placeholder="Your Company Name" maxlength="255"
+                                                    required>
                                             </div>
                                         </div>
 
@@ -210,7 +213,8 @@
                                             <div class="form-group">
                                                 <label>Email Address</label>
                                                 <input type="email" name="email" value="{{ old('email') }}"
-                                                    class="form-control" placeholder="you@company.com" required>
+                                                    class="form-control" placeholder="you@company.com" maxlength="255"
+                                                    required>
                                             </div>
                                         </div>
 
@@ -270,15 +274,23 @@
                                             <div class="form-group">
                                                 <label>City / Location</label>
                                                 <input type="text" name="city" value="{{ old('city') }}"
-                                                    class="form-control" placeholder="e.g. Delhi, Mumbai">
+                                                    class="form-control" placeholder="e.g. Delhi, Mumbai" maxlength="255">
                                             </div>
                                         </div>
 
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label>Product / Service Description</label>
-                                                <textarea name="description" rows="4" class="form-control"
+                                                <textarea name="description" rows="4" class="form-control" maxlength="2000"
                                                     placeholder="Briefly describe your products, capacity, MOQ, etc...">{{ old('description') }}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Monthly Production Capacity</label>
+                                                <input type="text" name="capacity" value="{{ old('capacity') }}"
+                                                    class="form-control" placeholder="e.g. 10,000 units/month"
+                                                    maxlength="255">
                                             </div>
                                         </div>
 
@@ -286,18 +298,12 @@
                                             <div class="form-group">
                                                 <label>Monthly Production Capacity</label>
                                                 <input type="text" name="capacity" value="{{ old('capacity') }}"
-                                                    class="form-control" placeholder="e.g. 10,000 units/month">
+                                                    class="form-control" placeholder="e.g. 10,000 units/month"
+                                                    maxlength="255">
                                             </div>
                                         </div>
 
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Upload Catalogue / Company Profile</label>
-                                                <input type="file" name="catalogue" class="form-control">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12">
+                                        <!-- <div class="col-12">
 
                                             <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}">
                                             </div>
@@ -308,7 +314,7 @@
                                                 </p>
                                             @enderror
 
-                                        </div>
+                                        </div> -->
 
                                         <div class="col-md-8 text-center mt-4 mx-auto">
 
@@ -332,5 +338,5 @@
         </div>
     </main>
 
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
 @endsection

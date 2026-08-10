@@ -242,14 +242,18 @@
                                     <label class="aq-form-label">Business Name *</label>
                                     <div class="position-relative">
                                         <i class="fa-solid fa-building position-absolute input-icon"></i>
-                                        <input type="text" name="business_name" class="form-control with-icon" required>
+                                        <input type="text" name="business_name" class="form-control with-icon"
+                                            pattern="[A-Za-z0-9\s&amp;.,'-]+" title="Enter a valid business name"
+                                            maxlength="255" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="aq-form-label">Owner Name *</label>
                                     <div class="position-relative">
                                         <i class="fa-regular fa-user position-absolute input-icon"></i>
-                                        <input type="text" name="owner_name" class="form-control with-icon" required>
+                                        <input type="text" name="owner_name" class="form-control with-icon"
+                                            pattern="[A-Za-z\s.]+" title="Name should contain letters only" maxlength="255"
+                                            required>
                                     </div>
                                 </div>
                             </div>
@@ -259,7 +263,8 @@
                                     <label class="aq-form-label">Email *</label>
                                     <div class="position-relative">
                                         <i class="fa-regular fa-envelope position-absolute input-icon"></i>
-                                        <input type="email" name="email" class="form-control with-icon" required />
+                                        <input type="email" name="email" class="form-control with-icon" maxlength="255"
+                                            required />
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -274,7 +279,7 @@
 
                             <div class="mb-3">
                                 <label class="aq-form-label">Full Address *</label>
-                                <textarea name="address" class="form-control" required rows="2"></textarea>
+                                <textarea name="address" class="form-control" required rows="2" maxlength="500"></textarea>
                             </div>
 
                             <div class="row">
@@ -307,10 +312,10 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="mb-3">
+                            <!-- <div class="mb-3">
                                 <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}">
                                 </div>
-                            </div>
+                            </div> -->
                             <button type="submit" class="aq-btn-submit">
                                 <span>Submit Enquiry</span>
                                 <i class="fa-solid fa-arrow-right-long"></i>
@@ -441,8 +446,8 @@
 
                         cityDropdown.innerHTML +=
                             `<option value="${item.id}">
-                                    ${item.name}
-                                </option>`;
+                                                    ${item.name}
+                                                </option>`;
 
                     });
 
@@ -457,24 +462,23 @@
 
                 let formData = new FormData(this);
 
-                let recaptcha = grecaptcha.getResponse();
+                // let recaptcha = grecaptcha.getResponse();
 
-                if (recaptcha.length === 0) {
+                // if (recaptcha.length === 0) {
 
-                    Swal.fire(
-                        'Error',
-                        'Please verify captcha',
-                        'error'
-                    );
+                //     Swal.fire(
+                //         'Error',
+                //         'Please verify captcha',
+                //         'error'
+                //     );
 
-                    return;
-                }
+                //     return;
+                // }
 
-                formData.append(
-                    'g-recaptcha-response',
-                    recaptcha
-                );
-
+                // formData.append(
+                //     'g-recaptcha-response',
+                //     recaptcha
+                // );
                 fetch("{{ route('enquiry.store') }}", {
 
                     method: "POST",
@@ -531,7 +535,6 @@
                     });
 
             });
-
 
 
     </script>

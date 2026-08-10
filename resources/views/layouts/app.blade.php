@@ -91,16 +91,16 @@
                     <div class="col-xl-12">
                         <div class="aq-search-input p-relative mb-60">
                             <!--<form action="{{ route('search.suggestions') }}" method="GET" autocomplete="off">-->
-                                <div class="aq-search-input-wrap">
-                                    <input type="text" class="searchInput" name="q"
-                                        placeholder="Search premium gifts, corporate hampers, brands..." />
+                            <div class="aq-search-input-wrap">
+                                <input type="text" class="searchInput" name="q"
+                                    placeholder="Search premium gifts, corporate hampers, brands..." />
 
-                                    <button type="submit" class="aq-search-btn">
-                                        <i class="fa-solid fa-magnifying-glass"></i>
-                                    </button>
+                                <button type="submit" class="aq-search-btn">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
 
-                                    <div class="searchSuggestions search-suggestions"></div>
-                                </div>
+                                <div class="searchSuggestions search-suggestions"></div>
+                            </div>
                             <!--</form>-->
 
                         </div>
@@ -134,7 +134,7 @@
                                         <div class="aq-product-item aq-product-main mb-40" data-lazy="true">
                                             <div class="aq-product-thumb aq-img-hover-wrap p-relative mb-10">
                                                 <a href="{{ route('product.details', $product->slug) }}">
-                                                    
+
                                                     <img class="lazyload aq-product-img"
                                                         src="{{ asset('storage/' . $product->display_image) }}"
                                                         alt="{{ $product->name }}" loading="lazy" />
@@ -811,15 +811,15 @@
                     <div class="col-md-6 col-7">
                         <div class="aq-header-search-box">
                             <!--<form action="{{ route('search.suggestions') }}" method="GET" autocomplete="off">-->
-                                <div class="aq-search-input-wrap">
-                                    <input type="text" class="searchInput" name="q"
-                                        placeholder="Search premium gifts, corporate hampers, brands..." />
+                            <div class="aq-search-input-wrap">
+                                <input type="text" class="searchInput" name="q"
+                                    placeholder="Search premium gifts, corporate hampers, brands..." />
 
-                                    <button type="submit" class="aq-search-btn">
-                                        <i class="fa-solid fa-magnifying-glass"></i>
-                                    </button>
-                                    <div class="searchSuggestions search-suggestions"></div>
-                                </div>
+                                <button type="submit" class="aq-search-btn">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                                <div class="searchSuggestions search-suggestions"></div>
+                            </div>
                             <!--</form>-->
                         </div>
                     </div>
@@ -1099,7 +1099,7 @@
                                                 <div
                                                     class="row row-cols-xl-6 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 gx-20">
 
-                                                   @foreach($menuCategories->take(11) as $category)
+                                                    @foreach($menuCategories->take(11) as $category)
 
 
                                                         <div class="col">
@@ -1130,101 +1130,106 @@
 
                                                     @endforeach
 
-@if($menuCategories->count() > 11)
-    <div class="col">
-       <div class="aq-megamenu-img-item mb-20">
+                                                    @if($menuCategories->count() > 11)
+                                                        <div class="col">
+                                                            <div class="aq-megamenu-img-item mb-20">
 
-            <a href="{{ url('categories') }}"> {{-- change route as needed --}}
+                                                                <a href="{{ url('categories') }}"> {{-- change route as
+                                                                    needed --}}
 
-            <div class="aq-megamenu-img d-flex align-items-center justify-content-center"
-     style="height: 180px;">
-    <span style="font-size: 50px; font-weight: 700;">+</span>
-</div>
+                                                                    <div class="aq-megamenu-img d-flex align-items-center justify-content-center"
+                                                                        style="height: 180px;">
+                                                                        <span
+                                                                            style="font-size: 50px; font-weight: 700;">+</span>
+                                                                    </div>
 
-                <span class="aq-megamenu-img-title">
-                    Load More
-                </span>
+                                                                    <span class="aq-megamenu-img-title">
+                                                                        Load More
+                                                                    </span>
 
-            </a>
+                                                                </a>
 
-        </div>
-    </div>
-@endif
+                                                            </div>
+                                                        </div>
+                                                    @endif
                                                 </div>
 
                                             </div>
                                         </div>
                                     </li>
                                     <li class="has-dropdown p-static">
-    <a href="#">Occasions</a>
+                                        <a href="#">Occasions</a>
 
-    <div class="aq-megamenu-wrap aq-megamenu-img-wrap mega-menu">
-        <div class="container">
+                                        <div class="aq-megamenu-wrap aq-megamenu-img-wrap mega-menu">
+                                            <div class="container">
 
-            <div class="row row-cols-xl-6 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 gx-20">
+                                                <div
+                                                    class="row row-cols-xl-6 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 gx-20">
 
-                @forelse($menuOccasions->take(11) as $occasion)
+                                                    @forelse($menuOccasions->take(11) as $occasion)
 
-                    <div class="col">
-                        <div class="aq-megamenu-img-item mb-20">
+                                                        <div class="col">
+                                                            <div class="aq-megamenu-img-item mb-20">
 
-                            <a href="{{ route('products', ['occasion' => $occasion->slug]) }}">
+                                                                <a
+                                                                    href="{{ route('products', ['occasion' => $occasion->slug]) }}">
 
-                                <div class="aq-megamenu-img">
+                                                                    <div class="aq-megamenu-img">
 
-                                    @if($occasion->image)
-                                        <img src="{{ asset('storage/' . $occasion->image) }}"
-                                            alt="{{ $occasion->title }}" loading="lazy">
-                                    @else
-                                        <img src="{{ asset('assets/images/no-image.png') }}"
-                                            alt="{{ $occasion->title }}" loading="lazy">
-                                    @endif
+                                                                        @if($occasion->image)
+                                                                            <img src="{{ asset('storage/' . $occasion->image) }}"
+                                                                                alt="{{ $occasion->title }}" loading="lazy">
+                                                                        @else
+                                                                            <img src="{{ asset('assets/images/no-image.png') }}"
+                                                                                alt="{{ $occasion->title }}" loading="lazy">
+                                                                        @endif
 
-                                </div>
+                                                                    </div>
 
-                                <span class="aq-megamenu-img-title">
-                                    {{ $occasion->title }}
-                                </span>
+                                                                    <span class="aq-megamenu-img-title">
+                                                                        {{ $occasion->title }}
+                                                                    </span>
 
-                            </a>
+                                                                </a>
 
-                        </div>
-                    </div>
+                                                            </div>
+                                                        </div>
 
-                @empty
+                                                    @empty
 
-                    <div class="col-12">
-                        <a href="#">No Occasions Found</a>
-                    </div>
+                                                        <div class="col-12">
+                                                            <a href="#">No Occasions Found</a>
+                                                        </div>
 
-                @endforelse
+                                                    @endforelse
 
-                @if($menuOccasions->count() > 11)
-                    <div class="col">
-                        <div class="aq-megamenu-img-item mb-20">
+                                                    @if($menuOccasions->count() > 11)
+                                                        <div class="col">
+                                                            <div class="aq-megamenu-img-item mb-20">
 
-                            <a href="{{ route('occasions') }}">
+                                                                <a href="{{ route('occasions') }}">
 
-                                <div class="aq-megamenu-img d-flex align-items-center justify-content-center"
-                                    style="height: 180px;">
-                                    <span style="font-size: 50px; font-weight: 700;">+</span>
-                                </div>
+                                                                    <div class="aq-megamenu-img d-flex align-items-center justify-content-center"
+                                                                        style="height: 180px;">
+                                                                        <span
+                                                                            style="font-size: 50px; font-weight: 700;">+</span>
+                                                                    </div>
 
-                                <span class="aq-megamenu-img-title">
-                                    Load More
-                                </span>
+                                                                    <span class="aq-megamenu-img-title">
+                                                                        Load More
+                                                                    </span>
 
-                            </a>
+                                                                </a>
 
-                        </div>
-                    </div>
-                @endif
+                                                            </div>
+                                                        </div>
+                                                    @endif
 
-            </div>
+                                                </div>
 
-        </div>
-    </div>
-</li>
+                                            </div>
+                                        </div>
+                                    </li>
                                     <li><a href="{{ route('personalised-engraving') }}">Custom Gifting</a></li>
                                     <li><a href="{{ route('bulk-order') }}">Bulk Orders</a></li>
                                     <li><a href="{{ route('blogs') }}">Blogs</a></li>
@@ -1255,8 +1260,7 @@
                                 <div class="aq-footer-logo-luxury">
                                     <a href="{{ route('home') }}">
                                         @if(!empty($footerSetting?->logo))
-                                            <img src="{{ asset($footerSetting->logo) }}" alt="Logo"
-                                                style="filter: brightness(0) invert(1); width:180px">
+                                            <img src="{{ asset($footerSetting->logo) }}" alt="Logo" style="width:180px">
                                         @endif
                                     </a>
                                 </div>
@@ -1290,27 +1294,27 @@
                                     <!--        <i class="fa-brands fa-instagram"></i>-->
                                     <!--    </a>-->
                                     <!--@endif-->
-                                    
-                                    
-                                     
-                                        <a href="{{ $footerSetting->facebook }}" target="_blank" class="social-icon">
-                                            <i class="fa-brands fa-facebook-f"></i>
-                                        </a>
-                                   
-                                        <a href="{{ $footerSetting->twitter }}" target="_blank" class="social-icon">
-                                            <i class="fa-brands fa-twitter"></i>
-                                        </a>
-                                  
-                                        <a href="{{ $footerSetting->linkedin }}" target="_blank" class="social-icon">
-                                            <i class="fa-brands fa-linkedin-in"></i>
-                                        </a>
-                                  
 
-                                   
-                                        <a href="{{ $footerSetting->instagram }}" target="_blank" class="social-icon">
-                                            <i class="fa-brands fa-instagram"></i>
-                                        </a>
-                                  
+
+
+                                    <a href="{{ $footerSetting->facebook }}" target="_blank" class="social-icon">
+                                        <i class="fa-brands fa-facebook-f"></i>
+                                    </a>
+
+                                    <a href="{{ $footerSetting->twitter }}" target="_blank" class="social-icon">
+                                        <i class="fa-brands fa-twitter"></i>
+                                    </a>
+
+                                    <a href="{{ $footerSetting->linkedin }}" target="_blank" class="social-icon">
+                                        <i class="fa-brands fa-linkedin-in"></i>
+                                    </a>
+
+
+
+                                    <a href="{{ $footerSetting->instagram }}" target="_blank" class="social-icon">
+                                        <i class="fa-brands fa-instagram"></i>
+                                    </a>
+
 
                                 </div>
                             </div>
@@ -2437,7 +2441,8 @@
                             <div class="aq-drawer-input-wrapper">
                                 <i class="fa-regular fa-user"></i>
                                 <input type="text" name="name" value="{{ old('name') }}" class="aq-drawer-input"
-                                    placeholder="Enter your name" required>
+                                    placeholder="Enter your name" pattern="[A-Za-z\s.]+"
+                                    title="Name should contain letters only" maxlength="255" required>
                             </div>
                         </div>
                     </div>
@@ -2448,7 +2453,7 @@
                             <div class="aq-drawer-input-wrapper">
                                 <i class="fa-solid fa-building"></i>
                                 <input type="text" name="company" value="{{ old('company') }}" class="aq-drawer-input"
-                                    placeholder="Your Company Name" required>
+                                    placeholder="Your Company Name" maxlength="255" required>
                             </div>
                         </div>
                     </div>
@@ -2459,7 +2464,7 @@
                             <div class="aq-drawer-input-wrapper">
                                 <i class="fa-regular fa-envelope"></i>
                                 <input type="email" name="email" value="{{ old('email') }}" class="aq-drawer-input"
-                                    placeholder="you@company.com" required>
+                                    placeholder="you@company.com" maxlength="255" required>
                             </div>
                         </div>
                     </div>
@@ -2484,16 +2489,16 @@
                             <div class="aq-drawer-input-wrapper textarea-wrapper">
                                 <i class="fa-regular fa-comment-dots"></i>
 
-                                <textarea name="message" class="aq-drawer-textarea"
+                                <textarea name="message" class="aq-drawer-textarea" maxlength="2000"
                                     placeholder="Any specific requirement or customization needed?">{{ old('message') }}</textarea>
                             </div>
                         </div>
                     </div>
 
-                    <div>
+                    <!-- <div>
                         <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}">
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="aq-drawer-form-footer">
 
@@ -2534,7 +2539,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
 
     @if(session('success_general'))
         <script>

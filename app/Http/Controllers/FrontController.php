@@ -1199,19 +1199,20 @@ class FrontController extends Controller
     {
         try {
 
-            // ✅ VALIDATION (AJAX SAFE)
             $validator = Validator::make($request->all(), [
-                'business_name' => 'required|string|max:255',
-                'owner_name' => 'required|string|max:255',
+                'business_name' => 'required|string|max:255|regex:/^[a-zA-Z0-9\s&.,\'-]+$/',
+                'owner_name' => 'required|string|max:255|regex:/^[a-zA-Z\s.]+$/',
                 'email' => 'required|email:rfc,dns|max:255',
-                'mobile' => 'required|regex:/^[6-9]\d{9}$/',
-                'address' => 'required|string',
-                'state' => 'required|exists:states,id',
-                'city' => 'required|exists:cities,id',
-                'g-recaptcha-response' => 'required'
+                'mobile' => 'required|digits:10|regex:/^[6-9]\d{9}$/',
+                'address' => 'required|string|max:500',
+                'state' => 'required|integer|exists:states,id',
+                'city' => 'required|integer|exists:cities,id',
+                //  'g-recaptcha-response' => 'required'
             ], [
+                'business_name.regex' => 'Enter a valid business name',
+                'owner_name.regex' => 'Enter a valid name (letters only)',
                 'mobile.regex' => 'Enter valid 10-digit mobile number',
-                'g-recaptcha-response.required' => 'Please verify captcha'
+                // 'g-recaptcha-response.required' => 'Please verify captcha'
             ]);
 
             if ($validator->fails()) {
@@ -1221,22 +1222,22 @@ class FrontController extends Controller
                 ], 422);
             }
 
-            // ✅ CAPTCHA VERIFY
-            $captchaResponse = Http::asForm()->post(
-                'https://www.google.com/recaptcha/api/siteverify',
-                [
-                    'secret' => env('RECAPTCHA_SECRET_KEY'),
-                    'response' => $request->input('g-recaptcha-response'),
-                    'remoteip' => $request->ip(),
-                ]
-            );
+            // // ✅ CAPTCHA VERIFY
+            // $captchaResponse = Http::asForm()->post(
+            //     'https://www.google.com/recaptcha/api/siteverify',
+            //     [
+            //         'secret' => env('RECAPTCHA_SECRET_KEY'),
+            //         'response' => $request->input('g-recaptcha-response'),
+            //         'remoteip' => $request->ip(),
+            //     ]
+            // );
 
-            if (!($captchaResponse->json()['success'] ?? false)) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Captcha verification failed'
-                ], 422);
-            }
+            // if (!($captchaResponse->json()['success'] ?? false)) {
+            //     return response()->json([
+            //         'status' => false,
+            //         'message' => 'Captcha verification failed'
+            //     ], 422);
+            // }
 
             // ✅ CART CHECK
             $sessionId = session()->getId();
@@ -1320,36 +1321,21 @@ class FrontController extends Controller
     public function submitContact(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|regex:/^[a-zA-Z\s.]+$/',
             'email' => 'required|email:rfc,dns|max:255',
-            'mobile' => 'required|regex:/^[6-9]\d{9}$/',
-            'message' => 'required',
-            'g-recaptcha-response' => 'required',
+            'mobile' => 'required|digits:10|regex:/^[6-9]\d{9}$/',
+            'company' => 'nullable|string|max:255',
+            'inquiry_type' => 'nullable|string|in:Bulk Corporate Order,Customization Inquiry,Sample Request,Partnership Opportunity,General Inquiry',
+            'message' => 'required|string|max:2000',
         ], [
             'name.required' => 'Please enter your name',
+            'name.regex' => 'Enter a valid name (letters only)',
             'email.required' => 'Email is required',
             'email.email' => 'Enter a valid email address',
             'mobile.required' => 'Mobile number is required',
             'mobile.regex' => 'Enter valid 10-digit mobile number',
             'message.required' => 'Message cannot be empty',
-            'g-recaptcha-response.required' => 'Please verify captcha',
         ]);
-
-        // ✅ CAPTCHA VERIFY
-        $captchaResponse = Http::asForm()->post(
-            'https://www.google.com/recaptcha/api/siteverify',
-            [
-                'secret' => env('RECAPTCHA_SECRET_KEY'),
-                'response' => $request->input('g-recaptcha-response'),
-                'remoteip' => $request->ip(),
-            ]
-        );
-
-        if (!($captchaResponse->json()['success'] ?? false)) {
-            return back()
-                ->withErrors(['g-recaptcha-response' => 'Captcha verification failed'])
-                ->withInput();
-        }
 
         // ✅ SAVE
         ContactEnquiry::create([
@@ -1361,7 +1347,7 @@ class FrontController extends Controller
             'message' => $request->message,
         ]);
 
-        // try {
+        try {
             Mail::to(config('mail.admin_enquiry_email'))->send(new EnquiryNotificationMail('Contact Us Enquiry', $request->only([
                 'name',
                 'email',
@@ -1370,9 +1356,9 @@ class FrontController extends Controller
                 'inquiry_type',
                 'message',
             ])));
-        // } catch (\Exception $e) {
-        //     Log::error('Contact enquiry mail failed: ' . $e->getMessage());
-        // }
+        } catch (\Exception $e) {
+            Log::error('Contact enquiry mail failed: ' . $e->getMessage());
+        }
 
         return back()->with('success', 'Enquiry sent successfully!');
     }
@@ -1380,36 +1366,20 @@ class FrontController extends Controller
     public function submitHomeEnquiry(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|regex:/^[a-zA-Z\s.]+$/',
             'email' => 'required|email:rfc,dns|max:255',
-            'phone' => 'required|regex:/^[6-9]\d{9}$/',
-            'message' => 'required',
-            'g-recaptcha-response' => 'required',
+            'phone' => 'required|digits:10|regex:/^[6-9]\d{9}$/',
+            'company' => 'nullable|string|max:255',
+            'message' => 'required|string|max:2000',
         ], [
             'name.required' => 'Please enter your name',
+            'name.regex' => 'Enter a valid name (letters only)',
             'email.required' => 'Email is required',
             'email.email' => 'Enter a valid email address',
             'phone.required' => 'Mobile number is required',
             'phone.regex' => 'Enter valid 10-digit mobile number',
             'message.required' => 'Message cannot be empty',
-            'g-recaptcha-response.required' => 'Please verify captcha',
         ]);
-
-        // CAPTCHA
-        $response = Http::asForm()->post(
-            'https://www.google.com/recaptcha/api/siteverify',
-            [
-                'secret' => env('RECAPTCHA_SECRET_KEY'),
-                'response' => $request->input('g-recaptcha-response'),
-                'remoteip' => $request->ip()
-            ]
-        );
-
-        if (!($response->json()['success'] ?? false)) {
-            return back()
-                ->withErrors(['captcha' => 'Captcha verification failed'])
-                ->withInput();
-        }
 
         HomeEnquiry::create([
             'name' => $request->name,
@@ -1439,18 +1409,17 @@ class FrontController extends Controller
     public function submitPackageEnquiry(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'package_id' => 'required|exists:packages,id',
-            'name' => 'required|string|max:255',
+            'package_id' => 'required|integer|exists:packages,id',
+            'name' => 'required|string|max:255|regex:/^[a-zA-Z\s.]+$/',
             'company' => 'required|string|max:255',
             'email' => 'required|email:rfc,dns|max:255',
-            'phone' => 'required|regex:/^[6-9]\d{9}$/',
-            'g-recaptcha-response' => 'required',
+            'phone' => 'required|digits:10|regex:/^[6-9]\d{9}$/',
         ], [
             'name.required' => 'Please enter your name',
+            'name.regex' => 'Enter a valid name (letters only)',
             'company.required' => 'Company name is required',
             'email.email' => 'Enter valid email address',
             'phone.regex' => 'Enter valid 10-digit mobile number',
-            'g-recaptcha-response.required' => 'Please verify captcha',
         ]);
 
         if ($validator->fails()) {
@@ -1459,23 +1428,13 @@ class FrontController extends Controller
                 ->withInput();
         }
 
-        // CAPTCHA
-        $response = Http::asForm()->post(
-            'https://www.google.com/recaptcha/api/siteverify',
-            [
-                'secret' => env('RECAPTCHA_SECRET_KEY'),
-                'response' => $request->input('g-recaptcha-response'),
-                'remoteip' => $request->ip()
-            ]
-        );
-
-        if (!($response->json()['success'] ?? false)) {
-            return back()
-                ->withErrors(['captcha' => 'Captcha verification failed'], 'packageForm')
-                ->withInput();
-        }
-
-        PackageEnquiry::create($request->all());
+        PackageEnquiry::create($request->only([
+            'package_id',
+            'name',
+            'company',
+            'email',
+            'phone',
+        ]));
 
         try {
             Mail::to(config('mail.admin_enquiry_email'))->send(new EnquiryNotificationMail('Package Enquiry', $request->only([
@@ -1495,38 +1454,23 @@ class FrontController extends Controller
     public function submitGeneralEnquiry(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|regex:/^[a-zA-Z\s.]+$/',
             'company' => 'required|string|max:255',
             'email' => 'required|email:rfc,dns|max:255',
-            'phone' => 'required|regex:/^[6-9]\d{9}$/',
-            'g-recaptcha-response' => 'required',
+            'phone' => 'required|digits:10|regex:/^[6-9]\d{9}$/',
+            'message' => 'nullable|string|max:2000',
+            'source' => 'nullable|string|max:255',
         ], [
             'name.required' => 'Please enter your name',
+            'name.regex' => 'Enter a valid name (letters only)',
             'company.required' => 'Company name is required',
             'email.email' => 'Enter valid email address',
             'phone.regex' => 'Enter valid 10-digit mobile number',
-            'g-recaptcha-response.required' => 'Please verify captcha',
         ]);
 
         if ($validator->fails()) {
             return back()
                 ->withErrors($validator, 'generalForm') // ✅ IMPORTANT
-                ->withInput();
-        }
-
-        // CAPTCHA
-        $response = Http::asForm()->post(
-            'https://www.google.com/recaptcha/api/siteverify',
-            [
-                'secret' => env('RECAPTCHA_SECRET_KEY'),
-                'response' => $request->input('g-recaptcha-response'),
-                'remoteip' => $request->ip()
-            ]
-        );
-
-        if (!($response->json()['success'] ?? false)) {
-            return back()
-                ->withErrors(['captcha' => 'Captcha verification failed'], 'generalForm')
                 ->withInput();
         }
 
@@ -1558,35 +1502,25 @@ class FrontController extends Controller
     public function submitVendorEnquiry(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|regex:/^[a-zA-Z\s.]+$/',
             'company' => 'required|string|max:255',
             'email' => 'required|email:rfc,dns|max:255',
-            'phone' => 'required|regex:/^[6-9]\d{9}$/',
-            'vendor_type_id' => 'required|exists:vendor_types,id',
+            'phone' => 'required|digits:10|regex:/^[6-9]\d{9}$/',
+            'vendor_type_id' => 'required|integer|exists:vendor_types,id',
+            'description' => 'nullable|string|max:2000',
+            'capacity' => 'nullable|string|max:255',
+            'city' => 'nullable|string|max:255',
             'catalogue' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
-            'g-recaptcha-response' => 'required',
         ], [
             'name.required' => 'Please enter your name',
+            'name.regex' => 'Enter a valid name (letters only)',
             'company.required' => 'Company name is required',
             'email.email' => 'Enter valid email address',
             'phone.regex' => 'Enter valid 10-digit mobile number',
             'vendor_type_id.required' => 'Please select business type',
             'catalogue.mimes' => 'File must be PDF, DOC, JPG or PNG',
             'catalogue.max' => 'File size must be under 2MB',
-            'g-recaptcha-response.required' => 'Please verify captcha',
         ]);
-
-        // CAPTCHA
-        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
-            'secret' => env('RECAPTCHA_SECRET_KEY'),
-            'response' => $request->input('g-recaptcha-response'),
-        ]);
-
-        if (!$response->json('success')) {
-            return back()
-                ->withErrors(['g-recaptcha-response' => 'Captcha verification failed'])
-                ->withInput();
-        }
 
         // FILE UPLOAD
         $filePath = null;
@@ -1628,41 +1562,26 @@ class FrontController extends Controller
     public function submitSupplierEnquiry(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|regex:/^[a-zA-Z\s.]+$/',
             'company' => 'required|string|max:255',
             'email' => 'required|email:rfc,dns|max:255',
-            'phone' => 'required|regex:/^[6-9]\d{9}$/',
-            'category_id' => 'required|exists:categories,id',
+            'phone' => 'required|digits:10|regex:/^[6-9]\d{9}$/',
+            'category_id' => 'required|integer|exists:categories,id',
+            'quantity' => 'nullable|integer|min:1',
+            'delivery_date' => 'nullable|date|after_or_equal:today',
+            'description' => 'nullable|string|max:2000',
+            'city' => 'nullable|string|max:255',
             'catalogue' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
-            'g-recaptcha-response' => 'required',
         ], [
             'name.required' => 'Please enter your name',
+            'name.regex' => 'Enter a valid name (letters only)',
             'company.required' => 'Company name is required',
             'email.email' => 'Enter valid email address',
             'phone.regex' => 'Enter valid 10-digit mobile number',
             'category_id.required' => 'Please select category',
             'catalogue.mimes' => 'File must be PDF, DOC, JPG or PNG',
             'catalogue.max' => 'File must be under 2MB',
-            'g-recaptcha-response.required' => 'Please verify captcha',
         ]);
-
-        // CAPTCHA
-        $captcha = Http::asForm()->post(
-            'https://www.google.com/recaptcha/api/siteverify',
-            [
-                'secret' => env('RECAPTCHA_SECRET_KEY'),
-                'response' => $request->input('g-recaptcha-response'),
-            ]
-        );
-
-        if (!$captcha->json('success')) {
-
-            return back()
-                ->withErrors([
-                    'g-recaptcha-response' => 'Captcha failed'
-                ])
-                ->withInput();
-        }
 
         // FILE UPLOAD
         $filePath = null;
@@ -1679,15 +1598,10 @@ class FrontController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'category_id' => $request->category_id,
-
-            // NEW FORM FIELDS
             'quantity' => $request->quantity,
             'delivery_date' => $request->delivery_date,
-
-            // EXISTING
             'description' => $request->description,
             'city' => $request->city,
-
             'catalogue' => $filePath,
         ]);
 

@@ -206,7 +206,8 @@
                             <div class="aq-drawer-input-wrapper">
                                 <i class="fa-regular fa-user"></i>
                                 <input type="text" name="name" value="{{ old('name') }}" class="aq-drawer-input"
-                                    placeholder="Enter your name" required>
+                                    placeholder="Enter your name" pattern="[A-Za-z\s.]+"
+                                    title="Name should contain letters only" maxlength="255" required>
                             </div>
                         </div>
                     </div>
@@ -217,7 +218,7 @@
                             <div class="aq-drawer-input-wrapper">
                                 <i class="fa-solid fa-building"></i>
                                 <input type="text" name="company" value="{{ old('company') }}" class="aq-drawer-input"
-                                    placeholder="Your Company Name" required>
+                                    placeholder="Your Company Name" maxlength="255" required>
                             </div>
                         </div>
                     </div>
@@ -228,7 +229,7 @@
                             <div class="aq-drawer-input-wrapper">
                                 <i class="fa-regular fa-envelope"></i>
                                 <input type="email" name="email" value="{{ old('email') }}" class="aq-drawer-input"
-                                    placeholder="you@company.com" required>
+                                    placeholder="you@company.com" maxlength="255" required>
                             </div>
                         </div>
                     </div>
@@ -253,16 +254,16 @@
                             <div class="aq-drawer-input-wrapper textarea-wrapper">
                                 <i class="fa-regular fa-comment-dots"></i>
 
-                                <textarea name="message" class="aq-drawer-textarea"
+                                <textarea name="message" class="aq-drawer-textarea" maxlength="2000"
                                     placeholder="Enter your message">{{ old('message') }}</textarea>
                             </div>
                         </div>
                     </div>
 
-                    <div>
-                        <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}">
-                        </div>
-                    </div>
+                    <!-- <div>
+                            <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}">
+                            </div>
+                        </div> -->
 
                     <div class="aq-drawer-form-footer">
 
@@ -282,7 +283,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
 
     @if(session('success_package'))
         <script>

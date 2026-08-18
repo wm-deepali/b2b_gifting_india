@@ -16,6 +16,7 @@ class Product extends Model
 
         // BASIC
         'name',
+        'vendor_name',
         'slug',
         'image',
         'video_url',
@@ -69,7 +70,9 @@ class Product extends Model
         'whatsapp',
         'call',
 
-        'status'
+        'status',
+        'bulk_logistics_use_custom',
+        'bulk_logistics_content'
     ];
 
     /*
@@ -152,5 +155,23 @@ class Product extends Model
     {
         return $this->hasMany(Wishlist::class);
     }
+    
+    public function priceHistories()
+{
+    return $this->hasMany(PriceHistory::class)->latest();
+}
+
+
+/**
+ * Resolved content — custom hai to wahi, warna default settings wala.
+ */
+public function getResolvedBulkLogisticsContentAttribute(): string
+{
+    if ($this->bulk_logistics_use_custom && !empty($this->bulk_logistics_content)) {
+        return $this->bulk_logistics_content;
+    }
+
+    return \App\Models\BulkLogisticsSetting::current()->content;
+}
     
 }

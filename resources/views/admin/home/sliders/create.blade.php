@@ -76,13 +76,13 @@
 
                         <div class="row">
 
-                            <div class="col-sm-12 form-group">
+                            <div class="col-sm-6 form-group">
 
-                                <label>Slider Image *</label>
+                                <label>Desktop Slider Image *</label>
 
                                 <input
                                     type="file"
-                                    name="image"
+                                    name="desktop_image"
                                     class="form-control"
                                     accept=".jpg,.jpeg,.png,.webp">
 
@@ -103,7 +103,44 @@
 
                                 </small>
 
-                                @error('image')
+                                @error('desktop_image')
+
+                                    <span class="text-danger d-block mt-1">
+                                        {{ $message }}
+                                    </span>
+
+                                @enderror
+
+                            </div>
+
+                            <div class="col-sm-6 form-group">
+
+                                <label>Mobile Slider Image</label>
+
+                                <input
+                                    type="file"
+                                    name="mobile_image"
+                                    class="form-control"
+                                    accept=".jpg,.jpeg,.png,.webp">
+
+                                <small class="text-muted">
+
+                                    Recommended Size:
+                                    768 × 960 px
+
+                                    <br>
+
+                                    Allowed:
+                                    JPG, JPEG, PNG, WEBP
+
+                                    <br>
+
+                                    Maximum Size:
+                                    5 MB
+
+                                </small>
+
+                                @error('mobile_image')
 
                                     <span class="text-danger d-block mt-1">
                                         {{ $message }}

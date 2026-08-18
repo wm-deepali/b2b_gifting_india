@@ -26,47 +26,51 @@ class HomeSliderController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-
-            'image' => [
+            'desktop_image' => [
                 'required',
                 'image',
                 'mimes:jpg,jpeg,png,webp',
                 'max:5120',
             ],
-
+            'mobile_image' => [
+                'nullable',
+                'image',
+                'mimes:jpg,jpeg,png,webp',
+                'max:5120',
+            ],
             'link' => [
                 'nullable',
                 'url'
             ],
-
             'sort_order' => [
                 'nullable',
                 'integer',
                 'min:0'
             ],
-
             'status' => [
                 'required',
                 'in:0,1'
             ]
-
         ]);
 
-        $image = null;
+        $desktopImage = null;
+        if ($request->hasFile('desktop_image')) {
+            $desktopImage = $request->file('desktop_image')
+                ->store('home-sliders', 'public');
+        }
 
-        if ($request->hasFile('image')) {
-
-            $image = $request->file('image')
+        $mobileImage = null;
+        if ($request->hasFile('mobile_image')) {
+            $mobileImage = $request->file('mobile_image')
                 ->store('home-sliders', 'public');
         }
 
         HomeSlider::create([
-
-            'image' => $image,
+            'desktop_image' => $desktopImage,
+            'mobile_image' => $mobileImage,
             'link' => $request->link,
             'sort_order' => $request->sort_order ?? 0,
             'status' => $request->status
-
         ]);
 
         return redirect()
@@ -87,56 +91,65 @@ class HomeSliderController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-
-            'image' => [
+            'desktop_image' => [
                 'nullable',
                 'image',
                 'mimes:jpg,jpeg,png,webp',
                 'max:5120',
             ],
-
+            'mobile_image' => [
+                'nullable',
+                'image',
+                'mimes:jpg,jpeg,png,webp',
+                'max:5120',
+            ],
             'link' => [
                 'nullable',
                 'url'
             ],
-
             'sort_order' => [
                 'nullable',
                 'integer',
                 'min:0'
             ],
-
             'status' => [
                 'required',
                 'in:0,1'
             ]
-
         ]);
 
         $slider = HomeSlider::findOrFail($id);
 
-        $image = $slider->image;
-
-        if ($request->hasFile('image')) {
-
+        $desktopImage = $slider->desktop_image;
+        if ($request->hasFile('desktop_image')) {
             if (
-                $slider->image &&
-                Storage::disk('public')->exists($slider->image)
+                $slider->desktop_image &&
+                Storage::disk('public')->exists($slider->desktop_image)
             ) {
-                Storage::disk('public')->delete($slider->image);
+                Storage::disk('public')->delete($slider->desktop_image);
             }
+            $desktopImage = $request->file('desktop_image')
+                ->store('home-sliders', 'public');
+        }
 
-            $image = $request->file('image')
+        $mobileImage = $slider->mobile_image;
+        if ($request->hasFile('mobile_image')) {
+            if (
+                $slider->mobile_image &&
+                Storage::disk('public')->exists($slider->mobile_image)
+            ) {
+                Storage::disk('public')->delete($slider->mobile_image);
+            }
+            $mobileImage = $request->file('mobile_image')
                 ->store('home-sliders', 'public');
         }
 
         $slider->update([
-
-            'image' => $image,
+            'desktop_image' => $desktopImage,
+            'mobile_image' => $mobileImage,
             'link' => $request->link,
             'sort_order' => $request->sort_order ?? 0,
             'status' => $request->status
-
         ]);
 
         return redirect()
@@ -149,10 +162,17 @@ class HomeSliderController extends Controller
         $slider = HomeSlider::findOrFail($id);
 
         if (
-            $slider->image &&
-            Storage::disk('public')->exists($slider->image)
+            $slider->desktop_image &&
+            Storage::disk('public')->exists($slider->desktop_image)
         ) {
-            Storage::disk('public')->delete($slider->image);
+            Storage::disk('public')->delete($slider->desktop_image);
+        }
+
+        if (
+            $slider->mobile_image &&
+            Storage::disk('public')->exists($slider->mobile_image)
+        ) {
+            Storage::disk('public')->delete($slider->mobile_image);
         }
 
         $slider->delete();

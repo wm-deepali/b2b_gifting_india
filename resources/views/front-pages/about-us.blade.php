@@ -42,7 +42,7 @@
 
                 <div class="row g-4">
                     @foreach(($about->stats ?? []) as $stat)
-                        <div class="col-xl-3 col-md-6">
+                        <div class="col-xl-3 col-md-6 col-sm-6">
                             <div class="stat-card">
                                 <div class="stat-icon">
                                     <i class="{{ $stat['icon'] }}"></i>

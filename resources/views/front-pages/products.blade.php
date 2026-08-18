@@ -19,6 +19,12 @@
     color:#fff;
     transform:translateY(-2px);
 }
+
+    .aq-product-contact-price {
+    font-weight: 600 !important;
+    color: #333 !important;
+    font-size: 14px !important;
+}
 </style>
     <main>
         <!-- 1. Luxury Inner Banner / Hero Section -->

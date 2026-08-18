@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class HomeSlider extends Model
 {
     protected $fillable = [
-        'image',
-        'link',
-        'sort_order',
-        'status'
-    ];
+    'desktop_image',
+    'mobile_image',
+    'link',
+    'sort_order',
+    'status',
+];
 }

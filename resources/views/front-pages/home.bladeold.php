@@ -14,16 +14,16 @@
 
 
     <main>
-      <!-- slider area start (Desktop) -->
+        <!-- slider area start (Desktop) -->
         <div class="aqf-slider-area d-none d-md-block">
             <div class="swiper aqf-slider-active p-relative">
                 <div class="swiper-wrapper">
                     @foreach($sliders as $slider)
                         <div class="swiper-slide">
-                            <div class="aqf-slider-item aqf-slider-height d-flex align-items-center"
-                                data-bg-color="#F5F5F5">
+                            <div class="aqf-slider-item aqf-slider-height d-flex align-items-center" data-bg-color="#F5F5F5">
                                 <a href="{{ $slider->link ?: '#' }}" class="aq-slider-banner-overlay-link"></a>
-                                <div class="aqf-slider-thumb include-bg" data-background="{{ asset('storage/' . $slider->image) }}">
+                                <div class="aqf-slider-thumb include-bg"
+                                    data-background="{{ asset('storage/' . $slider->image) }}">
                                 </div>
                                 <div class="container">
                                     <div class="row align-items-center">
@@ -49,10 +49,10 @@
                 <div class="swiper-wrapper">
                     @foreach($sliders as $slider)
                         <div class="swiper-slide">
-                            <div class="aqf-slider-item aqf-slider-height d-flex align-items-center"
-                                data-bg-color="#F5F5F5">
+                            <div class="aqf-slider-item aqf-slider-height d-flex align-items-center" data-bg-color="#F5F5F5">
                                 <a href="{{ $slider->link ?: '#' }}" class="aq-slider-banner-overlay-link"></a>
-                                <div class="aqf-slider-thumb include-bg" data-background="{{ asset('storage/' . $slider->image) }}">
+                                <div class="aqf-slider-thumb include-bg"
+                                    data-background="{{ asset('storage/' . $slider->image) }}">
                                 </div>
                                 <div class="container">
                                     <div class="row align-items-center">
@@ -119,9 +119,9 @@
                 </svg>
             </div>
 
-            <div class="container">
+            <div class="container-fluid custom-fluid-container">
 
-                <div class="row align-items-center mb-40">
+                <div class="row align-items-center mb-15 mb-md-4">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-12">
                         <div class="aq-creative-title-box">
                             <span class="aq-creative-subtitle">
@@ -137,9 +137,10 @@
                     </div>
                 </div>
 
-                <div class="row row-cols-3 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4">
+                <!--<div class="row row-cols-3 row-cols-sm-3 row-cols-md-3 row-cols-lg-5 g-4 carddesign">-->
+                <div class="row row-cols-3 row-cols-sm-3 row-cols-md-3 row-cols-lg-4 g-2 g-md-4 carddesign">
 
-                    @foreach($Categories as $category)
+                    @foreach($popularCategories as $category)
 
                         <div class="col">
 
@@ -215,42 +216,42 @@
                                     <div class="aq-creative-title-line"></div>
                                 </div>
                             </div>
-                         <div class="col-md-12">
-                                
-                                    <div class="aq-product-tab-btn text-center mb-15">
-                                        <ul class="nav nav-tab d-inline-flex flex-nowrap overflow-x-auto hide-scrollbar"
-                                            id="myTab" role="tablist">
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-links active" id="home-tab" data-bs-toggle="tab"
-                                                    data-bs-target="#home-tab-pane" type="button" role="tab"
-                                                    aria-controls="home-tab-pane" aria-selected="true">
-                                                    New Arrivals
-                                                </button>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-links" id="profile-tab" data-bs-toggle="tab"
-                                                    data-bs-target="#profile-tab-pane" type="button" role="tab"
-                                                    aria-controls="profile-tab-pane" aria-selected="false">
-                                                    Best Sellers
-                                                </button>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-links" id="contact-tab" data-bs-toggle="tab"
-                                                    data-bs-target="#contact-tab-pane" type="button" role="tab"
-                                                    aria-controls="contact-tab-pane" aria-selected="false">
-                                                    Featured
-                                                </button>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                
+                            <div class="col-md-12">
+
+                                <div class="aq-product-tab-btn text-center mb-15">
+                                    <ul class="nav nav-tab d-inline-flex flex-nowrap overflow-x-auto hide-scrollbar"
+                                        id="myTab" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-links active" id="home-tab" data-bs-toggle="tab"
+                                                data-bs-target="#home-tab-pane" type="button" role="tab"
+                                                aria-controls="home-tab-pane" aria-selected="true">
+                                                New Arrivals
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-links" id="profile-tab" data-bs-toggle="tab"
+                                                data-bs-target="#profile-tab-pane" type="button" role="tab"
+                                                aria-controls="profile-tab-pane" aria-selected="false">
+                                                Best Sellers
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-links" id="contact-tab" data-bs-toggle="tab"
+                                                data-bs-target="#contact-tab-pane" type="button" role="tab"
+                                                aria-controls="contact-tab-pane" aria-selected="false">
+                                                Featured
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+
                             </div>
                         </div>
                     </div>
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
                             tabindex="0">
-                            <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 row-cols-1">
+                            <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 row-cols-2">
 
                                 @foreach($newArrivals as $product)
 
@@ -396,7 +397,7 @@
                         </div>
                         <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab"
                             tabindex="0">
-                            <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 row-cols-1">
+                            <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 row-cols-2">
 
                                 @foreach($bestSellers as $product)
 
@@ -545,7 +546,7 @@
                         </div>
                         <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab"
                             tabindex="0">
-                            <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 row-cols-1">
+                            <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 row-cols-2">
 
                                 @foreach($featuredProducts as $product)
 
@@ -702,7 +703,7 @@
 
         <!-- Section 1: Premium Pastel Trust Cards Start -->
         <section class="aqf-pastel-features-section pt-40 pb-40">
-            <div class="container">
+            <div class="container custom-fluid-container">
                 <div class="row g-4">
                     <!-- Card 1: Bulk Orders -->
                     <div class="col-lg-4 col-md-6 col-12">
@@ -770,7 +771,7 @@
         @endphp
         <section>
             <div class="aqf-collection-area fix">
-                <div class="container">
+                <div class="container custom-fluid-container">
                     <!-- Section Title -->
                     <div class="aqf-collection-top mb-40">
                         <div class="row align-items-end">
@@ -880,11 +881,11 @@
 
                                                 </h4>
 
-                                                <span>
+                                                <p>
 
                                                     {{ $occasion->sub_title }}
 
-                                                </span>
+                                                </p>
 
                                             </div>
 
@@ -945,16 +946,16 @@
 
                     <!-- Section Title -->
                     <!-- <div class="aqf-collection-top mb-40 mt-50">
-                                                                                                                                                                                                                                    <div class="row align-items-end">
-                                                                                                                                                                                                                                        <div class="col-md-12">
-                                                                                                                                                                                                                                            <div class="aq-creative-title-box">
-                                                                                                                                                                                                                                                <span class="aq-creative-subtitle">Premium Selections</span>
-                                                                                                                                                                                                                                                <h4 class="aq-creative-title">Bespoke Curation Categories</h4>
-                                                                                                                                                                                                                                                <div class="aq-creative-title-line"></div>
+                                                                                                                                                                                                                                        <div class="row align-items-end">
+                                                                                                                                                                                                                                            <div class="col-md-12">
+                                                                                                                                                                                                                                                <div class="aq-creative-title-box">
+                                                                                                                                                                                                                                                    <span class="aq-creative-subtitle">Premium Selections</span>
+                                                                                                                                                                                                                                                    <h4 class="aq-creative-title">Bespoke Curation Categories</h4>
+                                                                                                                                                                                                                                                    <div class="aq-creative-title-line"></div>
+                                                                                                                                                                                                                                                </div>
                                                                                                                                                                                                                                             </div>
                                                                                                                                                                                                                                         </div>
-                                                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                                                </div> -->
+                                                                                                                                                                                                                                    </div> -->
 
 
                 </div>
@@ -966,8 +967,8 @@
         <!-- deals area start -->
         <section class="deal-aqf-area">
             <div class="aqf-deals-area">
-                <div class="aqf-deals-wrap py-0 py-md-5" >
-                    <div class="container">
+                <div class="aqf-deals-wrap py-0 py-md-5">
+                    <div class="container custom-fluid-container">
                         <div class="row">
                             <div class="col-xl-5 col-lg-6">
                                 <div class="aqf-deals-banner-wrap p-relative mr-30">
@@ -1214,7 +1215,7 @@
                     </svg>
                 </div>
 
-                <div class="container">
+                <div class="container custom-fluid-container">
                     <div class="row justify-content-center">
                         <div class="col-xl-12">
                             <div class="aq-creative-title-box">
@@ -1277,7 +1278,7 @@
 
                                                     @foreach($category->products->take(6) as $product)
 
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-4 col-lg-4 col-xl-4 col-6">
 
                                                             <a href="{{ route('product.details', $product->slug) }}"
                                                                 class="text-decoration-none">
@@ -1357,7 +1358,7 @@
                     </svg>
                 </div>
 
-                <div class="container">
+                <div class="container custom-fluid-container">
                     <div class="row justify-content-center pt-20 pb-20">
                         <div class="col-xl-12">
                             <div class="aq-creative-title-box">
@@ -1505,7 +1506,7 @@
         <!-- saller area start -->
         <section>
             <div class="aqf-seller-area fix pt-20 pb-20">
-                <div class="container">
+                <div class="container custom-fluid-container">
                     <div class="row justify-content-center">
                         <div class="col-xl-12">
                             <div class="aq-creative-title-box text-center">
@@ -1626,38 +1627,38 @@
 
                             </div>
 
-                           
+
                         </div>
-                         <div class="readmore-btn ">
+                        <div class="readmore-btn ">
 
-                                <div class="aq-header-top-bulk-orders ">
+                            <div class="aq-header-top-bulk-orders ">
 
-                                    <a href="{{ route('products', ['filter' => 'personalized-engraving']) }}"
-                                        class="aq-loadmore-btn">
+                                <a href="{{ route('products', ['filter' => 'personalized-engraving']) }}"
+                                    class="aq-loadmore-btn">
 
-                                        <i>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round">
+                                    <i>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
 
-                                                <path
-                                                    d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
-                                                </path>
+                                            <path
+                                                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                                            </path>
 
-                                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
 
-                                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
 
-                                            </svg>
-                                        </i>
+                                        </svg>
+                                    </i>
 
-                                        <span>LOAD MORE</span>
+                                    <span>LOAD MORE</span>
 
-                                    </a>
-
-                                </div>
+                                </a>
 
                             </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1682,7 +1683,7 @@
                         <path d="M50 0 L60 40 L100 50 L60 60 L50 100 L40 60 L0 50 L40 40 Z" />
                     </svg>
                 </div>
-                <div class="container">
+                <div class="container custom-fluid-container">
                     <div class="aqf-summer-wrap" data-bg-color="#FAFAFA">
                         <div class="row align-items-center">
                             <div class="col-xl-5 col-lg-7 d-none d-lg-block">
@@ -1797,7 +1798,7 @@
         <!-- reels area start -->
         <section>
             <div class="aqf-reels-area fix pb-md-50">
-                <div class="container">
+                <div class="container custom-fluid-container">
                     <div class="aqf-collection-top mb-40">
                         <div class="row align-items-end">
                             <div class="col-md-12">
@@ -1895,7 +1896,7 @@
                     </svg>
                 </div>
 
-                <div class="container">
+                <div class="container custom-fluid-container">
                     <div class="row justify-content-center">
                         <div class="col-xl-12">
                             <div class="aq-creative-title-box pt-30">
@@ -1968,7 +1969,7 @@
 
         <!-- Our Brands section start -->
         <section class="aq-brands-section-wrap">
-            <div class="container">
+            <div class="container custom-fluid-container">
 
                 <!-- Section Title -->
                 <div class="aqf-collection-top mb-40">
@@ -2080,7 +2081,7 @@
         <!-- testimonial area start -->
         <section>
             <div class="aqf-testimonial-area-creative fix pt-20 pb-20">
-                <div class="container">
+                <div class="container custom-fluid-container">
                     <div class="row justify-content-center">
                         <div class="aq-creative-title-box">
                             <span class="aq-creative-subtitle">Client Testimonials</span>

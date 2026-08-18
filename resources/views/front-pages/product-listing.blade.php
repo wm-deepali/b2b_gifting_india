@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+
+<style>
+    .aq-product-contact-price {
+    font-weight: 600 !important;
+    color: #333 !important;
+    font-size: 14px !important;
+}
+</style>
     <main>
         <!-- 1. Luxury Inner Banner / Hero Section -->
         <section class="aq-catpage-hero">
@@ -37,7 +45,7 @@
                 </div>
 
                 <div class="aq-category-grid">
-                     
+
                     @foreach($subcategories as $subcategory)
 
                         <div class="aq-category-card" data-category-filter="{{ $subcategory->slug }}">
@@ -82,146 +90,170 @@
                                     <i class="fa-solid fa-chevron-down"></i>
                                 </button>
                                 <div class="aq-filter-content">
-                                    <div class="aq-price-slider-wrap">
-                                        <input type="range" class="aq-price-range-slider" id="priceRange" min="200"
-                                            max="10000" step="100" value="10000" />
-                                        <div class="aq-price-inputs">
-                                            <div class="aq-price-box">Min: ₹200</div>
-                                           <div class="aq-price-box" id="maxPriceLabel">
-    Max: ₹10,000
-</div>
+                                    <div class="aq-custom-price-filter">
+
+                                        @php
+                                            $minPrice = $priceRange->min_price ?? 0;
+                                            $maxPrice = $priceRange->max_price ?? 10000;
+                                        @endphp
+
+                                        <div class="aq-cpf-slider-container">
+                                            <div class="aq-cpf-track"></div>
+                                            <input type="range" class="aq-cpf-range" id="minPriceRange"
+                                                min="{{ $minPrice }}" max="{{ $maxPrice }}" step="100"
+                                                value="{{ $minPrice }}" title="Min Price: {{ $minPrice }}" oninput="this.title='Min Price: ₹'+this.value" />
+                                            <input type="range" class="aq-cpf-range" id="maxPriceRange"
+                                                min="{{ $minPrice }}" max="{{ $maxPrice }}" step="100"
+                                                value="{{ $maxPrice }}" title="Max Price: {{ $maxPrice }}" oninput="this.title='Max Price: ₹'+this.value" />
                                         </div>
+
+                                        <div class="aq-cpf-inputs-container">
+                                            <div class="aq-cpf-input-wrapper">
+                                                <span class="aq-cpf-currency">₹</span>
+                                                <input type="number" id="minPriceInput" class="aq-cpf-number"
+                                                    min="{{ $minPrice }}" max="{{ $maxPrice }}" value="{{ $minPrice }}" />
+                                            </div>
+                                            <span class="aq-cpf-separator">-</span>
+                                            <div class="aq-cpf-input-wrapper">
+                                                <span class="aq-cpf-currency">₹</span>
+                                                <input type="number" id="maxPriceInput" class="aq-cpf-number"
+                                                    min="{{ $minPrice }}" max="{{ $maxPrice }}" value="{{ $maxPrice }}" />
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Widget: Co-Branding Options -->
-                          <div class="aq-filter-widget">
-    <button class="aq-filter-header" type="button">
-        <span>Featured Collections</span>
-        <i class="fa-solid fa-chevron-down"></i>
-    </button>
+                            <div class="aq-filter-widget">
+                                <button class="aq-filter-header" type="button">
+                                    <span>Featured Collections</span>
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </button>
 
-    <div class="aq-filter-content">
-        <ul class="aq-filter-list">
+                                <div class="aq-filter-content">
+                                    <ul class="aq-filter-list">
 
-            <li class="aq-filter-item" data-filter-type="marketing" data-marketing="featured">
-                <div class="aq-filter-checkbox">
-                    <i class="fa-solid fa-check"></i>
-                </div>
-                <span class="aq-filter-label">
-                    Featured Products
-                </span>
-            </li>
+                                        <li class="aq-filter-item" data-filter-type="marketing" data-marketing="featured">
+                                            <div class="aq-filter-checkbox">
+                                                <i class="fa-solid fa-check"></i>
+                                            </div>
+                                            <span class="aq-filter-label">
+                                                Featured Products
+                                            </span>
+                                        </li>
 
-            <li class="aq-filter-item" data-filter-type="marketing" data-marketing="new_arrival">
-                <div class="aq-filter-checkbox">
-                    <i class="fa-solid fa-check"></i>
-                </div>
-                <span class="aq-filter-label">
-                    New Arrivals
-                </span>
-            </li>
+                                        <li class="aq-filter-item" data-filter-type="marketing"
+                                            data-marketing="new_arrival">
+                                            <div class="aq-filter-checkbox">
+                                                <i class="fa-solid fa-check"></i>
+                                            </div>
+                                            <span class="aq-filter-label">
+                                                New Arrivals
+                                            </span>
+                                        </li>
 
-            <li class="aq-filter-item" data-filter-type="marketing" data-marketing="sale">
-                <div class="aq-filter-checkbox">
-                    <i class="fa-solid fa-check"></i>
-                </div>
-                <span class="aq-filter-label">
-                    Exclusive on Sale
-                </span>
-            </li>
+                                        <li class="aq-filter-item" data-filter-type="marketing" data-marketing="sale">
+                                            <div class="aq-filter-checkbox">
+                                                <i class="fa-solid fa-check"></i>
+                                            </div>
+                                            <span class="aq-filter-label">
+                                                Exclusive on Sale
+                                            </span>
+                                        </li>
 
-            <li class="aq-filter-item" data-filter-type="marketing" data-marketing="best_seller">
-                <div class="aq-filter-checkbox">
-                    <i class="fa-solid fa-check"></i>
-                </div>
-                <span class="aq-filter-label">
-                    Best Sellers
-                </span>
-            </li>
- <li class="aq-filter-item" data-filter-type="collection" data-collection="is_premium">
-                <div class="aq-filter-checkbox">
-                    <i class="fa-solid fa-check"></i>
-                </div>
-                <span class="aq-filter-label">
-                    Premium Products
-                </span>
-            </li>
+                                        <li class="aq-filter-item" data-filter-type="marketing"
+                                            data-marketing="best_seller">
+                                            <div class="aq-filter-checkbox">
+                                                <i class="fa-solid fa-check"></i>
+                                            </div>
+                                            <span class="aq-filter-label">
+                                                Best Sellers
+                                            </span>
+                                        </li>
+                                        <li class="aq-filter-item" data-filter-type="collection"
+                                            data-collection="is_premium">
+                                            <div class="aq-filter-checkbox">
+                                                <i class="fa-solid fa-check"></i>
+                                            </div>
+                                            <span class="aq-filter-label">
+                                                Premium Products
+                                            </span>
+                                        </li>
 
-            <li class="aq-filter-item" data-filter-type="collection" data-collection="is_engraving">
-                <div class="aq-filter-checkbox">
-                    <i class="fa-solid fa-check"></i>
-                </div>
-                <span class="aq-filter-label">
-                    Engravings
-                </span>
-            </li>
+                                        <li class="aq-filter-item" data-filter-type="collection"
+                                            data-collection="is_engraving">
+                                            <div class="aq-filter-checkbox">
+                                                <i class="fa-solid fa-check"></i>
+                                            </div>
+                                            <span class="aq-filter-label">
+                                                Engravings
+                                            </span>
+                                        </li>
 
-            <li class="aq-filter-item" data-filter-type="collection" data-collection="is_personalized_engraving">
-                <div class="aq-filter-checkbox">
-                    <i class="fa-solid fa-check"></i>
-                </div>
-                <span class="aq-filter-label">
-                    Personalized Engraving
-                </span>
-            </li>
+                                        <li class="aq-filter-item" data-filter-type="collection"
+                                            data-collection="is_personalized_engraving">
+                                            <div class="aq-filter-checkbox">
+                                                <i class="fa-solid fa-check"></i>
+                                            </div>
+                                            <span class="aq-filter-label">
+                                                Personalized Engraving
+                                            </span>
+                                        </li>
 
-        </ul>
-    </div>
-</div>
+                                    </ul>
+                                </div>
+                            </div>
 
-<div class="aq-filter-widget">
-    <button class="aq-filter-header" type="button">
-        <span>Availability</span>
-        <i class="fa-solid fa-chevron-down"></i>
-    </button>
+                            <div class="aq-filter-widget">
+                                <button class="aq-filter-header" type="button">
+                                    <span>Availability</span>
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </button>
 
-    <div class="aq-filter-content">
-        <ul class="aq-filter-list">
+                                <div class="aq-filter-content">
+                                    <ul class="aq-filter-list">
 
-            <li class="aq-filter-item"
-                data-filter-type="availability"
-                data-availability="ready_to_ship">
+                                        <li class="aq-filter-item" data-filter-type="availability"
+                                            data-availability="ready_to_ship">
 
-                <div class="aq-filter-checkbox">
-                    <i class="fa-solid fa-check"></i>
-                </div>
+                                            <div class="aq-filter-checkbox">
+                                                <i class="fa-solid fa-check"></i>
+                                            </div>
 
-                <span class="aq-filter-label">
-                    Ready to Ship
-                </span>
-            </li>
+                                            <span class="aq-filter-label">
+                                                Ready to Ship
+                                            </span>
+                                        </li>
 
-            <li class="aq-filter-item"
-                data-filter-type="availability"
-                data-availability="bulk_available">
+                                        <li class="aq-filter-item" data-filter-type="availability"
+                                            data-availability="bulk_available">
 
-                <div class="aq-filter-checkbox">
-                    <i class="fa-solid fa-check"></i>
-                </div>
+                                            <div class="aq-filter-checkbox">
+                                                <i class="fa-solid fa-check"></i>
+                                            </div>
 
-                <span class="aq-filter-label">
-                    For Bulk Orders
-                </span>
-            </li>
+                                            <span class="aq-filter-label">
+                                                For Bulk Orders
+                                            </span>
+                                        </li>
 
-            <li class="aq-filter-item"
-                data-filter-type="availability"
-                data-availability="gift_hamper">
+                                        <li class="aq-filter-item" data-filter-type="availability"
+                                            data-availability="gift_hamper">
 
-                <div class="aq-filter-checkbox">
-                    <i class="fa-solid fa-check"></i>
-                </div>
+                                            <div class="aq-filter-checkbox">
+                                                <i class="fa-solid fa-check"></i>
+                                            </div>
 
-                <span class="aq-filter-label">
-                    Gift Hampers
-                </span>
-            </li>
+                                            <span class="aq-filter-label">
+                                                Gift Hampers
+                                            </span>
+                                        </li>
 
-        </ul>
-    </div>
-</div>
+                                    </ul>
+                                </div>
+                            </div>
 
                             <!-- Widget: Premium Brands -->
                             <div class="aq-filter-widget">
@@ -289,8 +321,8 @@
                                 Reset All Filters
                             </button>
                         </div>
-                        
-                          
+
+
                     </div>
 
                     <!-- Right Product Grid -->
@@ -314,16 +346,17 @@
                         </div>
 
                         <!-- Product Cards Grid -->
-                         <div id="aq-product-catalog-grid">
-                             
-                                     @include(
-                                         'front-pages.partials.product-grid',
-                                         ['products' => $products]
-                                     )
-                             
-                                
+                        <div id="aq-product-catalog-grid">
 
-                         </div></div>
+                            @include(
+                                'front-pages.partials.product-grid',
+                                ['products' => $products]
+                            )
+
+
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -358,118 +391,110 @@
         </section>
     </main>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script>
-const filterUrl =
-"{{ route('category.filter.products', $category->slug) }}";
-let activeCategory = '';
+    <script>
+        const filterUrl =
+            "{{ route('category.filter.products', $category->slug) }}";
+        let activeCategory = '';
 
-     function loadProducts(page = 1)
-{
-    let brands = [];
-let occasions = [];
-let marketing = [];
-let collections = [];
-let availability = [];
+        // Move these OUT of DOMContentLoaded, to the top level:
+        let minPriceRange, maxPriceRange, minPriceInput, maxPriceInput;
+        let priceFilterTouched = false;
 
-    document.querySelectorAll(
-        '[data-filter-type="brand"].active'
-    ).forEach(item => {
-        brands.push(item.dataset.brand);
-    });
+        function loadProducts(page = 1) {
+            let brands = [];
+            let occasions = [];
+            let marketing = [];
+            let collections = [];
+            let availability = [];
 
-    document.querySelectorAll(
-        '[data-filter-type="occasion"].active'
-    ).forEach(item => {
-        occasions.push(item.dataset.occasion);
-    });
+            document.querySelectorAll('[data-filter-type="brand"].active').forEach(item => brands.push(item.dataset.brand));
+            document.querySelectorAll('[data-filter-type="occasion"].active').forEach(item => occasions.push(item.dataset.occasion));
+            document.querySelectorAll('[data-filter-type="marketing"].active').forEach(item => marketing.push(item.dataset.marketing));
+            document.querySelectorAll('[data-filter-type="collection"].active').forEach(item => collections.push(item.dataset.collection));
+            document.querySelectorAll('[data-filter-type="availability"].active').forEach(item => availability.push(item.dataset.availability));
 
-    document.querySelectorAll(
-    '[data-filter-type="marketing"].active'
-).forEach(item => {
-    marketing.push(item.dataset.marketing);
-});
+            const data = {
+                page: page,
+                search: document.getElementById('aq-sidebar-search-input').value,
+                brands: brands,
+                occasions: occasions,
+                marketing: marketing,
+                collections: collections,
+                availability: availability,
+                subcategory: activeCategory,
+                sort: document.querySelector('.aq-sort-select').value
+            };
 
-document.querySelectorAll(
-    '[data-filter-type="collection"].active'
-).forEach(item => {
-    collections.push(item.dataset.collection);
-});
+            // Only include price filter once the user has actually touched it
+            if (priceFilterTouched) {
+                data.min_price = document.getElementById('minPriceInput').value;
+                data.max_price = document.getElementById('maxPriceInput').value;
+            }
 
-document.querySelectorAll(
-    '[data-filter-type="availability"].active'
-).forEach(item => {
-    availability.push(item.dataset.availability);
-});
-
-    $.ajax({
-
-        url: filterUrl,
-
-        type: 'GET',
-
-        data: {
-
-    page: page,
-
-    search: document.getElementById(
-        'aq-sidebar-search-input'
-    ).value,
-
-    max_price: document.getElementById(
-        'priceRange'
-    ).value,
-
-    brands: brands,
-
-    occasions: occasions,
-
-    marketing: marketing,
-
-    collections: collections,
-
-    availability: availability,
-
-    subcategory: activeCategory,
-
-    sort: document.querySelector(
-        '.aq-sort-select'
-    ).value
-},
-
-        success: function(response)
-        {
-            document.getElementById(
-                'aq-product-catalog-grid'
-            ).innerHTML = response.html;
-
-            document.getElementById(
-                'aq-product-results-count'
-            ).innerText =
-                'Showing ' +
-                response.total +
-                ' Products';
+            $.ajax({
+                url: filterUrl,
+                type: 'GET',
+                data: data,
+                success: function (response) {
+                    document.getElementById('aq-product-catalog-grid').innerHTML = response.html;
+                    document.getElementById('aq-product-results-count').innerText = 'Showing ' + response.total + ' Products';
+                    updatePriceRangeUI(response.min_price, response.max_price);
+                }
+            });
         }
-    });
-}
 
-$(document).on(
-    'click',
-    '#pagination-wrapper a',
-    function (e)
-    {
-        e.preventDefault();
+        function updatePriceRangeUI(minPrice, maxPrice) {
+            minPrice = parseInt(minPrice);
+            maxPrice = parseInt(maxPrice);
 
-        let page =
-            $(this)
-            .attr('href')
-            .split('page=')[1];
+            if (isNaN(minPrice) || isNaN(maxPrice) || minPrice > maxPrice) {
+                return; // no products matched, skip updating bounds
+            }
 
-        loadProducts(page);
-    }
-);
+            minPriceRange.min = minPrice;
+            minPriceRange.max = maxPrice;
+            maxPriceRange.min = minPrice;
+            maxPriceRange.max = maxPrice;
+            minPriceInput.min = minPrice;
+            minPriceInput.max = maxPrice;
+            maxPriceInput.min = minPrice;
+            maxPriceInput.max = maxPrice;
+
+            if (!priceFilterTouched) {
+                // user hasn't manually set a price — snap slider to new full range
+                minPriceRange.value = minPrice;
+                maxPriceRange.value = maxPrice;
+                minPriceInput.value = minPrice;
+                maxPriceInput.value = maxPrice;
+            } else {
+                // user has a manual selection — just clamp it into the new bounds
+                let curMin = Math.max(minPrice, Math.min(parseInt(minPriceInput.value), maxPrice));
+                let curMax = Math.max(minPrice, Math.min(parseInt(maxPriceInput.value), maxPrice));
+
+                minPriceRange.value = curMin;
+                maxPriceRange.value = curMax;
+                minPriceInput.value = curMin;
+                maxPriceInput.value = curMax;
+            }
+        }
+
+        $(document).on(
+            'click',
+            '#pagination-wrapper a',
+            function (e) {
+                e.preventDefault();
+
+                let page =
+                    $(this)
+                        .attr('href')
+                        .split('page=')[1];
+
+                loadProducts(page);
+            }
+        );
 
         document.addEventListener("DOMContentLoaded", function () {
-       
+
             // Sticky scrolled header transition to green background on scroll
             window.addEventListener('scroll', () => {
                 const header = document.querySelector('.header-sticky');
@@ -505,31 +530,68 @@ $(document).on(
             });
 
             // 2. Custom Checkbox Interactive Styling Click Trigger
-          const filterItems = document.querySelectorAll(".aq-filter-item");
+            const filterItems = document.querySelectorAll(".aq-filter-item");
 
-filterItems.forEach(item => {
-    item.addEventListener("click", function () {
-        this.classList.toggle("active");
-        loadProducts(1);
-    });
-});
+            filterItems.forEach(item => {
+                item.addEventListener("click", function () {
+                    this.classList.toggle("active");
+                    loadProducts(1);
+                });
+            });
 
             // 3. Price slider dynamic value display
-            const priceSlider = document.getElementById("priceRange");
-            const maxPriceLabel = document.getElementById("maxPriceLabel");
-            if (priceSlider && maxPriceLabel) {
-                priceSlider.addEventListener("change", function () {
+            minPriceRange = document.getElementById("minPriceRange");
+            maxPriceRange = document.getElementById("maxPriceRange");
+            minPriceInput = document.getElementById("minPriceInput");
+            maxPriceInput = document.getElementById("maxPriceInput");
 
-    maxPriceLabel.innerText =
-        "Max: ₹" +
-        parseInt(this.value).toLocaleString('en-IN');
+            function syncFromSliders() {
+                let minVal = parseInt(minPriceRange.value);
+                let maxVal = parseInt(maxPriceRange.value);
 
-    loadProducts(1);
-});
+                if (minVal > maxVal) {
+                    // keep them from crossing
+                    minVal = maxVal;
+                    minPriceRange.value = minVal;
+                }
 
+                minPriceInput.value = minVal;
+                maxPriceInput.value = maxVal;
+
+                priceFilterTouched = true;
+                loadProducts(1);
             }
 
-    
+            function syncFromInputs() {
+                let minVal = parseInt(minPriceInput.value) || parseInt(minPriceRange.min);
+                let maxVal = parseInt(maxPriceInput.value) || parseInt(maxPriceRange.max);
+
+                minVal = Math.max(parseInt(minPriceRange.min), Math.min(minVal, parseInt(minPriceRange.max)));
+                maxVal = Math.max(parseInt(maxPriceRange.min), Math.min(maxVal, parseInt(maxPriceRange.max)));
+
+                if (minVal > maxVal) {
+                    [minVal, maxVal] = [maxVal, minVal];
+                }
+
+                minPriceRange.value = minVal;
+                maxPriceRange.value = maxVal;
+                minPriceInput.value = minVal;
+                maxPriceInput.value = maxVal;
+
+                priceFilterTouched = true;
+                loadProducts(1);
+            }
+
+            if (minPriceRange && maxPriceRange) {
+                minPriceRange.addEventListener("change", syncFromSliders);
+                maxPriceRange.addEventListener("change", syncFromSliders);
+            }
+
+            if (minPriceInput && maxPriceInput) {
+                minPriceInput.addEventListener("change", syncFromInputs);
+                maxPriceInput.addEventListener("change", syncFromInputs);
+            }
+
 
             // Click listener for Category grid cards
             const categoryCards = document.querySelectorAll(".aq-category-card");
@@ -543,16 +605,16 @@ filterItems.forEach(item => {
 
                     activeCategory = this.getAttribute("data-category-filter");
 
-const catName =
-    this.querySelector(".aq-category-card-title").innerText;
+                    const catName =
+                        this.querySelector(".aq-category-card-title").innerText;
 
-if (activeCategoryTitle) {
-    activeCategoryTitle.innerText =
-        catName + " Collection";
-}
+                    if (activeCategoryTitle) {
+                        activeCategoryTitle.innerText =
+                            catName + " Collection";
+                    }
 
-loadProducts(1);
-                    
+                    loadProducts(1);
+
 
                     // Smooth scroll down to interactive catalog section
                     const section = document.getElementById("aq-catalog-section");
@@ -567,7 +629,7 @@ loadProducts(1);
             });
 
             // Simulate Filtering
-         
+
 
             // Search filtering listener
             const searchInput = document.getElementById("aq-sidebar-search-input");
@@ -579,48 +641,41 @@ loadProducts(1);
 
             const sortSelect = document.querySelector('.aq-sort-select');
 
-if (sortSelect) {
+            if (sortSelect) {
 
-    sortSelect.addEventListener('change', function () {
+                sortSelect.addEventListener('change', function () {
 
-        loadProducts(1);
+                    loadProducts(1);
 
-    });
+                });
 
-}
+            }
 
             // Reset filters logic
             const clearBtn = document.getElementById("aq-clear-filters-btn");
 
-if (clearBtn) {
+            if (clearBtn) {
+                clearBtn.addEventListener("click", function () {
+                    if (minPriceRange && maxPriceRange) {
+                        minPriceRange.value = minPriceRange.min;
+                        maxPriceRange.value = maxPriceRange.max;
+                        minPriceInput.value = minPriceRange.min;
+                        maxPriceInput.value = maxPriceRange.max;
+                    }
 
-    clearBtn.addEventListener("click", function () {
+                    priceFilterTouched = false; // reset so price isn't sent again
 
-        if (priceSlider) {
-            priceSlider.value = 10000;
-            maxPriceLabel.innerText = "Max: ₹10,000";
-        }
+                    if (searchInput) searchInput.value = "";
 
-        if (searchInput) {
-            searchInput.value = "";
-        }
+                    filterItems.forEach(item => item.classList.remove("active"));
+                    categoryCards.forEach(card => card.classList.remove("active"));
 
-        filterItems.forEach(item => {
-            item.classList.remove("active");
-        });
+                    activeCategory = '';
+                    loadProducts(1);
+                });
+            }
 
-        categoryCards.forEach(card => {
-            card.classList.remove("active");
-        });
 
-        activeCategory = '';
-
-        loadProducts(1);
-    });
-
-}
-
-         
             // Mobile filters offcanvas toggle handlers
             const mobileFilterOpenBtn = document.getElementById("aq-mobile-filter-open-btn");
             const mobileFilterCloseBtn = document.getElementById("aq-mobile-filter-close");
@@ -647,7 +702,7 @@ if (clearBtn) {
                     if (filterSidebar.classList.contains("active")) {
                         const isClickInsideSidebar = filterSidebar.contains(event.target);
                         const isClickOnOpenBtn = mobileFilterOpenBtn && mobileFilterOpenBtn.contains(event.target);
-                        
+
                         if (!isClickInsideSidebar && !isClickOnOpenBtn) {
                             filterSidebar.classList.remove("active");
                             document.body.style.overflow = "";
@@ -658,52 +713,52 @@ if (clearBtn) {
 
             // Parse URL parameters for categories deep link
             const urlParams = new URLSearchParams(window.location.search);
-const subcategoryParam = urlParams.get('subcategory');
+            const subcategoryParam = urlParams.get('subcategory');
 
-if (subcategoryParam) {
+            if (subcategoryParam) {
 
-    const targetCard = document.querySelector(
-        `.aq-category-card[data-category-filter="${subcategoryParam}"]`
-    );
+                const targetCard = document.querySelector(
+                    `.aq-category-card[data-category-filter="${subcategoryParam}"]`
+                );
 
-    if (targetCard) {
+                if (targetCard) {
 
-        targetCard.classList.add('active');
+                    targetCard.classList.add('active');
 
-        activeCategory = subcategoryParam;
+                    activeCategory = subcategoryParam;
 
-        const activeCategoryTitle =
-            document.getElementById('aq-active-category-title');
+                    const activeCategoryTitle =
+                        document.getElementById('aq-active-category-title');
 
-        const catName =
-            targetCard.querySelector('.aq-category-card-title').innerText;
+                    const catName =
+                        targetCard.querySelector('.aq-category-card-title').innerText;
 
-        if (activeCategoryTitle) {
-            activeCategoryTitle.innerText =
-                catName + ' Collection';
-        }
+                    if (activeCategoryTitle) {
+                        activeCategoryTitle.innerText =
+                            catName + ' Collection';
+                    }
 
-        loadProducts(1);
+                    loadProducts(1);
 
-        setTimeout(() => {
+                    setTimeout(() => {
 
-            const section =
-                document.getElementById('aq-catalog-section');
+                        const section =
+                            document.getElementById('aq-catalog-section');
 
-            if (section) {
-                const topOffset =
-                    section.getBoundingClientRect().top +
-                    window.pageYOffset - 120;
+                        if (section) {
+                            const topOffset =
+                                section.getBoundingClientRect().top +
+                                window.pageYOffset - 120;
 
-                window.scrollTo({
-                    top: topOffset,
-                    behavior: 'smooth'
-                });
+                            window.scrollTo({
+                                top: topOffset,
+                                behavior: 'smooth'
+                            });
+                        }
+
+                    }, 300);
+                }
             }
-
-        }, 300);
-    }
-}
 
         });
     </script>

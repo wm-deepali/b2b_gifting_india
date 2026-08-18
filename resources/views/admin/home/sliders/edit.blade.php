@@ -77,18 +77,18 @@
 
                         <div class="row">
 
-                            <div class="col-sm-12 form-group">
+                            <div class="col-sm-6 form-group">
 
-                                <label>Current Slider Image</label>
+                                <label>Current Desktop Image</label>
 
                                 <div class="mt-2 mb-3">
 
-                                    @if($slider->image)
+                                    @if($slider->desktop_image)
 
                                         <img
-                                            src="{{ asset('storage/'.$slider->image) }}"
-                                            alt="Slider Image"
-                                            style="max-width:400px; height:auto; border:1px solid #ddd; padding:5px;">
+                                            src="{{ asset('storage/'.$slider->desktop_image) }}"
+                                            alt="Desktop Slider Image"
+                                            style="max-width:300px; height:auto; border:1px solid #ddd; padding:5px;">
 
                                     @else
 
@@ -100,15 +100,11 @@
 
                                 </div>
 
-                            </div>
-
-                            <div class="col-sm-12 form-group">
-
-                                <label>Change Slider Image</label>
+                                <label>Change Desktop Slider Image</label>
 
                                 <input
                                     type="file"
-                                    name="image"
+                                    name="desktop_image"
                                     class="form-control"
                                     accept=".jpg,.jpeg,.png,.webp">
 
@@ -123,8 +119,60 @@
 
                                     <br>
 
-                                    Allowed:
-                                    JPG, JPEG, PNG, WEBP
+                                    Maximum Size:
+                                    5 MB
+
+                                </small>
+
+                                @error('desktop_image')
+
+                                    <span class="text-danger d-block mt-1">
+                                        {{ $message }}
+                                    </span>
+
+                                @enderror
+
+                            </div>
+
+                            <div class="col-sm-6 form-group">
+
+                                <label>Current Mobile Image</label>
+
+                                <div class="mt-2 mb-3">
+
+                                    @if($slider->mobile_image)
+
+                                        <img
+                                            src="{{ asset('storage/'.$slider->mobile_image) }}"
+                                            alt="Mobile Slider Image"
+                                            style="max-width:200px; height:auto; border:1px solid #ddd; padding:5px;">
+
+                                    @else
+
+                                        <div class="text-muted">
+                                            No Image Uploaded
+                                        </div>
+
+                                    @endif
+
+                                </div>
+
+                                <label>Change Mobile Slider Image</label>
+
+                                <input
+                                    type="file"
+                                    name="mobile_image"
+                                    class="form-control"
+                                    accept=".jpg,.jpeg,.png,.webp">
+
+                                <small class="text-muted">
+
+                                    Leave empty if you don't want to change the image.
+
+                                    <br>
+
+                                    Recommended Size:
+                                    768 × 960 px
 
                                     <br>
 
@@ -133,7 +181,7 @@
 
                                 </small>
 
-                                @error('image')
+                                @error('mobile_image')
 
                                     <span class="text-danger d-block mt-1">
                                         {{ $message }}

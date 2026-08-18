@@ -51,6 +51,7 @@ use App\Http\Controllers\Admin\PriceManagementController;
 use App\Http\Controllers\Admin\AboutSettingController;
 use App\Http\Controllers\Admin\WhyUsSettingController;
 use App\Http\Controllers\Admin\SmtpSettingController;
+use App\Http\Controllers\Admin\BulkLogisticsSettingController;
 
 
 Route::controller(FrontController::class)->group(function () {
@@ -311,6 +312,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('why-us-settings', [WhyUsSettingController::class, 'edit'])->name('why-us-settings.edit');
         Route::put('why-us-settings', [WhyUsSettingController::class, 'update'])->name('why-us-settings.update');
+
+        // Bulk Logistics & Direct Dispatch — default content settings
+        Route::get('bulk-logistics-settings', [BulkLogisticsSettingController::class, 'edit'])->name('bulk-logistics-settings.edit');
+        Route::put('bulk-logistics-settings', [BulkLogisticsSettingController::class, 'update'])->name('bulk-logistics-settings.update');
 
         Route::get('smtp-settings', [SmtpSettingController::class, 'edit'])->name('smtp-settings.edit');
         Route::put('smtp-settings', [SmtpSettingController::class, 'update'])->name('smtp-settings.update');

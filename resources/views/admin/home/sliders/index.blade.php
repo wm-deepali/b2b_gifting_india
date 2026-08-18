@@ -60,7 +60,9 @@
 
                                     <th>ID</th>
 
-                                    <th>Image</th>
+                                    <th>Desktop Image</th>
+
+                                    <th>Mobile Image</th>
 
                                     <th>Link</th>
 
@@ -86,9 +88,33 @@
 
                                         <td>
 
-                                            <img
-                                                src="{{ asset('storage/'.$slider->image) }}"
-                                                width="120">
+                                            @if($slider->desktop_image)
+
+                                                <img
+                                                    src="{{ asset('storage/'.$slider->desktop_image) }}"
+                                                    width="120">
+
+                                            @else
+
+                                                <span class="text-muted">-</span>
+
+                                            @endif
+
+                                        </td>
+
+                                        <td>
+
+                                            @if($slider->mobile_image)
+
+                                                <img
+                                                    src="{{ asset('storage/'.$slider->mobile_image) }}"
+                                                    width="80">
+
+                                            @else
+
+                                                <span class="text-muted">-</span>
+
+                                            @endif
 
                                         </td>
 
@@ -147,7 +173,7 @@
 
                                     <tr>
 
-                                        <td colspan="6"
+                                        <td colspan="7"
                                             class="text-center text-muted">
 
                                             No Sliders Found

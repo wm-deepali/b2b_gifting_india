@@ -103,32 +103,34 @@
                                             @endif
                                         </td>
                                         <td>
-                                            @if($quote->status === 'draft')
-                                                <a href="{{ route('admin.quotes.edit', $quote->id) }}"
-                                                    class="btn btn-sm wm-btn-info">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                            @else
-                                                <a href="{{ route('admin.quotes.preview', $quote->id) }}"
-                                                    class="btn btn-sm wm-btn-info">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
+                                            <div class="wm-action-group">
+                                                @if($quote->status === 'draft')
+                                                    <a href="{{ route('admin.quotes.edit', $quote->id) }}"
+                                                        class="btn btn-sm wm-btn-info">
+                                                        <i class="fa fa-pencil"></i>
+                                                    </a>
+                                                @else
+                                                    <a href="{{ route('admin.quotes.preview', $quote->id) }}"
+                                                        class="btn btn-sm wm-btn-info">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
 
-                                                <a href="{{ route('admin.quotes.download', $quote->id) }}"
-                                                    class="btn btn-sm wm-btn-outline">
-                                                    <i class="fa fa-download"></i>
-                                                </a>
-                                            @endif
+                                                    <a href="{{ route('admin.quotes.download', $quote->id) }}"
+                                                        class="btn btn-sm wm-btn-outline">
+                                                        <i class="fa fa-download"></i>
+                                                    </a>
+                                                @endif
 
-                                            <form action="{{ route('admin.quotes.destroy', $quote->id) }}" method="POST"
-                                                class="d-inline"
-                                                onsubmit="return confirm('Are you sure you want to delete this proposal? This cannot be undone.');">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm wm-btn-danger">
-                                                    <i class="fa fa-trash"></i>
-                                                </button>
-                                            </form>
+                                                <form action="{{ route('admin.quotes.destroy', $quote->id) }}" method="POST"
+                                                    class="d-inline"
+                                                    onsubmit="return confirm('Are you sure you want to delete this proposal? This cannot be undone.');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm wm-btn-danger">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
 
@@ -181,6 +183,8 @@ this block is purely presentational (safe to include).
         --wm-row-odd: #ffffff;
         --wm-row-even: #f6f8f4;
         --wm-radius: 10px;
+        --wm-danger: #b3261e;
+        --wm-danger-light: #fbeceb;
     }
 
     /* Card shell */
@@ -250,7 +254,8 @@ this block is purely presentational (safe to include).
     .wm-btn-primary,
     .wm-btn-success,
     .wm-btn-info,
-    .wm-btn-outline {
+    .wm-btn-outline,
+    .wm-btn-danger {
         border-radius: 8px !important;
         font-weight: 600;
         font-size: 0.8rem;
@@ -259,8 +264,10 @@ this block is purely presentational (safe to include).
         transition: all 0.15s ease;
         display: inline-flex;
         align-items: center;
+        justify-content: center;
         gap: 6px;
         white-space: nowrap;
+        line-height: 1;
     }
 
     .wm-btn-primary,
@@ -297,6 +304,33 @@ this block is purely presentational (safe to include).
     .wm-btn-outline:hover {
         background-color: var(--wm-primary);
         color: #fff !important;
+    }
+
+    /* Delete button — was missing before, causing the broken/unstyled icon */
+    .wm-btn-danger {
+        background-color: var(--wm-danger-light);
+        color: var(--wm-danger) !important;
+        border-color: var(--wm-danger-light);
+    }
+
+    .wm-btn-danger:hover {
+        background-color: var(--wm-danger);
+        border-color: var(--wm-danger);
+        color: #fff !important;
+    }
+
+    /* Action column — force horizontal row, never wraps to vertical stack */
+    .wm-action-group {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: nowrap;
+        gap: 6px;
+    }
+
+    .wm-action-group form {
+        display: inline-flex;
+        margin: 0;
     }
 
     /* Table */
@@ -391,6 +425,10 @@ this block is purely presentational (safe to include).
 
         .wm-search-form {
             flex: 1;
+        }
+
+        .wm-action-group {
+            flex-wrap: wrap;
         }
     }
 

@@ -150,11 +150,7 @@
 
                         </div>
 
-                        @if(!empty($settings?->company_introduction))
-                            <div class="mb-3 small text-muted">
-                                {!! $settings->company_introduction !!}
-                            </div>
-                        @endif
+                       
 
                         {{-- From / Proposal To --}}
                         <div class="row no-gutters border rounded mb-4 overflow-hidden wm-detail-panel">
@@ -330,7 +326,7 @@
                         @endphp
 
                         <div class="d-flex justify-content-end mt-3">
-                            <div class="wm-grand-total" style="min-width:320px;">
+                            <div class="wm-grand-total" style="min-width:350px;">
 
                                 <div class="d-flex justify-content-between mb-1">
                                     <span>Sub Total</span>
@@ -342,18 +338,19 @@
                                     <span>-₹{{ number_format($discount, 2) }}</span>
                                 </div>
 
-                                <div class="d-flex justify-content-between mb-1">
-                                    <span>Packaging Charges ({{ $packingQty }} x
-                                        ₹{{ number_format($packingRate, 2) }})</span>
-                                    <span>₹{{ number_format($packingAmount, 2) }}</span>
-                                </div>
+                              <div class="d-flex justify-content-between mb-1">
+    <span>Packaging Charges
+        <span class="wm-charge-meta">({{ $packingQty }} x ₹{{ number_format($packingRate, 2) }})</span>
+    </span>
+    <span>₹{{ number_format($packingAmount, 2) }}</span>
+</div>
 
-                                <div class="d-flex justify-content-between mb-1">
-                                    <span>Shipping Charges ({{ $shippingQty }} x
-                                        ₹{{ number_format($shippingRate, 2) }})</span>
-                                    <span>₹{{ number_format($shippingAmount, 2) }}</span>
-                                </div>
-
+<div class="d-flex justify-content-between mb-1">
+    <span>Shipping Charges
+        <span class="wm-charge-meta">({{ $shippingQty }} x ₹{{ number_format($shippingRate, 2) }})</span>
+    </span>
+    <span>₹{{ number_format($shippingAmount, 2) }}</span>
+</div>
                                 <div class="d-flex justify-content-between mb-1">
                                     <span>Taxes</span>
                                     <span>₹{{ number_format($taxes, 2) }}</span>
@@ -620,4 +617,8 @@
             border-bottom: 1px solid var(--wm-border) !important;
         }
     }
+    .wm-charge-meta {
+    font-size: 0.78rem;
+    color: var(--wm-muted);
+}
 </style>

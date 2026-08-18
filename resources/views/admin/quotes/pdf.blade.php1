@@ -10,15 +10,6 @@
             box-sizing: border-box;
         }
 
-        /* ==========================================================
-           Page setup — dompdf reads @page for per-page margins.
-           Top margin increased to fit the taller new header
-           (logo + company block + black bar + meta band).
-           ========================================================== */
-        @page {
-            margin: 206px 22px 95px 22px;
-        }
-
         body {
             font-family: 'DejaVu Sans', sans-serif;
             font-size: 12px;
@@ -27,7 +18,7 @@
         }
 
         .sheet {
-            padding: 0;
+            padding: 30px 35px;
         }
 
         table {
@@ -35,143 +26,51 @@
             border-collapse: collapse;
         }
 
+        .header-table td {
+            vertical-align: top;
+        }
+
+        .logo {
+            max-height: 60px;
+            max-width: 180px;
+        }
+
+        .company-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #23291f;
+            margin: 8px 0 0 0;
+        }
+
         .muted {
             color: #6b7568;
         }
 
-        .text-right {
+        .invoice-title {
+            font-size: 22px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #123108;
+            letter-spacing: 1px;
+        }
+
+        .invoice-meta {
+            margin-top: 6px;
+        }
+
+        .invoice-meta td {
+            padding: 2px 0;
             text-align: right;
         }
 
-        /* ==========================================================
-           REPEATING HEADER — matches reference design:
-           logo left / company block right, black divider bar,
-           then a grey meta band with Quotation Number / Date /
-           Prepared By.
-           ========================================================== */
-        .pdf-header {
-            position: fixed;
-            top: -191px;
-            left: 0;
-            right: 0;
-            height: 165px;
+        .invoice-meta .label {
+            color: #6b7568;
+            padding-right: 10px;
         }
 
-        .pdf-header .header-shade {
-            background: #ffffff;
-            padding: 16px 22px 14px 22px;
-        }
-
-        .pdf-header .header-table td {
-            vertical-align: middle;
-        }
-
-        .pdf-header .logo-col {
-            width: 105px;
-            padding-right: 18px;
-        }
-
-        .pdf-header .logo {
-            max-width: 100px;
-            max-height: 100px;
-        }
-
-        .pdf-header .company-name {
-            font-size: 22px;
-            font-weight: bold;
-            color: #23291f;
-            margin: 0 0 5px 0;
-        }
-
-.pdf-header .company-line {
-    font-size: 10px;
-    color: #23291f;
-    line-height: 1.3;
-    margin-bottom: 1px;
-}
-        .pdf-header .company-line strong {
-            color: #23291f;
-        }
-
-        .pdf-header .company-line span {
-            margin-right: 16px;
-        }
-
-        .pdf-header .header-black-bar {
-            background: #111111;
-            height: 6px;
-        }
-
-        .pdf-header .header-meta-band {
-            background: #e9e9e7;
-            padding: 8px 22px;
-        }
-
-        .pdf-header .header-meta-table td {
-            font-size: 10px;
-            color: #23291f;
-            vertical-align: middle;
-        }
-
-        .pdf-header .header-meta-table td strong {
-            font-weight: bold;
-        }
-
-        /* ==========================================================
-           REPEATING FOOTER — unchanged.
-           ========================================================== */
-        .pdf-footer {
-            position: fixed;
-            bottom: -78px;
-            left: 0;
-            right: 0;
-            height: 65px;
-            background: #f6f8f4;
+        .divider {
             border-top: 2px solid #123108;
-            padding-top: 10px;
-            text-align: center;
-            font-size: 9px;
-            color: #6b7568;
-            line-height: 1.6;
-        }
-
-        .pdf-footer .footer-address {
-            color: #6b7568;
-        }
-
-        .pdf-footer .footer-contact {
-            margin-top: 2px;
-        }
-
-        .pdf-footer .footer-contact strong {
-            color: #123108;
-        }
-
-        .pdf-footer .page-num {
-            margin-top: 4px;
-            font-size: 8.5px;
-            color: #a3aa9c;
-        }
-
-        .pdf-footer .page-num:after {
-            content: "Page " counter(page) " of " counter(pages);
-        }
-
-        .company-intro {
-            font-size: 10.5px;
-            color: #6b7568;
-            margin-bottom: 12px;
-        }
-
-        .company-intro p {
-            margin: 0 0 6px 0;
-        }
-
-        /* ==========================================================
-           Parties block
-           ========================================================== */
-        .parties-table {
-            page-break-inside: avoid;
+            margin: 18px 0;
         }
 
         .parties-table td {
@@ -201,18 +100,10 @@
             color: #23291f;
         }
 
-        /* ---------- Items table (repeats header row on every page) ---------- */
+        /* ---------- Items table (matches admin preview's wm-invoice-table) ---------- */
         .items-table {
-            margin-top: 18px;
+            margin-top: 20px;
             border: 1px solid #e6e9e3;
-        }
-
-        .items-table thead {
-            display: table-header-group;
-        }
-
-        .items-table tbody tr {
-            page-break-inside: avoid;
         }
 
         .items-table th {
@@ -269,16 +160,14 @@
             margin-top: 2px;
         }
 
-        /* Brand / SKU / HSN / Colour — one per row, not inline,
-           so each label:value pair is easy to scan on its own line. */
         .product-options {
             color: #6b7568;
             font-size: 10px;
             margin-top: 4px;
         }
 
-        .product-options div {
-            margin-bottom: 2px;
+        .product-options span {
+            margin-right: 8px;
         }
 
         .product-options strong {
@@ -295,6 +184,10 @@
             color: #23291f;
         }
 
+        .text-right {
+            text-align: right;
+        }
+
         .items-table td.text-right,
         .items-table th.text-right,
         .totals-table td.text-right {
@@ -305,7 +198,6 @@
             font-weight: bold;
             color: #123108;
         }
-
         /* ---------- /Items table ---------- */
 
         .totals-table {
@@ -313,7 +205,6 @@
             margin-left: auto;
             margin-top: 10px;
             background: #eef3ea;
-            page-break-inside: avoid;
         }
 
         .totals-table td {
@@ -333,7 +224,6 @@
             padding-top: 15px;
             font-size: 10.5px;
             color: #555;
-            page-break-inside: avoid;
         }
 
         .bank-details .block-title {
@@ -364,91 +254,43 @@
 
         .terms .block-title {
             margin-bottom: 8px;
-            page-break-after: avoid;
         }
     </style>
 </head>
 
 <body>
 
-    {{-- ==========================================================
-    REPEATING HEADER — logo left, company block right (name,
-    address, mobile/GSTIN, email, website), black divider bar,
-    then grey meta band with Quotation Number / Date / Prepared By.
-    Prepared By is now dynamic — pulled from $quote->prepared_by
-    (falls back to "Sales Team" if it was left blank on the form).
-    ========================================================== --}}
-    <div class="pdf-header">
-        <div class="header-shade">
-            <table class="header-table">
-                <tr>
-                    <td class="logo-col">
-                        @if(!empty($settings?->pdf_logo_path))
-                            <img src="{{ $settings->pdf_logo_path }}" class="logo">
-                        @endif
-                    </td>
-                    <td>
-                        <div class="company-name">{{ $settings?->company_name }}</div>
-
-                        @if($settings?->address || $settings?->city?->name || $settings?->state?->name || $settings?->pincode)
-                            <div class="company-line">
-                                {{ $settings?->address }}{{ $settings?->address && ($settings?->city?->name || $settings?->state?->name || $settings?->pincode) ? ', ' : '' }}{{ $settings?->city?->name }}{{ $settings?->city?->name && $settings?->state?->name ? ', ' : '' }}{{ $settings?->state?->name }}{{ $settings?->pincode ? ', ' . $settings->pincode : '' }}
-                            </div>
-                        @endif
-
-                        @if($settings?->phone || $settings?->gst_number)
-                            <div class="company-line">
-                                @if($settings?->phone)
-                                    <span><strong>Mobile:</strong> {{ $settings->phone }}</span>
-                                @endif
-                                @if($settings?->gst_number)
-                                    <span><strong>GSTIN:</strong> {{ $settings->gst_number }}</span>
-                                @endif
-                            </div>
-                        @endif
-
-                        @if($settings?->email)
-                            <div class="company-line"><strong>Email:</strong> {{ $settings->email }}</div>
-                        @endif
-
-                        @if($settings?->website)
-                            <div class="company-line"><strong>www:</strong> {{ $settings->website }}</div>
-                        @endif
-                    </td>
-                </tr>
-            </table>
-        </div>
-
-        <div class="header-black-bar"></div>
-
-        <div class="header-meta-band">
-            <table class="header-meta-table">
-                <tr>
-                    <td><strong>Quotation Number:</strong> {{ $quote->proposal_id }}</td>
-                    <td><strong>Quotation Date:</strong> {{ $quote->created_at?->format('d/m/Y') }}</td>
-                    <td><strong>Prepared By:</strong> {{ $quote->prepared_by ?: 'Sales Team' }}</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-
-    {{-- ==========================================================
-    Repeating footer — untouched, exactly as before.
-    ========================================================== --}}
-    <div class="pdf-footer">
-        <div class="footer-address">1025, Tower A, GrandSlam Ithum, Sector - 62, Noida, Uttar Pradesh, India</div>
-        <div class="footer-contact"><strong>Mobile:</strong> +91-7607770184 &nbsp;|&nbsp; <strong>Email:</strong>
-            business@webmingo.com</div>
-        <div class="page-num"></div>
-    </div>
-
     <div class="sheet">
 
+        {{-- Header --}}
+        <table class="header-table">
+            <tr>
+                <td style="width: 55%;">
+                    @if(!empty($settings?->pdf_logo_path))
+                        <img src="{{ $settings->pdf_logo_path }}" class="logo">
+                    @endif
+                    <div class="company-name">{{ $settings?->company_name }}</div>
+                </td>
+                <td style="width: 45%;" class="text-right">
+                    <div class="invoice-title">Quotaton</div>
+                    <table class="invoice-meta">
+                        <tr>
+                            <td class="label">No.</td>
+                            <td>{{ $quote->proposal_id }}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Date</td>
+                            <td>{{ $quote->created_at?->format('d M Y') }}</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
 
+        <div class="divider"></div>
 
         {{-- From / Proposal To --}}
         <table class="parties-table">
-
             <tr>
                 <td class="from-block">
                     <div class="block-title">Company Detail</div>
@@ -505,14 +347,12 @@
         <table class="items-table">
             <thead>
                 <tr>
-                    <th style="width: 55px;">Image</th>
+                    <th style="width: 74px;">Image</th>
                     <th>Product</th>
-                    <th class="text-right" style="width: 35px;">Qty</th>
-                    <th class="text-right" style="width: 65px;">Price</th>
-                    <th class="text-right" style="width: 45px;">Tax</th>
-                    <th class="text-right" style="width: 65px;">Branding</th>
-                    <th class="text-right" style="width: 45px;">Tax</th>
-                    <th class="text-right" style="width: 85px;">Total</th>
+                    <th class="text-right" style="width: 50px;">Qty</th>
+                    <th class="text-right" style="width: 90px;">Price</th>
+                    <th class="text-right" style="width: 50px;">Tax</th>
+                    <th class="text-right" style="width: 110px;">Total</th>
                 </tr>
             </thead>
             <tbody>
@@ -527,30 +367,25 @@
                         </td>
                         <td>
                             <div class="product-name">{{ $item->product_name }}</div>
+
                             @if($item->product_detail)
                                 <div class="product-detail">{{ $item->product_detail }}</div>
                             @endif
 
-                            @php
-                                $hasOptions = $item->brand?->name || $item->sku_code || $item->hsn_code || $item->colour;
-                            @endphp
-
-                            @if($hasOptions)
-                                <div class="product-options">
-                                    @if($item->brand?->name)
-                                        <div><strong>Brand:</strong> {{ $item->brand->name }}</div>
-                                    @endif
-                                    @if($item->sku_code)
-                                        <div><strong>SKU:</strong> {{ $item->sku_code }}</div>
-                                    @endif
-                                    @if($item->hsn_code)
-                                        <div><strong>HSN:</strong> {{ $item->hsn_code }}</div>
-                                    @endif
-                                    @if($item->colour)
-                                        <div><strong>Colour:</strong> {{ $item->colour }}</div>
-                                    @endif
-                                </div>
-                            @endif
+                            <div class="product-options">
+                                @if($item->brand?->name)
+                                    <span><strong>Brand:</strong> {{ $item->brand->name }}</span>
+                                @endif
+                                @if($item->sku_code)
+                                    <span><strong>SKU:</strong> {{ $item->sku_code }}</span>
+                                @endif
+                                @if($item->hsn_code)
+                                    <span><strong>HSN:</strong> {{ $item->hsn_code }}</span>
+                                @endif
+                                @if($item->colour)
+                                    <span><strong>Colour:</strong> {{ $item->colour }}</span>
+                                @endif
+                            </div>
 
                             @if($item->customizations && $item->customizations->count())
                                 <div class="product-customization">
@@ -562,10 +397,6 @@
                         <td class="text-right">{{ $item->quantity }}</td>
                         <td class="text-right">&#8377;{{ number_format($item->price, 2) }}</td>
                         <td class="text-right">{{ rtrim(rtrim(number_format($item->tax_percentage, 2), '0'), '.') }}%</td>
-                        <td class="text-right">&#8377;{{ number_format($item->branding_charges ?? 0, 2) }}</td>
-                        <td class="text-right">
-                            {{ rtrim(rtrim(number_format($item->branding_tax_percentage ?? 0, 2), '0'), '.') }}%
-                        </td>
                         <td class="text-right item-total">&#8377;{{ number_format($item->total_price, 2) }}</td>
                     </tr>
                 @endforeach
@@ -573,34 +404,21 @@
         </table>
 
         @php
-            // Sub Total is the pre-tax value of all sides combined:
-            // (price x qty) + (branding_charges x qty) per item, plus
-            // (packing_charges x packing_qty) and (shipping_charges x shipping_qty).
-            // Each side/charge is taxed independently at its own percentage — matches QuoteController@store.
             $subTotal = $quote->items->sum(function ($item) {
-                return ($item->price * $item->quantity) + (($item->branding_charges ?? 0) * $item->quantity);
+                return $item->price * $item->quantity;
             });
 
             $discount = $quote->discount_amount ?? 0;
 
-            $packingRate = $quote->packing_charges ?? 0;
-            $packingQty = $quote->packing_quantity ?? 1;
-            $packingAmount = $packingRate * $packingQty;
-
-            $shippingRate = $quote->shipping_charges ?? 0;
-            $shippingQty = $quote->shipping_quantity ?? 1;
-            $shippingAmount = $shippingRate * $shippingQty;
-
-            $subTotal += $packingAmount + $shippingAmount;
+            $packing = $quote->packing_charges ?? 0;
+            $shipping = $quote->shipping_charges ?? 0;
 
             $taxes = $quote->items->sum(function ($item) {
-                $productTax = ($item->price * $item->quantity) * ($item->tax_percentage / 100);
-                $brandingTax = (($item->branding_charges ?? 0) * $item->quantity) * (($item->branding_tax_percentage ?? 0) / 100);
-                return $productTax + $brandingTax;
+                return ($item->price * $item->quantity) * ($item->tax_percentage / 100);
             });
 
-            $packingTax = $packingAmount * (($quote->packing_tax_percentage ?? 0) / 100);
-            $shippingTax = $shippingAmount * (($quote->shipping_tax_percentage ?? 0) / 100);
+            $packingTax = ($packing * ($quote->packing_tax_percentage ?? 0)) / 100;
+            $shippingTax = ($shipping * ($quote->shipping_tax_percentage ?? 0)) / 100;
 
             $taxes += $packingTax + $shippingTax;
         @endphp
@@ -618,13 +436,13 @@
             </tr>
 
             <tr>
-                <td>Packaging Charges ({{ $packingQty }} x &#8377;{{ number_format($packingRate, 2) }})</td>
-                <td class="text-right">&#8377;{{ number_format($packingAmount, 2) }}</td>
+                <td>Packaging Charges</td>
+                <td class="text-right">&#8377;{{ number_format($packing, 2) }}</td>
             </tr>
 
             <tr>
-                <td>Shipping Charges ({{ $shippingQty }} x &#8377;{{ number_format($shippingRate, 2) }})</td>
-                <td class="text-right">&#8377;{{ number_format($shippingAmount, 2) }}</td>
+                <td>Shipping Charges</td>
+                <td class="text-right">&#8377;{{ number_format($shipping, 2) }}</td>
             </tr>
 
             <tr>

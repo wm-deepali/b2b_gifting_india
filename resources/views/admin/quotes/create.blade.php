@@ -338,11 +338,11 @@
                                         <th width="80">Options</th>
                                         <th width="70">Qty</th>
                                         <th width="100">Price</th>
-                                        <th width="80">Product Tax</th>
-                                        <th width="120">Product Sub Total</th>
+                                        <th width="80">Tax (P)</th>
+                                        <th width="120">Sub Total(P)</th>
                                         <th width="100">Branding</th>
-                                        <th width="90">Branding Tax</th>
-                                        <th width="130">Branding Sub Total</th>
+                                        <th width="90">Tax(B)</th>
+                                        <th width="130">Sub Total(B)</th>
                                         <th width="110">Total</th>
                                         <th width="60">Remove</th>
                                     </tr>
@@ -379,10 +379,10 @@
 
                         <div class="row">
 
-                            {{-- Packing Charges --}}
+                            {{-- Packaging Chargess --}}
                             <div class="col-md-6">
 
-                                <label class="wm-label mb-2">Packing Charges</label>
+                                <label class="wm-label mb-2">Packaging Chargess</label>
 
                                 <div class="row">
 
@@ -515,12 +515,13 @@
 
                 <div class="row">
 
-                    <div class="col-md-12">
-                        <div class="form-group wm-form-group">
-                            <label class="wm-label">Product Detail</label>
-                            <textarea id="opt_detail" rows="3" class="form-control wm-input"></textarea>
-                        </div>
-                    </div>
+                  <div class="col-md-12">
+    <div class="form-group wm-form-group">
+        <label class="wm-label">Product Sub Title</label>
+        <input type="text" id="opt_detail" class="form-control wm-input"
+            placeholder="Short one-line sub title (not full description)">
+    </div>
+</div>
 
                     {{-- Left column: SKU, HSN, Colour --}}
                     <div class="col-md-6">
@@ -1368,8 +1369,8 @@ or the
      Manage Quotes / Manage Customers design language.
      ========================================================== --}}
     <style>
-        :root {
-            --wm - primary: #123108;
+    :root {
+        --wm-primary: #123108;
         --wm-primary-hover: #1c4a0d;
         --wm-primary-light: #eef3ea;
         --wm-border: #e6e9e3;
@@ -1382,36 +1383,36 @@ or the
         --wm-danger-light: #fbeceb;
     }
 
-        /* Card shell */
-        .wm-quotes-card {
-            border: 1px solid var(--wm-border);
+    /* Card shell */
+    .wm-quotes-card {
+        border: 1px solid var(--wm-border);
         border-radius: var(--wm-radius);
         box-shadow: 0 2px 10px rgba(18, 49, 8, 0.06);
         overflow: hidden;
     }
 
-        .wm-quotes-header {
-            background: linear-gradient(180deg, #ffffff 0%, #fafbf9 100%);
+    .wm-quotes-header {
+        background: linear-gradient(180deg, #ffffff 0%, #fafbf9 100%);
         border-bottom: 1px solid var(--wm-border);
         padding: 1rem 1.25rem;
     }
 
-        .wm-quotes-title {
-            font - weight: 700;
+    .wm-quotes-title {
+        font-weight: 700;
         color: var(--wm-text);
         letter-spacing: 0.2px;
     }
 
-        .wm-form-body {
-            padding: 1.5rem 1.25rem;
+    .wm-form-body {
+        padding: 1.5rem 1.25rem;
     }
 
-        .wm-form-group {
-            margin - bottom: 1.1rem;
+    .wm-form-group {
+        margin-bottom: 1.1rem;
     }
 
-        .wm-label {
-            font - size: 0.78rem;
+    .wm-label {
+        font-size: 0.78rem;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.4px;
@@ -1420,9 +1421,9 @@ or the
         display: block;
     }
 
-        /* Inputs, selects, textareas */
-        .wm-input {
-            border: 1px solid var(--wm-border) !important;
+    /* Inputs, selects, textareas */
+    .wm-input {
+        border: 1px solid var(--wm-border) !important;
         border-radius: 8px !important;
         padding: 0.55rem 0.8rem !important;
         font-size: 0.9rem;
@@ -1431,54 +1432,54 @@ or the
         transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
     }
 
-        .wm-input:focus {
-            border - color: var(--wm-primary) !important;
+    .wm-input:focus {
+        border-color: var(--wm-primary) !important;
         box-shadow: 0 0 0 3px rgba(18, 49, 8, 0.12) !important;
         background-color: #ffffff;
         outline: none;
     }
 
-        .wm-input:disabled,
-        .wm-input-readonly {
-            background - color: #f1f2ef !important;
+    .wm-input:disabled,
+    .wm-input-readonly {
+        background-color: #f1f2ef !important;
         color: var(--wm-muted);
         text-align: center;
         font-weight: 600;
     }
 
-        .wm-search-group {
-            gap: 10px;
+    .wm-search-group {
+        gap: 10px;
     }
 
-        .wm-search-group .wm-input {
-            border - radius: 8px !important;
+    .wm-search-group .wm-input {
+        border-radius: 8px !important;
     }
 
-        .wm-search-group .input-group-append {
-            margin - left: 0 !important;
+    .wm-search-group .input-group-append {
+        margin-left: 0 !important;
     }
 
-        .wm-hint {
-            color: var(--wm-muted) !important;
+    .wm-hint {
+        color: var(--wm-muted) !important;
         font-size: 0.8rem;
     }
 
-        .wm-search-status {
-            font - size: 0.85rem;
+    .wm-search-status {
+        font-size: 0.85rem;
         font-weight: 600;
     }
 
-        .wm-divider {
-            border - top: 1px solid var(--wm-border);
+    .wm-divider {
+        border-top: 1px solid var(--wm-border);
         opacity: 1;
     }
 
-        /* Buttons */
-        .wm-btn-primary,
-        .wm-btn-success,
-        .wm-btn-outline,
-        .wm-btn-cancel {
-            border - radius: 8px !important;
+    /* Buttons */
+    .wm-btn-primary,
+    .wm-btn-success,
+    .wm-btn-outline,
+    .wm-btn-cancel {
+        border-radius: 8px !important;
         font-weight: 600 !important;
         font-size: 0.85rem !important;
         padding: 0.5rem 1rem !important;
@@ -1486,93 +1487,93 @@ or the
         transition: all 0.15s ease;
     }
 
-        .wm-btn-primary {
-            background - color: var(--wm-primary) !important;
+    .wm-btn-primary {
+        background-color: var(--wm-primary) !important;
         border-color: var(--wm-primary) !important;
         color: #ffffff !important;
     }
 
-        .wm-btn-primary:hover {
-            background - color: var(--wm-primary-hover) !important;
+    .wm-btn-primary:hover {
+        background-color: var(--wm-primary-hover) !important;
         border-color: var(--wm-primary-hover) !important;
     }
 
-        .wm-btn-success {
-            background - color: var(--wm-primary) !important;
+    .wm-btn-success {
+        background-color: var(--wm-primary) !important;
         border-color: var(--wm-primary) !important;
         color: #ffffff !important;
     }
 
-        .wm-btn-success:hover {
-            background - color: var(--wm-primary-hover) !important;
+    .wm-btn-success:hover {
+        background-color: var(--wm-primary-hover) !important;
         border-color: var(--wm-primary-hover) !important;
     }
 
-        .wm-btn-outline {
-            background - color: #ffffff !important;
+    .wm-btn-outline {
+        background-color: #ffffff !important;
         border-color: var(--wm-primary) !important;
         color: var(--wm-primary) !important;
     }
 
-        .wm-btn-outline:hover:not(:disabled) {
-            background - color: var(--wm-primary) !important;
+    .wm-btn-outline:hover:not(:disabled) {
+        background-color: var(--wm-primary) !important;
         color: #ffffff !important;
     }
 
-        .wm-btn-primary:disabled,
-        .wm-btn-success:disabled,
-        .wm-btn-outline:disabled {
-            background - color: #eef0ec !important;
+    .wm-btn-primary:disabled,
+    .wm-btn-success:disabled,
+    .wm-btn-outline:disabled {
+        background-color: #eef0ec !important;
         border-color: var(--wm-border) !important;
         color: #a3aa9c !important;
         cursor: not-allowed;
     }
 
-        .wm-btn-cancel {
-            background - color: #fff !important;
+    .wm-btn-cancel {
+        background-color: #fff !important;
         border-color: var(--wm-border) !important;
         color: var(--wm-muted) !important;
     }
 
-        .wm-quotes-footer {
-            background: #fafbf9;
+    .wm-quotes-footer {
+        background: #fafbf9;
         border-top: 1px solid var(--wm-border);
         padding: 0.85rem 1.25rem;
     }
 
-        /* Product search dropdown (JS-generated .list-group-item results live here) */
-        .wm-search-dropdown {
-            border: 1px solid var(--wm-border);
+    /* Product search dropdown (JS-generated .list-group-item results live here) */
+    .wm-search-dropdown {
+        border: 1px solid var(--wm-border);
         border-radius: 8px;
         box-shadow: 0 6px 18px rgba(18, 49, 8, 0.1);
         margin-top: 2px;
         overflow: hidden;
     }
 
-        .wm-search-dropdown .list-group-item {
-            border: none;
+    .wm-search-dropdown .list-group-item {
+        border: none;
         border-bottom: 1px solid var(--wm-border);
         font-size: 0.88rem;
         padding: 0.6rem 0.9rem;
         color: var(--wm-text);
     }
 
-        .wm-search-dropdown .list-group-item:last-child {
-            border - bottom: none;
+    .wm-search-dropdown .list-group-item:last-child {
+        border-bottom: none;
     }
 
-        .wm-search-dropdown .list-group-item-action:hover {
-            background - color: var(--wm-primary-light);
+    .wm-search-dropdown .list-group-item-action:hover {
+        background-color: var(--wm-primary-light);
         color: var(--wm-primary);
     }
 
-        /* Items table (rows added dynamically via JS keep these classes) */
-        .wm-quotes-table {
-            margin - bottom: 0;
+    /* Items table (rows added dynamically via JS keep these classes) */
+    .wm-quotes-table {
+        margin-bottom: 0;
     }
 
-        .wm-quotes-table thead tr th {
-            background - color: var(--wm-primary);
+    .wm-quotes-table thead tr th {
+        background-color: var(--wm-primary);
         color: #ffffff;
         font-weight: 600;
         font-size: 0.78rem;
@@ -1582,80 +1583,80 @@ or the
         padding: 0.75rem 0.9rem;
     }
 
-        .wm-quotes-table tbody tr td {
-            padding: 0.7rem 0.9rem;
+    .wm-quotes-table tbody tr td {
+        padding: 0.7rem 0.9rem;
         vertical-align: middle;
         color: var(--wm-text);
         font-size: 0.88rem;
         border-color: var(--wm-border);
     }
 
-        .wm-quotes-table tbody tr:nth-child(odd) {
-            background - color: var(--wm-row-odd);
+    .wm-quotes-table tbody tr:nth-child(odd) {
+        background-color: var(--wm-row-odd);
     }
 
-        .wm-quotes-table tbody tr:nth-child(even) {
-            background - color: var(--wm-row-even);
+    .wm-quotes-table tbody tr:nth-child(even) {
+        background-color: var(--wm-row-even);
     }
 
-        .wm-quotes-table tbody tr:hover {
-            background - color: var(--wm-primary-light) !important;
+    .wm-quotes-table tbody tr:hover {
+        background-color: var(--wm-primary-light) !important;
     }
 
-        .wm-quotes-table .itemProductName {
-            font - weight: 600;
+    .wm-quotes-table .itemProductName {
+        font-weight: 600;
     }
 
-        .wm-quotes-table .itemSubTotalA,
-        .wm-quotes-table .itemSubTotalB {
-            font - weight: 600;
+    .wm-quotes-table .itemSubTotalA,
+    .wm-quotes-table .itemSubTotalB {
+        font-weight: 600;
         color: var(--wm-text);
     }
 
-        .wm-quotes-table .itemTotal {
-            font - weight: 700;
+    .wm-quotes-table .itemTotal {
+        font-weight: 700;
         color: var(--wm-primary);
     }
 
-        .wm-quotes-table .rowOptionsBtn {
-            border - radius: 6px !important;
+    .wm-quotes-table .rowOptionsBtn {
+        border-radius: 6px !important;
         border-color: var(--wm-primary) !important;
         color: var(--wm-primary) !important;
         background: #fff !important;
     }
 
-        .wm-quotes-table .rowOptionsBtn:hover {
-            background: var(--wm-primary) !important;
+    .wm-quotes-table .rowOptionsBtn:hover {
+        background: var(--wm-primary) !important;
         color: #fff !important;
     }
 
-        .wm-quotes-table .removeItemBtn {
-            border - radius: 6px !important;
+    .wm-quotes-table .removeItemBtn {
+        border-radius: 6px !important;
         background-color: var(--wm-danger-light) !important;
         border-color: var(--wm-danger-light) !important;
         color: var(--wm-danger) !important;
     }
 
-        .wm-quotes-table .removeItemBtn:hover {
-            background - color: var(--wm-danger) !important;
+    .wm-quotes-table .removeItemBtn:hover {
+        background-color: var(--wm-danger) !important;
         border-color: var(--wm-danger) !important;
         color: #fff !important;
     }
 
-        .wm-empty-state {
-            padding: 1.25rem !important;
+    .wm-empty-state {
+        padding: 1.25rem !important;
         color: var(--wm-muted) !important;
         font-size: 0.88rem;
     }
 
-        /* Customisation chips (checkbox toggle classes managed by JS: btn-primary/text-white/btn-outline-secondary) */
-        .wm-chip-list {
-            border - color: var(--wm-border) !important;
+    /* Customisation chips (checkbox toggle classes managed by JS: btn-primary/text-white/btn-outline-secondary) */
+    .wm-chip-list {
+        border-color: var(--wm-border) !important;
         background-color: #fbfcfa;
     }
 
-        .wm-chip.btn-outline-secondary {
-            border - color: var(--wm-border) !important;
+    .wm-chip.btn-outline-secondary {
+        border-color: var(--wm-border) !important;
         color: var(--wm-muted) !important;
         background-color: #fff !important;
         font-size: 0.8rem;
@@ -1663,13 +1664,13 @@ or the
         padding: 0.3rem 0.85rem !important;
     }
 
-        .wm-chip.btn-outline-secondary:hover {
-            border - color: var(--wm-primary) !important;
+    .wm-chip.btn-outline-secondary:hover {
+        border-color: var(--wm-primary) !important;
         color: var(--wm-primary) !important;
     }
 
-        .wm-chip.btn-primary {
-            background - color: var(--wm-primary) !important;
+    .wm-chip.btn-primary {
+        background-color: var(--wm-primary) !important;
         border-color: var(--wm-primary) !important;
         color: #fff !important;
         font-size: 0.8rem;
@@ -1677,37 +1678,37 @@ or the
         padding: 0.3rem 0.85rem !important;
     }
 
-        /* Modal */
-        .wm-modal-content {
-            border - radius: var(--wm-radius);
+    /* Modal */
+    .wm-modal-content {
+        border-radius: var(--wm-radius);
         border: none;
         overflow: hidden;
     }
 
-        .wm-modal-header {
-            background: linear-gradient(180deg, #ffffff 0%, #fafbf9 100%);
+    .wm-modal-header {
+        background: linear-gradient(180deg, #ffffff 0%, #fafbf9 100%);
         border-bottom: 1px solid var(--wm-border);
         padding: 1rem 1.25rem;
     }
 
-        .wm-modal-title {
-            font - weight: 700;
+    .wm-modal-title {
+        font-weight: 700;
         color: var(--wm-text);
     }
 
-        .wm-modal-body {
-            padding: 1.5rem 1.25rem;
+    .wm-modal-body {
+        padding: 1.5rem 1.25rem;
     }
 
-        .wm-modal-footer {
-            background: #fafbf9;
+    .wm-modal-footer {
+        background: #fafbf9;
         border-top: 1px solid var(--wm-border);
         padding: 0.85rem 1.25rem;
     }
 
-        /* Draft resume banner */
-        .wm-draft-banner {
-            background - color: #fff8e1;
+    /* Draft resume banner */
+    .wm-draft-banner {
+        background-color: #fff8e1;
         border: 1px solid #ffe4a1;
         color: #8a6300;
         border-radius: 8px;
@@ -1716,10 +1717,10 @@ or the
         font-size: 0.88rem;
     }
 
-        /* Responsive */
-        @media (max-width: 576px) {
-        .wm - form - body {
+    /* Responsive */
+    @media (max-width: 576px) {
+        .wm-form-body {
             padding: 1.1rem 1rem;
         }
     }
-    </style>
+</style>

@@ -10,16 +10,14 @@ return new class extends Migration
     {
         Schema::table('quotes', function (Blueprint $table) {
             $table->decimal('packing_charges', 10, 2)->default(0)->after('customer_id');
-            $table->decimal('packing_tax_percentage', 5, 2)->default(0)->after('packing_charges');
-            $table->decimal('shipping_charges', 10, 2)->default(0)->after('packing_tax_percentage');
-            $table->decimal('shipping_tax_percentage', 5, 2)->default(0)->after('shipping_charges');
+            $table->decimal('shipping_charges', 10, 2)->default(0)->after('packing_charges');
         });
     }
 
     public function down(): void
     {
         Schema::table('quotes', function (Blueprint $table) {
-            $table->dropColumn(['packing_charges', 'packing_tax_percentage', 'shipping_charges', 'shipping_tax_percentage']);
+            $table->dropColumn(['packing_charges','shipping_charges']);
         });
     }
 };

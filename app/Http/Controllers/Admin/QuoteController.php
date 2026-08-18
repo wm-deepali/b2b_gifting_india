@@ -148,31 +148,31 @@ class QuoteController extends Controller
         ]);
     }
 
-    public function searchProducts(Request $request)
-    {
-        $request->validate([
-            'term' => 'nullable|string',
-        ]);
+   public function searchProducts(Request $request)
+{
+    $request->validate([
+        'term' => 'nullable|string',
+    ]);
 
-        $products = Product::with(['images', 'customizations'])
-            ->where('name', 'like', '%' . $request->term . '%')
-            ->limit(10)
-            ->get()
-            ->map(function ($product) {
-                return [
-                    'id' => $product->id,
-                    'name' => $product->name,
-                    'price' => $product->price,
-                    'detail' => strip_tags((string) $product->details),
-                    'image' => $product->display_image ? asset('storage/' . $product->display_image) : null,
-                    'sku' => $product->sku,
-                    'brand_id' => $product->brand_id,
-                    'customization_ids' => $product->customizations->pluck('id')->toArray(),
-                ];
-            });
+    $products = Product::with(['images', 'customizations'])
+        ->where('name', 'like', '%' . $request->term . '%')
+        ->limit(10)
+        ->get()
+        ->map(function ($product) {
+            return [
+                'id' => $product->id,
+                'name' => $product->name,
+                'price' => $product->price,
+                'detail' => (string) $product->sub_title,
+                'image' => $product->display_image ? asset('storage/' . $product->display_image) : null,
+                'sku' => $product->sku,
+                'brand_id' => $product->brand_id,
+                'customization_ids' => $product->customizations->pluck('id')->toArray(),
+            ];
+        });
 
-        return response()->json($products);
-    }
+    return response()->json($products);
+}
 
     /**
      * Calculates the A/B/grand totals for a single item.

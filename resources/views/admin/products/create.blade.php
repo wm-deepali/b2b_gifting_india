@@ -556,6 +556,19 @@
                                 <textarea name="delivery_returns" id="delivery_returns" class="form-control"></textarea>
                             </div>
 
+{{-- BULK LOGISTICS --}}
+<div class="card p-3 mb-3">
+    <h5><b>Bulk Logistic & Direct Dispatch</b></h5>
+
+    <label class="occasion-box w-100">
+        <input type="checkbox" id="bulk_logistics_use_custom" name="bulk_logistics_use_custom" value="1">
+        <span>Use custom content for this product (default value will be used otherwise)</span>
+    </label>
+
+    <textarea name="bulk_logistics_content" id="bulk_logistics_content" class="form-control mt-2">{{ $defaultBulkLogisticsContent }}</textarea>
+
+</div>
+
                         </div>
 
                         <!-- RIGHT -->
@@ -756,6 +769,10 @@
     CKEDITOR.config.versionCheck = false;
     CKEDITOR.replace('details');
     CKEDITOR.replace('delivery_returns');
+    CKEDITOR.replace('bulk_logistics_content');
+
+var defaultBulkLogisticsContent = @json($defaultBulkLogisticsContent);
+
 
     $('#name').keyup(function () {
         $('#slug').val($(this).val().toLowerCase().replace(/ /g, '-'));

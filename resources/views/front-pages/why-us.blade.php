@@ -77,7 +77,7 @@
                 style="position: absolute; width: 400px; height: 400px; background: rgba(0, 255, 68, 0.08); filter: blur(120px); border-radius: 50%; bottom: -100px; right: -100px; pointer-events: none;">
             </div>
 
-            <div class="container p-relative" style="z-index: 2;">
+            <div class="container p-relative cta_button" style="z-index: 2;">
                 <div class="row justify-content-center">
                     <div class="col-xl-8 col-lg-10 text-center">
                         <span class="aq-section-title-sm mb-15 d-inline-block"

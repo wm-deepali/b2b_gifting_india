@@ -38,7 +38,7 @@
                 </svg>
             </div>
             <div class="container">
-                <div class="row align-items-center mb-40">
+                <div class="row align-items-center mb-md-4 mb-2">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-12">
                         <div class="aq-creative-title-box">
                             <span class="aq-creative-subtitle">Curated For You</span>
@@ -50,7 +50,7 @@
              
      <!--           <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4 pb-30"-->
      <!--id="category-container">-->
-                <div class="row row-cols-sm-3 row-cols-md-3 row-cols-lg-4 g-4 pb-30"
+                <div class="row row-cols-sm-3 row-cols-md-3 row-cols-lg-5 g-2 g-md-4 pb-30 row-cols-3"
      id="category-container">
 
     @if($categories->count())

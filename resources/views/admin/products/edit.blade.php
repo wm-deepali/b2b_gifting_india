@@ -425,19 +425,20 @@
                             </div>
                             
                             {{-- INCLUSIONS --}}
-                            <div class="card p-3 mb-3">
-                                <h5><b>Summary</b></h5>
+<div class="card p-3 mb-3">
+    <h5><b>Summary</b></h5>
 
-                                <div id="incWrap">
-                                    @foreach($product->inclusions as $inc)
-                                        <input type="text" name="inclusions[]" value="{{ $inc->title }}"
-                                            class="form-control mb-2">
-                                    @endforeach
-                                </div>
+    <div id="incWrap">
+        @foreach($product->inclusions as $inc)
+            <div class="mb-2">
+                <input type="text" name="inclusions[]" value="{{ $inc->title }}" class="form-control inclusion-input" maxlength="1000">
+                <small class="text-muted float-end char-count">{{ strlen($inc->title) }}/1000</small>
+            </div>
+        @endforeach
+    </div>
 
-                                <button type="button" onclick="addInc()" class="btn btn-sm btn-primary">Add
-                                    More</button>
-                            </div>
+    <button type="button" onclick="addInc()" class="btn btn-sm btn-primary">Add More</button>
+</div>
 
                                <div class="card p-3 mb-3">
     <h5><b>Media</b></h5>
@@ -575,6 +576,9 @@
                                 <label class="mt-2">Final Price</label>
                                 <input type="text" name="price" id="price" value="{{ $product->price }}"
                                     class="form-control mt-2" readonly>
+
+                                    <label class="mt-3">Landing Price <small class="text-muted">(Optional – internal cost price)</small></label>
+<input type="number" step="0.01" name="landing_price" id="landing_price" value="{{ $product->landing_price }}" class="form-control" placeholder="Enter landing price">
 
                             </div>
 
@@ -837,9 +841,24 @@ var defaultBulkLogisticsContent = @json($defaultBulkLogisticsContent);
         $('#price').val(p.toFixed(2));
     });
 
-    function addInc() {
-        $('#incWrap').append('<input type="text" name="inclusions[]" class="form-control mb-2">');
-    }
+   function addInc() {
+    $('#incWrap').append(`
+        <div class="mb-2">
+            <input type="text" name="inclusions[]" class="form-control inclusion-input" maxlength="1000">
+            <small class="text-muted float-end char-count">0/1000</small>
+        </div>
+    `);
+}
+
+$(document).on('input', '.inclusion-input', function () {
+    let len = $(this).val().length;
+    $(this).siblings('.char-count').text(len + '/1000');
+});
+
+// initialize counters for pre-filled values (edit page)
+$('.inclusion-input').each(function () {
+    $(this).siblings('.char-count').text($(this).val().length + '/1000');
+});
 
     $('.category-checkbox').on('change', function () {
         let id = $(this).data('id');

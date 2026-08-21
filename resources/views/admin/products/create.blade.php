@@ -53,33 +53,34 @@
     }
 
     /* CATEGORY SCROLL */
-   .category-scroll {
-    max-height: 300px;
-    overflow-y: auto;
-    padding-right: 10px;
+    .category-scroll {
+        max-height: 300px;
+        overflow-y: auto;
+        padding-right: 10px;
 
-    /* Firefox */
-    scrollbar-width: thin;
-    scrollbar-color: #999 transparent;
-}
+        /* Firefox */
+        scrollbar-width: thin;
+        scrollbar-color: #999 transparent;
+    }
 
-/* Chrome, Edge, Safari */
-.category-scroll::-webkit-scrollbar {
-    width: 5px;
-}
+    /* Chrome, Edge, Safari */
+    .category-scroll::-webkit-scrollbar {
+        width: 5px;
+    }
 
-.category-scroll::-webkit-scrollbar-track {
-    background: transparent;
-}
+    .category-scroll::-webkit-scrollbar-track {
+        background: transparent;
+    }
 
-.category-scroll::-webkit-scrollbar-thumb {
-    background: #999;
-    border-radius: 10px;
-}
+    .category-scroll::-webkit-scrollbar-thumb {
+        background: #999;
+        border-radius: 10px;
+    }
 
-.category-scroll::-webkit-scrollbar-thumb:hover {
-    background: #666;
-}
+    .category-scroll::-webkit-scrollbar-thumb:hover {
+        background: #666;
+    }
+
     /* SUBCATEGORY */
     .subcategory-box {
         padding-left: 20px;
@@ -179,21 +180,21 @@
         transform: scale(1);
     }
 
-  .occasion-box {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 6px 12px;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    background: #ffffff;
-    cursor: pointer;
-    transition: 0.2s;
-    font-size: 14px;
-}
+    .occasion-box {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 12px;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        background: #ffffff;
+        cursor: pointer;
+        transition: 0.2s;
+        font-size: 14px;
+    }
 
     .occasion-box:hover {
-            background: linear-gradient(180deg, rgba(0, 49, 8, 0) 40%, rgba(0, 49, 8, 0.03) 100%);
+        background: linear-gradient(180deg, rgba(0, 49, 8, 0) 40%, rgba(0, 49, 8, 0.03) 100%);
         border-color: #003108;
     }
 
@@ -272,20 +273,20 @@
     /*    margin-bottom: 4px;*/
     /*    cursor: pointer;*/
     /*}*/
-    
+
     .subcategory-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    margin-bottom: 5px;
-    cursor: pointer;
-    border: 1px solid #80808038;
-    /*padding-bottom: 5px;*/
-    background: #ffffff38;
-    padding: 10px 15px;
-    border-radius: 10px;
-}
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        margin-bottom: 5px;
+        cursor: pointer;
+        border: 1px solid #80808038;
+        /*padding-bottom: 5px;*/
+        background: #ffffff38;
+        padding: 10px 15px;
+        border-radius: 10px;
+    }
 
     /* CHECKBOX COLOR */
     .category-item input,
@@ -322,20 +323,20 @@
         height: 20px;
         cursor: pointer;
     }
-    
-       .category-checkbox {
-    width: 12px;
-    height: 12px;
-    cursor: pointer;
-}
+
+    .category-checkbox {
+        width: 12px;
+        height: 12px;
+        cursor: pointer;
+    }
 
 
 
-.category-checkbox {
-    transform: scale(1.4);
-    cursor: pointer;
-    margin-right: 6px;
-}
+    .category-checkbox {
+        transform: scale(1.4);
+        cursor: pointer;
+        margin-right: 6px;
+    }
 </style>
 
 <div class="main-section">
@@ -414,12 +415,16 @@
                                 <textarea name="sub_title" class="form-control"></textarea>
                             </div>
 
-                             {{-- INCLUSIONS --}}
+                            {{-- INCLUSIONS --}}
                             <div class="card p-3 mb-3">
                                 <h5><b>Summary</b></h5>
 
                                 <div id="incWrap">
-                                    <input type="text" name="inclusions[]" class="form-control mb-2">
+                                    <div class="mb-2">
+                                        <input type="text" name="inclusions[]" class="form-control inclusion-input"
+                                            maxlength="1000">
+                                        <small class="text-muted float-end char-count">0/1000</small>
+                                    </div>
                                 </div>
 
                                 <button type="button" onclick="addInc()" class="btn btn-sm btn-primary">Add
@@ -524,6 +529,11 @@
 
                                 <label class="mt-2">Final Price</label>
                                 <input type="text" name="price" id="price" readonly class="form-control">
+
+                                <label class="mt-3">Landing Price <small class="text-muted">(Optional – internal cost
+                                        price)</small></label>
+                                <input type="number" step="0.01" name="landing_price" id="landing_price"
+                                    class="form-control" placeholder="Enter landing price">
                             </div>
 
 
@@ -543,7 +553,7 @@
                                 </div>
                             </div>
 
-                           
+
 
                             {{-- DETAILS --}}
                             <div class="card p-3 mb-3">
@@ -556,18 +566,21 @@
                                 <textarea name="delivery_returns" id="delivery_returns" class="form-control"></textarea>
                             </div>
 
-{{-- BULK LOGISTICS --}}
-<div class="card p-3 mb-3">
-    <h5><b>Bulk Logistic & Direct Dispatch</b></h5>
+                            {{-- BULK LOGISTICS --}}
+                            <div class="card p-3 mb-3">
+                                <h5><b>Bulk Logistic & Direct Dispatch</b></h5>
 
-    <label class="occasion-box w-100">
-        <input type="checkbox" id="bulk_logistics_use_custom" name="bulk_logistics_use_custom" value="1">
-        <span>Use custom content for this product (default value will be used otherwise)</span>
-    </label>
+                                <label class="occasion-box w-100">
+                                    <input type="checkbox" id="bulk_logistics_use_custom"
+                                        name="bulk_logistics_use_custom" value="1">
+                                    <span>Use custom content for this product (default value will be used
+                                        otherwise)</span>
+                                </label>
 
-    <textarea name="bulk_logistics_content" id="bulk_logistics_content" class="form-control mt-2">{{ $defaultBulkLogisticsContent }}</textarea>
+                                <textarea name="bulk_logistics_content" id="bulk_logistics_content"
+                                    class="form-control mt-2">{{ $defaultBulkLogisticsContent }}</textarea>
 
-</div>
+                            </div>
 
                         </div>
 
@@ -730,7 +743,7 @@
                                         </label>
                                     </div>
 
-                                   <!-- <div class="col-12 mb-2">
+                                    <!-- <div class="col-12 mb-2">
                                         <label class="occasion-box">
                                             <input type="checkbox" name="call">
                                             <span>Call</span>
@@ -771,7 +784,7 @@
     CKEDITOR.replace('delivery_returns');
     CKEDITOR.replace('bulk_logistics_content');
 
-var defaultBulkLogisticsContent = @json($defaultBulkLogisticsContent);
+    var defaultBulkLogisticsContent = @json($defaultBulkLogisticsContent);
 
 
     $('#name').keyup(function () {
@@ -790,8 +803,18 @@ var defaultBulkLogisticsContent = @json($defaultBulkLogisticsContent);
     });
 
     function addInc() {
-        $('#incWrap').append('<input type="text" name="inclusions[]" class="form-control mb-2">');
+        $('#incWrap').append(`
+        <div class="mb-2">
+            <input type="text" name="inclusions[]" class="form-control inclusion-input" maxlength="1000">
+            <small class="text-muted float-end char-count">0/1000</small>
+        </div>
+    `);
     }
+
+    $(document).on('input', '.inclusion-input', function () {
+        let len = $(this).val().length;
+        $(this).siblings('.char-count').text(len + '/1000');
+    });
 
     $('.category-checkbox').on('change', function () {
         let id = $(this).data('id');

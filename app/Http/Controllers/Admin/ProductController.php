@@ -84,21 +84,21 @@ class ProductController extends Controller
     }
 
     public function create()
-{
-    return view('admin.products.create', [
-        'categories' => Category::whereNull('parent_id')
-            ->where('status', 1)
-            ->get(),
+    {
+        return view('admin.products.create', [
+            'categories' => Category::whereNull('parent_id')
+                ->where('status', 1)
+                ->get(),
 
-        'occasions' => GiftingOccasion::where('status', 1)->get(),
+            'occasions' => GiftingOccasion::where('status', 1)->get(),
 
-        'customizations' => Customization::where('status', 1)->get(),
+            'customizations' => Customization::where('status', 1)->get(),
 
-        'brands' => Brand::where('status', 1)->get(),
+            'brands' => Brand::where('status', 1)->get(),
 
-        'defaultBulkLogisticsContent' => BulkLogisticsSetting::current()->content,
-    ]);
-}
+            'defaultBulkLogisticsContent' => BulkLogisticsSetting::current()->content,
+        ]);
+    }
 
     public function store(Request $request)
     {
@@ -107,6 +107,8 @@ class ProductController extends Controller
             'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
             'video_url' => 'nullable|string',
             'min_qty' => 'required|integer|min:1',
+            'landing_price' => 'nullable|numeric|min:0',
+            'inclusions.*' => 'nullable|string|max:1000',
         ]);
 
         // CREATE PRODUCT
@@ -131,6 +133,7 @@ class ProductController extends Controller
             'discount' => $request->discount ?? 0,
             'discount_type' => $request->discount_type,
             'price' => $request->price ?? 0,
+            'landing_price' => $request->filled('landing_price') ? $request->landing_price : null,
 
             // FLAGS
             'featured' => $request->featured ? 1 : 0,
@@ -160,7 +163,7 @@ class ProductController extends Controller
             'status' => $request->status ?? 1,
             'product_code' => $request->product_code,
             'sort_order' => $request->sort_order ?? 0,
-             'added_by' => $request->added_by,
+            'added_by' => $request->added_by,
 
             'bulk_logistics_use_custom' => $request->boolean('bulk_logistics_use_custom'),
             'bulk_logistics_content' => $request->boolean('bulk_logistics_use_custom')
@@ -205,34 +208,34 @@ class ProductController extends Controller
             ->with('success', 'Product Created Successfully');
     }
 
-   public function edit(Request $request, $id)
-{
-    $product = Product::with([
-        'categories',
-        'subcategories',
-        'occasions',
-        'customizations',
-        'inclusions',
-        'images'
-    ])->findOrFail($id);
+    public function edit(Request $request, $id)
+    {
+        $product = Product::with([
+            'categories',
+            'subcategories',
+            'occasions',
+            'customizations',
+            'inclusions',
+            'images'
+        ])->findOrFail($id);
 
-    $redirect = $request->redirect;
+        $redirect = $request->redirect;
 
-    return view('admin.products.edit', [
-        'product' => $product,
-        'redirect' => $redirect,
+        return view('admin.products.edit', [
+            'product' => $product,
+            'redirect' => $redirect,
 
-        'categories' => Category::whereNull('parent_id')
-            ->where('status', 1)
-            ->get(),
+            'categories' => Category::whereNull('parent_id')
+                ->where('status', 1)
+                ->get(),
 
-        'occasions' => GiftingOccasion::where('status', 1)->get(),
-        'customizations' => Customization::where('status', 1)->get(),
-        'brands' => Brand::where('status', 1)->get(),
+            'occasions' => GiftingOccasion::where('status', 1)->get(),
+            'customizations' => Customization::where('status', 1)->get(),
+            'brands' => Brand::where('status', 1)->get(),
 
-        'defaultBulkLogisticsContent' => BulkLogisticsSetting::current()->content,
-    ]);
-}
+            'defaultBulkLogisticsContent' => BulkLogisticsSetting::current()->content,
+        ]);
+    }
 
     public function update(Request $request, $id)
     {
@@ -241,6 +244,8 @@ class ProductController extends Controller
             'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
             'video_url' => 'nullable|string',
             'min_qty' => 'required|integer|min:1',
+            'landing_price' => 'nullable|numeric|min:0',
+            'inclusions.*' => 'nullable|string|max:1000',
         ]);
 
         $product = Product::findOrFail($id);
@@ -267,6 +272,7 @@ class ProductController extends Controller
             'discount' => $request->discount ?? 0,
             'discount_type' => $request->discount_type,
             'price' => $request->price ?? 0,
+            'landing_price' => $request->filled('landing_price') ? $request->landing_price : null,
 
             'featured' => $request->featured ? 1 : 0,
             'new_arrival' => $request->new_arrival ? 1 : 0,
@@ -400,21 +406,23 @@ class ProductController extends Controller
     public function importStore(Request $request)
     {
         $request->validate([
-    'file' => 'required|file|max:10240'
-]);
+            'file' => 'required|file|max:10240'
+        ]);
 
-$file = $request->file('file');
+        $file = $request->file('file');
 
-$allowed = ['xlsx', 'xls', 'csv'];
+        $allowed = ['xlsx', 'xls', 'csv'];
 
-if (!in_array(
-    strtolower($file->getClientOriginalExtension()),
-    $allowed
-)) {
-    return back()->withErrors([
-        'file' => 'Only XLSX, XLS and CSV files are allowed.'
-    ]);
-}
+        if (
+            !in_array(
+                strtolower($file->getClientOriginalExtension()),
+                $allowed
+            )
+        ) {
+            return back()->withErrors([
+                'file' => 'Only XLSX, XLS and CSV files are allowed.'
+            ]);
+        }
 
         try {
 
@@ -554,7 +562,7 @@ if (!in_array(
             '1',
             '1',
             // '0',
-            
+
             '1',
             'Admin',
 
@@ -590,54 +598,54 @@ if (!in_array(
         return $response;
     }
 
- public function uploadImagesZip(Request $request)
-{
-    $request->validate([
-        'zip_file' => 'required|mimes:zip|max:51200'
-    ]);
+    public function uploadImagesZip(Request $request)
+    {
+        $request->validate([
+            'zip_file' => 'required|mimes:zip|max:51200'
+        ]);
 
-    $zip = new ZipArchive();
+        $zip = new ZipArchive();
 
-    if ($zip->open($request->file('zip_file')->getRealPath()) === true) {
+        if ($zip->open($request->file('zip_file')->getRealPath()) === true) {
 
-$destination = storage_path('app/public/products');
+            $destination = storage_path('app/public/products');
 
-if (!file_exists($destination)) {
-    mkdir($destination, 0755, true);
-}
-        for ($i = 0; $i < $zip->numFiles; $i++) {
+            if (!file_exists($destination)) {
+                mkdir($destination, 0755, true);
+            }
+            for ($i = 0; $i < $zip->numFiles; $i++) {
 
-            $entry = $zip->getNameIndex($i);
+                $entry = $zip->getNameIndex($i);
 
-            // Skip directories
-            if (substr($entry, -1) === '/') {
-                continue;
+                // Skip directories
+                if (substr($entry, -1) === '/') {
+                    continue;
+                }
+
+                // Get only filename, remove folder path
+                $fileName = basename($entry);
+
+                $content = $zip->getFromIndex($i);
+
+                file_put_contents(
+                    $destination . DIRECTORY_SEPARATOR . $fileName,
+                    $content
+                );
             }
 
-            // Get only filename, remove folder path
-            $fileName = basename($entry);
+            $zip->close();
 
-            $content = $zip->getFromIndex($i);
-
-            file_put_contents(
-                $destination . DIRECTORY_SEPARATOR . $fileName,
-                $content
+            return back()->with(
+                'success',
+                'Images extracted successfully.'
             );
         }
 
-        $zip->close();
-
         return back()->with(
-            'success',
-            'Images extracted successfully.'
+            'error',
+            'Unable to extract zip.'
         );
     }
-
-    return back()->with(
-        'error',
-        'Unable to extract zip.'
-    );
-}
 
     public function downloadCategoryReference()
     {

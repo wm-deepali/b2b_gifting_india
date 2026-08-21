@@ -174,6 +174,12 @@
                                         </a>
                                     </th>
 
+                                    <th>
+                                        <a href="{{ sortUrl('created_at') }}" class="sorting-link">
+                                            Added Date {!! sortIcon('created_at') !!}
+                                        </a>
+                                    </th>
+
                                     <th>Action</th>
 
                                 </tr>
@@ -223,6 +229,11 @@
                                                                     </td>
 
                                                                     <td>
+                                                                        <small>{{ $item->created_at ? $item->created_at->format('d M Y') : '-' }}</small><br>
+                                                                        <small class="text-muted">{{ $item->created_at ? $item->created_at->format('h:i A') : '' }}</small>
+                                                                    </td>
+
+                                                                    <td>
 
                                                                         <!-- EDIT -->
                                                                         <a href="{{ route('admin.products.edit', [
@@ -244,7 +255,7 @@
                                 @empty
 
                                     <tr>
-                                        <td colspan="7" class="text-center text-muted py-4">
+                                        <td colspan="8" class="text-center text-muted py-4">
                                             No Products Found
                                         </td>
                                     </tr>

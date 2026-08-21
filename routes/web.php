@@ -351,8 +351,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('price-management', [PriceManagementController::class, 'index'])->name('price-management.index');
         Route::post('price-management/{product}/update', [PriceManagementController::class, 'update'])->name('price-management.update');
         Route::get('price-management/{product}/logs', [PriceManagementController::class, 'logs'])->name('price-management.logs');
-
-
+        Route::get('price-management/export', [PriceManagementController::class, 'export'])->name('price-management.export');
+        Route::post('price-management/import', [PriceManagementController::class, 'importStore'])->name('price-management.import');
 
     });
 });
